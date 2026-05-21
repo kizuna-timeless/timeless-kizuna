@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>3要素モデル・シナリオ④ 戦時経済型・物量崩落シミュレーション / 2026.05.14</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@400;500;700;900&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0C1A; --bg2:#111228; --bg3:#181A30;
+  --gold:#D4AF37; --gold2:#F0C850; --gold3:#FFE38A;
+  --gold-grad:linear-gradient(180deg,#FFE38A 0%,#F0C850 40%,#D4AF37 60%,#B8860B 100%);
+  --red:#E05555; --red-bright:#FF7070; --red-pale:#FFB0B0; --red-dark:#7A2828;
+  --orange:#E89040; --orange-bright:#FFB880;
+  --green:#5BAF7A; --green-bright:#9EE0B4;
+  --blue:#4A90D9; --blue-bright:#8AC8FF;
+  --purple:#9B7AD9; --purple-bright:#C8B4FF;
+  --cream:#F0EDE8;
+  --white:#F0EDE8; --gray:#9090A0;
+  --border:rgba(212,175,55,0.35);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--cream);font-family:'Noto Sans JP',sans-serif;font-size:20px;line-height:1.85;}
+
+.topnav{position:sticky;top:0;z-index:200;background:rgba(11,12,26,0.97);border-bottom:1px solid var(--border);padding:12px 40px;backdrop-filter:blur(12px);display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.topnav a{font-family:'Oswald',sans-serif;font-size:17px;color:var(--gray);text-decoration:none;padding:7px 16px;border-radius:14px;white-space:nowrap;font-weight:600;letter-spacing:1px;}
+.topnav a:hover{color:var(--gold);background:rgba(212,175,55,0.08);}
+.topnav .logo{color:var(--gold);font-size:20px;font-family:'Oswald',sans-serif;letter-spacing:2px;font-weight:700;}
+.topnav .date-tag{margin-left:auto;font-family:'Oswald',sans-serif;font-size:18px;color:var(--gold3);letter-spacing:2px;font-weight:600;}
+
+.sec{border-bottom:1px solid rgba(200,160,64,0.15);padding-bottom:50px;}
+.sec-header{background:linear-gradient(90deg,rgba(212,175,55,0.18) 0%,transparent 100%);border-bottom:2px solid var(--gold);padding:24px 40px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.sec-num{font-family:'Oswald',sans-serif;font-size:22px;color:var(--gold3);border:1px solid var(--gold);padding:7px 18px;border-radius:14px;letter-spacing:2px;background:linear-gradient(180deg,rgba(212,175,55,0.15),rgba(212,175,55,0.03));font-weight:700;}
+.sec-title{font-family:'Noto Serif JP',serif;font-size:clamp(30px,3.5vw,44px);font-weight:700;color:#FFFFFF;line-height:1.3;}
+.sec-subtitle{font-size:clamp(17px,1.4vw,20px);color:#9AA0B0;margin-left:10px;letter-spacing:1px;}
+.sec-body{padding:40px 6vw 0;display:flex;flex-direction:column;gap:32px;}
+
+/* タイトルセクション */
+#s0{padding:80px 6vw;text-align:center;background:radial-gradient(ellipse at 50% 30%,rgba(224,85,85,0.12) 0%,transparent 60%),var(--bg);}
+.title-tag{display:inline-block;font-family:'Oswald',sans-serif;font-size:20px;letter-spacing:4px;color:var(--red-pale);border:1px solid var(--red);padding:9px 28px;border-radius:24px;margin-bottom:24px;background:rgba(224,85,85,0.08);font-weight:700;}
+.title-main{font-family:'Noto Serif JP',serif;font-size:clamp(38px,4.4vw,60px);font-weight:900;line-height:1.25;margin-bottom:24px;color:#FFFFFF;}
+.title-main span{background:linear-gradient(180deg,#FFB0B0 0%,#FF7070 50%,#E05555 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.title-sub{font-size:clamp(19px,1.6vw,23px);color:#D8D8E4;margin-bottom:20px;line-height:1.8;max-width:1100px;margin-left:auto;margin-right:auto;}
+.title-meta{margin-top:30px;display:flex;justify-content:center;gap:30px;flex-wrap:wrap;}
+.title-meta .date{font-family:'Oswald',sans-serif;font-size:22px;color:var(--red-pale);letter-spacing:3px;}
+.title-meta .ver{font-family:'Oswald',sans-serif;font-size:18px;color:var(--gray);letter-spacing:2px;border-left:1px solid var(--gray);padding-left:30px;}
+
+/* 3要素ピーク表示 */
+.peak-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1300px;margin:50px auto 0;}
+.peak-card{background:var(--bg2);border:2px solid;border-radius:14px;padding:28px 24px;text-align:left;}
+.peak-card.cpi{border-color:var(--orange);}
+.peak-card.qty{border-color:var(--red);}
+.peak-card.nom{border-color:var(--gold);}
+.peak-card-label{font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:3px;margin-bottom:10px;font-weight:700;}
+.peak-card.cpi .peak-card-label{color:var(--orange-bright);}
+.peak-card.qty .peak-card-label{color:var(--red-pale);}
+.peak-card.nom .peak-card-label{color:var(--gold3);}
+.peak-card-jp{font-size:14px;color:#A0A0B0;margin-bottom:14px;}
+.peak-card-val{font-family:'Oswald',sans-serif;font-size:clamp(36px,3.5vw,52px);font-weight:700;line-height:1.1;margin-bottom:10px;}
+.peak-card.cpi .peak-card-val{color:var(--orange-bright);}
+.peak-card.qty .peak-card-val{color:var(--red-pale);}
+.peak-card.nom .peak-card-val{color:var(--gold3);}
+.peak-card-when{font-family:'Oswald',sans-serif;font-size:16px;color:#FFFFFF;letter-spacing:1px;font-weight:600;}
+.peak-card-caption{font-size:14px;color:#D8D8E4;line-height:1.55;margin-top:10px;}
+
+.label{font-family:'Oswald',sans-serif;font-size:21px;letter-spacing:2px;color:var(--gold3);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid rgba(212,175,55,0.2);display:flex;align-items:center;gap:10px;font-weight:600;}
+.label::before{content:'◆';color:var(--gold);}
+
+/* 3要素モデル定義 */
+.formula-box{background:linear-gradient(135deg,rgba(212,175,55,0.10),rgba(212,175,55,0.02));border:1px solid var(--gold);border-radius:12px;padding:40px 36px;text-align:center;margin:14px 0;}
+.formula-line{font-family:'Noto Serif JP',serif;font-size:clamp(24px,2.6vw,38px);font-weight:700;color:#FFF;line-height:1.4;margin-bottom:14px;}
+.formula-line .op{color:var(--gold3);margin:0 16px;}
+.formula-line .cpi{color:var(--orange-bright);}
+.formula-line .qty{color:var(--red-pale);}
+.formula-line .nom{color:var(--gold3);}
+.formula-note{font-size:17px;color:#A0A0B0;line-height:1.7;margin-top:14px;}
+
+/* 動機カード */
+.motive-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.motive-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:30px 32px;border-left:5px solid;}
+.motive-card.m1{border-left-color:var(--orange);}
+.motive-card.m2{border-left-color:var(--purple);}
+.motive-card .m-label{font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:3px;color:var(--gray);font-weight:700;margin-bottom:8px;}
+.motive-card .m-title{font-family:'Noto Serif JP',serif;font-size:24px;font-weight:700;color:#FFF;margin-bottom:14px;line-height:1.4;}
+.motive-card.m1 .m-title{color:var(--orange-bright);}
+.motive-card.m2 .m-title{color:var(--purple-bright);}
+.motive-card .m-body{font-size:18px;line-height:1.8;color:#FFFFFF;}
+.motive-card .m-body strong{color:var(--gold3);}
+.motive-card .m-mechanism{margin-top:18px;padding-top:18px;border-top:1px solid rgba(212,175,55,0.15);font-size:16px;color:#D8D8E4;line-height:1.7;}
+
+/* 月次表 */
+.month-table-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border);margin-bottom:14px;}
+.month-table{width:100%;border-collapse:collapse;background:var(--bg2);min-width:1100px;}
+.month-table th{background:linear-gradient(180deg,rgba(212,175,55,0.22),rgba(212,175,55,0.06));color:var(--gold3);padding:14px 10px;text-align:center;font-family:'Oswald',sans-serif;border-bottom:2px solid var(--gold);font-size:15px;font-weight:700;letter-spacing:1px;}
+.month-table th.month-col{min-width:85px;color:var(--gold3);}
+.month-table th.col-cpi{color:var(--orange-bright);}
+.month-table th.col-base{color:var(--gray);}
+.month-table th.col-m1{color:var(--orange-bright);}
+.month-table th.col-m2{color:var(--purple-bright);}
+.month-table th.col-qty{color:var(--red-pale);}
+.month-table th.col-nom{color:var(--gold3);}
+.month-table th.col-event{color:#FFFFFF;text-align:left;padding-left:14px;min-width:200px;}
+.month-table td{padding:11px 8px;border-bottom:1px solid rgba(212,175,55,0.08);font-family:'Oswald',sans-serif;font-size:17px;color:#FFFFFF;text-align:center;font-weight:600;}
+.month-table td.month{color:var(--gold3);font-weight:700;font-size:16px;}
+.month-table td.cpi-val{color:var(--orange-bright);font-size:18px;}
+.month-table td.base-val{color:#A0A0B0;}
+.month-table td.m1-val{color:var(--orange-bright);}
+.month-table td.m2-val{color:var(--purple-bright);}
+.month-table td.qty-val{color:var(--red-pale);font-size:18px;font-weight:700;}
+.month-table td.nom-val{color:var(--gold3);font-size:17px;}
+.month-table td.event-col{text-align:left;padding-left:14px;font-family:'Noto Sans JP',sans-serif;font-size:15px;font-weight:500;color:#D8D8E4;}
+.month-table tr.event-trigger td{background:rgba(155,122,217,0.10);}
+.month-table tr.event-release td{background:rgba(91,175,122,0.08);}
+.month-table tr.peak-row td{background:rgba(224,85,85,0.15);font-weight:900;font-size:18px;}
+.month-table tr.peak-row td.month{font-weight:900;}
+.month-table tr.peak-row td.qty-val{font-weight:900;}
+.month-table tr.peak-row td.cpi-val{font-weight:900;}
+
+/* カラム並び指示用注釈 */
+.table-caption{font-size:15px;color:#A0A0B0;line-height:1.7;padding:14px 18px;background:rgba(11,12,26,0.4);border-radius:6px;margin-top:10px;}
+.table-caption strong{color:var(--gold3);}
+
+/* 標準テーブル */
+.std-table{width:100%;border-collapse:collapse;background:var(--bg2);}
+.std-table th{background:linear-gradient(180deg,rgba(212,175,55,0.2),rgba(212,175,55,0.05));color:var(--gold3);padding:14px;text-align:left;font-family:'Oswald',sans-serif;border-bottom:2px solid var(--gold);font-size:18px;font-weight:700;letter-spacing:1px;}
+.std-table td{padding:14px;border-bottom:1px solid rgba(212,175,55,0.10);font-size:18px;color:#FFFFFF;line-height:1.6;}
+.std-table td.label-cell{color:var(--gold3);font-weight:700;min-width:160px;}
+.std-table td.val-cell{font-family:'Oswald',sans-serif;font-weight:700;font-size:20px;}
+.std-table td.val-cell.cpi{color:var(--orange-bright);}
+.std-table td.val-cell.qty{color:var(--red-pale);}
+.std-table td.val-cell.nom{color:var(--gold3);}
+.std-table td.note-cell{font-size:17px;color:#D8D8E4;}
+.table-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border);margin:14px 0;}
+
+/* インサイトカード */
+.consider-card{background:var(--bg2);border-radius:10px;padding:26px 30px;border:1px solid rgba(212,175,55,0.2);border-left:5px solid var(--gold);margin-bottom:16px;}
+.consider-card.fact{border-left-color:var(--blue);}
+.consider-card.warn{border-left-color:var(--orange);}
+.consider-card.risk{border-left-color:var(--red);}
+.consider-card.note{border-left-color:var(--purple);}
+.consider-card.solution{border-left-color:var(--green);}
+.consider-card h4{font-family:'Noto Serif JP',serif;font-size:23px;font-weight:700;color:#FFF;margin-bottom:14px;line-height:1.4;}
+.consider-card h4 .tag{font-family:'Oswald',sans-serif;font-size:15px;color:var(--gold3);padding:4px 12px;border:1px solid var(--gold);border-radius:6px;margin-right:12px;letter-spacing:2px;vertical-align:3px;background:rgba(212,175,55,0.1);font-weight:700;}
+.consider-card.fact h4 .tag{color:var(--blue-bright);border-color:var(--blue);background:rgba(74,144,217,0.1);}
+.consider-card.warn h4 .tag{color:var(--orange-bright);border-color:var(--orange);background:rgba(232,144,64,0.1);}
+.consider-card.risk h4 .tag{color:var(--red-pale);border-color:var(--red);background:rgba(224,85,85,0.1);}
+.consider-card.note h4 .tag{color:var(--purple-bright);border-color:var(--purple);background:rgba(155,122,217,0.1);}
+.consider-card.solution h4 .tag{color:var(--green-bright);border-color:var(--green);background:rgba(91,175,122,0.1);}
+.consider-card p{font-size:19px;line-height:1.85;color:#FFFFFF;margin-bottom:12px;font-weight:500;}
+.consider-card p:last-child{margin-bottom:0;}
+.consider-card strong{color:var(--gold3);font-weight:700;}
+.consider-card .rd{color:var(--red-pale);font-weight:700;}
+.consider-card .gn{color:var(--green-bright);font-weight:700;}
+.consider-card .bl{color:var(--blue-bright);font-weight:700;}
+.consider-card .or{color:var(--orange-bright);font-weight:700;}
+.consider-card .pu{color:var(--purple-bright);font-weight:700;}
+.consider-card ul{margin-left:24px;margin-top:10px;}
+.consider-card li{font-size:18px;line-height:1.75;color:#FFFFFF;margin-bottom:8px;font-weight:500;}
+
+/* 過去実例比較 */
+.history-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:14px 0;}
+.history-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:24px 22px;}
+.history-card.h2014{border-color:rgba(232,144,64,0.4);}
+.history-card.h2023{border-color:rgba(74,144,217,0.4);}
+.history-card.h2027{border-color:rgba(224,85,85,0.6);background:rgba(224,85,85,0.05);}
+.history-card .h-year{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;letter-spacing:1px;margin-bottom:6px;}
+.history-card.h2014 .h-year{color:var(--orange-bright);}
+.history-card.h2023 .h-year{color:var(--blue-bright);}
+.history-card.h2027 .h-year{color:var(--red-pale);}
+.history-card .h-desc{font-size:14px;color:#A0A0B0;margin-bottom:18px;}
+.history-card .h-stat{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dotted rgba(212,175,55,0.15);font-size:16px;}
+.history-card .h-stat:last-child{border-bottom:none;}
+.history-card .h-stat-label{color:#A0A0B0;font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:1px;}
+.history-card .h-stat-val{font-family:'Oswald',sans-serif;font-weight:700;font-size:18px;color:#FFF;}
+.history-card .h-stat-val.cpi{color:var(--orange-bright);}
+.history-card .h-stat-val.qty{color:var(--red-pale);}
+.history-card .h-stat-val.nom{color:var(--gold3);}
+
+/* 他シナリオ簡潔一覧 */
+.scenario-list-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border);}
+.scenario-list{width:100%;border-collapse:collapse;background:var(--bg2);min-width:900px;}
+.scenario-list th{background:linear-gradient(180deg,rgba(212,175,55,0.2),rgba(212,175,55,0.05));color:var(--gold3);padding:14px;font-family:'Oswald',sans-serif;font-size:16px;font-weight:700;letter-spacing:1px;border-bottom:2px solid var(--gold);}
+.scenario-list td{padding:14px;border-bottom:1px solid rgba(212,175,55,0.10);font-size:17px;color:#FFFFFF;font-family:'Oswald',sans-serif;text-align:center;font-weight:600;}
+.scenario-list td.s-label{font-family:'Noto Sans JP',sans-serif;font-weight:700;text-align:left;}
+.scenario-list td.s-label.s1{color:var(--green-bright);}
+.scenario-list td.s-label.s2{color:var(--blue-bright);}
+.scenario-list td.s-label.s3{color:var(--orange-bright);}
+.scenario-list td.s-label.s4{color:var(--red-pale);}
+.scenario-list td.s-label.sd{color:var(--purple-bright);}
+.scenario-list tr.s4-row td{background:rgba(224,85,85,0.10);font-weight:700;}
+.scenario-list td.cpi-cell{color:var(--orange-bright);font-size:18px;font-weight:700;}
+.scenario-list td.qty-cell{color:var(--red-pale);font-size:18px;font-weight:700;}
+
+/* 大型訴求 */
+.big-callout{background:linear-gradient(135deg,rgba(224,85,85,0.15),rgba(224,85,85,0.02));border:2px solid var(--red);border-radius:12px;padding:42px 46px;text-align:center;margin:18px 0;}
+.big-callout .tag{font-family:'Oswald',sans-serif;font-size:18px;letter-spacing:4px;color:var(--red-pale);margin-bottom:14px;font-weight:700;}
+.big-callout .msg{font-family:'Noto Serif JP',serif;font-size:clamp(24px,2.5vw,34px);font-weight:700;color:#FFF;line-height:1.6;}
+.big-callout .msg span.gold{color:var(--gold3);}
+.big-callout .msg span.red{color:var(--red-pale);}
+.big-callout .msg span.pu{color:var(--purple-bright);}
+
+/* 結語 */
+.closing-box{background:linear-gradient(135deg,rgba(212,175,55,0.10),rgba(212,175,55,0.02));border:1px solid var(--gold);border-radius:14px;padding:48px 50px;text-align:center;margin:18px 0;}
+.closing-box .label-cls{font-family:'Oswald',sans-serif;font-size:18px;color:var(--gold3);letter-spacing:4px;margin-bottom:18px;font-weight:700;}
+.closing-box .msg-cls{font-family:'Noto Serif JP',serif;font-size:clamp(22px,2.1vw,30px);color:#FFF;line-height:1.75;font-weight:500;}
+.closing-box .msg-cls strong{color:var(--gold3);font-weight:700;}
+
+.footer{padding:40px 6vw;font-size:17px;color:var(--gray);line-height:1.9;background:var(--bg2);border-top:2px solid var(--gold);}
+.footer strong{color:var(--gold3);}
+
+/* 巨大数値ボード */
+.giant-board{background:linear-gradient(135deg,rgba(11,12,26,0.85),rgba(17,18,40,0.95));border:2px solid var(--gold);border-radius:14px;padding:50px 36px;text-align:center;margin:18px 0;}
+.giant-board .label-top{font-family:'Oswald',sans-serif;font-size:18px;letter-spacing:4px;color:var(--gold3);margin-bottom:24px;font-weight:700;}
+.giant-board .giant-num{font-family:'Oswald',sans-serif;font-size:clamp(72px,9vw,140px);font-weight:900;line-height:1;letter-spacing:-2px;}
+.giant-board .giant-num.red{color:var(--red-pale);}
+.giant-board .giant-num.orange{color:var(--orange-bright);}
+.giant-board .giant-num.gold{color:var(--gold3);}
+.giant-board .giant-caption{font-family:'Noto Serif JP',serif;font-size:clamp(20px,2vw,28px);color:#FFFFFF;margin-top:16px;line-height:1.5;font-weight:500;}
+.giant-board .giant-sub{font-size:17px;color:#A0A0B0;margin-top:10px;}
+
+/* 二分割数値ボード */
+.split-board{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;margin:18px 0;}
+.split-board .split-card{background:var(--bg2);border:2px solid;border-radius:12px;padding:36px 28px;text-align:center;}
+.split-board .split-card.up{border-color:var(--orange);}
+.split-board .split-card.down{border-color:var(--red);}
+.split-board .split-label{font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:3px;font-weight:700;margin-bottom:12px;}
+.split-board .split-card.up .split-label{color:var(--orange-bright);}
+.split-board .split-card.down .split-label{color:var(--red-pale);}
+.split-board .split-num{font-family:'Oswald',sans-serif;font-size:clamp(48px,5.5vw,80px);font-weight:900;line-height:1.05;letter-spacing:-1px;}
+.split-board .split-card.up .split-num{color:var(--orange-bright);}
+.split-board .split-card.down .split-num{color:var(--red-pale);}
+.split-board .split-sub{font-size:16px;color:#FFFFFF;margin-top:10px;line-height:1.55;}
+.split-board .split-op{font-family:'Oswald',sans-serif;font-size:clamp(36px,4vw,60px);color:var(--gold3);font-weight:700;}
+@media (max-width:900px){
+  .split-board{grid-template-columns:1fr;}
+  .split-board .split-op{display:none;}
+}
+
+/* 計算式枠 */
+.calc-box{background:linear-gradient(135deg,rgba(212,175,55,0.08),rgba(11,12,26,0.4));border:2px solid var(--gold);border-radius:14px;padding:38px 36px;margin:18px 0;}
+.calc-box .calc-label{font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:3px;color:var(--gold3);font-weight:700;margin-bottom:16px;}
+.calc-box .calc-formula{font-family:'Noto Serif JP',serif;font-size:clamp(20px,2.1vw,28px);font-weight:700;color:#FFF;line-height:1.7;margin-bottom:14px;text-align:center;}
+.calc-box .calc-formula .var-base{color:var(--blue-bright);}
+.calc-box .calc-formula .var-flex{color:var(--red-pale);}
+.calc-box .calc-formula .var-total{color:var(--gold3);}
+.calc-box .calc-arrow{font-family:'Oswald',sans-serif;font-size:24px;color:var(--gold);text-align:center;margin:10px 0;font-weight:700;}
+.calc-box .calc-result{font-family:'Noto Serif JP',serif;font-size:clamp(24px,2.4vw,34px);font-weight:900;color:var(--red-pale);text-align:center;line-height:1.5;margin-top:14px;padding:18px;background:rgba(224,85,85,0.10);border-radius:8px;border:1px solid var(--red);}
+.calc-box .calc-note{font-size:16px;color:#A0A0B0;line-height:1.7;margin-top:14px;text-align:center;}
+
+/* ピーク強調セル(月次表内) */
+.month-table tr.peak-row td.cpi-val{font-size:22px;color:var(--orange-bright);}
+.month-table tr.peak-row td.qty-val{font-size:22px;color:var(--red-pale);}
+
+@media (max-width:900px){
+  body{font-size:18px;}
+  .sec-body{padding:30px 4vw 0;}
+  .sec-header{padding:18px 24px;}
+  .peak-grid{grid-template-columns:1fr;}
+  .motive-grid{grid-template-columns:1fr;}
+  .history-grid{grid-template-columns:1fr;}
+  .month-table{font-size:14px;}
+  .month-table th{font-size:13px;padding:10px 4px;}
+  .month-table td{font-size:14px;padding:9px 4px;}
+  .std-table td, .std-table th{font-size:16px;padding:10px;}
+  .consider-card p{font-size:17px;}
+  .consider-card li{font-size:16px;}
+  #s0{padding:60px 4vw;}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ============ TOPNAV ============ -->
+<div class="topnav">
+  <div class="logo">3-FACTOR MODEL ─ SCENARIO ④</div>
+  <a href="#s0">概要</a>
+  <a href="#s1">3要素モデル</a>
+  <a href="#s2">月次予測</a>
+  <a href="#s3">変動費しわ寄せ</a>
+  <a href="#s4">費目別実態</a>
+  <a href="#s5">過去実例検証</a>
+  <a href="#s6">戦時経済型</a>
+  <a href="#s7">他シナリオ</a>
+  <div class="date-tag">2026.05.14 ・ V0.5</div>
+</div>
+
+<!-- ============ 00 タイトル ============ -->
+<section id="s0">
+  <div class="title-tag">SCENARIO ④ ─ 戦時経済型 物量崩落シミュレーション</div>
+  <h1 class="title-main">
+    家計の払う金額は変わらない。<br>
+    <span>しかし買える物量は配給水準まで縮小する。</span>
+  </h1>
+  <p class="title-sub">
+    ホルムズ海峡7ヶ月封鎖・9月末解放シナリオ(確率20%・戦後第2位の物価ショック)を、<br>
+    3要素モデル(CPI=単価／実質消費=数量／名目消費=総額)で解剖する。
+  </p>
+  <div class="title-meta">
+    <span class="date">2026.05.14</span>
+    <span class="ver">V0.5 ─ SCENARIO ④ FOCUSED</span>
+  </div>
+
+  <div class="peak-grid">
+    <div class="peak-card cpi">
+      <div class="peak-card-label">CPI(単価)</div>
+      <div class="peak-card-jp">純粋単価</div>
+      <div class="peak-card-val">+14.5%</div>
+      <div class="peak-card-when">PEAK ─ 2027年1月</div>
+      <div class="peak-card-caption">第1次オイルショック(1974年+23.2%)に次ぐ戦後第2位水準</div>
+    </div>
+    <div class="peak-card qty">
+      <div class="peak-card-label">実質消費(数量)</div>
+      <div class="peak-card-jp">純粋数量</div>
+      <div class="peak-card-val">−14.5%</div>
+      <div class="peak-card-when">PEAK ─ 2027年1月</div>
+      <div class="peak-card-caption">家計が「払う金額同じ・物量激減」で対応</div>
+    </div>
+    <div class="peak-card nom">
+      <div class="peak-card-label">名目消費(総額)</div>
+      <div class="peak-card-jp">支出総額</div>
+      <div class="peak-card-val">±0%</div>
+      <div class="peak-card-when">全期間 ─ ほぼ横ばい</div>
+      <div class="peak-card-caption">2014年・2023年の日本型挙動の単純拡大</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 3要素モデル ============ -->
+<section id="s1" class="sec">
+  <div class="sec-header">
+    <div class="sec-num">01</div>
+    <h2 class="sec-title">3要素モデル ─ 単価×数量=金額</h2>
+  </div>
+  <div class="sec-body">
+
+    <div class="formula-box">
+      <div class="formula-line">
+        <span class="cpi">CPI(単価)</span><span class="op">×</span><span class="qty">実質消費(数量)</span><span class="op">=</span><span class="nom">名目消費(総額)</span>
+      </div>
+      <p class="formula-note">
+        単価(CPI)だけを見ても、家計に何が起きているかは見えない。<br>
+        家計の体感は「<span style="color:var(--gold3);font-weight:700;">支払う金額</span>」と「<span style="color:var(--red-pale);font-weight:700;">買える物量</span>」の両方で決まる。
+      </p>
+    </div>
+
+    <div class="label">過去日本実例で見る3要素の関係</div>
+
+    <div class="table-wrap">
+      <table class="std-table">
+        <thead>
+          <tr>
+            <th>期間</th>
+            <th style="text-align:center;color:var(--orange-bright);">CPI(単価)</th>
+            <th style="text-align:center;color:var(--red-pale);">実質消費(数量)</th>
+            <th style="text-align:center;color:var(--gold3);">名目消費(総額)</th>
+            <th>家計の挙動</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label-cell">2014/4-12月<br><span style="font-size:14px;color:#A0A0B0;">消費増税8%</span></td>
+            <td class="val-cell cpi" style="text-align:center;">+3.1%</td>
+            <td class="val-cell qty" style="text-align:center;">−4.4%</td>
+            <td class="val-cell nom" style="text-align:center;">約−1.0%</td>
+            <td class="note-cell">値上げを呑みつつ、物量も削る</td>
+          </tr>
+          <tr>
+            <td class="label-cell">2023/4-12月<br><span style="font-size:14px;color:#A0A0B0;">日CPIピーク期</span></td>
+            <td class="val-cell cpi" style="text-align:center;">+3.1%</td>
+            <td class="val-cell qty" style="text-align:center;">−3.0%</td>
+            <td class="val-cell nom" style="text-align:center;">約+0.1%</td>
+            <td class="note-cell">9ヶ月連続、ほぼ名目0で踏ん張る</td>
+          </tr>
+          <tr>
+            <td class="label-cell">2026年3月<br><span style="font-size:14px;color:#A0A0B0;">直近実績</span></td>
+            <td class="val-cell cpi" style="text-align:center;">+2.0%</td>
+            <td class="val-cell qty" style="text-align:center;">−2.9%</td>
+            <td class="val-cell nom" style="text-align:center;">−1.3%</td>
+            <td class="note-cell">自動車購入の反動が主因</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="consider-card fact">
+      <h4><span class="tag">PRINCIPLE</span>日本家計の伝統的反応 ─ 名目を変えない、物量で吸収する</h4>
+      <p>過去20年で観察された事実: 日本の家計は単価が上昇しても、<strong>名目支出を増やそうとはしない</strong>。代わりに「買える物量を削る」ことで、財布から出る金額を前年と同水準に維持する。これは英国(UK)2022-2023年(賃金+6〜7%、貯蓄取り崩しで実質消費維持)とは対照的な、<strong class="bl">日本固有の家計反応特性</strong>。</p>
+    </div>
+
+    <div class="giant-board">
+      <div class="label-top">日本型挙動の基本式</div>
+      <div style="font-family:'Noto Serif JP',serif;font-size:clamp(28px,3vw,42px);font-weight:900;color:#FFF;line-height:1.4;">
+        <span style="color:var(--red-pale);">数量変化</span>　＝　<span style="color:var(--orange-bright);">−CPI</span>
+      </div>
+      <div class="giant-caption">
+        単価が+X%上がれば、家計は数量を−X%削る。<br>
+        その結果、家計総額は前年と同水準を維持する。
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ 02 シナリオ④ 月次予測 ============ -->
+<section id="s2" class="sec">
+  <div class="sec-header">
+    <div class="sec-num">02</div>
+    <h2 class="sec-title">シナリオ④ 月次予測 ─ 2026/3 〜 2028/12</h2>
+    <span class="sec-subtitle">CPI予測V0.3 × 日本型挙動 × 節約お願いモジュール</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="consider-card warn">
+      <h4><span class="tag">BASELINE</span>ベースライン(ホルムズ封鎖前)</h4>
+      <p>2026年3月実績の数量−2.9%の内訳: <strong class="or">自動車要因(2024年生産停止の反動)約−1.0〜−1.5%</strong> + <strong class="or">真の家計縮小 約−1.0〜−1.5%</strong>。2026年4-9月は自動車要因が持続して<strong>公表値−2〜−3%</strong>で推移、10月以降は剥落して<strong>−1〜−1.5%</strong>に収束する。</p>
+    </div>
+
+    <div class="consider-card note">
+      <h4><span class="tag">MODULE</span>節約お願いオプション(7-9月のみ発動)</h4>
+      <p>封鎖長期化により<strong>政府が2026年7月に「節約のお願い」を発出</strong>。これは日本型挙動(名目0維持)の<strong>例外期間</strong>として、名目を一時的にマイナスへ押し下げる: 7月−2.0% → 8月−1.5% → 9月−1.0%(解放ニュースで縮小) → 10月以降効果消失。<strong>この期間の名目マイナスは「節約のお願い効果として予測」と明示</strong>。</p>
+    </div>
+
+    <div class="label">シナリオ④ 月次推移(2026/3 〜 2028/12)</div>
+
+    <div class="month-table-wrap">
+      <table class="month-table">
+        <thead>
+          <tr>
+            <th class="month-col">月</th>
+            <th class="col-cpi">CPI<br>(単価)</th>
+            <th class="col-base">ベース<br>ライン</th>
+            <th class="col-m1">(−CPI)<br>日本型</th>
+            <th class="col-m2">節約<br>お願い効果</th>
+            <th class="col-qty">数量<br>(合計)</th>
+            <th class="col-nom">名目<br>(総額)</th>
+            <th class="col-event">主要イベント</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="month">2026/3</td><td class="cpi-val">+2.0%</td><td class="base-val">─</td><td class="m1-val">─</td><td class="m2-val">─</td><td class="qty-val">−2.9%</td><td class="nom-val">−1.3%</td><td class="event-col">実績値(起点)</td></tr>
+          <tr><td class="month">2026/4</td><td class="cpi-val">+2.5%</td><td class="base-val">−2.0%</td><td class="m1-val">−0.5%</td><td class="m2-val">0%</td><td class="qty-val">−2.5%</td><td class="nom-val">±0%</td><td class="event-col">補助金完全終了</td></tr>
+          <tr><td class="month">2026/5</td><td class="cpi-val">+3.2%</td><td class="base-val">−2.5%</td><td class="m1-val">−0.7%</td><td class="m2-val">0%</td><td class="qty-val">−3.2%</td><td class="nom-val">±0%</td><td class="event-col">化学値上げ反映</td></tr>
+          <tr><td class="month">2026/6</td><td class="cpi-val">+5.5%</td><td class="base-val">−2.5%</td><td class="m1-val">−3.0%</td><td class="m2-val">0%</td><td class="qty-val">−5.5%</td><td class="nom-val">±0%</td><td class="event-col">原油$130</td></tr>
+          <tr class="event-trigger"><td class="month">2026/7</td><td class="cpi-val">+7.3%</td><td class="base-val">−2.3%</td><td class="m1-val">−5.0%</td><td class="m2-val">−2.0%</td><td class="qty-val">−9.3%</td><td class="nom-val">−2.0%</td><td class="event-col"><strong style="color:var(--purple-bright);">★政府「節約のお願い」発出</strong></td></tr>
+          <tr class="event-trigger"><td class="month">2026/8</td><td class="cpi-val">+9.2%</td><td class="base-val">−2.5%</td><td class="m1-val">−6.7%</td><td class="m2-val">−1.5%</td><td class="qty-val">−10.7%</td><td class="nom-val">−1.5%</td><td class="event-col">SEVERE到達</td></tr>
+          <tr class="event-release"><td class="month">2026/9</td><td class="cpi-val">+10.8%</td><td class="base-val">−2.5%</td><td class="m1-val">−8.3%</td><td class="m2-val">−1.0%</td><td class="qty-val">−11.8%</td><td class="nom-val">−1.0%</td><td class="event-col"><strong style="color:var(--green-bright);">★ホルムズ解放</strong> / CRISIS</td></tr>
+          <tr><td class="month">2026/10</td><td class="cpi-val">+12.3%</td><td class="base-val">−1.0%</td><td class="m1-val">−11.3%</td><td class="m2-val">0%</td><td class="qty-val">−12.3%</td><td class="nom-val">±0%</td><td class="event-col">自動車反動剥落</td></tr>
+          <tr><td class="month">2026/11</td><td class="cpi-val">+13.3%</td><td class="base-val">−1.0%</td><td class="m1-val">−12.3%</td><td class="m2-val">0%</td><td class="qty-val">−13.3%</td><td class="nom-val">±0%</td><td class="event-col">第4波本格化</td></tr>
+          <tr><td class="month">2026/12</td><td class="cpi-val">+14.3%</td><td class="base-val">−1.0%</td><td class="m1-val">−13.3%</td><td class="m2-val">0%</td><td class="qty-val">−14.3%</td><td class="nom-val">±0%</td><td class="event-col">年末消費激減</td></tr>
+          <tr class="peak-row"><td class="month">2027/1 ★</td><td class="cpi-val">+14.5%</td><td class="base-val">−1.0%</td><td class="m1-val">−13.5%</td><td class="m2-val">0%</td><td class="qty-val">−14.5%</td><td class="nom-val">±0%</td><td class="event-col"><strong style="color:var(--red-pale);">CPI・数量ダブルピーク</strong></td></tr>
+          <tr><td class="month">2027/3</td><td class="cpi-val">+13.8%</td><td class="base-val">−1.0%</td><td class="m1-val">−12.8%</td><td class="m2-val">0%</td><td class="qty-val">−13.8%</td><td class="nom-val">±0%</td><td class="event-col">高止まり</td></tr>
+          <tr><td class="month">2027/12</td><td class="cpi-val">+12.5%</td><td class="base-val">−1.0%</td><td class="m1-val">−11.5%</td><td class="m2-val">0%</td><td class="qty-val">−12.5%</td><td class="nom-val">±0%</td><td class="event-col">1年後も継続</td></tr>
+          <tr><td class="month">2028/12</td><td class="cpi-val">+10.5%</td><td class="base-val">−1.0%</td><td class="m1-val">−9.5%</td><td class="m2-val">0%</td><td class="qty-val">−10.5%</td><td class="nom-val">±0%</td><td class="event-col">新常態化 ─ 2年後</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-caption">
+      <strong>表の読み方:</strong> 紫背景=節約お願い発動月(7-9月)、緑背景=ホルムズ解放月、赤背景=CPI・数量ダブルピーク。<br>
+      <strong>計算式:</strong> 数量=ベースライン+(−CPI:日本型)+節約お願い効果 / 名目=CPI+数量(加算近似)
+    </div>
+
+    <div class="giant-board">
+      <div class="label-top">PEAK MONTH ─ 2027年1月</div>
+      <div style="display:flex;justify-content:center;align-items:baseline;gap:30px;flex-wrap:wrap;margin-top:10px;">
+        <div>
+          <div style="font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:3px;color:var(--orange-bright);margin-bottom:6px;">CPI</div>
+          <div class="giant-num orange">+14.5%</div>
+        </div>
+        <div style="font-family:'Oswald',sans-serif;font-size:clamp(48px,5vw,80px);color:var(--gold3);font-weight:700;">×</div>
+        <div>
+          <div style="font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:3px;color:var(--red-pale);margin-bottom:6px;">数量</div>
+          <div class="giant-num red">−14.5%</div>
+        </div>
+        <div style="font-family:'Oswald',sans-serif;font-size:clamp(48px,5vw,80px);color:var(--gold3);font-weight:700;">=</div>
+        <div>
+          <div style="font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:3px;color:var(--gold3);margin-bottom:6px;">名目</div>
+          <div class="giant-num gold">±0%</div>
+        </div>
+      </div>
+      <div class="giant-caption">
+        家計総額は前年と同水準。<br>
+        しかしこの「−14.5%」の裏側には、視聴者の想像を超える激変が隠れている。
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ 03 変動費しわ寄せロジック ★新設 ============ -->
+<section id="s3" class="sec">
+  <div class="sec-header">
+    <div class="sec-num">03</div>
+    <h2 class="sec-title">変動費しわ寄せロジック ─ 「数量−14.5%」の本当の意味</h2>
+    <span class="sec-subtitle">全体の数字に騙されない、家計の現場で起きる本当のこと</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="consider-card warn">
+      <h4><span class="tag">CRITICAL QUESTION</span>「数量−14.5%、たったそれだけか?」と思った人へ</h4>
+      <p>月次表の「数量−14.5%」を見て、<strong>「全体で1割強なら、いつも買っている10個を9個にすれば良いだけ。なんとかなる」</strong>と感じる視聴者は多いはず。</p>
+      <p style="margin-top:10px;"><strong class="rd">しかし、これは決定的な誤解である。</strong>家計支出には<strong>固定費</strong>(削れない費目)と<strong>変動費</strong>(削れる費目)があり、削減のしわ寄せは変動費に集中する。実態は遥かに深刻である。</p>
+    </div>
+
+    <div class="label">家計支出の構造(2025年・二人以上世帯・月平均315,000円)</div>
+
+    <div class="split-board">
+      <div class="split-card up" style="border-color:var(--blue);">
+        <div class="split-label" style="color:var(--blue-bright);">固定費(削れない)</div>
+        <div class="split-num" style="color:var(--blue-bright);">145,000円</div>
+        <div class="split-sub">家計全体の<strong style="color:var(--gold3);">46%</strong><br>住居・通信・保険・教育・光熱・食料必需品・保健医療</div>
+      </div>
+      <div class="split-op">+</div>
+      <div class="split-card down">
+        <div class="split-label">変動費(削れる)</div>
+        <div class="split-num">170,000円</div>
+        <div class="split-sub">家計全体の<strong style="color:var(--gold3);">54%</strong><br>外食・教養娯楽・自動車・被服・交際費・嗜好品</div>
+      </div>
+    </div>
+
+    <div class="calc-box">
+      <div class="calc-label">★ 変動費しわ寄せロジックの計算</div>
+      <div class="calc-formula">
+        家計全体で数量を <span class="var-total">−14.5%</span> 削るには:
+      </div>
+      <div class="calc-formula" style="font-family:'Oswald',sans-serif;font-size:clamp(18px,1.8vw,24px);">
+        <span class="var-base">0%</span> ×(<span class="var-base">固定費 145,000円</span>)　＋　<span class="var-flex">X%</span> ×(<span class="var-flex">変動費 170,000円</span>)　＝　<span class="var-total">−14.5%</span> ×(<span class="var-total">全体 315,000円</span>)
+      </div>
+      <div class="calc-arrow">↓</div>
+      <div class="calc-formula" style="font-family:'Oswald',sans-serif;font-size:clamp(20px,2vw,28px);">
+        <span class="var-flex">X</span>　＝　<span class="var-total">−14.5%</span> × <span class="var-total">315,000</span> ÷ <span class="var-flex">170,000</span>　≈　<span class="var-flex">−27%</span>
+      </div>
+      <div class="calc-result">
+        変動費の数量を平均 <strong style="font-size:1.3em;">−27%</strong> 削る必要がある
+      </div>
+      <div class="calc-note">
+        さらに「削りやすい費目」(自動車購入・教養娯楽・交際費)に集中削減が起きるため、<br>
+        これらの費目では <strong style="color:var(--red-pale);">−40〜−50%級の数量削減</strong> が現実的に発生する。
+      </div>
+    </div>
+
+    <div class="giant-board">
+      <div class="label-top">THE REAL HIT</div>
+      <div class="giant-num red">−27%</div>
+      <div class="giant-caption">
+        全体−14.5%の裏で、<br>
+        変動費は<strong style="color:var(--red-pale);">平均−27%の数量縮小</strong>を強いられる。<br>
+        特定費目では<strong style="color:var(--red-pale);">−40〜−50%級の激変</strong>。
+      </div>
+      <div class="giant-sub">「10個を9個にすれば良い」ではない。「10個を6〜7個に削る」のが現実。</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ 04 費目別実態シミュレーション ============ -->
+<section id="s4" class="sec">
+  <div class="sec-header">
+    <div class="sec-num">04</div>
+    <h2 class="sec-title">費目別実態シミュレーション ─ ピーク月(2027年1月)</h2>
+    <span class="sec-subtitle">単価×数量=金額で見る、家計の現場で起きる本当のこと</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="label">費目別実態予測 ─ 単価×数量=金額</div>
+
+    <div class="table-wrap">
+      <table class="std-table">
+        <thead>
+          <tr>
+            <th style="min-width:140px;">費目</th>
+            <th style="text-align:right;min-width:90px;">2025月額<br>(円)</th>
+            <th style="text-align:center;min-width:75px;color:var(--orange-bright);">単価</th>
+            <th style="text-align:center;min-width:75px;color:var(--red-pale);">数量</th>
+            <th style="text-align:center;min-width:75px;color:var(--gold3);">金額</th>
+            <th style="text-align:right;min-width:90px;">2027月額<br>(円)</th>
+            <th>性質</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:rgba(74,144,217,0.05);"><td style="color:var(--blue-bright);font-weight:700;">住居</td><td style="text-align:right;font-family:'Oswald',sans-serif;">20,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:700;">+2%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gray);font-weight:700;">0%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);font-weight:700;">+2%</td><td style="text-align:right;font-family:'Oswald',sans-serif;">20,400</td><td style="font-size:16px;color:#A0A0B0;">契約縛り</td></tr>
+          <tr style="background:rgba(74,144,217,0.05);"><td style="color:var(--blue-bright);font-weight:700;">通信</td><td style="text-align:right;font-family:'Oswald',sans-serif;">12,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:700;">+3%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gray);font-weight:700;">0%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);font-weight:700;">+3%</td><td style="text-align:right;font-family:'Oswald',sans-serif;">12,360</td><td style="font-size:16px;color:#A0A0B0;">必須インフラ</td></tr>
+          <tr style="background:rgba(74,144,217,0.05);"><td style="color:var(--blue-bright);font-weight:700;">保険</td><td style="text-align:right;font-family:'Oswald',sans-serif;">13,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:700;">+2%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gray);font-weight:700;">0%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);font-weight:700;">+2%</td><td style="text-align:right;font-family:'Oswald',sans-serif;">13,260</td><td style="font-size:16px;color:#A0A0B0;">将来不安</td></tr>
+          <tr style="background:rgba(74,144,217,0.05);"><td style="color:var(--blue-bright);font-weight:700;">教育</td><td style="text-align:right;font-family:'Oswald',sans-serif;">12,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:700;">+3%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gray);font-weight:700;">0%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);font-weight:700;">+3%</td><td style="text-align:right;font-family:'Oswald',sans-serif;">12,360</td><td style="font-size:16px;color:#A0A0B0;">子供の進学</td></tr>
+          <tr style="background:rgba(232,144,64,0.12);"><td style="color:var(--orange-bright);font-weight:900;">★光熱・水道</td><td style="text-align:right;font-family:'Oswald',sans-serif;">24,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:900;font-size:20px;">+38%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--red-pale);font-weight:700;">−8%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);font-weight:900;font-size:20px;">+27%</td><td style="text-align:right;font-family:'Oswald',sans-serif;font-weight:700;">30,470</td><td style="font-size:16px;color:#FFFFFF;font-weight:700;">★原油直撃</td></tr>
+          <tr style="background:rgba(232,144,64,0.12);"><td style="color:var(--orange-bright);font-weight:900;">★食料(必需品)</td><td style="text-align:right;font-family:'Oswald',sans-serif;">50,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:900;font-size:20px;">+22%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--red-pale);font-weight:700;">−7%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);font-weight:900;font-size:20px;">+13.5%</td><td style="text-align:right;font-family:'Oswald',sans-serif;font-weight:700;">56,730</td><td style="font-size:16px;color:#FFFFFF;font-weight:700;">★化学肥料・物流</td></tr>
+          <tr style="background:rgba(232,144,64,0.05);"><td style="color:var(--orange-bright);font-weight:700;">保健医療</td><td style="text-align:right;font-family:'Oswald',sans-serif;">14,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:700;">+8%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--red-pale);">−5%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);font-weight:700;">+2.6%</td><td style="text-align:right;font-family:'Oswald',sans-serif;">14,364</td><td style="font-size:16px;color:#A0A0B0;">医薬品原料</td></tr>
+          <tr style="background:rgba(74,144,217,0.18);border-top:2px solid rgba(74,144,217,0.5);"><td style="color:var(--blue-bright);font-weight:900;">小計【固定費】</td><td style="text-align:right;font-family:'Oswald',sans-serif;color:var(--blue-bright);font-weight:900;">145,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:700;">─</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--red-pale);font-weight:700;">─</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);font-weight:900;font-size:20px;">+10.3%</td><td style="text-align:right;font-family:'Oswald',sans-serif;color:var(--blue-bright);font-weight:900;font-size:19px;">159,944</td><td style="font-size:16px;color:#FFFFFF;font-weight:700;">+14,944円増</td></tr>
+          <tr><td style="color:var(--red-pale);font-weight:700;">食料(嗜好品)</td><td style="text-align:right;font-family:'Oswald',sans-serif;">40,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:700;">+18%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--red-pale);font-weight:700;">−20%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);">−5.6%</td><td style="text-align:right;font-family:'Oswald',sans-serif;">37,760</td><td style="font-size:16px;color:#FFFFFF;">加工品激減</td></tr>
+          <tr style="background:rgba(224,85,85,0.10);"><td style="color:var(--red-pale);font-weight:900;">★外食</td><td style="text-align:right;font-family:'Oswald',sans-serif;">16,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:700;">+22%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--red-pale);font-weight:900;font-size:20px;">−30%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);font-weight:700;">−14.6%</td><td style="text-align:right;font-family:'Oswald',sans-serif;font-weight:700;">13,664</td><td style="font-size:16px;color:#FFFFFF;font-weight:700;">月6回→4回</td></tr>
+          <tr><td style="color:var(--red-pale);font-weight:700;">交通</td><td style="text-align:right;font-family:'Oswald',sans-serif;">27,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:700;">+25%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--red-pale);font-weight:700;">−12%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);">+10%</td><td style="text-align:right;font-family:'Oswald',sans-serif;">29,700</td><td style="font-size:16px;color:#A0A0B0;">ガソリン高</td></tr>
+          <tr style="background:rgba(224,85,85,0.15);"><td style="color:var(--red-pale);font-weight:900;">★自動車購入</td><td style="text-align:right;font-family:'Oswald',sans-serif;">12,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:700;">+22%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--red-pale);font-weight:900;font-size:22px;">−50%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);font-weight:900;font-size:20px;">−39%</td><td style="text-align:right;font-family:'Oswald',sans-serif;font-weight:700;">7,320</td><td style="font-size:16px;color:#FFFFFF;font-weight:700;">買い替え凍結</td></tr>
+          <tr style="background:rgba(224,85,85,0.10);"><td style="color:var(--red-pale);font-weight:900;">★教養娯楽サービス</td><td style="text-align:right;font-family:'Oswald',sans-serif;">20,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:700;">+13%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--red-pale);font-weight:900;font-size:20px;">−25%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);font-weight:700;">−15.3%</td><td style="text-align:right;font-family:'Oswald',sans-serif;font-weight:700;">16,950</td><td style="font-size:16px;color:#FFFFFF;font-weight:700;">家族旅行中止</td></tr>
+          <tr><td style="color:var(--red-pale);font-weight:700;">教養娯楽耐久財</td><td style="text-align:right;font-family:'Oswald',sans-serif;">3,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:700;">+13%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--red-pale);font-weight:900;">−40%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);">−32.2%</td><td style="text-align:right;font-family:'Oswald',sans-serif;">2,034</td><td style="font-size:16px;color:#FFFFFF;">購入凍結</td></tr>
+          <tr><td style="color:var(--red-pale);font-weight:700;">被服・履物</td><td style="text-align:right;font-family:'Oswald',sans-serif;">8,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:700;">+20%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--red-pale);font-weight:700;">−25%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);">−10%</td><td style="text-align:right;font-family:'Oswald',sans-serif;">7,200</td><td style="font-size:16px;color:#FFFFFF;">年4枚→3枚</td></tr>
+          <tr><td style="color:var(--red-pale);font-weight:700;">家具・家事用品</td><td style="text-align:right;font-family:'Oswald',sans-serif;">12,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:700;">+20%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--red-pale);font-weight:700;">−30%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);">−16%</td><td style="text-align:right;font-family:'Oswald',sans-serif;">10,080</td><td style="font-size:16px;color:#FFFFFF;">買い換え延期</td></tr>
+          <tr style="background:rgba(224,85,85,0.10);"><td style="color:var(--red-pale);font-weight:900;">★交際費・諸雑費</td><td style="text-align:right;font-family:'Oswald',sans-serif;">32,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:700;">+6%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--red-pale);font-weight:900;font-size:20px;">−25%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);font-weight:700;">−20.5%</td><td style="text-align:right;font-family:'Oswald',sans-serif;font-weight:700;">25,440</td><td style="font-size:16px;color:#FFFFFF;font-weight:700;">冠婚葬祭縮小</td></tr>
+          <tr style="background:rgba(224,85,85,0.18);border-top:2px solid rgba(224,85,85,0.5);"><td style="color:var(--red-pale);font-weight:900;">小計【変動費】</td><td style="text-align:right;font-family:'Oswald',sans-serif;color:var(--red-pale);font-weight:900;">170,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:700;">─</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--red-pale);font-weight:900;font-size:20px;">−27%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);font-weight:900;font-size:20px;">−11.7%</td><td style="text-align:right;font-family:'Oswald',sans-serif;color:var(--red-pale);font-weight:900;font-size:19px;">150,148</td><td style="font-size:16px;color:#FFFFFF;font-weight:700;">−19,852円減</td></tr>
+          <tr style="background:rgba(212,175,55,0.20);border-top:3px solid var(--gold);"><td style="color:var(--gold3);font-weight:900;font-size:22px;">家計総合</td><td style="text-align:right;font-family:'Oswald',sans-serif;color:var(--gold3);font-weight:900;font-size:22px;">315,000</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--orange-bright);font-weight:900;font-size:22px;">+16%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--red-pale);font-weight:900;font-size:22px;">−15%</td><td style="text-align:center;font-family:'Oswald',sans-serif;color:var(--gold3);font-weight:900;font-size:26px;">±0%</td><td style="text-align:right;font-family:'Oswald',sans-serif;color:var(--gold3);font-weight:900;font-size:22px;">310,000</td><td style="font-size:16px;color:#FFFFFF;font-weight:700;">総額維持</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="split-board">
+      <div class="split-card up" style="border-color:var(--orange);">
+        <div class="split-label" style="color:var(--orange-bright);">固定費は金額が増える</div>
+        <div class="split-num" style="color:var(--orange-bright);">+14,944円</div>
+        <div class="split-sub">光熱+6,470円<br>食料必需品+6,730円<br>他+1,744円</div>
+      </div>
+      <div class="split-op">＝</div>
+      <div class="split-card down">
+        <div class="split-label">変動費で激しく削る</div>
+        <div class="split-num">−19,852円</div>
+        <div class="split-sub">自動車−4,680円<br>交際費−7,578円<br>外食−2,336円ほか</div>
+      </div>
+    </div>
+
+    <div class="label">家計の現場 ─ 何が起きるか</div>
+
+    <div class="consider-card risk">
+      <h4><span class="tag">SCENE 1</span>食卓 ─ 必需品の金額激増、嗜好品の物量激減</h4>
+      <p><strong class="or">食料必需品 単価+22% × 数量−7% = 金額+13.5%</strong>。<strong>米・野菜・肉魚の単価が大幅上昇するため、量を減らしても支出は増える</strong>。ブランド米→備蓄米、牛肉→豚肉→大豆製品、果物は週1個から半月1個へ。<br><strong class="rd">食料嗜好品・外食 数量−20〜−30%</strong>: お菓子・お酒は「あったら嬉しいもの」として大幅減。外食は月6回→4回へ。家族の誕生日も自宅で祝う。</p>
+    </div>
+
+    <div class="consider-card risk">
+      <h4><span class="tag">SCENE 2</span>耐久財 ─ 「壊れるまで使い切る」「買い替え凍結」</h4>
+      <p><strong class="rd">自動車購入 数量−50% = 金額−39%</strong>。買い替え完全凍結、車検・修理は最低限のみ。<br><strong class="rd">家具・家電 数量−30〜−40%</strong>: 冷蔵庫が古くなっても買い換えない、ソファのスプリングが効かなくても使い続ける。テレビ・カメラ・ゲーム機の新規購入は完全凍結。</p>
+    </div>
+
+    <div class="consider-card risk">
+      <h4><span class="tag">SCENE 3</span>家族のイベント ─ 旅行中止・行事縮小</h4>
+      <p><strong class="rd">教養娯楽サービス 数量−25% = 金額−15.3%</strong>。家族旅行が年2回→年1回、または完全中止。映画・コンサート・テーマパーク行きの頻度激減。<strong class="rd">被服 数量−25%</strong>: 子供の入学式・卒業式の服も中古・お下がり。大人の服は年4枚→3枚。</p>
+    </div>
+
+    <div class="consider-card risk">
+      <h4><span class="tag">SCENE 4</span>社会的つながり ─ 冠婚葬祭の縮小</h4>
+      <p><strong class="rd">交際費・諸雑費 数量−25% = 金額−20.5%</strong>。結婚式に呼ばれても祝儀を縮小or不参加、葬儀は家族葬のみ、お中元・お歳暮は中止。<strong>これは家計の縮小以上に、地域コミュニティ・親族関係・職場の人付き合いの希薄化として表面化する</strong>。</p>
+    </div>
+
+    <div class="big-callout">
+      <div class="tag">SCENARIO ④ REALITY</div>
+      <div class="msg">
+        家計の<span class="gold">支払う金額</span>は前年と変わらない。<br>
+        しかし<span class="red">光熱費は月+6,500円</span>、<span class="red">食費必需品も+6,700円</span>増える。<br>
+        家計はそれを相殺するため、<br>
+        <span class="red">家族旅行を中止</span>し、<span class="red">外食を3割減</span>らし、<br>
+        <span class="red">車の買い替えを凍結</span>し、<span class="red">冠婚葬祭の付き合いを縮小</span>する。
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ 05 過去日本実例の整合性検証 ============ -->
+<section id="s5" class="sec">
+  <div class="sec-header">
+    <div class="sec-num">05</div>
+    <h2 class="sec-title">過去日本実例との整合性検証</h2>
+  </div>
+  <div class="sec-body">
+
+    <div class="history-grid">
+      <div class="history-card h2014">
+        <div class="h-year">2014年 4-12月</div>
+        <div class="h-desc">消費増税8%後の単価上昇期</div>
+        <div class="h-stat"><span class="h-stat-label">CPI</span><span class="h-stat-val cpi">+3.1%</span></div>
+        <div class="h-stat"><span class="h-stat-label">数量</span><span class="h-stat-val qty">−4.4%</span></div>
+        <div class="h-stat"><span class="h-stat-label">名目</span><span class="h-stat-val nom">約−1.0%</span></div>
+      </div>
+
+      <div class="history-card h2023">
+        <div class="h-year">2023年 4-12月</div>
+        <div class="h-desc">日本CPIピーク期</div>
+        <div class="h-stat"><span class="h-stat-label">CPI</span><span class="h-stat-val cpi">+3.1%</span></div>
+        <div class="h-stat"><span class="h-stat-label">数量</span><span class="h-stat-val qty">−3.0%</span></div>
+        <div class="h-stat"><span class="h-stat-label">名目</span><span class="h-stat-val nom">約+0.1%</span></div>
+      </div>
+
+      <div class="history-card h2027">
+        <div class="h-year">2027年 1月(予測)</div>
+        <div class="h-desc">シナリオ④ピーク月</div>
+        <div class="h-stat"><span class="h-stat-label">CPI</span><span class="h-stat-val cpi">+14.5%</span></div>
+        <div class="h-stat"><span class="h-stat-label">数量</span><span class="h-stat-val qty">−14.5%</span></div>
+        <div class="h-stat"><span class="h-stat-label">名目</span><span class="h-stat-val nom">±0%</span></div>
+      </div>
+    </div>
+
+    <div class="consider-card note">
+      <h4><span class="tag">CONSISTENCY</span>シナリオ④は日本型挙動の単純拡大</h4>
+      <p>単価水準は約5倍に拡大するが、<strong class="pu">「家計が物量を削って名目を抑える」という挙動原理は同じ</strong>。2014年・2023年で実証された日本型反応を、未曾有の単価水準で発動させた姿である。</p>
+    </div>
+
+    <div class="consider-card warn">
+      <h4><span class="tag">CAVEAT</span>注意点 ─ 単価+10%超は前例なし</h4>
+      <p>過去20年で日本のCPIが+5%を超えたことはない。単価+10〜+14.5%の局面で家計が実際にどう反応するかは、戦後で1974年(オイルショック1次)以来の領域。1974年は名目賃金+32.9%だったため踏ん張りが可能だったが、シナリオ④は名目賃金+2.5%固定。<strong>過去実例の単純拡大が適用できない可能性は留保する必要がある</strong>。</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ 06 戦時経済型解釈 ============ -->
+<section id="s6" class="sec">
+  <div class="sec-header">
+    <div class="sec-num">06</div>
+    <h2 class="sec-title">戦時経済型解釈 ─ 哲学的位置づけ</h2>
+  </div>
+  <div class="sec-body">
+
+    <div class="consider-card note">
+      <h4><span class="tag">PHILOSOPHY</span>JINEN MODEL文明転換期との接続</h4>
+      <p>3要素モデルで描き出される「<strong class="pu">物量崩落・名目維持</strong>」の家計挙動は、JINEN MODELが提唱する<strong>800年文明サイクルにおける「欲望解放(commerce)から欲望抑制(community)への転換期」</strong>の経済的表現として読み解ける。</p>
+      <p style="margin-top:10px;">家計は「物を買う量」を物理的に削減することで、「<strong>所有から関係性へ・量から質へ</strong>」の価値転換を強いられる。これは政策的指導ではなく、<strong class="pu">物価ショックという外圧によって誘発される構造的価値観転換</strong>である。</p>
+      <p style="margin-top:10px;">「戦時経済型」と呼ぶ理由は、配給制度・物価統制という制度的強制はないが、結果としての家計挙動が戦時下と相似するため。2014年・2023年の小規模実験を経て、シナリオ④で本格的な転換期が始まる可能性。</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ 07 他シナリオ簡潔一覧 ============ -->
+<section id="s7" class="sec">
+  <div class="sec-header">
+    <div class="sec-num">07</div>
+    <h2 class="sec-title">他シナリオ簡潔一覧 ─ 5シナリオの位置づけ</h2>
+  </div>
+  <div class="sec-body">
+
+    <div class="scenario-list-wrap">
+      <table class="scenario-list">
+        <thead>
+          <tr>
+            <th>シナリオ</th>
+            <th>確率</th>
+            <th>封鎖期間</th>
+            <th>解放時期</th>
+            <th>節約お願い</th>
+            <th>CPIピーク</th>
+            <th>数量ピーク</th>
+            <th>名目</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="s-label s1">① 3ヶ月封鎖</td>
+            <td>25%</td>
+            <td>3ヶ月</td>
+            <td>5月末</td>
+            <td>発動せず</td>
+            <td class="cpi-cell">+7.3%</td>
+            <td class="qty-cell">約−7%</td>
+            <td>±0%</td>
+          </tr>
+          <tr>
+            <td class="s-label s2">② 4ヶ月封鎖(最頻)</td>
+            <td>30%</td>
+            <td>4ヶ月</td>
+            <td>6月末</td>
+            <td>発動可能性低</td>
+            <td class="cpi-cell">+9.5%</td>
+            <td class="qty-cell">約−9.5%</td>
+            <td>±0%</td>
+          </tr>
+          <tr>
+            <td class="s-label s3">③ 5ヶ月封鎖</td>
+            <td>20%</td>
+            <td>5ヶ月</td>
+            <td>7月末</td>
+            <td>7月短期</td>
+            <td class="cpi-cell">+11.5%</td>
+            <td class="qty-cell">約−11.5%</td>
+            <td>±0%</td>
+          </tr>
+          <tr class="s4-row">
+            <td class="s-label s4">④ 7ヶ月封鎖 ★本資料</td>
+            <td>20%</td>
+            <td>7ヶ月</td>
+            <td>9月末</td>
+            <td>7-9月発動</td>
+            <td class="cpi-cell">+14.5%</td>
+            <td class="qty-cell">約−14.5%</td>
+            <td>±0%</td>
+          </tr>
+          <tr>
+            <td class="s-label sd">D 解放されない</td>
+            <td>5%</td>
+            <td>10ヶ月+</td>
+            <td>解放なし</td>
+            <td>継続強化</td>
+            <td class="cpi-cell">+19.0%</td>
+            <td class="qty-cell">約−19%</td>
+            <td>±0%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-caption">
+      <strong>下振れ確率(④+D):</strong> 25%(4回に1回)─ ③以上含めると45%(2回に1回)。<br>
+      <strong>注:</strong> 数量ピークは「日本型挙動(名目0付近維持)」を前提とした概算。シナリオ①〜③・Dの月次詳細は別資料で展開予定。
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ 08 結語 ============ -->
+<section id="s8" class="sec">
+  <div class="sec-header">
+    <div class="sec-num">08</div>
+    <h2 class="sec-title">結語 ─ 数量を見ることの意味</h2>
+  </div>
+  <div class="sec-body">
+
+    <div class="closing-box">
+      <div class="label-cls">CONCLUSION</div>
+      <div class="msg-cls">
+        単価(CPI)だけを見ていても、<br>
+        家計に何が起きているかは見えない。<br><br>
+
+        <strong>「全体−14.5%」は穏当な数字に見えるが、<br>
+        変動費だけ見れば数量−27%。<br>
+        特定費目は−40〜−50%級の激変が起きる。</strong><br><br>
+
+        家計は支払う金額を変えないまま、<br>
+        家族旅行を中止し、外食を3割減らし、<br>
+        車の買い替えを凍結し、冠婚葬祭を縮小する。<br><br>
+
+        これがシナリオ④で予測される、<br>
+        日本家計の<strong>戦時経済型応答</strong>である。
+      </div>
+    </div>
+
+    <div class="consider-card solution">
+      <h4><span class="tag">NEXT STEP</span>視聴者への問いかけ</h4>
+      <p>本資料はシナリオ④(確率20%・下振れケース)に焦点化したマスター資料。視聴者は以下の問いを自分に向けて検討することを推奨する:</p>
+      <ul style="margin-top:10px;">
+        <li>もしシナリオ④が現実化した場合、自分の家計はどの費目を削るか?</li>
+        <li>自分の家計の固定費比率は何%か?</li>
+        <li>削れない費目(住居・通信・保険・教育)は家計全体の何割を占めるか?</li>
+        <li>物量を削っても維持すべき価値(家族・健康・絆)は何か?</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <p><strong>本資料について:</strong> 3要素モデル(CPI=単価／実質消費=数量／名目消費=総額)に基づくシナリオ④マスター資料。CPI予測V0.3・スタグフレーション予測V0.3・物価検証(2026/5/14)と整合。</p>
+  <p style="margin-top:14px;"><strong>制作:</strong> 西村直樹 ─ 「西村と考える世界と資産の現在地」&nbsp;<a href="https://www.youtube.com/@universalcoin1451" style="color:var(--gold3);">YouTube</a></p>
+  <p style="margin-top:8px;"><strong>サイト:</strong> <a href="https://timeless-kizuna.com" style="color:var(--gold3);">timeless-kizuna.com</a> &nbsp;|&nbsp; <strong>LINE:</strong> <a href="https://line.me/R/ti/p/@290iltlj" style="color:var(--gold3);">@290iltlj</a></p>
+  <p style="margin-top:14px;color:#7A7A8A;font-size:15px;">数値はモデルに基づく合理的推計であり、確定的な予測ではない。家計の実際の反応は地政学情勢・政府対応・賃金動向により変動しうる。本資料の数値を投資判断に使用する場合は、複数のシナリオを総合的に検討すること。</p>
+</footer>
+
+</body>
+</html>

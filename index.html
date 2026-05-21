@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIMELESS — A kizuna archive by Naoki Nishimura</title>
+<meta name="description" content="思想の図書館。流れる情報の対極として、時代を超えた知を蓄える場所。Naoki Nishimuraによるkizuna公式アーカイブ。">
+<meta property="og:title" content="TIMELESS — A kizuna archive by Naoki Nishimura">
+<meta property="og:description" content="思想の図書館。流れる情報の対極として、時代を超えた知を蓄える場所。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://timeless-kizuna.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Serif JP', 'Noto Serif CJK JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    background: #FAF6EC;
+    color: #1A1A1A;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .section-wrap {
+    padding: 3vh 0 5vh;
+    position: relative;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 6vw;
+  }
+
+  /* v12準拠: section-eyebrow */
+  .section-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: #B4963C;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+
+  /* v12準拠: section-title */
+  .section-title {
+    font-family: 'Noto Serif JP', 'Noto Serif CJK JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    font-weight: 400;
+    font-size: clamp(22px, 2.6vw, 28px);
+    color: #1A1A1A;
+    text-align: center;
+    letter-spacing: 0.1em;
+    margin-bottom: 2.5rem;
+  }
+
+  /* v12準拠: section-title-en */
+  .section-title-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #B4963C;
+    letter-spacing: 0.2em;
+    display: block;
+    margin-top: 0.5rem;
+    font-weight: 400;
+  }
+
+  .board-wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .board {
+    width: 100%;
+    aspect-ratio: 800 / 720;
+    position: relative;
+  }
+  .board-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .board-buttons {
+    position: absolute;
+    inset: 0;
+  }
+  /* 軸ラベル - 最前面でボタンを隠す上位レイヤー */
+  .axis-label {
+    position: absolute;
+    z-index: 10;
+    text-align: center;
+    pointer-events: none;
+  }
+  .axis-label .jp {
+    display: block;
+    font-family: 'Noto Serif JP', 'Noto Serif CJK JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: #1A1A1A;
+    letter-spacing: 0.3em;
+    line-height: 1;
+  }
+  .axis-label.money .jp { letter-spacing: 0.15em; }
+  .axis-label .en {
+    display: block;
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: #B4963C;
+    letter-spacing: 0.25em;
+    margin-top: 4px;
+  }
+  .axis-mind   { top: 11%; left: 50%; transform: translate(-50%, -10px); }
+  .axis-body   { bottom: 8%; left: 50%; transform: translate(-50%, -10px); }
+  .axis-money  { top: 50%; left: 14%; transform: translate(0, -50%); }
+  .axis-heart  { top: 50%; right: 14%; transform: translate(0, -50%); }
+
+  /* v12準拠: btn-content(白基調用に色だけ変換) */
+  .btn-content {
+    position: absolute;
+    width: 220px;
+    min-height: 64px;
+    background: rgba(255, 253, 247, 0.85);
+    border: 1px solid #B4963C;
+    color: #1A1A1A;
+    font-family: 'Noto Serif JP', 'Noto Serif CJK JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+    padding: 12px 14px;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s ease,
+                border-color 0.4s ease,
+                background 0.4s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 1px 0 rgba(180, 150, 60, 0.15),
+                0 4px 14px rgba(180, 150, 60, 0.12);
+  }
+  .btn-content::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, transparent 0%, #B4963C 50%, transparent 100%);
+    opacity: 0.65;
+    transition: opacity 0.35s ease;
+  }
+  .btn-content:hover {
+    transform: translateY(-3px);
+    background: #FFFEF7;
+    border-color: #D4AF37;
+    box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.3),
+                0 12px 32px rgba(180, 150, 60, 0.25);
+  }
+  .btn-content:hover::before {
+    opacity: 1;
+    height: 3px;
+    background: linear-gradient(to right, transparent 0%, #D4AF37 50%, transparent 100%);
+  }
+  .btn-content .btn-sub {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 10px;
+    color: #8B6F2A;
+    letter-spacing: 0.18em;
+    margin-top: 4px;
+    font-weight: 400;
+  }
+
+  /* v12準拠: featured */
+  .btn-content.featured {
+    width: 182px;
+    min-height: 55px;
+    background: linear-gradient(135deg, #B4963C 0%, #D4AF37 50%, #B4963C 100%);
+    border: 1px solid #E8C66E;
+    color: #FAF6EC;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 8px 10px;
+    box-shadow: 0 3px 0 rgba(122, 94, 26, 0.25),
+                0 8px 24px rgba(212, 175, 55, 0.35);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .btn-content.featured::before {
+    background: linear-gradient(to right, transparent 0%, rgba(255, 250, 220, 0.9) 50%, transparent 100%);
+    opacity: 0.7;
+    height: 1px;
+  }
+  .btn-content.featured .btn-sub {
+    color: rgba(250, 246, 236, 0.85);
+    font-size: 8px;
+    letter-spacing: 0.25em;
+    margin-top: 2px;
+  }
+  .btn-content.featured:hover {
+    background: linear-gradient(135deg, #D4AF37 0%, #E8C66E 50%, #D4AF37 100%);
+    box-shadow: 0 4px 0 rgba(122, 94, 26, 0.3),
+                0 14px 40px rgba(212, 175, 55, 0.45);
+  }
+
+
+  .hero {
+    position: relative;
+    background: #FAF8F3;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('images/library-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.95) contrast(1.0) saturate(0.5) sepia(0.12);
+    opacity: 0.4;
+    z-index: 0;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center,
+      rgba(250,248,243,0.3) 0%,
+      rgba(250,248,243,0.6) 70%,
+      rgba(250,248,243,0.75) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 6vw;
+    max-width: 880px;
+  }
+  .line-top {
+    width: 1px;
+    height: 50px;
+    background: #B4963C;
+    margin: 0 auto 28px;
+  }
+  .eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.45em;
+    color: #8A7B4F;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .title {
+    font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
+    font-weight: 400;
+    font-size: clamp(53px, 7.8vw, 96px);
+    letter-spacing: 0.10em;
+    line-height: 0.95;
+    color: #1A1A1A;
+    margin-bottom: 20px;
+  }
+  .kizuna {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(28px, 4.5vw, 48px);
+    color: #B4963C;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+  .by {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #6B6258;
+    letter-spacing: 0.2em;
+    margin-bottom: 44px;
+  }
+  .intro {
+    font-family: 'Noto Serif JP', 'Noto Serif CJK JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    font-weight: 300;
+    font-size: clamp(17px, 1.6vw, 21px);
+    line-height: 2.2;
+    color: #2A2520;
+    margin-bottom: 24px;
+  }
+  .intro-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(17px, 1.5vw, 21px);
+    color: #8A7B4F;
+    letter-spacing: 0.1em;
+  }
+  .line-bottom {
+    width: 1px;
+    height: 40px;
+    background: #B4963C;
+    margin: 36px auto 0;
+  }
+
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="line-top"></div>
+    <div class="eyebrow">A LIBRARY OF THOUGHT</div>
+    <h1 class="title">TIMELESS</h1>
+    <div class="kizuna">kizuna archive</div>
+    <div class="by">by naoki nishimura</div>
+    <div class="intro">
+      流れる情報の対極として、<br>
+      時代を超えた知を蓄える「思想の図書館」
+    </div>
+    <div class="intro-en">A library for ideas that outlast their time.</div>
+    <div class="line-bottom"></div>
+  </div>
+</section>
+
+
+
+<section class="section-wrap">
+  <div class="container">
+    <div class="section-eyebrow">The Four Axes</div>
+    <h2 class="section-title">
+      思考・心・体・マネー
+      <span class="section-title-en">Mind · Heart · Body · Wealth</span>
+    </h2>
+    <div class="board-wrap">
+      <div class="board">
+        <svg class="board-svg" viewBox="0 0 800 720" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <radialGradient id="rg3" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#F0E5C8" stop-opacity="0.5"/>
+              <stop offset="40%" stop-color="#F0E5C8" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#F0E5C8" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="goldGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#D4AF37"/>
+              <stop offset="50%" stop-color="#B4963C"/>
+              <stop offset="100%" stop-color="#8B6F2A"/>
+            </linearGradient>
+            <path id="topArc" d="M 100 360 A 300 300 0 0 1 700 360" fill="none"/>
+            <path id="bottomArc" d="M 100 360 A 300 300 0 0 0 700 360" fill="none"/>
+            <clipPath id="coinClip">
+              <circle cx="400" cy="360" r="72"/>
+            </clipPath>
+          </defs>
+
+          <!-- コイン外輪 -->
+          <circle cx="400" cy="360" r="330" fill="url(#rg3)"/>
+          <circle cx="400" cy="360" r="320" fill="none" stroke="url(#goldGrad3)" stroke-width="2.5" opacity="0.85"/>
+          <circle cx="400" cy="360" r="312" fill="none" stroke="#B4963C" stroke-width="0.5" opacity="0.5"/>
+
+          <!-- ドットビーズ -->
+          <g fill="#B4963C" opacity="0.5">
+            <circle cx="400" cy="56" r="1.5"/><circle cx="453" cy="61" r="1.5"/><circle cx="504" cy="76" r="1.5"/>
+            <circle cx="552" cy="100" r="1.5"/><circle cx="595" cy="133" r="1.5"/><circle cx="633" cy="173" r="1.5"/>
+            <circle cx="664" cy="219" r="1.5"/><circle cx="687" cy="269" r="1.5"/><circle cx="700" cy="322" r="1.5"/>
+            <circle cx="704" cy="376" r="1.5"/><circle cx="700" cy="430" r="1.5"/><circle cx="687" cy="483" r="1.5"/>
+            <circle cx="664" cy="533" r="1.5"/><circle cx="633" cy="579" r="1.5"/><circle cx="595" cy="619" r="1.5"/>
+            <circle cx="552" cy="652" r="1.5"/><circle cx="504" cy="676" r="1.5"/><circle cx="453" cy="691" r="1.5"/>
+            <circle cx="400" cy="696" r="1.5"/><circle cx="347" cy="691" r="1.5"/><circle cx="296" cy="676" r="1.5"/>
+            <circle cx="248" cy="652" r="1.5"/><circle cx="205" cy="619" r="1.5"/><circle cx="167" cy="579" r="1.5"/>
+            <circle cx="136" cy="533" r="1.5"/><circle cx="113" cy="483" r="1.5"/><circle cx="100" cy="430" r="1.5"/>
+            <circle cx="96" cy="376" r="1.5"/><circle cx="100" cy="322" r="1.5"/><circle cx="113" cy="269" r="1.5"/>
+            <circle cx="136" cy="219" r="1.5"/><circle cx="167" cy="173" r="1.5"/><circle cx="205" cy="133" r="1.5"/>
+            <circle cx="248" cy="100" r="1.5"/><circle cx="296" cy="76" r="1.5"/><circle cx="347" cy="61" r="1.5"/>
+          </g>
+
+          <!-- 円周銘文 -->
+          <text font-family="'Cormorant Garamond', 'Times New Roman', serif" font-size="13" font-style="italic" fill="#8B6F2A" letter-spacing="6" opacity="0.85">
+            <textPath href="#topArc" startOffset="50%" text-anchor="middle">· TIMELESS · A LIBRARY OF THOUGHT ·</textPath>
+          </text>
+          <text font-family="'Cormorant Garamond', 'Times New Roman', serif" font-size="11" font-style="italic" fill="#8B6F2A" letter-spacing="5" opacity="0.7">
+            <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">· kizuna archive · MMXXVI · by naoki nishimura ·</textPath>
+          </text>
+
+          <!-- v12準拠の軸ラベル: 26px / weight 500 / letter-spacing 8 (color白背景補正: #F0EDE8→#1A1A1A) -->
+          
+
+          <!-- 「体」はkizuna featured(top:71%=y≈511)の下、円の最下部より少し内側へ -->
+          
+
+          <!-- 「マネー」軸:円の左端ぎり内側、左ボタンと縦位置をずらす(ボタンは top:44%=y≈317、top:80%=y≈576、中心y=360。間にラベル) -->
+          
+
+          
+
+          <!-- 中央コイン -->
+          <circle cx="400" cy="360" r="72" fill="#FAF6EC"/>
+          <image href="data:image/jpeg;base64,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"
+                 x="328" y="288" width="144" height="144"
+                 preserveAspectRatio="xMidYMid slice"
+                 clip-path="url(#coinClip)"/>
+          <circle cx="400" cy="360" r="72" fill="none" stroke="url(#goldGrad3)" stroke-width="2" opacity="0.85"/>
+          <circle cx="400" cy="360" r="68" fill="none" stroke="#B4963C" stroke-width="0.4" opacity="0.5"/>
+
+          <text font-family="'Cormorant Garamond', 'Times New Roman', serif" x="400" y="460" text-anchor="middle" font-size="9" font-style="italic" fill="#8B6F2A" letter-spacing="2.5" opacity="0.7">Macedon · Alexander III · Gold Stater · c.336–323 BC</text>
+        </svg>
+
+        <div class="board-buttons">
+          <a class="btn-content" style="left:72%; top:9.17%; margin-left:-110px;" href="#">Jinen Model<span class="btn-sub">civilizational framework</span></a>
+          <a class="btn-content" style="left:14%; top:30%; margin-left:-110px;" href="articles.html">YouTube / メルマガ<span class="btn-sub">articles &amp; videos</span></a>
+          <a class="btn-content" style="left:28%; top:9.17%; margin-left:-110px;" href="#">800年周期 関連記事<span class="btn-sub">800-Year Cycle</span></a>
+          <a class="btn-content" style="left:14%; top:61%; margin-left:-110px;" href="#">ポートフォリオ設計<span class="btn-sub">Portfolio Design</span></a>
+          <a class="btn-content" style="left:86%; top:61%; margin-left:-110px;" href="#">素敵なコイン 冊子<span class="btn-sub">Coin Booklet Archive</span></a>
+          <a class="btn-content" style="left:86%; top:30%; margin-left:-110px;" href="#">2600年 コイン史<span class="btn-sub">2600 Years of Coinage</span></a>
+          <a class="btn-content featured" style="left:50%; top:61%; margin-left:-91px;" href="#">kizuna(結束)<span class="btn-sub">Join the Circle</span></a>
+          <a class="btn-content" style="left:28%; top:81.83%; margin-left:-110px;" href="#">"新"村作り toki project<span class="btn-sub">New Village · TOKI</span></a>
+          <a class="btn-content" style="left:72%; top:81.83%; margin-left:-110px;" href="#">"新"村作り 三浦市復興<span class="btn-sub">Miura Restoration</span></a>
+        </div>
+        <!-- 軸ラベル(最前面・HTML要素として配置でz-index制御) -->
+        <div class="axis-label axis-mind"><span class="jp">思 考</span><span class="en">Mind</span></div>
+        <div class="axis-label axis-body"><span class="jp">体</span><span class="en">Body</span></div>
+        <div class="axis-label axis-money"><span class="jp">マネー</span><span class="en">Wealth</span></div>
+        <div class="axis-label axis-heart"><span class="jp">心</span><span class="en">Heart</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+</body>
+</html>
