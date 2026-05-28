@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ポートフォリオ診断（DEMO版）｜Universal Coin Co., Ltd.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@500;700;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{
+  --bg:#FFFFFF;
+  --bg2:#F8F6F1;
+  --bg3:#EFEAE0;
+  --bg4:#E5DFD0;
+  --gold:#B8941F;
+  --gold-deep:#8C6F18;
+  --gold-bright:#D4AF37;
+  --gold-bg:#FAF3DC;
+  --red:#C13838;
+  --red-deep:#9A2A2A;
+  --red-bg:#FBE8E8;
+  --green:#3D8956;
+  --green-deep:#2C6B40;
+  --green-bg:#E5F2EA;
+  --blue:#2A5C9C;
+  --ink:#1A1A24;
+  --text:#2C2D3A;
+  --text2:#54556B;
+  --muted:#8A8B9A;
+  --line:#D4CFC0;
+  --line-soft:#E8E3D6;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:18px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+body{padding:2.4vw 3vw;}
+@media(max-width:768px){body{padding:3vw;font-size:17px;line-height:1.65;}}
+
+h1,h2,h3,h4{font-family:'Noto Serif JP',serif;color:var(--ink);font-weight:700;letter-spacing:0.02em;}
+h1{font-size:clamp(28px,3vw,38px);margin-bottom:.2em;line-height:1.2;}
+h2{font-size:clamp(24px,2.4vw,32px);margin:1em 0 .4em;line-height:1.25;border-left:5px solid var(--gold);padding-left:.5em;}
+h3{font-size:clamp(19px,1.5vw,22px);margin:.6em 0 .4em;color:var(--gold-deep);}
+h4{font-size:18px;margin:.6em 0 .3em;color:var(--gold-deep);}
+
+.lead{font-size:clamp(15px,1.2vw,17px);color:var(--text);opacity:.92;margin:.3em 0 .8em;line-height:1.55;}
+.muted{color:var(--muted);font-size:17px;}
+.num{font-family:'Oswald',sans-serif;letter-spacing:.02em;font-weight:600;}
+.gold{color:var(--gold-deep);}
+.red{color:var(--red);}
+.green{color:var(--green);}
+
+/* ヘッダー */
+header.site-header{
+  border-bottom:2px solid var(--gold);
+  padding-bottom:.8em;
+  margin-bottom:.8em;
+}
+.brand-line{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1em;}
+.brand{font-family:'Oswald',sans-serif;letter-spacing:.18em;color:var(--gold-deep);font-size:17px;font-weight:600;}
+.version{font-family:'Oswald',sans-serif;color:var(--muted);font-size:16px;letter-spacing:.1em;}
+
+/* タブ */
+.tabs{
+  display:flex;gap:.3em;margin:.8em 0 .8em;border-bottom:2px solid var(--line);
+  flex-wrap:wrap;
+}
+.tab-btn{
+  background:transparent;border:none;color:var(--text2);
+  font-family:'Noto Serif JP',serif;font-size:17px;font-weight:700;
+  padding:.5em 1em;cursor:pointer;border-bottom:3px solid transparent;
+  transition:color .2s,border-color .2s;
+  margin-bottom:-2px;
+}
+.tab-btn:hover{color:var(--ink);}
+.tab-btn.active{color:var(--gold-deep);border-bottom-color:var(--gold);}
+.tab-panel{display:none;animation:fade .3s;}
+.tab-panel.active{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+
+/* カード */
+.card{
+  background:var(--bg2);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:.9em 1.1em;
+  margin:.6em 0;
+}
+.card.gold-edge{border-left:4px solid var(--gold);}
+.card.white{background:#FFFFFF;}
+
+/* グリッド */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.8em;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:.8em;}
+@media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+
+/* スライダー入力 */
+.slider-row{
+  display:grid;
+  grid-template-columns:110px 1fr 90px 30px;
+  align-items:center;gap:.7em;
+  padding:.25em 0;
+  border-bottom:1px dashed var(--line);
+}
+.slider-row:last-child{border-bottom:none;}
+.slider-label{font-size:17px;color:var(--ink);font-weight:500;}
+.slider-row input[type=range]{
+  width:100%;-webkit-appearance:none;appearance:none;height:5px;
+  background:var(--bg4);
+  border-radius:3px;outline:none;
+}
+.slider-row input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:18px;height:18px;
+  background:var(--gold);border-radius:50%;cursor:pointer;
+  border:2px solid #FFFFFF;box-shadow:0 0 0 1px var(--gold-deep);
+}
+.slider-row input[type=range]::-moz-range-thumb{
+  width:18px;height:18px;background:var(--gold);border-radius:50%;cursor:pointer;
+  border:2px solid #FFFFFF;box-shadow:0 0 0 1px var(--gold-deep);
+}
+.slider-row input[type=number]{
+  width:100%;padding:.25em .5em;background:#FFFFFF;
+  border:1px solid var(--line);
+  color:var(--ink);font-family:'Oswald',sans-serif;font-size:20px;
+  font-weight:600;text-align:right;border-radius:4px;
+}
+.slider-row .unit{font-family:'Oswald',sans-serif;color:var(--muted);font-size:16px;}
+
+.total-bar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.45em .9em;margin-top:.5em;
+  background:var(--bg3);border-radius:4px;font-size:17px;
+  font-weight:500;
+}
+.total-bar .num{font-size:21px;}
+.total-bar.warn{background:var(--red-bg);color:var(--red-deep);}
+.total-bar.ok{background:var(--green-bg);color:var(--green-deep);}
+
+/* リスクスコア表示 */
+.score-display{
+  text-align:center;
+  padding:.7em 1em .6em;
+  background:linear-gradient(135deg,var(--gold-bg),#FFFFFF);
+  border:1px solid var(--line);
+  border-radius:6px;
+  margin:.5em 0;
+}
+.score-num{
+  font-family:'Oswald',sans-serif;font-weight:700;
+  font-size:clamp(48px,5.5vw,72px);
+  line-height:1;color:var(--gold-deep);
+}
+.score-label{font-size:14px;color:var(--muted);margin-top:.2em;font-family:'Oswald',sans-serif;letter-spacing:.15em;font-weight:600;}
+.score-judge{font-size:18px;margin-top:.3em;font-family:'Noto Serif JP',serif;font-weight:700;}
+
+/* テーブル：基本（表示用） */
+table{width:100%;border-collapse:collapse;margin:.4em 0;font-size:16px;}
+table th{
+  font-family:'Noto Serif JP',serif;
+  color:var(--gold-deep);
+  font-weight:700;
+  background:var(--gold-bg);
+  font-size:16px;
+  padding:.4em .5em;
+  border:1px solid var(--line);
+  text-align:center;
+}
+table td{
+  padding:.3em .5em;
+  border:1px solid var(--line-soft);
+  text-align:right;
+  font-size:16px;
+}
+table td:first-child,table th:first-child{text-align:left;}
+table tr:nth-child(even) td{background:rgba(0,0,0,0.015);}
+
+/* 数値セル：読みやすく、ただし詰める */
+table td.numeric{
+  font-family:'Oswald',sans-serif;
+  font-size:21px;
+  font-weight:600;
+  color:var(--ink);
+  letter-spacing:0.01em;
+}
+table td.numeric.small{font-size:18px;}
+table td.numeric.large{font-size:24px;}
+table td.numeric.gold-cell{color:var(--gold-deep);font-weight:700;}
+table td.numeric.red-cell{color:var(--red);font-weight:700;}
+table td.numeric.green-cell{color:var(--green);font-weight:700;}
+
+/* 合計行 */
+table tr.total-row td{
+  background:var(--gold-bg)!important;
+  border-top:2px solid var(--gold);
+  font-weight:700;
+}
+
+/* 入力テーブル */
+table.input-table input{
+  width:100%;padding:.25em .4em;
+  background:#FFFFFF;border:1px solid var(--line);
+  color:var(--ink);font-family:'Oswald',sans-serif;
+  font-size:18px;font-weight:600;text-align:right;border-radius:3px;
+}
+table.input-table input:focus{
+  outline:none;border-color:var(--gold);
+  box-shadow:0 0 0 2px var(--gold-bg);
+}
+table.input-table td{padding:.25em;}
+
+/* マトリクス編集テーブル */
+.matrix-edit input{
+  width:62px;padding:.2em .35em;
+  background:#FFFFFF;border:1px solid var(--line);
+  color:var(--ink);font-family:'Oswald',sans-serif;
+  font-size:17px;font-weight:600;text-align:right;border-radius:3px;
+}
+.matrix-edit input:focus{
+  outline:none;border-color:var(--gold);
+  box-shadow:0 0 0 2px var(--gold-bg);
+}
+.matrix-edit td{padding:.2em .25em;}
+
+/* SVGチャート */
+.chart-wrap{
+  margin:.5em 0;
+  background:#FFFFFF;
+  padding:.7em .6em .5em;
+  border-radius:6px;
+  border:1px solid var(--line);
+}
+.chart-wrap svg{width:100%;height:auto;display:block;}
+
+/* Before/After 比較 */
+.cmp-pair{display:grid;grid-template-columns:1fr 1fr;gap:.8em;margin:.5em 0;}
+.cmp-pair > div{padding:.9em 1em;border-radius:6px;}
+.cmp-before{background:var(--red-bg);border:2px solid var(--red);}
+.cmp-after{background:var(--green-bg);border:2px solid var(--green);}
+.cmp-pair h4{margin-top:0;margin-bottom:.4em;font-size:19px;}
+.cmp-before h4{color:var(--red-deep);}
+.cmp-after h4{color:var(--green-deep);}
+@media(max-width:768px){.cmp-pair{grid-template-columns:1fr;}}
+
+.cmp-pair .score-display{background:#FFFFFF;}
+.cmp-before .score-num{color:var(--red);}
+.cmp-after .score-num{color:var(--green);}
+
+/* 注釈 */
+.note{font-size:14px;color:var(--text2);margin-top:.3em;line-height:1.55;}
+.foot{margin-top:1.2em;padding-top:.8em;border-top:1px solid var(--line);font-size:13px;color:var(--muted);}
+
+/* 凡例 */
+.legend{display:flex;flex-wrap:wrap;gap:.9em;margin:.4em 0;font-size:14px;}
+.legend-item{display:flex;align-items:center;gap:.4em;color:var(--text);}
+.legend-swatch{width:14px;height:14px;border-radius:3px;border:1px solid rgba(0,0,0,0.1);}
+
+/* details */
+details.card summary{
+  cursor:pointer;
+  font-family:'Noto Serif JP',serif;
+  font-size:18px;
+  color:var(--gold-deep);
+  font-weight:700;
+  list-style:none;
+}
+details.card summary::-webkit-details-marker{display:none;}
+details.card summary::before{content:'▶ ';font-size:12px;margin-right:.4em;transition:transform .2s;display:inline-block;}
+details.card[open] summary::before{transform:rotate(90deg);}
+
+/* 確率セクション・大きめ表示 */
+.prob-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:.6em;
+  margin:.5em 0;
+}
+.prob-cell-card{
+  background:#FFFFFF;
+  border:1px solid var(--line);
+  border-radius:5px;
+  padding:.5em .8em;
+}
+.prob-cell-card .prob-label{
+  font-size:14px;color:var(--text);margin-bottom:.2em;font-weight:500;line-height:1.35;
+}
+.prob-cell-card .prob-input-wrap{
+  display:flex;align-items:center;gap:.4em;margin-top:.1em;
+}
+.prob-cell-card input{
+  width:78px;padding:.25em .5em;
+  background:#FFFFFF;border:1px solid var(--line);
+  color:var(--ink);font-family:'Oswald',sans-serif;
+  font-size:21px;font-weight:700;text-align:right;border-radius:3px;
+}
+.prob-cell-card .prob-unit{font-family:'Oswald',sans-serif;color:var(--muted);font-size:16px;}
+.prob-cell-card input:focus{
+  outline:none;border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-bg);
+}
+.prob-cell-card.readonly{
+  background:var(--gold-bg);
+  border-color:var(--gold);
+}
+.prob-cell-card .prob-value-readonly{
+  font-family:'Oswald',sans-serif;
+  font-size:24px;font-weight:700;
+  color:var(--gold-deep);
+  letter-spacing:.02em;
+  padding:.1em 0;
+  min-width:60px;
+  text-align:right;
+}
+
+/* リスク評価の考え方（読み取り専用マトリクス） */
+.matrix-readonly{
+  width:100%;border-collapse:collapse;margin-top:.6em;
+}
+.matrix-readonly th{
+  font-family:'Noto Serif JP',serif;
+  background:var(--gold-bg);
+  color:var(--gold-deep);
+  font-weight:700;font-size:15px;
+  padding:.5em .4em;
+  border:1px solid var(--line);
+  text-align:center;
+}
+.matrix-readonly th:first-child{text-align:left;padding-left:.7em;font-size:14px;}
+.matrix-readonly td{
+  padding:.45em .4em;
+  border:1px solid var(--line-soft);
+  font-family:'Oswald',sans-serif;
+  font-size:16px;font-weight:600;
+  text-align:center;
+  color:var(--ink);
+  background:#FFFFFF;
+}
+.matrix-readonly td:first-child{
+  text-align:left;font-family:'Noto Sans JP',sans-serif;
+  font-weight:500;font-size:15px;color:var(--text);
+}
+.matrix-readonly tr:nth-child(even) td{background:rgba(0,0,0,0.015);}
+.matrix-readonly tr:nth-child(even) td:first-child{background:rgba(0,0,0,0.015);}
+
+/* kizuna 有料会員限定ツール CTA */
+.kizuna-cta{
+  margin-top:1.2em;
+  padding:1em 1.2em;
+  background:linear-gradient(135deg, var(--gold-bg), #FFFFFF);
+  border:1px solid var(--gold);
+  border-radius:6px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1em;
+  flex-wrap:wrap;
+}
+.kizuna-cta-note{
+  font-size:15px;
+  color:var(--text);
+  line-height:1.6;
+  margin:0;
+  flex:1 1 60%;
+}
+.kizuna-cta-note strong{color:var(--gold-deep);}
+.kizuna-cta-btn{
+  display:inline-block;
+  padding:.6em 1.4em;
+  background:var(--gold);
+  color:#FFFFFF;
+  text-decoration:none;
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:700;
+  font-size:15px;
+  letter-spacing:.05em;
+  border-radius:4px;
+  white-space:nowrap;
+  transition:background .2s;
+  box-shadow:0 1px 3px rgba(0,0,0,.12);
+}
+.kizuna-cta-btn:hover{background:var(--gold-deep);}
+.kizuna-cta-btn:visited{color:#FFFFFF;}
+
+/* PDFダウンロードボタン */
+.pdf-download-bar{
+  display:flex;justify-content:flex-end;align-items:center;
+  gap:.8em;margin:.4em 0 .8em;
+}
+.pdf-btn{
+  display:inline-flex;align-items:center;gap:.5em;
+  padding:.6em 1.3em;
+  background:var(--gold);color:#FFFFFF;
+  border:none;border-radius:4px;
+  font-family:'Noto Sans JP',sans-serif;font-weight:700;
+  font-size:15px;letter-spacing:.05em;
+  cursor:pointer;
+  box-shadow:0 1px 3px rgba(0,0,0,.12);
+  transition:background .2s;
+}
+.pdf-btn:hover{background:var(--gold-deep);}
+.pdf-btn:disabled{background:var(--muted);cursor:wait;}
+.pdf-btn .icon{font-size:17px;line-height:1;}
+.pdf-status{font-size:13px;color:var(--muted);}
+
+/* キャプチャ対象を一時的に整える（PDF生成中だけ適用） */
+.pdf-capturing{
+  background:#FFFFFF!important;
+}
+
+/* 保存ステータスとリセットボタン */
+.save-bar{
+  display:flex;justify-content:flex-end;align-items:center;
+  gap:.8em;margin:.3em 0 0;
+  font-size:13px;
+}
+.save-status{
+  color:var(--muted);
+  font-family:'Oswald',sans-serif;letter-spacing:.05em;
+  display:inline-flex;align-items:center;gap:.3em;
+  transition:opacity .3s;
+}
+.save-status.saved{color:var(--green-deep);}
+.save-status.saved::before{content:'●';font-size:8px;color:var(--green);}
+.save-status.unsaved::before{content:'●';font-size:8px;color:var(--gold);}
+.reset-btn{
+  background:transparent;border:1px solid var(--line);
+  color:var(--text2);font-size:13px;
+  padding:.3em .8em;border-radius:3px;cursor:pointer;
+  font-family:'Noto Sans JP',sans-serif;
+  transition:all .2s;
+}
+.reset-btn:hover{
+  background:var(--red-bg);color:var(--red-deep);border-color:var(--red);
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand-line">
+    <div class="brand">UNIVERSAL COIN CO., LTD.</div>
+    <div class="version">PORTFOLIO DIAGNOSIS</div>
+  </div>
+  <h1>ポートフォリオ診断（DEMO版）</h1>
+  <p class="lead">資産配分のリスク構造を可視化し、長期での資産推移をシミュレーションいたします。</p>
+  <div class="save-bar">
+    <span class="save-status" id="save-status">自動保存：未起動</span>
+    <button class="reset-btn" id="reset-btn" onclick="resetAllData()" title="保存データをクリアして初期値に戻します">リセット</button>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="risk">① リスク度合い分析</button>
+  <button class="tab-btn" data-tab="sim">② 長期資産シミュレーション</button>
+  <button class="tab-btn" data-tab="ba">③ Before / After 比較</button>
+</nav>
+
+<!-- =========================================== -->
+<!-- ① リスク度合い分析                            -->
+<!-- =========================================== -->
+<section class="tab-panel active" id="tab-risk">
+
+  <div class="grid-2">
+    <div class="card gold-edge">
+      <h3>あなたの資産割合を入力</h3>
+      <div id="risk-sliders"></div>
+      <div class="total-bar" id="risk-total">合計：<span class="num" id="risk-total-pct">100.0%</span></div>
+      <p class="note">※ 単位は％。合計が100%になるように調整してください。</p>
+    </div>
+
+    <div class="card white">
+      <h3>リスクスコア</h3>
+      <div class="score-display">
+        <div style="display:flex;align-items:baseline;justify-content:center;gap:.2em;">
+          <div class="score-num" id="risk-score">—</div>
+          <div style="font-family:'Oswald',sans-serif;font-size:24px;color:var(--muted);font-weight:600;">/100</div>
+        </div>
+        <div class="score-label">危険度</div>
+        <div class="score-judge" id="risk-judge">—</div>
+      </div>
+      <div id="risk-danger-scale" style="margin-top:.4em;"></div>
+      <div style="text-align:center;font-size:12px;color:var(--muted);margin-top:.3em;font-family:'Oswald',sans-serif;letter-spacing:.05em;" id="risk-raw-score">—</div>
+      <p class="note" style="margin-top:.5em;">スコア = Σ(資産割合 × リスク寄与度 × 20年以内発生確率) × 100<br>※ 危険度は理論最大値で正規化（0〜100）</p>
+    </div>
+  </div>
+
+  <div class="card white">
+    <h3>20年以内のリスク発生確率</h3>
+    <p class="note" style="margin-bottom:1em;">※ 数値を変更するとリスクスコアに即時反映されます。</p>
+    <div class="prob-grid" id="prob-grid"></div>
+  </div>
+
+  <div class="card white">
+    <h3>資産別 × リスク要因別のリスク点数</h3>
+    <div class="chart-wrap" id="risk-stack-wrap"></div>
+    <table id="risk-table">
+      <thead>
+        <tr>
+          <th>リスク要因</th>
+          <th>株式</th><th>債券</th><th>証券</th><th>不動産</th><th>現金</th><th>地金</th><th>希少コイン</th><th>計</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="card white" id="risk-matrix-card">
+    <h3>リスク評価の考え方</h3>
+    <p class="note" style="margin-bottom:.5em;">※ 各セルは「該当リスクが発生したときに、その資産がどの程度毀損するか」の度合い（0〜1）を示しています。</p>
+    <div style="overflow-x:auto;">
+      <table class="matrix-readonly" id="risk-matrix-readonly"></table>
+    </div>
+    <div class="kizuna-cta">
+      <p class="kizuna-cta-note">※ この前提数値を変更してご自身の世界観でカスタマイズできるバージョンは、<strong>kizuna（結束）有料会員様限定ツール</strong>となります。</p>
+      <a href="#" class="kizuna-cta-btn" target="_blank" rel="noopener">限定ツールはこちら</a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================== -->
+<!-- ② 長期資産シミュレーション                     -->
+<!-- =========================================== -->
+<section class="tab-panel" id="tab-sim">
+
+  <div class="card gold-edge">
+    <h3>前提条件を入力</h3>
+    <div class="grid-2" style="margin-top:.6em;">
+      <div>
+        <div class="muted" style="font-size:17px;font-family:'Oswald',sans-serif;letter-spacing:.08em;font-weight:600;">現在ストック（万円）</div>
+        <input type="number" id="sim-stock" value="10000" style="width:100%;padding:.3em .6em;background:#FFFFFF;border:1px solid var(--line);color:var(--ink);font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;border-radius:4px;margin-top:.15em;text-align:right;">
+      </div>
+      <div>
+        <div class="muted" style="font-size:17px;font-family:'Oswald',sans-serif;letter-spacing:.08em;font-weight:600;">期間刻み（年）</div>
+        <input type="number" id="sim-step" value="5" style="width:100%;padding:.3em .6em;background:#FFFFFF;border:1px solid var(--line);color:var(--ink);font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;border-radius:4px;margin-top:.15em;text-align:right;" min="1" max="10">
+      </div>
+    </div>
+
+    <h4 style="margin-top:1.4em;">期間別 フロー（年間収支・万円）／インフレ率（％）</h4>
+    <div style="overflow-x:auto;">
+      <table id="sim-input-table" class="input-table"></table>
+    </div>
+    <p class="note">※ フロー：プラスは黒字（積み増し）、マイナスは取り崩し。<br>※ インフレ率：年率（％）。実質購買力を確認するため。</p>
+  </div>
+
+  <div class="card white">
+    <h3>名目／実質ストック推移</h3>
+    <div class="chart-wrap" id="sim-chart-wrap"></div>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-swatch" style="background:#B8941F"></span>名目ストック</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:#3D8956"></span>実質ストック（インフレ調整後）</span>
+    </div>
+    <table id="sim-result-table" style="margin-top:1em;">
+      <thead><tr><th>経過年</th><th>累積フロー</th><th>名目ストック</th><th>実質ストック</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- =========================================== -->
+<!-- ③ Before / After 比較                         -->
+<!-- =========================================== -->
+<section class="tab-panel" id="tab-ba">
+  <div class="pdf-download-bar">
+    <span class="pdf-status" id="ba-pdf-status"></span>
+    <button class="pdf-btn" id="ba-pdf-btn" onclick="downloadBaPdf()">
+      <span class="icon">📄</span>診断結果をPDFでダウンロード
+    </button>
+  </div>
+
+  <div id="ba-pdf-target">
+  <div class="card gold-edge">
+    <h3>2つの資産配分を並列で診断</h3>
+    <p class="lead" style="font-size:15px;">現状（Before）と提案後（After）の配分を入れ、<span class="gold"><strong>リスクスコアの差分</strong></span>を確認します。</p>
+  </div>
+
+  <div class="cmp-pair">
+    <div class="cmp-before">
+      <h4>BEFORE（現状）</h4>
+      <div id="ba-before-sliders"></div>
+      <div class="total-bar" id="ba-before-total">合計：<span class="num" id="ba-before-pct">100.0%</span></div>
+      <div class="score-display" style="margin-top:1em;">
+        <div style="display:flex;align-items:baseline;justify-content:center;gap:.15em;">
+          <div class="score-num" id="ba-before-score">—</div>
+          <div style="font-family:'Oswald',sans-serif;font-size:20px;color:var(--muted);font-weight:600;">/100</div>
+        </div>
+        <div class="score-label">危険度</div>
+        <div id="ba-before-label" style="font-size:16px;margin-top:.3em;font-family:'Noto Serif JP',serif;">—</div>
+      </div>
+    </div>
+    <div class="cmp-after">
+      <h4>AFTER（提案後）</h4>
+      <div id="ba-after-sliders"></div>
+      <div class="total-bar" id="ba-after-total">合計：<span class="num" id="ba-after-pct">100.0%</span></div>
+      <div class="score-display" style="margin-top:1em;">
+        <div style="display:flex;align-items:baseline;justify-content:center;gap:.15em;">
+          <div class="score-num" id="ba-after-score">—</div>
+          <div style="font-family:'Oswald',sans-serif;font-size:20px;color:var(--muted);font-weight:600;">/100</div>
+        </div>
+        <div class="score-label">危険度</div>
+        <div id="ba-after-label" style="font-size:16px;margin-top:.3em;font-family:'Noto Serif JP',serif;">—</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card white">
+    <h3>差分の可視化</h3>
+    <div class="chart-wrap" id="ba-diff-wrap"></div>
+    <p style="text-align:center;font-size:18px;margin-top:.5em;">
+      危険度の差分：<span class="num" id="ba-diff" style="font-size:36px;font-weight:700;">—</span><span style="font-family:'Oswald',sans-serif;font-size:18px;color:var(--muted);">点</span>
+    </p>
+    <p style="text-align:center;font-size:16px;margin-top:.2em;" id="ba-diff-comment">—</p>
+    <p class="note" style="text-align:center;">※ 差分がマイナス（緑）であれば、提案後の方が危険度が下がっていることを意味します。</p>
+  </div>
+  </div><!-- /#ba-pdf-target -->
+</section>
+
+<div class="foot">
+  <p>本ツールは資産配分のリスク構造を可視化するための<strong style="color:var(--gold-deep);">診断デモ版</strong>です。<br>
+  表示される判定は前提値に基づく試算であり、特定の投資商品を推奨するものではありません。<br>
+  ご自身の資産配分について個別のご相談をご希望の方は、運営者までお問い合わせください。</p>
+  <p style="margin-top:.6em;">© 2026 Naoki Nishimura</p>
+</div>
+
+<script>
+// ============================================================
+// localStorage 自動保存・読込（v0.11）
+// ============================================================
+const STORAGE_KEY = 'unicoin_portfolio_diagnosis_v1';
+let _saveTimer = null;
+let _saveCount = 0;
+
+function saveAllData(){
+  // タブ状態
+  const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab || 'risk';
+  // details開閉状態
+  const detailsOpen = {};
+  document.querySelectorAll('details[id]').forEach(d => detailsOpen[d.id] = d.open);
+
+  const data = {
+    version:'v1.1',
+    savedAt:new Date().toISOString(),
+    activeTab,
+    detailsOpen,
+    // ① リスク分析の入力（配分＋発生確率を保存。寄与度マトリクスは固定値のため保存しない）
+    allocValues:[...allocValues],
+    PROB:[...PROB],
+    // ② 長期シミュ
+    simStock,
+    simStep,
+    simFlow:[...simFlow],
+    simInfl:[...simInfl],
+    // ③ Before/After
+    BA_BEFORE:[...BA_BEFORE],
+    BA_AFTER:[...BA_AFTER],
+  };
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    _saveCount++;
+    showSaveStatus('saved');
+  } catch(e){
+    console.error('Save failed:', e);
+    showSaveStatus('error');
+  }
+}
+
+function loadAllData(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return false;
+    const data = JSON.parse(raw);
+
+    // ① リスク分析（配分と発生確率を復元。寄与度マトリクスは固定値のため復元しない）
+    if(Array.isArray(data.allocValues) && data.allocValues.length === 7){
+      for(let i=0;i<7;i++) allocValues[i] = data.allocValues[i];
+    }
+    if(Array.isArray(data.PROB) && data.PROB.length === 6){
+      for(let i=0;i<6;i++) PROB[i] = data.PROB[i];
+    }
+    // CONTRIBはv1.0以降固定値のため、保存データがあっても無視
+    // ② 長期シミュ
+    if(typeof data.simStock === 'number') simStock = data.simStock;
+    if(typeof data.simStep === 'number') simStep = data.simStep;
+    if(Array.isArray(data.simFlow)) for(let i=0;i<simFlow.length;i++) simFlow[i] = data.simFlow[i] ?? simFlow[i];
+    if(Array.isArray(data.simInfl)) for(let i=0;i<simInfl.length;i++) simInfl[i] = data.simInfl[i] ?? simInfl[i];
+    // ③ Before/After
+    if(Array.isArray(data.BA_BEFORE) && data.BA_BEFORE.length === 7){
+      for(let i=0;i<7;i++) BA_BEFORE[i] = data.BA_BEFORE[i];
+    }
+    if(Array.isArray(data.BA_AFTER) && data.BA_AFTER.length === 7){
+      for(let i=0;i<7;i++) BA_AFTER[i] = data.BA_AFTER[i];
+    }
+    // タブ・details状態は loadUiState() で復元（DOM構築後に呼ぶ）
+    window._savedUiState = {
+      activeTab:data.activeTab,
+      detailsOpen:data.detailsOpen,
+    };
+    // 保存日時表示用
+    window._lastSavedAt = data.savedAt;
+    return true;
+  } catch(e){
+    console.error('Load failed:', e);
+    return false;
+  }
+}
+
+function loadUiState(){
+  const s = window._savedUiState;
+  if(!s) return;
+  // タブ復元
+  if(s.activeTab){
+    const btn = document.querySelector(`.tab-btn[data-tab="${s.activeTab}"]`);
+    if(btn) btn.click();
+  }
+  // details復元
+  if(s.detailsOpen){
+    Object.entries(s.detailsOpen).forEach(([id, open]) => {
+      const el = document.getElementById(id);
+      if(el) el.open = open;
+    });
+  }
+}
+
+function scheduleSave(){
+  if(_saveTimer) clearTimeout(_saveTimer);
+  showSaveStatus('saving');
+  _saveTimer = setTimeout(saveAllData, 500); // 500ms後にまとめて保存（連続入力対策）
+}
+
+function showSaveStatus(state){
+  const el = document.getElementById('save-status');
+  if(!el) return;
+  el.classList.remove('saved','unsaved');
+  if(state === 'saved'){
+    const t = new Date();
+    const hh = String(t.getHours()).padStart(2,'0');
+    const mm = String(t.getMinutes()).padStart(2,'0');
+    const ss = String(t.getSeconds()).padStart(2,'0');
+    el.classList.add('saved');
+    el.textContent = `自動保存済 ${hh}:${mm}:${ss}`;
+  } else if(state === 'saving'){
+    el.classList.add('unsaved');
+    el.textContent = '保存中...';
+  } else if(state === 'error'){
+    el.textContent = '⚠ 保存エラー';
+    el.style.color = '#C13838';
+  }
+}
+
+function resetAllData(){
+  if(!confirm('保存データをすべて消去し、初期値に戻します。よろしいですか？\n（リスク前提値・配分・シミュレーション値・Before/Afterすべてリセットされます）')) return;
+  try{
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  } catch(e){
+    alert('リセット中にエラーが発生しました：'+e.message);
+  }
+}
+
+// ============================================================
+// データ定義（添付Excel原典より）
+// ============================================================
+const ASSETS = ['株式','債券','証券','不動産','現金','地金','希少コイン'];
+const ASSET_COLORS = {
+  '株式':'#5B8FE0','債券':'#7AA0C4','証券':'#9DB5D6',
+  '不動産':'#C4946A','現金':'#A8A8A8','地金':'#B8941F','希少コイン':'#D4AF37'
+};
+
+const RISK_FACTORS = [
+  '資産没収リスク','極端なインフレリスク','金融(経済)危機リスク',
+  '世界大戦リスク','食糧不足リスク','石油枯渇(インフラ崩壊)リスク'
+];
+const FACTOR_COLORS = ['#C13838','#D97A2F','#C49A2A','#7A4FB8','#3D7AB8','#3D8956'];
+
+let CONTRIB = [
+  [0.2,  0.7, 0.3, 0.7, 1.0,  0.8,  0.05],
+  [0.0,  0.7, 0.0, 0.2, 1.0,  0.0,  0.0 ],
+  [1.0,  0.7, 0.9, 0.7, 0.2,  0.15, 0.1 ],
+  [0.7,  0.7, 0.7, 0.2, 0.2,  0.0,  0.0 ],
+  [0.5,  0.5, 0.5, 0.7, 1.0,  0.1,  0.1 ],
+  [0.8,  0.8, 0.8, 0.8, 0.2,  0.2,  0.3 ],
+];
+let PROB = [0.5, 0.5, 0.5, 0.1, 0.5, 0.1];
+
+const DEFAULT_ALLOC = [8.0, 4.0, 0.0, 48.4, 3.0, 8.4, 28.0];
+const BA_BEFORE = [...DEFAULT_ALLOC];
+const BA_AFTER  = [10.0, 5.0, 0.0, 30.0, 5.0, 10.0, 40.0];
+
+// ============================================================
+// タブ切り替え
+// ============================================================
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+    if(typeof scheduleSave === 'function') scheduleSave();
+  });
+});
+
+// ============================================================
+// ① リスク分析
+// ============================================================
+function buildAllocSliders(containerId, values, onChange){
+  const c = document.getElementById(containerId);
+  c.innerHTML = '';
+  ASSETS.forEach((name,i)=>{
+    const row = document.createElement('div');
+    row.className = 'slider-row';
+    row.innerHTML = `
+      <div class="slider-label">${name}</div>
+      <input type="range" min="0" max="100" step="0.5" value="${values[i]}" data-idx="${i}">
+      <input type="number" min="0" max="100" step="0.1" value="${values[i].toFixed(1)}" data-idx="${i}">
+      <div class="unit">%</div>
+    `;
+    c.appendChild(row);
+    const range = row.querySelector('input[type=range]');
+    const num = row.querySelector('input[type=number]');
+    range.addEventListener('input',()=>{values[i]=parseFloat(range.value);num.value=values[i].toFixed(1);onChange();});
+    num.addEventListener('input',()=>{values[i]=parseFloat(num.value)||0;range.value=values[i];onChange();});
+  });
+}
+
+function calcRiskMatrix(allocPct){
+  const alloc = allocPct.map(v=>v/100);
+  const matrix = [];
+  for(let f=0;f<RISK_FACTORS.length;f++){
+    const row = [];
+    for(let a=0;a<ASSETS.length;a++){
+      row.push(alloc[a] * CONTRIB[f][a] * PROB[f] * 100);
+    }
+    matrix.push(row);
+  }
+  return matrix;
+}
+
+function totalScore(matrix){
+  let s=0;
+  matrix.forEach(row=>row.forEach(v=>s+=v));
+  return s;
+}
+
+// ============================================================
+// 危険度判定（100点満点正規化 + 5段階）
+// ============================================================
+// 理論最大値：各リスク要因について、最も寄与度が高い資産の値を採用し、
+// その資産に100%配分した場合のスコア合計
+function calcMaxScore(){
+  let maxS = 0;
+  for(let f=0;f<RISK_FACTORS.length;f++){
+    const maxContrib = Math.max(...CONTRIB[f]);
+    maxS += maxContrib * PROB[f] * 100;
+  }
+  return maxS;
+}
+
+// 危険度（0〜100に正規化）
+function dangerPct(rawScore){
+  const max = calcMaxScore();
+  if(max <= 0) return 0;
+  return Math.min(100, (rawScore / max) * 100);
+}
+
+// 6段階ラベル（最終確定仕様）
+const DANGER_LEVELS = [
+  {min:0,    max:30,   label:'極安心',     desc:'不測の事態にも強い',                           color:'#3D8956', bg:'#E5F2EA'},
+  {min:30,   max:40,   label:'やや安心',   desc:'平時は安心、非常時に弱さ',                     color:'#5BAF7A', bg:'#EAF4ED'},
+  {min:40,   max:47.5, label:'低リスク',   desc:'おおむね安定した配分です',                     color:'#A8B038', bg:'#F0F2D8'},
+  {min:47.5, max:55,   label:'中リスク',   desc:'様々な環境変化に揺さぶられる',                 color:'#B8941F', bg:'#FAF3DC'},
+  {min:55,   max:65,   label:'高リスク',   desc:'ポートフォリオを1年以内に変更するべき',        color:'#D97A2F', bg:'#FCEDD9'},
+  {min:65,   max:101,  label:'極高リスク', desc:'ポートフォリオを即変更するべき',               color:'#C13838', bg:'#FBE8E8'},
+];
+
+function judgeScore(rawScore){
+  const pct = dangerPct(rawScore);
+  const lvl = DANGER_LEVELS.find(l => pct >= l.min && pct < l.max) || DANGER_LEVELS[DANGER_LEVELS.length-1];
+  return {pct, ...lvl};
+}
+
+// 5段階スケールバーを描画
+function drawDangerScale(containerId, pct){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const W=600,H=70;
+  const L=10,R=10,T=8,B=22;
+  const innerW = W-L-R;
+  let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans JP',sans-serif">`;
+  // 段階ごとの帯
+  DANGER_LEVELS.forEach(lvl=>{
+    const x1 = L + innerW * lvl.min/100;
+    const x2 = L + innerW * Math.min(100,lvl.max)/100;
+    const w = x2 - x1;
+    svg += `<rect x="${x1}" y="${T}" width="${w}" height="22" fill="${lvl.color}" opacity="0.85"/>`;
+    const cx = (x1+x2)/2;
+    // 帯幅に応じてフォントサイズを自動調整
+    // 狭い帯（7.5%幅以下）はラベルを小さく
+    const bandPct = lvl.max - lvl.min;
+    let fs = 11;
+    if(bandPct <= 8) fs = 8.5;
+    else if(bandPct <= 11) fs = 10;
+    svg += `<text x="${cx}" y="${T+15}" fill="#FFFFFF" font-size="${fs}" text-anchor="middle" font-weight="700">${lvl.label}</text>`;
+  });
+  // 目盛り
+  [0,20,40,60,80,100].forEach(v=>{
+    const x = L + innerW * v/100;
+    svg += `<line x1="${x}" y1="${T+22}" x2="${x}" y2="${T+27}" stroke="#54556B" stroke-width="1"/>`;
+    svg += `<text x="${x}" y="${T+40}" fill="#54556B" font-size="11" text-anchor="middle" font-family="Oswald">${v}</text>`;
+  });
+  // 現在位置のマーカー（▼）
+  const px = L + innerW * Math.min(100,Math.max(0,pct))/100;
+  svg += `<polygon points="${px-7},${T-2} ${px+7},${T-2} ${px},${T+5}" fill="#1A1A24"/>`;
+  svg += `<text x="${px}" y="${T-6}" fill="#1A1A24" font-size="13" text-anchor="middle" font-weight="700" font-family="Oswald">${pct.toFixed(1)}</text>`;
+  svg += `</svg>`;
+  el.innerHTML = svg;
+}
+
+function drawStackBar(containerId, matrix){
+  // viewBoxを大きくして相対的に文字を小さく見せる
+  const W=1200,H=440,L=160,R=100,T=20,B=80;
+  const innerW=W-L-R, innerH=H-T-B;
+  const assetTotals = ASSETS.map((_,a)=>{
+    let s=0;for(let f=0;f<RISK_FACTORS.length;f++)s+=matrix[f][a];return s;
+  });
+  const maxV = Math.max(...assetTotals,1)*1.15;
+  const barH = innerH/ASSETS.length * 0.6;
+  const gap = innerH/ASSETS.length * 0.4;
+
+  let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans JP',sans-serif">`;
+  for(let i=0;i<=5;i++){
+    const x = L + innerW*i/5;
+    const v = (maxV*i/5).toFixed(1);
+    svg += `<line x1="${x}" y1="${T}" x2="${x}" y2="${T+innerH}" stroke="#D4CFC0" stroke-dasharray="3,4"/>`;
+    svg += `<text x="${x}" y="${T+innerH+22}" fill="#8A8B9A" font-size="16" text-anchor="middle" font-family="Oswald">${v}</text>`;
+  }
+  ASSETS.forEach((name,a)=>{
+    const y = T + a*(barH+gap) + gap/2;
+    let cx = L;
+    for(let f=0;f<RISK_FACTORS.length;f++){
+      const v = matrix[f][a];
+      const w = innerW * v / maxV;
+      svg += `<rect x="${cx}" y="${y}" width="${w}" height="${barH}" fill="${FACTOR_COLORS[f]}" opacity="0.85"><title>${name} × ${RISK_FACTORS[f]}: ${v.toFixed(2)}</title></rect>`;
+      cx += w;
+    }
+    svg += `<text x="${L-12}" y="${y+barH/2+6}" fill="#1A1A24" font-size="17" text-anchor="end" font-weight="500">${name}</text>`;
+    svg += `<text x="${cx+10}" y="${y+barH/2+7}" fill="#8C6F18" font-size="20" font-family="Oswald" font-weight="700">${assetTotals[a].toFixed(1)}</text>`;
+  });
+  // 凡例（横並び、必要なら折り返し）
+  let lx=L, ly=H-25;
+  const swatchSize=14, fontSize=14, itemPad=22;
+  RISK_FACTORS.forEach((f,i)=>{
+    const itemW = swatchSize + 6 + f.length*15 + itemPad;
+    if(lx + itemW > W-20 && i>0){lx=L;ly+=22;}
+    svg += `<rect x="${lx}" y="${ly-11}" width="${swatchSize}" height="${swatchSize}" fill="${FACTOR_COLORS[i]}"/>`;
+    svg += `<text x="${lx+swatchSize+6}" y="${ly}" fill="#54556B" font-size="${fontSize}">${f}</text>`;
+    lx += itemW;
+  });
+  svg += `</svg>`;
+  document.getElementById(containerId).innerHTML = svg;
+}
+
+function renderRiskTable(matrix){
+  const tbody = document.querySelector('#risk-table tbody');
+  tbody.innerHTML='';
+  matrix.forEach((row,f)=>{
+    let sum=0;row.forEach(v=>sum+=v);
+    let html = `<tr><td>${RISK_FACTORS[f]}</td>`;
+    row.forEach(v=>html += `<td class="numeric small">${v.toFixed(2)}</td>`);
+    html += `<td class="numeric gold-cell">${sum.toFixed(1)}</td></tr>`;
+    tbody.innerHTML += html;
+  });
+  let total = 0;
+  const assetSums = ASSETS.map((_,a)=>{let s=0;matrix.forEach(r=>s+=r[a]);total+=s;return s;});
+  let html = `<tr class="total-row"><td><strong>計</strong></td>`;
+  assetSums.forEach(v=>html += `<td class="numeric gold-cell">${v.toFixed(1)}</td>`);
+  html += `<td class="numeric large gold-cell">${total.toFixed(1)}</td></tr>`;
+  tbody.innerHTML += html;
+}
+
+const allocValues = [...DEFAULT_ALLOC];
+function updateRisk(){
+  const sum = allocValues.reduce((a,b)=>a+b,0);
+  document.getElementById('risk-total-pct').textContent = sum.toFixed(1)+'%';
+  const tb = document.getElementById('risk-total');
+  tb.classList.remove('warn','ok');
+  if(Math.abs(sum-100) > 0.5) tb.classList.add('warn');
+  else tb.classList.add('ok');
+
+  const mx = calcRiskMatrix(allocValues);
+  const rawScore = totalScore(mx);
+  const j = judgeScore(rawScore);
+
+  // メイン表示は危険度（0〜100）
+  document.getElementById('risk-score').textContent = j.pct.toFixed(1);
+  document.getElementById('risk-score').style.color = j.color;
+
+  const jE = document.getElementById('risk-judge');
+  jE.innerHTML = `<span style="color:${j.color};font-weight:700;">${j.label}</span><br><span style="font-size:14px;color:var(--text2);font-family:'Noto Sans JP',sans-serif;">${j.desc}</span>`;
+
+  // 生スコアも参考表示
+  const rawEl = document.getElementById('risk-raw-score');
+  if(rawEl) rawEl.textContent = '生スコア '+rawScore.toFixed(1)+' / 理論最大 '+calcMaxScore().toFixed(1);
+
+  // スコアエリア背景を危険度色に
+  const sd = document.querySelector('#tab-risk .score-display');
+  if(sd) sd.style.background = `linear-gradient(135deg, ${j.bg}, #FFFFFF)`;
+
+  drawStackBar('risk-stack-wrap', mx);
+  renderRiskTable(mx);
+  drawDangerScale('risk-danger-scale', j.pct);
+  scheduleSave();
+}
+
+// 確率カード（目立つ位置に配置）
+function buildProbGrid(){
+  const c = document.getElementById('prob-grid');
+  c.innerHTML = '';
+  RISK_FACTORS.forEach((f,fi)=>{
+    const card = document.createElement('div');
+    card.className = 'prob-cell-card';
+    card.innerHTML = `
+      <div class="prob-label">${f}</div>
+      <div class="prob-input-wrap">
+        <input type="number" min="0" max="100" step="1" value="${(PROB[fi]*100).toFixed(0)}" data-f="${fi}" class="prob-cell-input">
+        <span class="prob-unit">%</span>
+      </div>
+    `;
+    c.appendChild(card);
+  });
+  document.querySelectorAll('.prob-cell-input').forEach(inp=>{
+    inp.addEventListener('input',e=>{
+      PROB[+e.target.dataset.f] = (parseFloat(e.target.value)||0)/100;
+      updateRisk();updateBA();
+    });
+  });
+}
+
+function buildMatrixReadonly(){
+  const tbl = document.getElementById('risk-matrix-readonly');
+  if(!tbl) return;
+  let html = `<thead><tr><th>リスク要因＼資産</th>`;
+  ASSETS.forEach(a=>html += `<th>${a}</th>`);
+  html += `</tr></thead><tbody>`;
+  RISK_FACTORS.forEach((f,fi)=>{
+    html += `<tr><td>${f}</td>`;
+    ASSETS.forEach((_,ai)=>{
+      const v = CONTRIB[fi][ai];
+      html += `<td>${v === 0 ? '—' : v}</td>`;
+    });
+    html += `</tr>`;
+  });
+  html += `</tbody>`;
+  tbl.innerHTML = html;
+}
+
+buildAllocSliders('risk-sliders', allocValues, updateRisk);
+buildProbGrid();
+buildMatrixReadonly();
+updateRisk();
+
+// ============================================================
+// ② 長期資産シミュレーション
+// ============================================================
+const PERIODS = 10;
+let simStock = 10000;
+let simStep = 5;
+let simFlow = [200,200,100,100,-150,-150,-150,-150,-150,-150];
+let simInfl = [0.04,0.03,0.025,0.025,0.02,0.02,0.02,0.02,0.02,0.02];
+
+function buildSimInputTable(){
+  const tbl = document.getElementById('sim-input-table');
+  let html = `<thead><tr><th>区間</th>`;
+  for(let i=0;i<PERIODS;i++){
+    const y0 = i*simStep, y1 = (i+1)*simStep;
+    html += `<th>${y0}–${y1}年</th>`;
+  }
+  html += `</tr></thead><tbody>`;
+  html += `<tr><td>フロー（万円/年）</td>`;
+  for(let i=0;i<PERIODS;i++){
+    html += `<td><input type="number" step="10" value="${simFlow[i]}" data-i="${i}" class="flow-cell"></td>`;
+  }
+  html += `</tr><tr><td>インフレ率（%）</td>`;
+  for(let i=0;i<PERIODS;i++){
+    html += `<td><input type="number" step="0.1" value="${(simInfl[i]*100).toFixed(1)}" data-i="${i}" class="infl-cell"></td>`;
+  }
+  html += `</tr></tbody>`;
+  tbl.innerHTML = html;
+  document.querySelectorAll('.flow-cell').forEach(i=>i.addEventListener('input',e=>{simFlow[+e.target.dataset.i]=parseFloat(e.target.value)||0;updateSim();}));
+  document.querySelectorAll('.infl-cell').forEach(i=>i.addEventListener('input',e=>{simInfl[+e.target.dataset.i]=(parseFloat(e.target.value)||0)/100;updateSim();}));
+}
+
+function calcSim(){
+  let stock = simStock;
+  let realStock = simStock;
+  const points = [{y:0, stock:simStock, real:simStock, cumFlow:0}];
+  let cumFlow = 0;
+  for(let i=0;i<PERIODS;i++){
+    for(let yr=0;yr<simStep;yr++){
+      stock += simFlow[i];
+      realStock = realStock/(1+simInfl[i]) + simFlow[i];
+      cumFlow += simFlow[i];
+    }
+    points.push({y:(i+1)*simStep, stock, real:realStock, cumFlow});
+  }
+  return points;
+}
+
+function drawSimChart(points){
+  const W=1200,H=400,L=120,R=60,T=30,B=60;
+  const iw=W-L-R, ih=H-T-B;
+  const maxY = Math.max(...points.map(p=>Math.max(p.stock,p.real)))*1.1;
+  const minY = Math.min(...points.map(p=>Math.min(p.stock,p.real)),0);
+  const range = maxY - minY;
+  const xs = y => L + iw * y/(PERIODS*simStep);
+  const ys = v => T + ih - ih*(v-minY)/range;
+
+  let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans JP',sans-serif">`;
+  for(let i=0;i<=5;i++){
+    const v = minY + range*i/5;
+    const y = ys(v);
+    svg += `<line x1="${L}" y1="${y}" x2="${W-R}" y2="${y}" stroke="#D4CFC0" stroke-dasharray="3,4"/>`;
+    svg += `<text x="${L-12}" y="${y+5}" fill="#54556B" font-size="15" text-anchor="end" font-family="Oswald">${Math.round(v).toLocaleString()}</text>`;
+  }
+  for(let i=0;i<=PERIODS;i++){
+    const x = xs(i*simStep);
+    svg += `<text x="${x}" y="${H-B+24}" fill="#54556B" font-size="15" text-anchor="middle" font-family="Oswald">${i*simStep}</text>`;
+  }
+  svg += `<text x="${(L+W-R)/2}" y="${H-8}" fill="#54556B" font-size="15" text-anchor="middle">経過年</text>`;
+  svg += `<text x="20" y="${T-8}" fill="#54556B" font-size="14">万円</text>`;
+
+  let path1 = points.map((p,i)=>(i===0?'M':'L')+xs(p.y)+','+ys(p.stock)).join(' ');
+  svg += `<path d="${path1}" stroke="#B8941F" stroke-width="3" fill="none"/>`;
+  points.forEach(p=>{svg += `<circle cx="${xs(p.y)}" cy="${ys(p.stock)}" r="5" fill="#8C6F18"/>`;});
+  let path2 = points.map((p,i)=>(i===0?'M':'L')+xs(p.y)+','+ys(p.real)).join(' ');
+  svg += `<path d="${path2}" stroke="#3D8956" stroke-width="3" stroke-dasharray="6,4" fill="none"/>`;
+  points.forEach(p=>{svg += `<circle cx="${xs(p.y)}" cy="${ys(p.real)}" r="5" fill="#2C6B40"/>`;});
+  if(minY < 0 && maxY > 0){
+    svg += `<line x1="${L}" y1="${ys(0)}" x2="${W-R}" y2="${ys(0)}" stroke="#C13838" stroke-width="1.5" stroke-dasharray="4,3"/>`;
+  }
+  svg += `</svg>`;
+  document.getElementById('sim-chart-wrap').innerHTML = svg;
+}
+
+function renderSimTable(points){
+  const tbody = document.querySelector('#sim-result-table tbody');
+  tbody.innerHTML = '';
+  points.forEach(p=>{
+    tbody.innerHTML += `<tr>
+      <td class="numeric small">${p.y}年</td>
+      <td class="numeric small">${Math.round(p.cumFlow).toLocaleString()}</td>
+      <td class="numeric gold-cell">${Math.round(p.stock).toLocaleString()}</td>
+      <td class="numeric green-cell">${Math.round(p.real).toLocaleString()}</td>
+    </tr>`;
+  });
+}
+
+function updateSim(){
+  simStock = parseFloat(document.getElementById('sim-stock').value)||0;
+  simStep = parseInt(document.getElementById('sim-step').value)||5;
+  const pts = calcSim();
+  drawSimChart(pts);
+  renderSimTable(pts);
+  scheduleSave();
+}
+
+document.getElementById('sim-stock').addEventListener('input',updateSim);
+document.getElementById('sim-step').addEventListener('input',()=>{
+  simStep = parseInt(document.getElementById('sim-step').value)||5;
+  buildSimInputTable();updateSim();
+});
+
+buildSimInputTable();
+updateSim();
+
+// ============================================================
+// ③ Before / After
+// ============================================================
+function updateBA(){
+  const sB = BA_BEFORE.reduce((a,b)=>a+b,0);
+  document.getElementById('ba-before-pct').textContent = sB.toFixed(1)+'%';
+  const mB = calcRiskMatrix(BA_BEFORE);
+  const rawB = totalScore(mB);
+  const jB = judgeScore(rawB);
+  document.getElementById('ba-before-score').textContent = jB.pct.toFixed(1);
+  document.getElementById('ba-before-score').style.color = jB.color;
+  const beforeLabel = document.getElementById('ba-before-label');
+  if(beforeLabel) beforeLabel.innerHTML = `<span style="color:${jB.color};font-weight:700;">${jB.label}</span>`;
+
+  const sA = BA_AFTER.reduce((a,b)=>a+b,0);
+  document.getElementById('ba-after-pct').textContent = sA.toFixed(1)+'%';
+  const mA = calcRiskMatrix(BA_AFTER);
+  const rawA = totalScore(mA);
+  const jA = judgeScore(rawA);
+  document.getElementById('ba-after-score').textContent = jA.pct.toFixed(1);
+  document.getElementById('ba-after-score').style.color = jA.color;
+  const afterLabel = document.getElementById('ba-after-label');
+  if(afterLabel) afterLabel.innerHTML = `<span style="color:${jA.color};font-weight:700;">${jA.label}</span>`;
+
+  const diff = jA.pct - jB.pct;
+  const diffEl = document.getElementById('ba-diff');
+  diffEl.textContent = (diff>=0?'+':'') + diff.toFixed(1);
+  diffEl.style.color = diff < 0 ? '#3D8956' : (diff > 0 ? '#C13838' : '#B8941F');
+
+  // 改善コメント
+  const commentEl = document.getElementById('ba-diff-comment');
+  if(commentEl){
+    if(diff < -10) commentEl.innerHTML = '<span style="color:#3D8956;font-weight:700;">大幅な改善が見込めます</span>';
+    else if(diff < -3) commentEl.innerHTML = '<span style="color:#5BAF7A;font-weight:700;">改善傾向にあります</span>';
+    else if(diff < 0) commentEl.innerHTML = '<span style="color:#5BAF7A;">わずかに改善しています</span>';
+    else if(diff === 0) commentEl.innerHTML = '<span style="color:#54556B;">変化はありません</span>';
+    else if(diff < 5) commentEl.innerHTML = '<span style="color:#D97A2F;">わずかに悪化しています</span>';
+    else commentEl.innerHTML = '<span style="color:#C13838;font-weight:700;">悪化しています</span>';
+  }
+
+  drawBADiff(mB, mA);
+  scheduleSave();
+}
+
+function drawBADiff(mB, mA){
+  const W=1200,H=400,L=280,R=80,T=20,B=50;
+  const iw=W-L-R, ih=H-T-B;
+  const beforeF = RISK_FACTORS.map((_,f)=>{let s=0;mB[f].forEach(v=>s+=v);return s;});
+  const afterF  = RISK_FACTORS.map((_,f)=>{let s=0;mA[f].forEach(v=>s+=v);return s;});
+  const maxV = Math.max(...beforeF, ...afterF, 1)*1.15;
+  const barH = ih/RISK_FACTORS.length * 0.36;
+  const gapY = ih/RISK_FACTORS.length;
+
+  let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans JP',sans-serif">`;
+  for(let i=0;i<=5;i++){
+    const x = L + iw*i/5;
+    svg += `<line x1="${x}" y1="${T}" x2="${x}" y2="${T+ih}" stroke="#D4CFC0" stroke-dasharray="3,4"/>`;
+    svg += `<text x="${x}" y="${T+ih+22}" fill="#54556B" font-size="15" text-anchor="middle" font-family="Oswald">${(maxV*i/5).toFixed(1)}</text>`;
+  }
+  RISK_FACTORS.forEach((f,i)=>{
+    const yC = T + i*gapY + gapY/2;
+    const wB = iw * beforeF[i] / maxV;
+    const wA = iw * afterF[i] / maxV;
+    svg += `<rect x="${L}" y="${yC-barH-2}" width="${wB}" height="${barH}" fill="#C13838" opacity="0.78"/>`;
+    svg += `<text x="${L+wB+10}" y="${yC-barH/2+4}" fill="#9A2A2A" font-size="17" font-family="Oswald" font-weight="700">${beforeF[i].toFixed(1)}</text>`;
+    svg += `<rect x="${L}" y="${yC+2}" width="${wA}" height="${barH}" fill="#3D8956" opacity="0.78"/>`;
+    svg += `<text x="${L+wA+10}" y="${yC+barH/2+9}" fill="#2C6B40" font-size="17" font-family="Oswald" font-weight="700">${afterF[i].toFixed(1)}</text>`;
+    svg += `<text x="${L-14}" y="${yC+5}" fill="#1A1A24" font-size="16" text-anchor="end" font-weight="500">${f}</text>`;
+  });
+  svg += `<rect x="${L}" y="${H-15}" width="14" height="12" fill="#C13838" opacity="0.78"/><text x="${L+22}" y="${H-5}" fill="#54556B" font-size="14">Before</text>`;
+  svg += `<rect x="${L+100}" y="${H-15}" width="14" height="12" fill="#3D8956" opacity="0.78"/><text x="${L+122}" y="${H-5}" fill="#54556B" font-size="14">After</text>`;
+  svg += `</svg>`;
+  document.getElementById('ba-diff-wrap').innerHTML = svg;
+}
+
+buildAllocSliders('ba-before-sliders', BA_BEFORE, updateBA);
+buildAllocSliders('ba-after-sliders', BA_AFTER, updateBA);
+updateBA();
+
+// ============================================================
+// 自動保存・復元の起動処理
+// ============================================================
+// すべての関数・データが初期化された後に保存データを読み込んで再描画
+(function initAutoSave(){
+  const loaded = loadAllData();
+  if(loaded){
+    // 復元したデータを各UIに反映
+    // ① リスク分析：スライダー再構築
+    buildAllocSliders('risk-sliders', allocValues, updateRisk);
+    buildProbGrid();
+    buildMatrixReadonly();
+    updateRisk();
+    // ② 長期シミュ：入力欄と現在ストック・期間を反映
+    document.getElementById('sim-stock').value = simStock;
+    document.getElementById('sim-step').value = simStep;
+    buildSimInputTable();
+    updateSim();
+    // ③ Before/After
+    buildAllocSliders('ba-before-sliders', BA_BEFORE, updateBA);
+    buildAllocSliders('ba-after-sliders', BA_AFTER, updateBA);
+    updateBA();
+    // UI状態（タブ・details）
+    loadUiState();
+    // 保存日時を表示
+    if(window._lastSavedAt){
+      try{
+        const t = new Date(window._lastSavedAt);
+        const status = document.getElementById('save-status');
+        if(status){
+          const mm = String(t.getMonth()+1).padStart(2,'0');
+          const dd = String(t.getDate()).padStart(2,'0');
+          const hh = String(t.getHours()).padStart(2,'0');
+          const mi = String(t.getMinutes()).padStart(2,'0');
+          status.classList.add('saved');
+          status.textContent = `前回保存：${mm}/${dd} ${hh}:${mi}`;
+        }
+      } catch(e){}
+    }
+  } else {
+    // 初回起動：保存ステータスを未保存に
+    const status = document.getElementById('save-status');
+    if(status) status.textContent = '自動保存：有効';
+  }
+
+  // details開閉時にも保存
+  document.querySelectorAll('details').forEach(d=>{
+    d.addEventListener('toggle',()=>scheduleSave());
+  });
+})();
+
+// ============================================================
+// PDFダウンロード機能（Before/Afterタブ専用）
+// ============================================================
+async function downloadBaPdf(){
+  const btn = document.getElementById('ba-pdf-btn');
+  const status = document.getElementById('ba-pdf-status');
+  const target = document.getElementById('ba-pdf-target');
+
+  // ライブラリ読み込みチェック
+  if(typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined'){
+    alert('PDF生成ライブラリの読み込みに失敗しました。インターネット接続をご確認の上、ページを再読み込みしてください。');
+    return;
+  }
+
+  btn.disabled = true;
+  const originalLabel = btn.innerHTML;
+  btn.innerHTML = '<span class="icon">⏳</span>PDF生成中...';
+  status.textContent = '画面をキャプチャしています...';
+
+  try{
+    // キャプチャ前に背景を白に
+    target.classList.add('pdf-capturing');
+
+    // 少し待つ（描画安定化のため）
+    await new Promise(r=>setTimeout(r,100));
+
+    const canvas = await html2canvas(target, {
+      backgroundColor:'#FFFFFF',
+      scale:2, // 高解像度
+      useCORS:true,
+      logging:false,
+      windowWidth:target.scrollWidth,
+      windowHeight:target.scrollHeight,
+    });
+
+    target.classList.remove('pdf-capturing');
+    status.textContent = 'PDFを生成しています...';
+
+    // jsPDFでA4縦に収める
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+      orientation:'portrait',
+      unit:'mm',
+      format:'a4',
+    });
+
+    const pageW = 210;
+    const pageH = 297;
+    const margin = 10;
+    const usableW = pageW - margin*2;
+    const usableH = pageH - margin*2 - 18; // フッタースペース確保
+
+    // キャプチャ画像のアスペクト比から表示サイズを計算
+    const imgW = usableW;
+    const imgH = (canvas.height * imgW) / canvas.width;
+
+    // ヘッダー
+    pdf.setFillColor(184, 148, 31); // gold
+    pdf.rect(0, 0, pageW, 7, 'F');
+    pdf.setTextColor(140, 111, 24);
+    pdf.setFontSize(9);
+    pdf.text('UNIVERSAL COIN CO., LTD.', margin, 14);
+    pdf.setTextColor(120,120,120);
+    const today = new Date();
+    const dateStr = today.getFullYear()+'/'+String(today.getMonth()+1).padStart(2,'0')+'/'+String(today.getDate()).padStart(2,'0');
+    pdf.text('Portfolio Diagnosis Report  '+dateStr, pageW-margin, 14, {align:'right'});
+
+    // 本体画像
+    const imgData = canvas.toDataURL('image/jpeg', 0.92);
+    if(imgH <= usableH){
+      // 1ページに収まる
+      pdf.addImage(imgData, 'JPEG', margin, 18, imgW, imgH);
+    } else {
+      // 複数ページに分割
+      let remainingH = imgH;
+      let srcY = 0;
+      let pageNum = 1;
+      const pageContentH = usableH;
+      while(remainingH > 0){
+        if(pageNum > 1){
+          pdf.addPage();
+          // 各ページのヘッダー
+          pdf.setFillColor(184, 148, 31);
+          pdf.rect(0, 0, pageW, 7, 'F');
+          pdf.setTextColor(140, 111, 24);
+          pdf.setFontSize(9);
+          pdf.text('UNIVERSAL COIN CO., LTD.', margin, 14);
+          pdf.setTextColor(120,120,120);
+          pdf.text('Portfolio Diagnosis Report  '+dateStr, pageW-margin, 14, {align:'right'});
+        }
+        const drawH = Math.min(remainingH, pageContentH);
+        // ソース画像のクリッピングのために再度canvasを切り出す
+        const srcCanvas = document.createElement('canvas');
+        const srcRatio = canvas.width / imgW; // mm→px倍率
+        const srcSliceH = drawH * srcRatio;
+        srcCanvas.width = canvas.width;
+        srcCanvas.height = srcSliceH;
+        const ctx = srcCanvas.getContext('2d');
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0,0,srcCanvas.width,srcCanvas.height);
+        ctx.drawImage(canvas, 0, srcY*srcRatio, canvas.width, srcSliceH, 0, 0, canvas.width, srcSliceH);
+        const sliceData = srcCanvas.toDataURL('image/jpeg', 0.92);
+        pdf.addImage(sliceData, 'JPEG', margin, 18, imgW, drawH);
+
+        srcY += drawH;
+        remainingH -= drawH;
+        pageNum++;
+        if(pageNum > 10) break; // 安全装置
+      }
+    }
+
+    // フッター（最終ページのみ簡易）
+    const totalPages = pdf.internal.getNumberOfPages();
+    for(let i=1;i<=totalPages;i++){
+      pdf.setPage(i);
+      pdf.setFontSize(8);
+      pdf.setTextColor(150,150,150);
+      pdf.text('Universal Coin Co., Ltd.  /  本書は診断ツールによる試算であり、確定的な投資推奨ではありません。', pageW/2, pageH-6, {align:'center'});
+      pdf.text(i+' / '+totalPages, pageW-margin, pageH-6, {align:'right'});
+    }
+
+    // ファイル名
+    const fname = 'portfolio_before_after_'+today.getFullYear()+String(today.getMonth()+1).padStart(2,'0')+String(today.getDate()).padStart(2,'0')+'.pdf';
+    pdf.save(fname);
+
+    status.textContent = '✓ ダウンロード完了';
+    setTimeout(()=>{status.textContent='';},3000);
+  } catch(err){
+    console.error(err);
+    target.classList.remove('pdf-capturing');
+    status.textContent = '⚠ エラーが発生しました';
+    alert('PDF生成中にエラーが発生しました：\n'+err.message+'\n\nお手数ですがブラウザを再読み込みして再度お試しください。');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = originalLabel;
+  }
+}
+</script>
+</body>
+</html>
