@@ -1,0 +1,2752 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universal Coin — Asset Intelligence Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&amp;family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&amp;family=Noto+Serif+JP:wght@300;400;500;600;700&amp;family=Noto+Sans+JP:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&amp;family=Cormorant+Garamond:wght@400;500;600&amp;family=Noto+Sans+JP:wght@300;400;500;700&amp;family=Noto+Serif+JP:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+
+html, body { margin:0; padding:0; background:#0A0A08; }
+.coin-page {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* 表紙(p01)は1画面相当の高さを確保 */
+#pg1 { min-height: auto; }
+#pg1 .page { min-height: auto; }
+
+/* ===== p01_v2.html ===== */
+#pg1 *, #pg1 *::before, #pg1 *::after { box-sizing: border-box; margin: 0; padding: 0; }
+#pg1 {
+  --gold:       #D4AF37;
+  --gold-light: #E5C76B;
+  --gold-dark:  #8C6A2C;
+  --ink:        #0A0A08;
+  --ink-card:   #141412;
+  --ink-surface:#1C1C18;
+  --cream:      #F5F0E8;
+  --cream-dim:  #E8E2D8;
+  --muted:      #C8C0B0;
+  --rule:       rgba(184,151,90,0.3);
+  --border:     rgba(255,255,255,0.1);
+  --red:        #FF5555;
+}
+#pg1, #pg1 {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: "Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  margin: 0; padding: 0;
+  font-size: 18px;
+  line-height: 1.8;
+}
+#pg1 .serif-en {font-family:"Cinzel","Noto Serif JP","Georgia",serif;font-weight:600;}
+#pg1 .serif-en em {font-family:"Cormorant Garamond","Georgia",serif;font-weight:400;}
+#pg1 .serif-ja { font-family: "Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif; }
+#pg1 .page {
+  width: 100%;
+  min-height:auto;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+#pg1 /* コイン画像 */
+.coin-bg {
+  position: absolute;
+  right: -16vw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52vw;
+  height: 52vw;
+  max-width: 760px;
+  max-height: 760px;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 1;
+}
+#pg1 .coin-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  filter: sepia(12%) brightness(0.98) contrast(1.05);
+  display: block;
+}
+#pg1 .coin-ring {
+  position: absolute;
+  right: -55px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(55vw + 30px);
+  height: calc(55vw + 30px);
+  max-width: 830px;
+  max-height: 830px;
+  border-radius: 50%;
+  border: 1px solid rgba(184,151,90,0.2);
+  z-index: 2;
+  pointer-events: none;
+}
+#pg1 .coin-glow {
+  position: absolute;
+  right: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(55vw + 80px);
+  height: calc(55vw + 80px);
+  max-width: 880px;
+  max-height: 880px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,151,90,0.12) 0%, transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+#pg1 /* グラデーションマスク */
+.fade-mask {
+  position:absolute;
+  top: 0; bottom: 0; right: 0;
+  width: 35%;
+  background: linear-gradient(
+    to left,
+    rgba(10,10,8,0.95) 0%,
+    rgba(10,10,8,0.6) 35%,
+    rgba(10,10,8,0.15) 70%,
+    rgba(10,10,8,0) 100%
+  );
+  z-index: 3;
+  pointer-events: none;
+}
+#pg1 .fade-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, rgba(10,10,8,1) 0%, transparent 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+#pg1 .fade-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 120px;
+  background: linear-gradient(to top, rgba(10,10,8,1) 0%, transparent 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+#pg1 /* ヘッダー */
+.header {
+  position: relative;
+  z-index: 10;
+  padding: 32px 6vw 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.5px solid var(--rule);
+}
+#pg1 .logo { font-size: 20px; letter-spacing: 0.2em; color: var(--gold); }
+#pg1 .header-meta { font-size: 14px; letter-spacing: 0.12em; color: var(--muted); text-align: right; line-height: 1.7; }
+#pg1 .gold-line {
+  position: relative;
+  z-index: 10;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), rgba(184,151,90,0.1));
+  margin: 0 6vw;
+}
+#pg1 /* メインコンテンツ */
+.main {
+  position: relative;
+  z-index: 10;
+  padding: 0 6vw;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 52vw;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+#pg1 /* 本文背後に左→右の暗グラデを敷き、コイン上でも文字が読めるようにする */
+.main::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0; bottom: 0; left: 0;
+  width: 125%;
+  background: linear-gradient(90deg,
+    var(--ink) 0%,
+    rgba(10,10,8,0.90) 26%,
+    rgba(10,10,8,0.45) 46%,
+    rgba(10,10,8,0.0) 68%);
+  pointer-events: none;
+}
+#pg1 .eyebrow {
+  font-size: 14px;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.1s;
+}
+#pg1 .eyebrow::after { content: ""; width: 32px; height: 1px; background: var(--gold); }
+#pg1 .headline {
+  font-size: 72px;
+  font-weight: 300;
+  line-height: 1.08;
+  color: var(--cream);
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  animation: fadeUp 0.9s ease forwards 0.25s;
+}
+#pg1 .headline em { font-style: italic; color: var(--gold-light); }
+#pg1 .headline-ja {
+  font-size: 19px;
+  color: var(--cream-dim);
+  letter-spacing: 0.08em;
+  line-height: 1.9;
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: fadeUp 0.9s ease forwards 0.4s;
+}
+#pg1 .ornament {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.5s;
+}
+#pg1 .ornament::before, #pg1 .ornament::after { content: ""; height: 1px; width: 32px; background: rgba(184,151,90,0.4); }
+#pg1 .ornament span { color: var(--gold); font-size: 12px; }
+#pg1 .desc {
+  font-size: 17px;
+  line-height: 2.0;
+  color: var(--cream-dim);
+  letter-spacing: 0.05em;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 0.9s ease forwards 0.6s;
+}
+#pg1 .desc strong { color: var(--cream); font-weight: 400; }
+#pg1 /* データポイント */
+.data-row {
+  display: flex;
+  gap: 32px;
+  opacity: 0;
+  animation: fadeUp 0.9s ease forwards 0.75s;
+}
+#pg1 .data-item {
+  border-left: 2px solid rgba(184,151,90,0.5);
+  padding-left: 16px;
+}
+#pg1 .data-num {
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--gold-light);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+#pg1 .data-num span { font-size: 18px; }
+#pg1 .data-lbl { font-size: 13px; letter-spacing: 0.15em; color: var(--muted); margin-top: 4px; text-transform: uppercase; }
+#pg1 /* コインキャプション */
+.coin-caption {
+  position: absolute;
+  right: 6vw;
+  bottom: 100px;
+  z-index: 10;
+  text-align: right;
+  opacity: 0;
+  animation: fadeIn 1.2s ease forwards 1.0s;
+}
+#pg1 .coin-name { font-size: 16px; font-style: italic; color: var(--gold-light); margin-bottom: 6px; }
+#pg1 .coin-detail { font-size: 13px; color: var(--muted); letter-spacing: 0.15em; line-height: 1.7; }
+#pg1 /* フッター */
+.footer {
+  position: relative;
+  z-index: 10;
+  padding: 16px 6vw 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 0.5px solid var(--rule);
+}
+#pg1 .footer-left { font-size: 14px; letter-spacing: 0.1em; color: var(--muted); line-height: 1.8; }
+#pg1 .footer-right { font-size: 16px; color: var(--muted); letter-spacing: 0.1em; }
+
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@media (max-width: 768px) {
+#pg1 .main { max-width: 100%; padding-top: 40px; padding-bottom: 40px; }
+#pg1 .headline { font-size: 48px; }
+#pg1 .coin-bg { width: 78vw; height: 78vw; right: -22vw; }
+#pg1 .coin-ring { width: calc(78vw + 30px); height: calc(78vw + 30px); right: calc(-22vw - 15px); }
+#pg1 .coin-glow { width: calc(78vw + 60px); height: calc(78vw + 60px); right: calc(-22vw - 30px); }
+#pg1 .data-row { gap: 20px; }
+#pg1 .data-num { font-size: 28px; }
+#pg1 .coin-caption { display: none; }
+}
+
+/* ===== p02_v2.html ===== */
+#pg2 *, #pg2 *::before, #pg2 *::after { box-sizing: border-box; margin: 0; padding: 0; }
+#pg2 {
+  --gold:       #D4AF37;
+  --gold-light: #E5C76B;
+  --gold-dark:  #8C6A2C;
+  --ink:        #0A0A08;
+  --ink-card:   #141412;
+  --ink-surface:#1C1C18;
+  --cream:      #F5F0E8;
+  --cream-dim:  #E8E2D8;
+  --muted:      #C8C0B0;
+  --rule:       rgba(184,151,90,0.3);
+  --border:     rgba(255,255,255,0.1);
+  --red:        #FF5555;
+  --red-dim:    #FF9999;
+}
+#pg2, #pg2 {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: "Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  margin: 0; padding: 0;
+  font-size: 17px;
+  line-height: 1.8;
+}
+#pg2 .serif-en {font-family:"Cinzel","Noto Serif JP","Georgia",serif;font-weight:600;}
+#pg2 .serif-en em {font-family:"Cormorant Garamond","Georgia",serif;font-weight:400;}
+#pg2 .serif-ja { font-family: "Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif; }
+#pg2 /* ── ページ全体：PCはフルワイド ── */
+.page {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  min-height:auto;
+  padding: 0 0 80px;
+}
+#pg2 /* ── ヘッダー ── */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 48px 24px;
+  border-bottom: 0.5px solid var(--rule);
+}
+#pg2 .logo { font-size: 20px; letter-spacing: 0.2em; color: var(--gold); }
+#pg2 .page-num { font-size: 16px; color: var(--muted); letter-spacing: 0.1em; font-family:"Cinzel","Georgia",serif;}
+#pg2 .gold-line {
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), rgba(184,151,90,0.1));
+  margin: 0 48px;
+}
+#pg2 /* ── セクションヘッダー ── */
+.section-header {
+  padding: 56px 48px 0;
+  margin-bottom: 40px;
+  max-width: 900px;
+}
+#pg2 .eyebrow {
+  font-size: 13px;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+#pg2 .eyebrow::after { content: ""; width: 32px; height: 1px; background: var(--gold); }
+#pg2 .section-title {
+  font-size: 44px;
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.15;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+#pg2 .section-title em { font-style: italic; color: var(--gold-light); }
+#pg2 .section-sub {
+  font-size: 19px;
+  color: var(--cream-dim);
+  line-height: 1.8;
+  letter-spacing: 0.04em;
+}
+#pg2 /* ── 2カラムグリッド ── */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 0 48px;
+  margin-bottom: 24px;
+  align-items: stretch;
+}
+#pg2 /* 上段カードを行ごとに揃えるsubgrid */
+.grid-2-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 0 48px;
+  margin-bottom: 24px;
+}
+#pg2 .grid-2-top > .card {
+  display: grid;
+  grid-template-rows: auto auto 300px 200px 1fr;
+  gap: 0;
+}
+#pg2 /* 上段カード内の要素を行ごとに揃えるための共通設定 */
+.card-inner {
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+  height: 100%;
+  gap: 0;
+}
+#pg2 /* row classes removed */
+
+.grid-full {
+  padding: 0 48px;
+  margin-bottom: 24px;
+}
+#pg2 /* ── カード ── */
+.card {
+  background: var(--ink-card);
+  border: 0.5px solid var(--border);
+  border-radius: 16px;
+  padding: 36px 36px 32px;
+  height: 100%;
+}
+#pg2 .card-label {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#pg2 .card-label::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+#pg2 .card-title {
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 0;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+#pg2 /* ── 円の購買力チャート（SVG） ── */
+.chart-area {
+  background: var(--ink-surface);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+#pg2 /* ── 警告ボックス ── */
+.alert-box {
+  background: rgba(255,255,255,0.025);
+  border-left: 3px solid var(--red);
+  border-radius: 0 8px 8px 0;
+  padding: 20px 22px;
+  margin-top: 16px;
+}
+#pg2 .alert-line-1 {
+  font-size: 17px;
+  color: var(--cream-dim);
+  line-height: 1.8;
+  margin-bottom: 12px;
+  letter-spacing: 0.03em;
+}
+#pg2 .alert-line-1 .big {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--gold);
+  border-bottom: 2px solid var(--rule);
+  padding-bottom: 1px;
+}
+#pg2 .alert-line-2 {
+  font-size: 17px;
+  color: var(--cream-dim);
+  line-height: 1.8;
+  letter-spacing: 0.03em;
+}
+#pg2 .alert-line-2 .big {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--red);
+}
+#pg2 /* ── 疑似分散バーグラフ ── */
+.pseudo-div {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  margin-bottom: 16px;
+  padding: 16px 16px 0;
+  background: var(--ink-surface);
+  border-radius: 10px;
+  height: 160px;
+}
+#pg2 .pd-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  height: 100%;
+  padding-bottom: 12px;
+}
+#pg2 .pd-bar { width: 100%; border-radius: 4px 4px 0 0; }
+#pg2 .pd-label { font-size: 16px; color: var(--muted); text-align: center; line-height: 1.4; white-space: nowrap; }
+#pg2 /* ── REER 4通貨ランキング ── */
+.reer-rank { display: flex; flex-direction: column; gap: 8px; }
+#pg2 .reer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  background: var(--ink-surface);
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
+}
+#pg2 .reer-row-jpy {
+  background: rgba(255,85,85,0.06);
+  border: 1px solid rgba(255,85,85,0.5);
+  box-shadow: 0 0 18px rgba(255,85,85,0.12);
+  padding: 14px 18px;
+}
+#pg2 .reer-cur { font-size: 18px; color: var(--cream-dim); letter-spacing: 0.04em; }
+#pg2 .reer-val { font-size: 24px; font-weight: 700; letter-spacing: 0.01em; line-height: 1; }
+#pg2 .reer-val .u { font-size: 15px; font-weight: 400; margin-left: 1px; }
+#pg2 /* ── リスクリスト ── */
+.risk-list { list-style: none; margin-top: 16px; }
+#pg2 .risk-list li {
+  font-size: 17px;
+  color: var(--cream-dim);
+  padding: 12px 0;
+  border-bottom: 0.5px solid rgba(255,255,255,0.07);
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+  overflow-wrap: break-word;
+  word-break: auto-phrase;
+}
+#pg2 .risk-list li:last-child { border-bottom: none; }
+#pg2 .risk-list li .kw {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--gold-light);
+  margin-right: 12px;
+  display: inline-block;
+  white-space: nowrap;
+}
+#pg2 /* ── ゴールドボックス ── */
+.gold-box {
+  margin-top: 16px;
+  padding: 20px 22px;
+  background: rgba(184,151,90,0.08);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  font-size: 17px;
+  color: var(--cream-dim);
+  line-height: 1.8;
+}
+#pg2 .gold-box strong { color: var(--cream); font-weight: 400; }
+#pg2 /* ── 相続税数字 ── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+#pg2 .stat-item {
+  text-align: center;
+  padding: 20px 12px;
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
+  background: var(--ink-surface);
+}
+#pg2 .stat-number {
+  font-size: 56px;
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+#pg2 .stat-number.neg { color: var(--red); }
+#pg2 .stat-number.warn { color: var(--gold); }
+#pg2 .stat-number.pos { color: var(--cream); }
+#pg2 .stat-number span { font-size: 28px; }
+#pg2 .stat-desc {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+#pg2 .card-body {
+  font-size: 17px;
+  color: var(--cream-dim);
+  line-height: 1.85;
+  letter-spacing: 0.03em;
+}
+#pg2 .card-body .danger { color: #FF7070; font-weight: 700; }
+#pg2 .card-body strong { color: var(--cream); font-weight: 400; }
+#pg2 /* ── 大きな問いかけ ── */
+.big-question {
+  background: var(--ink-card);
+  border: 0.5px solid rgba(184,151,90,0.5);
+  border-radius: 16px;
+  padding: 48px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+#pg2 .big-q-deco {
+  font-size: 120px;
+  font-weight: 300;
+  color: var(--gold);
+  opacity: 0.1;
+  position: absolute;
+  top: -20px; left: 32px;
+  line-height: 1;
+  font-family: "Georgia", serif;
+  pointer-events: none;
+}
+#pg2 .big-q-text {
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--cream);
+  letter-spacing: 0.08em;
+  line-height: 2;
+  margin-bottom: 12px;
+  position: relative;
+}
+#pg2 .big-q-sub {
+  font-size: 18px;
+  color: var(--muted);
+  font-style: italic;
+  letter-spacing: 0.1em;
+  position: relative;
+}
+#pg2 /* ── フッター ── */
+.page-footer {
+  margin: 48px 48px 0;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 0.5px solid var(--rule);
+  position: relative;
+}
+#pg2 .footer-gold {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+}
+#pg2 .footer-note { font-size: 14px; color: var(--muted); line-height: 1.8; max-width: 65%; }
+#pg2 .footer-pnum { font-size: 16px; color: var(--muted); letter-spacing: 0.1em; }
+#pg2 /* ── レスポンシブ ── */
+@media (max-width: 1024px) {
+  .section-title { font-size: 42px; }
+#pg2 .card { padding: 28px 24px; }
+#pg2 .stat-number { font-size: 46px; }
+#pg2 .big-q-text { font-size: 28px; }
+#pg2 }
+
+@media (max-width: 768px) {
+  .grid-2 { grid-template-columns: 1fr; }
+#pg2 .grid-2-top { grid-template-columns: 1fr; padding: 0 5vw; gap: 16px; }
+#pg2 .grid-2-top > .card { display: block; }
+#pg2 .page-header { padding: 24px 5vw 20px; }
+#pg2 .gold-line { margin: 0 5vw; }
+#pg2 .section-header { padding: 36px 5vw 0; max-width: 100%; }
+#pg2 .section-title { font-size: 32px; }
+#pg2 .section-sub { font-size: 18px; }
+#pg2 .grid-2, #pg2 .grid-full { padding: 0 5vw; gap: 16px; }
+#pg2 .card { padding: 24px 20px; }
+#pg2 .card-title { font-size: 22px; }
+#pg2 .card-label { font-size: 12px; }
+#pg2 .card-body { font-size: 17px; }
+#pg2 .risk-list li .kw { font-size: 18px; }
+#pg2 .stat-number { font-size: 40px; }
+#pg2 .stat-desc { font-size: 14px; }
+#pg2 .risk-list li { font-size: 17px; }
+#pg2 .stat-number { font-size: 40px; }
+#pg2 .big-q-text { font-size: 22px; }
+#pg2 .big-question { padding: 32px 5vw; }
+#pg2 .big-q-deco { font-size: 80px; }
+#pg2 .big-q-sub { font-size: 14px; }
+#pg2 .page-footer { margin: 36px 5vw 0; flex-direction: column; gap: 10px; align-items: flex-start; }
+#pg2 .footer-note { max-width: 100%; }
+}
+
+/* ===== p03_v10.html ===== */
+#pg3 *, #pg3 *::before, #pg3 *::after {box-sizing:border-box;margin:0;padding:0;}
+#pg3 {
+  --gold:#D4AF37;--gold-light:#E5C76B;--gold-dark:#8C6A2C;
+  --ink:#0A0A08;--ink-card:#141412;--ink-surface:#1C1C18;
+  --cream:#F5F0E8;--cream-dim:#E8E2D8;--muted:#C8C0B0;
+  --rule:rgba(184,151,90,0.3);--border:rgba(255,255,255,0.1);
+  --green:#7E998C;--red:#FF5555;
+}
+#pg3, #pg3 {
+  background:var(--ink);color:var(--cream);
+  font-family:"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  font-weight:300;-webkit-font-smoothing:antialiased;
+  margin:0;padding:0;font-size:17px;line-height:1.8;
+}
+#pg3 .serif-en {font-family:"Cinzel","Noto Serif JP","Georgia",serif;font-weight:600;}
+#pg3 .serif-en em {font-family:"Cormorant Garamond","Georgia",serif;font-weight:400;}
+#pg3 .serif-ja {font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;}
+#pg3 .page {width:100%;min-height:auto;position:relative;overflow-x:clip;}
+#pg3 /* コイン背景（左） */
+.coin-bg {
+  position:absolute;
+  right:-40px;
+  top:50%;
+  transform:translateY(-50%);
+  width:48vw;
+  height:48vw;
+  max-width:700px;
+  max-height:700px;
+  border-radius:50%;
+  overflow:hidden;
+  z-index:0;
+  opacity:0.85;
+  pointer-events:none;
+}
+#pg3 .coin-bg img {
+  width:200%;height:100%;object-fit:cover;object-position:0% center;
+  filter:sepia(12%) brightness(0.95) contrast(1.05);display:block;
+}
+#pg3 .coin-glow {
+  position:absolute;
+  right:-80px;
+  top:50%;
+  transform:translateY(-50%);
+  width:calc(48vw + 100px);
+  height:calc(48vw + 100px);
+  max-width:800px;
+  max-height:800px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(200,168,74,0.1) 0%,transparent 70%);
+  z-index:0;
+  pointer-events:none;
+}
+#pg3 .fade-right {
+  position:absolute;
+  top:0;bottom:0;right:0;
+  width:35%;
+  background:linear-gradient(
+    to left,
+    rgba(10,10,8,0.95) 0%,
+    rgba(10,10,8,0.6) 35%,
+    rgba(10,10,8,0.15) 70%,
+    rgba(10,10,8,0) 100%
+  );
+  z-index:1;
+  pointer-events:none;
+}
+#pg3 .content {position:relative;z-index:2;padding:0 0 80px;max-width:1000px;margin:0 auto;}
+#pg3 /* ヘッダー */
+.page-header {display:flex;justify-content:space-between;align-items:center;padding:32px 48px 24px;border-bottom:0.5px solid var(--rule);}
+#pg3 .logo {font-size:20px;letter-spacing:0.2em;color:var(--gold);}
+#pg3 .page-num {font-size:16px;color:var(--muted);letter-spacing:0.1em;font-family:"Cinzel","Georgia",serif;}
+#pg3 .gold-line {height:2px;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light),rgba(184,151,90,0.1));margin:0 48px;}
+#pg3 /* セクションヘッダー */
+.section-header {padding:52px 48px 0;margin-bottom:40px;}
+#pg3 .eyebrow {font-size:13px;letter-spacing:0.35em;color:var(--gold);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+#pg3 .eyebrow::after {content:"";width:32px;height:1px;background:var(--gold);}
+#pg3 .section-title {font-size:44px;font-weight:300;color:var(--cream);line-height:1.15;margin-bottom:16px;}
+#pg3 .section-title em {font-style:italic;color:var(--gold-light);}
+#pg3 .section-sub {font-size:19px;color:var(--cream-dim);line-height:1.8;max-width:800px;}
+#pg3 /* 大数字ハイライト */
+.big-stat {padding:0 48px;margin-bottom:36px;}
+#pg3 .big-stat-inner {
+  background:linear-gradient(135deg,rgba(184,151,90,0.12) 0%,rgba(184,151,90,0.04) 100%);
+  border:0.5px solid rgba(184,151,90,0.4);border-radius:16px;
+  padding:36px 48px;display:flex;align-items:center;gap:48px;
+}
+#pg3 .big-num {font-size:96px;font-weight:300;color:#E5C76B;line-height:1;letter-spacing:-0.03em;flex-shrink:0;}
+#pg3 .big-num span {font-size:48px;color:var(--gold);}
+#pg3 .big-desc-title {font-size:28px;font-weight:400;color:var(--cream);line-height:1.6;margin-bottom:12px;}
+#pg3 .big-desc-body {font-size:19px;color:var(--cream-dim);line-height:1.9;}
+#pg3 .big-desc-body strong {color:var(--gold-light);font-weight:400;}
+#pg3 /* グリッド */
+.grid-2 {display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:0 48px;margin-bottom:28px;}
+#pg3 .grid-3 {display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:0 48px;margin-bottom:28px;}
+#pg3 .grid-full {padding:0 48px;margin-bottom:28px;}
+#pg3 /* カード */
+.card {background:var(--ink-card);border:0.5px solid var(--border);border-radius:16px;padding:28px 28px 24px;}
+#pg3 .card-label {font-size:13px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+#pg3 .card-label::before {content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+#pg3 .card-title {font-size:28px;font-weight:400;color:var(--cream);margin-bottom:16px;line-height:1.4;}
+#pg3 .card-body {font-size:19px;color:var(--cream-dim);line-height:1.9;}
+#pg3 .card-body .hl {color:#E5C76B;font-weight:700;}
+#pg3 /* ランキングリスト */
+.rank-list {list-style:none;margin-top:4px;}
+#pg3 .rank-item {display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:0.5px solid rgba(255,255,255,0.07);}
+#pg3 .rank-item:last-child {border-bottom:none;}
+#pg3 .rank-num {font-size:13px;font-family:"Cinzel","Georgia",serif;color:var(--muted);width:22px;flex-shrink:0;text-align:center;}
+#pg3 .rank-name {flex:1;font-size:17px;color:var(--cream);}
+#pg3 .rank-name.coin {color:var(--gold-light);font-weight:700;}
+#pg3 .rank-bar-wrap {width:110px;height:7px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden;flex-shrink:0;}
+#pg3 .rank-bar {height:100%;border-radius:4px;}
+#pg3 .rank-val {font-size:17px;font-family:"Cinzel","Georgia",serif;color:var(--cream);width:60px;text-align:right;flex-shrink:0;font-weight:400;}
+#pg3 /* アノテーション */
+.annotation {background:rgba(200,168,74,0.10);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:16px 20px;margin-top:16px;font-size:17px;color:var(--cream-dim);line-height:1.8;}
+#pg3 .source {font-size:13px;color:var(--muted);margin-top:10px;text-align:right;font-style:italic;}
+#pg3 /* CTAボックス */
+.gold-cta {background:rgba(184,151,90,0.08);border:0.5px solid rgba(184,151,90,0.45);border-radius:16px;padding:40px 48px;text-align:center;}
+#pg3 .gold-cta-label {font-size:13px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:12px;}
+#pg3 .gold-cta-label span {display:block;width:40px;height:1px;background:var(--gold);}
+#pg3 .gold-cta-title {font-size:28px;font-weight:400;color:var(--cream);line-height:1.8;margin-bottom:12px;}
+#pg3 .gold-cta-title strong {color:#E5C76B;font-weight:400;}
+#pg3 .gold-cta-sub {font-size:17px;color:var(--muted);font-style:italic;letter-spacing:0.06em;}
+#pg3 /* フッター */
+.page-footer {margin:40px 48px 0;padding-top:20px;display:flex;justify-content:space-between;align-items:flex-end;border-top:0.5px solid var(--rule);position:relative;}
+#pg3 .footer-gold {position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light),var(--gold-dark));}
+#pg3 .footer-note {font-size:13px;color:var(--muted);line-height:1.8;max-width:65%;}
+#pg3 .footer-pnum {font-size:16px;color:var(--muted);letter-spacing:0.1em;}
+#pg3 /* レスポンシブ */
+@media(max-width:1024px) {
+  .section-title{font-size:44px;}
+#pg3 .big-num {font-size:72px;}
+#pg3 .big-num span {font-size:36px;}
+#pg3 .big-desc-title {font-size:22px;}
+#pg3 }
+@media(max-width:768px) {
+  .coin-bg,.coin-glow,.fade-right{display:none;}
+#pg3 .grid-2, #pg3 .grid-3 {grid-template-columns:1fr;}
+#pg3 .grid-2, #pg3 .grid-3, #pg3 .grid-full, #pg3 .big-stat {padding:0 5vw;}
+#pg3 .big-stat-inner {flex-direction:column;gap:16px;padding:24px 20px;text-align:center;}
+#pg3 .big-num {font-size:60px;}
+#pg3 .section-title {font-size:30px;}
+#pg3 .section-sub {font-size:17px;}
+#pg3 .page-header {padding:24px 5vw 20px;}
+#pg3 .gold-line {margin:0 5vw;}
+#pg3 .section-header {padding:32px 5vw 0;}
+#pg3 .gold-cta {padding:28px 5vw;}
+#pg3 .gold-cta-title {font-size:22px;}
+#pg3 .page-footer {margin:32px 5vw 0;flex-direction:column;gap:10px;align-items:flex-start;}
+#pg3 .footer-note {max-width:100%;}
+}
+
+/* ===== p04_v2.html ===== */
+#pg4 *, #pg4 *::before, #pg4 *::after { box-sizing: border-box; margin: 0; padding: 0; }
+#pg4 {
+  --gold:#D4AF37; --gold-light:#E5C76B; --gold-dark:#8C6A2C;
+  --ink:#0A0A08; --ink-card:#141412; --ink-surface:#1C1C18;
+  --cream:#F5F0E8; --cream-dim:#E8E2D8; --muted:#C8C0B0;
+  --rule:rgba(184,151,90,0.3); --border:rgba(255,255,255,0.1);
+  --green:#7E998C; --red:#FF5555;
+}
+#pg4, #pg4 {background:var(--ink);color:var(--cream);
+  font-family:"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  font-weight:300;-webkit-font-smoothing:antialiased;font-size:17px;line-height:1.8;}
+#pg4 .serif-en {font-family:"Cormorant Garamond","Georgia",serif;}
+#pg4 .serif-num {font-family:"Cinzel","Georgia",serif;font-weight:600;}
+#pg4 .serif-ja {font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;}
+#pg4 .page {max-width:1000px;margin:0 auto;padding-bottom:60px;}
+#pg4 .page-header {display:flex;justify-content:space-between;align-items:center;padding:32px 48px 20px;border-bottom:0.5px solid var(--rule);}
+#pg4 .logo {font-family:"Cinzel","Georgia",serif;font-weight:600;font-size:20px;letter-spacing:0.2em;color:var(--gold);}
+#pg4 .page-num {font-family:"Cinzel","Georgia",serif;font-weight:600;font-size:15px;color:var(--muted);letter-spacing:0.1em;}
+#pg4 .gold-line {height:2px;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light),rgba(184,151,90,0.2));margin:0 48px;}
+#pg4 .section-header {padding:44px 48px 0;margin-bottom:24px;}
+#pg4 .eyebrow {font-family:"Cinzel","Georgia",serif;font-weight:600;font-size:13px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+#pg4 .eyebrow::after {content:"";width:28px;height:1px;background:var(--gold);}
+#pg4 .section-title {font-size:44px;font-weight:300;color:var(--cream);margin-bottom:18px;line-height:1.18;}
+#pg4 .section-title em {font-style:italic;color:var(--gold-light);}
+#pg4 .section-sub {font-size:18px;color:var(--cream-dim);line-height:1.85;letter-spacing:0.04em;}
+#pg4 .block {padding:0 48px;margin-bottom:30px;}
+#pg4 .lead {font-size:18px;color:var(--cream);line-height:1.95;letter-spacing:0.02em;}
+#pg4 .lead strong {color:var(--gold-light);font-weight:400;}
+#pg4 .lead .sig {display:block;margin-top:14px;font-size:15px;color:var(--muted);letter-spacing:0.06em;}
+#pg4 .lead .sig b {color:var(--cream-dim);font-weight:400;}
+#pg4 .card {background:var(--ink-card);border:0.5px solid var(--border);border-radius:16px;padding:30px 30px 26px;margin:0 48px 22px;}
+#pg4 .card-sub {font-size:16px;color:var(--cream-dim);margin-bottom:6px;line-height:1.8;}
+#pg4 .shot {margin:20px 0 6px;border:0.5px solid var(--border);border-radius:12px;overflow:hidden;background:#F5F0E8;}
+#pg4 .shot img {width:100%;display:block;}
+#pg4 .shot-sm {margin:14px 0 4px;}
+#pg4 .shot-sm img {display:block;width:100%;}
+#pg4 .shot-cap {font-size:13px;color:var(--muted);margin:10px 2px 0;line-height:1.7;}
+#pg4 .shot-cap b {color:var(--gold-light);font-weight:400;}
+#pg4 .step-no {display:inline-block;font-family:"Cinzel","Georgia",serif;font-weight:600;font-size:13px;letter-spacing:0.25em;color:var(--gold);margin-bottom:6px;}
+#pg4 .step-h {font-size:19px;font-weight:400;color:var(--cream);margin-bottom:6px;}
+#pg4 .step-row {display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:0 48px 22px;}
+#pg4 .step-row .card {margin:0;padding:22px 20px 20px;}
+#pg4 .cta-row {margin:8px 48px 0;padding:28px 30px;border:0.5px solid var(--rule);border-radius:16px;background:linear-gradient(180deg,rgba(200,168,74,0.06),rgba(255,255,255,0));display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;}
+#pg4 .cta-text {flex:1;min-width:240px;}
+#pg4 .cta-text .t1 {font-size:18px;color:var(--cream);margin-bottom:6px;}
+#pg4 .cta-text .t2 {font-size:13px;color:var(--muted);line-height:1.7;}
+#pg4 .cta-link {display:inline-flex;align-items:center;gap:10px;padding:15px 28px;border:1px solid var(--gold);border-radius:8px;color:var(--gold-light);text-decoration:none;font-size:17px;letter-spacing:0.04em;white-space:nowrap;transition:background .2s,color .2s;}
+#pg4 .cta-link:hover {background:var(--gold);color:var(--ink);}
+#pg4 .note {font-size:13px;color:var(--muted);margin:14px 48px 0;line-height:1.8;}
+#pg4 .page-footer {margin:40px 48px 0;padding-top:18px;border-top:0.5px solid var(--rule);display:flex;justify-content:space-between;align-items:flex-end;position:relative;}
+#pg4 .footer-gold {position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light),var(--gold-dark));}
+#pg4 .footer-note {font-size:13px;color:var(--muted);line-height:1.8;max-width:62%;}
+#pg4 .footer-pnum {font-family:"Cinzel","Georgia",serif;font-weight:600;font-size:15px;color:var(--muted);letter-spacing:0.1em;}
+@media(max-width:860px) {
+#pg4 .step-row {grid-template-columns:1fr 1fr;}
+}
+@media(max-width:768px) {
+#pg4 .page-header, #pg4 .gold-line, #pg4 .section-header, #pg4 .block, #pg4 .page-footer {padding-left:20px;padding-right:20px;}
+#pg4 .gold-line {margin:0 20px;}
+#pg4 .card, #pg4 .cta-row {margin-left:20px;margin-right:20px;}
+#pg4 .note {margin-left:20px;margin-right:20px;}
+#pg4 .step-row {grid-template-columns:1fr;margin-left:20px;margin-right:20px;}
+#pg4 .section-title {font-size:31px;}
+#pg4 .section-sub {font-size:16px;line-height:1.8;}
+#pg4 .lead {font-size:16px;line-height:1.85;}
+#pg4 .step-h {font-size:18px;}
+#pg4 .card-sub {font-size:15px;}
+#pg4 .shot-cap {font-size:13px;}
+#pg4 .cta-text .t1 {font-size:18px;}
+#pg4 .cta-link {font-size:16px;padding:13px 24px;}
+#pg4 .cta-row {flex-direction:column;align-items:flex-start;}
+#pg4 .footer-note {max-width:100%;}
+#pg4 .page-footer {flex-direction:column;gap:8px;align-items:flex-start;}
+}
+
+/* ===== p05_v5__1_.html ===== */
+#pg5 *, #pg5 *::before, #pg5 *::after { box-sizing: border-box; margin: 0; padding: 0; }
+#pg5 {
+  --gold:       #D4AF37; --gold-light: #E5C76B; --gold-dark:  #8C6A2C;
+  --ink: #0A0A08; --ink-card: #141412; --ink-surface: #1C1C18;
+  --cream: #F5F0E8; --cream-dim: #E8E2D8; --muted: #C8C0B0;
+  --rule: rgba(184,151,90,0.3); --border: rgba(255,255,255,0.1);
+  --red: #FF5555; --green: #7E998C; 
+  /* チャート用：コインは主役なのでゴールド系、比較資産は赤/緑/明色で */
+  --coin: var(--gold); --coin-light: var(--gold-light);
+}
+#pg5, #pg5 {
+  background: var(--ink); color: var(--cream);
+  font-family: "Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  font-weight: 300; -webkit-font-smoothing: antialiased; margin: 0; padding: 0;
+  font-size: 22px;
+  line-height: 1.8;
+}
+#pg5 .serif-en {font-family:"Cinzel","Noto Serif JP","Georgia",serif;font-weight:600;}
+#pg5 .serif-en em {font-family:"Cormorant Garamond","Georgia",serif;font-weight:400;}
+#pg5 .serif-ja { font-family: "Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif; }
+#pg5 .page { max-width: 1000px; margin: 0 auto; padding-bottom: 60px; }
+#pg5 .page-header { display:flex; justify-content:space-between; align-items:center; padding:32px 48px 20px; border-bottom:0.5px solid var(--rule); }
+#pg5 .logo { font-size:20px; letter-spacing:0.2em; color:var(--gold); }
+#pg5 .page-num { font-size:16px; color:var(--muted); letter-spacing:0.1em; font-family:"Cinzel","Georgia",serif;}
+#pg5 .gold-line { height:2px; background:linear-gradient(90deg,var(--gold-dark),var(--gold-light),rgba(184,151,90,0.2)); margin:0 48px; }
+#pg5 .section-header { padding:36px 48px 0; margin-bottom:28px; }
+#pg5 .eyebrow { font-size:13px; letter-spacing:0.35em; color:var(--gold); text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:10px; }
+#pg5 .eyebrow::after { content:""; width:28px; height:1px; background:var(--gold); }
+#pg5 .section-title { font-size:44px; font-weight:300; color:var(--cream); margin-bottom:16px; line-height:1.15; }
+#pg5 .section-title em { font-style:italic; color:var(--gold-light); }
+#pg5 .section-sub { font-size:19px; color:var(--cream-dim); line-height:1.8; letter-spacing:0.04em; }
+#pg5 .metric-row { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; padding:0 48px; margin-bottom:24px; }
+#pg5 .metric { background:var(--ink-surface); border:0.5px solid var(--border); border-radius:12px; padding:22px 20px; position:relative; overflow:hidden; }
+#pg5 .metric::before { content:""; position:absolute; top:0;left:0;right:0; height:2px; background:var(--gold); }
+#pg5 .metric-label { font-size:17px; color:var(--muted); margin-bottom:10px; }
+#pg5 .metric-value { font-size:46px; font-weight:400; line-height:1; margin-bottom:10px; letter-spacing:-0.02em; }
+#pg5 .metric-note { font-size:17px; color:var(--cream-dim); line-height:1.7; }
+#pg5 .card { background:var(--ink-card); border:0.5px solid var(--border); border-radius:16px; padding:32px 32px 24px; margin:0 48px 20px; }
+#pg5 .card-label { font-size:13px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+#pg5 .card-title { font-size:28px; font-weight:400; color:var(--cream); margin-bottom:12px; line-height:1.4; }
+#pg5 .card-sub { font-size:19px; color:var(--cream-dim); margin-bottom:18px; line-height:1.8; }
+#pg5 .legend { display:flex; flex-wrap:wrap; gap:16px; margin-bottom:16px; }
+#pg5 .legend-item { display:flex; align-items:center; gap:7px; font-size:17px; color:var(--cream-dim); }
+#pg5 .legend-dot { width:12px; height:12px; border-radius:3px; flex-shrink:0; }
+#pg5 .svg-chart { width:100%; overflow:visible; display:block; }
+#pg5 .annotation { background:rgba(200,168,74,0.10); border-left:3px solid var(--gold); border-radius:0 8px 8px 0; padding:14px 18px; margin-top:16px; font-size:19px; color:var(--cream-dim); line-height:1.8; }
+#pg5 .source { font-size:13px; color:var(--muted); margin-top:12px; text-align:right; font-style:italic; }
+#pg5 .page-footer { margin:36px 48px 0; padding-top:18px; border-top:0.5px solid var(--rule); display:flex; justify-content:space-between; align-items:flex-end; position:relative; }
+#pg5 .footer-gold { position:absolute; top:0;left:0;right:0; height:1.5px; background:linear-gradient(90deg,var(--gold-dark),var(--gold-light),var(--gold-dark)); }
+#pg5 .footer-note { font-size:13px; color:var(--muted); line-height:1.8; max-width:65%; }
+#pg5 .footer-pnum { font-size:16px; color:var(--muted); letter-spacing:0.1em; }
+@media (max-width:640px) {
+#pg5 .page-header, #pg5 .gold-line, #pg5 .section-header, #pg5 .page-footer { padding-left:20px; padding-right:20px; }
+#pg5 .gold-line { margin:0 20px; }
+#pg5 .metric-row { padding:0 20px; grid-template-columns:1fr; gap:12px; }
+#pg5 .card { margin:0 20px 16px; padding:22px 18px 18px; }
+#pg5 .section-title { font-size:32px; }
+#pg5 .metric-value { font-size:38px; }
+#pg5 .footer-note { max-width:100%; }
+#pg5 .page-footer { flex-direction:column; gap:8px; align-items:flex-start; }
+}
+
+/* ===== p06_v2.html ===== */
+#pg6 *, #pg6 *::before, #pg6 *::after { box-sizing: border-box; margin: 0; padding: 0; }
+#pg6 {
+  --gold:#D4AF37; --gold-light:#E5C76B; --gold-dark:#8C6A2C;
+  --ink:#0A0A08; --ink-card:#141412; --ink-surface:#1C1C18;
+  --cream:#F5F0E8; --cream-dim:#E8E2D8; --muted:#C8C0B0;
+  --rule:rgba(184,151,90,0.3); --border:rgba(255,255,255,0.1);
+   --green:#7E998C;
+}
+#pg6, #pg6 {background:var(--ink);color:var(--cream);
+  font-family:"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  font-weight:300;-webkit-font-smoothing:antialiased;font-size:18px;line-height:1.8;}
+#pg6 .serif-en {font-family:"Cinzel","Noto Serif JP","Georgia",serif;font-weight:600;}
+#pg6 .serif-en em {font-family:"Cormorant Garamond","Georgia",serif;font-weight:400;}
+#pg6 .serif-ja {font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;}
+#pg6 .page {max-width:1000px;margin:0 auto;padding-bottom:60px;}
+#pg6 .page-header {display:flex;justify-content:space-between;align-items:center;padding:32px 48px 20px;border-bottom:0.5px solid var(--rule);}
+#pg6 .logo {font-size:20px;letter-spacing:0.2em;color:var(--gold);}
+#pg6 .page-num {font-size:16px;color:var(--muted);letter-spacing:0.1em;font-family:"Cinzel","Georgia",serif;}
+#pg6 .gold-line {height:2px;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light),rgba(184,151,90,0.2));margin:0 48px;}
+#pg6 .section-header {padding:44px 48px 0;margin-bottom:28px;}
+#pg6 .eyebrow {font-size:13px;letter-spacing:0.35em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+#pg6 .eyebrow::after {content:"";width:28px;height:1px;background:var(--gold);}
+#pg6 .section-title {font-size:44px;font-weight:300;color:var(--cream);margin-bottom:18px;line-height:1.16;}
+#pg6 .section-title em {font-style:italic;color:var(--gold-light);}
+#pg6 .section-sub {font-size:19px;color:var(--cream-dim);line-height:1.85;letter-spacing:0.04em;}
+#pg6 .layer {padding:0 48px;margin-bottom:40px;}
+#pg6 .layer-eyebrow {font-size:13px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;}
+#pg6 .layer-title {font-size:28px;font-weight:300;color:var(--cream);margin-bottom:16px;line-height:1.3;}
+#pg6 .layer-title em {font-style:italic;color:var(--gold-light);}
+#pg6 .layer-body {font-size:19px;color:var(--cream-dim);line-height:2.0;letter-spacing:0.03em;}
+#pg6 .layer-body strong {color:var(--cream);font-weight:400;}
+#pg6 .layer-body .gold {color:var(--gold-light);font-weight:400;}
+#pg6 .lead {font-size:19px;color:var(--cream);line-height:1.95;}
+#pg6 .card {background:var(--ink-card);border:0.5px solid var(--border);border-radius:16px;padding:28px 28px 22px;margin:0 48px 20px;}
+#pg6 .card-label {font-size:13px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+#pg6 .card-title {font-size:28px;font-weight:400;color:var(--cream);margin-bottom:8px;line-height:1.4;}
+#pg6 .card-sub {font-size:17px;color:var(--cream-dim);margin-bottom:8px;line-height:1.8;}
+#pg6 .stage {width:100%;overflow:hidden;border-radius:12px;background:radial-gradient(ellipse at 50% 44%,rgba(200,168,74,0.07),rgba(255,255,255,0.01) 62%);}
+#pg6 .svg-4d {width:100%;height:auto;display:block;overflow:visible;}
+#pg6 .axis-note {display:flex;gap:24px;margin-top:16px;flex-wrap:wrap;}
+#pg6 .axis-note div {font-size:13px;color:var(--muted);}
+#pg6 .axis-note b {color:var(--gold-light);font-weight:400;}
+#pg6 .annotation {background:rgba(200,168,74,0.10);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:14px 18px;margin-top:16px;font-size:17px;color:var(--cream-dim);line-height:1.8;}
+#pg6 /* divider */
+.layer-divider {display:flex;align-items:center;gap:14px;margin:0 48px 36px;color:var(--gold);}
+#pg6 .layer-divider::before, #pg6 .layer-divider::after {content:"";height:1px;flex:1;background:rgba(184,151,90,0.25);}
+#pg6 .layer-divider span {font-size:12px;letter-spacing:0.3em;color:var(--gold-dark);}
+#pg6 /* compare table */
+.cmp {margin:0 48px 8px;border:0.5px solid var(--rule);border-radius:14px;overflow:hidden;box-shadow:0 2px 24px rgba(0,0,0,0.35);}
+#pg6 .cmp table {width:100%;border-collapse:collapse;}
+#pg6 .cmp th, #pg6 .cmp td {padding:16px 18px;text-align:left;vertical-align:top;border-bottom:0.5px solid var(--border);font-size:18px;line-height:1.75;}
+#pg6 .cmp tbody td + td {border-left:0.5px solid rgba(184,151,90,0.18);}
+#pg6 .cmp thead th {background:linear-gradient(180deg,#15120D,#0E0C0A);font-weight:500;letter-spacing:0.05em;font-size:18px;border-bottom:1px solid var(--rule);padding-top:18px;padding-bottom:18px;}
+#pg6 .cmp thead th.h-gold {color:var(--cream-dim);}
+#pg6 .cmp thead th.h-coin {color:var(--gold-light);}
+#pg6 .cmp .rowhead {color:var(--gold);font-size:15px;letter-spacing:0.08em;width:118px;background:rgba(255,255,255,0.02);font-weight:500;}
+#pg6 .cmp td.gold-col {color:var(--cream);}
+#pg6 .cmp td.coin-col {color:var(--cream);background:rgba(200,168,74,0.06);}
+#pg6 .cmp tr:last-child td {border-bottom:none;}
+#pg6 .cmp tr.concl td {background:rgba(200,168,74,0.05);font-weight:500;}
+#pg6 .cmp tr.concl td.coin-col {background:rgba(200,168,74,0.10);}
+#pg6 .cmp tr.concl .rowhead {color:var(--gold-light);background:rgba(200,168,74,0.05);}
+#pg6 /* library links */
+.lib {margin:8px 48px 0;padding:26px 30px;border:0.5px solid var(--rule);border-radius:16px;background:linear-gradient(180deg,rgba(200,168,74,0.05),rgba(255,255,255,0));}
+#pg6 .lib-label {font-size:13px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
+#pg6 .lib-lead {font-size:19px;color:var(--cream-dim);line-height:1.9;margin-bottom:20px;}
+#pg6 .lib-links {display:flex;flex-direction:column;gap:2px;}
+#pg6 .lib-link {display:flex;align-items:center;justify-content:space-between;padding:15px 4px;border-bottom:0.5px solid rgba(184,151,90,0.18);color:var(--cream);text-decoration:none;transition:color .2s,padding-left .2s;}
+#pg6 .lib-link:last-child {border-bottom:none;}
+#pg6 .lib-link:hover {color:var(--gold-light);padding-left:8px;}
+#pg6 .lib-link .ja {font-size:18px;}
+#pg6 .lib-link .en {font-size:13px;color:var(--muted);letter-spacing:0.15em;margin-left:14px;}
+#pg6 .lib-link .arrow {color:var(--gold);font-size:16px;}
+#pg6 .page-footer {margin:40px 48px 0;padding-top:18px;border-top:0.5px solid var(--rule);display:flex;justify-content:space-between;align-items:flex-end;position:relative;}
+#pg6 .footer-gold {position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light),var(--gold-dark));}
+#pg6 .footer-note {font-size:13px;color:var(--muted);line-height:1.8;max-width:62%;}
+#pg6 .footer-pnum {font-size:16px;color:var(--muted);letter-spacing:0.1em;}
+@media(max-width:640px) {
+#pg6 .page-header, #pg6 .gold-line, #pg6 .section-header, #pg6 .layer, #pg6 .layer-divider, #pg6 .page-footer {padding-left:20px;padding-right:20px;}
+#pg6 .gold-line {margin:0 20px;}
+#pg6 .card, #pg6 .cmp, #pg6 .lib {margin-left:20px;margin-right:20px;}
+#pg6 .layer-divider {margin-left:20px;margin-right:20px;}
+#pg6 .section-title {font-size:32px;}
+#pg6 .layer-title {font-size:24px;}
+#pg6 .cmp th, #pg6 .cmp td {padding:12px 12px;font-size:15px;}
+#pg6 .cmp .rowhead {width:88px;}
+#pg6 .footer-note {max-width:100%;}
+#pg6 .page-footer {flex-direction:column;gap:8px;align-items:flex-start;}
+}
+#pg6 /* coin background (per handoff spec) */
+.coin-bg {position:absolute;right:-40px;top:50%;transform:translateY(-50%);width:48vw;height:48vw;max-width:700px;max-height:700px;z-index:0;pointer-events:none;border-radius:50%;overflow:hidden;}
+#pg6 .coin-bg img {width:130%;height:100%;object-fit:cover;object-position:78% center;margin-left:-15%;opacity:0.85;filter:sepia(12%) brightness(0.92) contrast(1.05);display:block;}
+#pg6 .coin-glow {position:absolute;right:-80px;top:50%;transform:translateY(-50%);width:calc(48vw + 80px);height:calc(48vw + 80px);max-width:780px;max-height:780px;border-radius:50%;background:radial-gradient(circle,rgba(184,151,90,0.10) 0%,transparent 70%);z-index:0;pointer-events:none;}
+#pg6 .fade-mask {position:absolute;top:0;bottom:0;right:0;width:42%;background:linear-gradient(to left,rgba(10,10,8,0.97) 0%,rgba(10,10,8,0.72) 40%,rgba(10,10,8,0.2) 75%,rgba(10,10,8,0) 100%);z-index:1;pointer-events:none;}
+#pg6 .page {position:relative;z-index:2;}
+@media(max-width:768px) {
+#pg6 .coin-bg, #pg6 .coin-glow, #pg6 .fade-mask {display:none;}
+}
+
+/* ===== p07_v4__2_.html ===== */
+#pg7 {
+  --gold:#D4AF37; --gold-light:#E5C76B; --gold-dark:#8C6A2C;
+  --ink:#0A0A08; --ink-card:#141412; --ink-card-2:#1B1B18;
+  --cream:#F5F0E8; --cream-dim:#E8E2D8; --muted:#C8C0B0;
+  --line:rgba(200,168,74,0.22); --line-soft:rgba(200,168,74,0.12);
+}
+#pg7 * {box-sizing:border-box; margin:0; padding:0;}
+#pg7 {
+  font-family:"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  background:var(--ink); color:var(--cream);
+  font-weight:300; line-height:1.7;
+}
+#pg7 .serif-en {font-family:"Cinzel","Noto Serif JP","Georgia",serif;font-weight:600;}
+#pg7 .serif-en em {font-family:"Cormorant Garamond","Georgia",serif;font-weight:400;font-style:italic;}
+#pg7 .serif-ja {font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;}
+#pg7 .page {max-width:1000px; margin:0 auto; padding:36px 48px 44px; position:relative;}
+#pg7 /* ===== ヘッダー／フッター ===== */
+.page-header {display:flex; justify-content:space-between; align-items:baseline; padding-left:0; padding-right:0;}
+#pg7 .logo {font-size:13px; letter-spacing:0.18em; color:var(--gold-light); font-weight:500;}
+#pg7 .page-num {font-size:13px; letter-spacing:0.15em; color:var(--muted); font-family:"Cinzel","Georgia",serif;}
+#pg7 .gold-line {height:1px; background:linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold) 80%, transparent); margin:10px 0 28px;}
+#pg7 /* ===== セクションヘッダ ===== */
+.section-header {margin-bottom:22px;}
+#pg7 .eyebrow {font-size:13px; letter-spacing:0.35em; color:var(--gold); font-weight:500; margin-bottom:10px;}
+#pg7 .section-title {font-size:44px; font-weight:500; line-height:1.25; color:var(--cream); margin-bottom:10px;}
+#pg7 .section-title em {color:var(--gold-light); font-style:italic; font-weight:400;}
+#pg7 .section-sub {font-size:19px; color:var(--cream-dim); line-height:1.8;}
+#pg7 /* ===== リード文／本文 ===== */
+.lead {font-size:19px; line-height:1.95; color:var(--cream-dim); margin:14px 0 24px;}
+#pg7 .lead .gold {color:var(--gold-light); font-weight:500;}
+#pg7 .lead strong {color:var(--cream); font-weight:500;}
+#pg7 .body {font-size:17px; line-height:1.85; color:var(--cream-dim);}
+#pg7 .body .gold {color:var(--gold-light); font-weight:500;}
+#pg7 .body strong {color:var(--cream); font-weight:500;}
+#pg7 .block {margin-bottom:20px;}
+#pg7 /* ===== カード（希少性／グレーディング） ===== */
+.card {
+  background:linear-gradient(180deg, var(--ink-card) 0%, var(--ink-card-2) 100%);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:22px 26px;
+  margin-bottom:18px;
+}
+#pg7 .card-label {
+  font-size:11px; letter-spacing:0.28em; color:var(--gold);
+  font-weight:500; margin-bottom:8px;
+}
+#pg7 .card-title {
+  font-size:28px; color:var(--cream); font-weight:500; line-height:1.3;
+  margin-bottom:10px;
+}
+#pg7 .card-body {font-size:17px; line-height:1.85; color:var(--cream-dim);}
+#pg7 .card-body strong {color:var(--cream); font-weight:500;}
+#pg7 .card-body .gold {color:var(--gold-light); font-weight:500;}
+#pg7 /* ===== グレードバー ===== */
+.grade-scale {margin-top:16px;}
+#pg7 .grade-bar {
+  height:8px; border-radius:4px;
+  background:linear-gradient(90deg, #4A3D1F 0%, #8A6F38 35%, var(--gold) 70%, var(--gold-light) 100%);
+  margin-bottom:6px;
+}
+#pg7 .grade-ticks {
+  display:flex; justify-content:space-between;
+  font-size:11px; color:var(--cream-dim); font-family:'Cormorant Garamond', serif;
+  letter-spacing:0.08em;
+}
+#pg7 .grade-ticks b {color:var(--gold-light); font-weight:600;}
+#pg7 .grade-note {
+  margin-top:10px;
+  font-size:12px; color:var(--cream-dim); line-height:1.6;
+}
+#pg7 .grade-note .gold {color:var(--gold-light); font-weight:500;}
+#pg7 /* ===== Authorized Dealer 認定 ===== */
+.dealer-block {
+  background:linear-gradient(180deg, var(--ink-card) 0%, var(--ink-card-2) 100%);
+  border:1px solid var(--gold);
+  border-radius:6px;
+  padding:22px 26px;
+  margin:14px 0 22px;
+  text-align:center;
+  box-shadow:0 0 0 1px rgba(200,168,74,0.08) inset;
+}
+#pg7 .dealer-eyebrow {
+  font-size:11px; letter-spacing:0.32em; color:var(--gold);
+  font-weight:500; margin-bottom:8px;
+}
+#pg7 .dealer-title {
+  font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:20px; color:var(--cream); font-weight:500; line-height:1.4;
+  margin-bottom:6px;
+}
+#pg7 .dealer-title strong {color:var(--gold-light); font-weight:500;}
+#pg7 .dealer-sub {
+  font-size:15px; color:var(--cream-dim); line-height:1.7;
+  margin-bottom:20px;
+}
+#pg7 .dealer-logos {
+  display:flex; justify-content:center; align-items:center;
+  gap:36px; flex-wrap:wrap;
+  margin:6px 0 4px;
+}
+#pg7 .dealer-card {
+  background:#FFFFFF;
+  border-radius:6px;
+  padding:14px 22px;
+  display:flex; align-items:center; justify-content:center;
+  min-width:240px;
+}
+#pg7 .dealer-card img {
+  max-width:220px;
+  max-height:90px;
+  width:100%;
+  height:auto;
+  display:block;
+}
+#pg7 .dealer-note {
+  font-size:13px; color:var(--muted); line-height:1.6;
+  margin-top:18px;
+  border-top:1px solid var(--line-soft); padding-top:12px;
+}
+#pg7 .dealer-note a {color:var(--gold-light); text-decoration:none; border-bottom:1px dotted var(--gold-dark);}
+#pg7 .dealer-note a:hover {color:var(--gold);}
+#pg7 /* ===== 4要素 ===== */
+.layer-eyebrow {
+  font-size:11px; letter-spacing:0.28em; color:var(--gold);
+  font-weight:500; margin-bottom:6px;
+}
+#pg7 .layer-title {
+  font-size:28px; color:var(--cream); font-weight:500; line-height:1.25;
+  margin-bottom:8px;
+}
+#pg7 .layer-title em {color:var(--gold-light); font-style:italic; font-weight:400;}
+#pg7 .elements {
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:14px;
+  margin:18px 0;
+}
+#pg7 .elem {
+  background:rgba(200,168,74,0.04);
+  border:1px solid var(--line-soft);
+  border-radius:5px;
+  padding:16px 14px;
+}
+#pg7 .elem-no {
+  font-family:'Cormorant Garamond', serif;
+  font-size:20px; color:var(--gold-light); font-weight:500;
+  margin-bottom:4px;
+}
+#pg7 .elem-name {font-size:17px; color:var(--cream); font-weight:500; margin-bottom:6px;}
+#pg7 .elem-name .en {
+  display:block;
+  font-family:'Cormorant Garamond', serif;
+  font-size:11px; letter-spacing:0.2em; color:var(--gold);
+  font-weight:400; margin-top:2px;
+}
+#pg7 .elem-desc {font-size:13px; color:var(--cream-dim); line-height:1.55;}
+#pg7 /* ===== 落札実績テーブル ===== */
+.records {
+  background:linear-gradient(180deg, var(--ink-card) 0%, var(--ink-card-2) 100%);
+  border:1px solid var(--line);
+  border-radius:6px;
+  overflow:hidden;
+  margin-top:8px;
+}
+#pg7 .rec-head {
+  display:grid;
+  grid-template-columns:48px 180px 1fr 120px 150px;
+  padding:12px 18px;
+  background:rgba(200,168,74,0.06);
+  border-bottom:1px solid var(--line);
+  font-size:11px; letter-spacing:0.18em; color:var(--gold); font-weight:500;
+}
+#pg7 .rec-head .h-img {text-align:center;}
+#pg7 .rec-row {
+  display:grid;
+  grid-template-columns:48px 180px 1fr 120px 150px;
+  padding:12px 18px;
+  border-bottom:1px solid var(--line-soft);
+  align-items:center;
+  transition:background 0.15s;
+}
+#pg7 .rec-row:last-child {border-bottom:none;}
+#pg7 .rec-row:hover {background:rgba(200,168,74,0.03);}
+#pg7 .rec-no {
+  font-family:"Cinzel","Georgia",serif;
+  font-size:22px; color:var(--gold-light); font-weight:600;
+}
+#pg7 .rec-img {
+  width:165px; height:82px;
+  border-radius:3px;
+  background:#0a0a08;
+  border:1px solid var(--line-soft);
+  overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+#pg7 .rec-img img {
+  width:100%; height:100%;
+  object-fit:contain;
+  display:block;
+}
+#pg7 .rec-body {padding-right:14px; padding-left:4px;}
+#pg7 .rec-name {
+  font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:17px; color:var(--cream); font-weight:500;
+  line-height:1.45; margin-bottom:4px;
+}
+#pg7 .rec-detail {font-size:15px; color:var(--cream-dim); line-height:1.6;}
+#pg7 .rec-where {font-size:13px; color:var(--cream-dim); text-align:right; line-height:1.4;}
+#pg7 .rec-where .year {
+  font-family:"Cinzel","Georgia",serif;
+  font-size:22px; color:var(--gold-light); font-weight:600;
+  display:block; margin-top:2px;
+}
+#pg7 .rec-price {
+  font-family:"Cinzel","Noto Serif JP","Georgia",serif;
+  text-align:right;
+  font-size:30px; color:var(--gold); font-weight:600;
+  line-height:1.1;
+}
+#pg7 .rec-price .unit {font-size:15px; color:var(--cream-dim); font-family:"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif; font-weight:400; letter-spacing:0.04em;}
+#pg7 /* ===== 注記／図書館 ===== */
+.note-block {
+  margin-top:18px; padding:14px 18px;
+  border-left:2px solid var(--gold-dark);
+  background:rgba(154,122,42,0.05);
+  font-size:12px; color:var(--cream-dim); line-height:1.7;
+}
+#pg7 .note-block strong {color:var(--cream);}
+#pg7 .libnote {margin-top:22px; font-size:13px; color:var(--cream-dim);}
+#pg7 .libnote a {color:var(--gold-light); text-decoration:none; border-bottom:1px dotted var(--gold-dark); padding-bottom:1px;}
+#pg7 .libnote a:hover {color:var(--gold); border-bottom-color:var(--gold);}
+#pg7 /* ===== フッタ ===== */
+.page-footer {display:flex; justify-content:space-between; align-items:center; margin-top:36px; gap:18px; padding-left:48px; padding-right:48px;}
+#pg7 .footer-gold {flex:1; height:1px; background:linear-gradient(90deg, var(--gold) 0%, transparent 100%); max-width:200px;}
+#pg7 .footer-note {flex:2; font-size:13px; color:var(--muted); line-height:1.6;}
+#pg7 .footer-pnum {font-size:13px; color:var(--muted); letter-spacing:0.15em;}
+#pg7 /* ===== モバイル ===== */
+@media (max-width:780px) {
+  .page{padding:24px 18px 30px;}
+#pg7 .section-title {font-size:30px;}
+#pg7 .section-sub {font-size:17px;}
+#pg7 .lead {font-size:17px;}
+#pg7 .body {font-size:17px;}
+#pg7 .card {padding:18px 16px;}
+#pg7 .card-title {font-size:22px;}
+#pg7 .dealer-block {padding:18px 14px;}
+#pg7 .dealer-title {font-size:19px;}
+#pg7 .dealer-sub {font-size:14px;}
+#pg7 .dealer-logos {gap:14px;}
+#pg7 .dealer-card {min-width:0; padding:10px 16px;}
+#pg7 .dealer-card img {max-width:160px;}
+#pg7 .dealer-note {font-size:12px;}
+#pg7 .elements {grid-template-columns:repeat(2, 1fr); gap:10px;}
+#pg7 .layer-title {font-size:24px;}
+#pg7 .rec-head {display:none;}
+#pg7 .rec-row {
+    grid-template-columns:38px 1fr;
+    grid-template-areas:
+      "no img"
+      "no body"
+      "no metarow";
+    column-gap:8px; row-gap:6px;
+    padding:14px 12px;
+  }
+#pg7 .rec-no {grid-area:no; font-size:18px; align-self:start;}
+#pg7 .rec-img {grid-area:img; width:100%; height:auto; aspect-ratio:2/1;}
+#pg7 .rec-body {grid-area:body; padding:0;}
+#pg7 .rec-name {font-size:15px;}
+#pg7 .rec-detail {font-size:14px;}
+#pg7 .metarow {
+    grid-area:metarow;
+    display:flex; justify-content:space-between; align-items:flex-end;
+    padding-top:4px; border-top:1px solid var(--line-soft);
+  }
+#pg7 .rec-price {font-size:20px; text-align:left;}
+#pg7 .rec-where {text-align:right; font-size:13px;}
+#pg7 .rec-where .year {display:inline; font-size:14px; margin-left:6px;}
+#pg7 .page-footer {flex-direction:column; align-items:flex-start; gap:8px;}
+}
+
+.page-num:empty{display:none;}
+
+/* ===== セクション継ぎ目の演出（共通・後勝ち上書き） ===== */
+/* 1) ページ間の継ぎ目余白を詰める */
+.coin-page + .coin-page { margin-top: 0; }
+.coin-page { background: #0A0A08; }
+
+/* ===== スクロール帯ごとの背景（A案：右に大きく＋左フェード／sticky） ===== */
+.bg-band { position: relative; background:#0A0A08; }
+.bg-band > .coin-page { overflow: visible; background: transparent; position: relative; z-index: 2; }
+.band-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.band-bg .band-sticky {
+  position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden;
+}
+.band-bg .band-img {
+  position: absolute; top: 38%; right: -60px; transform: translateY(-50%);
+  width: 52vw; max-width: 760px; height: auto; opacity: 0.9; border-radius: 50%;
+}
+.band-bg .band-fade {
+  position: absolute; inset: 0;
+  background: linear-gradient(to left,
+    rgba(10,10,8,0) 0%, rgba(10,10,8,0.35) 30%,
+    rgba(10,10,8,0.88) 62%, rgba(10,10,8,0.98) 100%);
+}
+@media (max-width:760px){ .band-bg { display:none; } }
+
+/* 帯背景を透けさせるため、pg2-7のベース塗りを透明化（カード等の塗りは維持） */
+#pg2, #pg3, #pg4, #pg5, #pg6, #pg7 { background: transparent !important; }
+.bg-band > .coin-page, .bg-band .page { background: transparent !important; }
+
+/* 2) 背景明度を僅かに交互（偶数ページをほんの少し明るく） */
+#pg2 .page, #pg4 .page, #pg6 .page { background: #0C0C0A; }
+#pg3 .page, #pg5 .page, #pg7 .page { background: #0A0A08; }
+
+/* 3) 繰り返しヘッダーを「区切りバンド」として軽量化（下線/枠は弱める） */
+#pg2 .page-header, #pg3 .page-header, #pg4 .page-header,
+#pg5 .page-header, #pg6 .page-header, #pg7 .page-header {
+  border-bottom: none !important;
+  padding-top: 56px;
+  opacity: 0.9;
+}
+#pg2 .gold-line, #pg3 .gold-line, #pg4 .gold-line,
+#pg5 .gold-line, #pg6 .gold-line, #pg7 .gold-line {
+  background: linear-gradient(90deg, transparent, rgba(184,151,90,0.35) 20%, rgba(184,151,90,0.35) 80%, transparent) !important;
+  height: 1px !important;
+}
+
+/* 4) section-header の背後にコイン箔（同心円＋放射）を敷く */
+#pg2 .section-header, #pg3 .section-header, #pg4 .section-header,
+#pg5 .section-header, #pg6 .section-header, #pg7 .section-header {
+  position: relative;
+  isolation: isolate;
+}
+#pg2 .section-header::before, #pg3 .section-header::before,
+#pg4 .section-header::before, #pg5 .section-header::before,
+#pg6 .section-header::before, #pg7 .section-header::before {
+  content: none;
+  position: absolute;
+  z-index: -1;
+  top: 50%; left: 40px;
+  transform: translateY(-50%);
+  width: 240px; height: 240px;
+  pointer-events: none;
+  opacity: 0.5;
+  background:
+    radial-gradient(circle at center,
+      rgba(212,175,55,0.10) 0%,
+      rgba(212,175,55,0.05) 30%,
+      transparent 62%),
+    repeating-radial-gradient(circle at center,
+      rgba(212,175,55,0.12) 0px,
+      rgba(212,175,55,0.12) 1px,
+      transparent 1px,
+      transparent 11px);
+  -webkit-mask: radial-gradient(circle at center, #000 60%, transparent 72%);
+          mask: radial-gradient(circle at center, #000 60%, transparent 72%);
+}
+@media (max-width: 768px){
+  #pg2 .section-header::before, #pg3 .section-header::before,
+  #pg4 .section-header::before, #pg5 .section-header::before,
+  #pg6 .section-header::before, #pg7 .section-header::before{
+    width: 150px; height: 150px; left: -10px; opacity: 0.4;
+  }
+}
+
+
+/* ===== 出典注記（グラフ近くに小さく） ===== */
+.source-note{
+  font-family:"Noto Sans JP","Hiragino Sans",sans-serif;
+  font-size:11px; line-height:1.7; color:rgba(200,192,176,0.55);
+  letter-spacing:0.02em; margin:18px 48px 0; max-width:760px;
+}
+@media(max-width:768px){ .source-note{ margin:14px 5vw 0; font-size:10px; } }
+
+/* ===== 継ぎ目装飾（コイン箔＋細い金線） ===== */
+.seam{
+  position:relative; height:30px; width:100%;
+  display:flex; align-items:center; justify-content:center;
+  background:#0A0A08; overflow:hidden;
+}
+.seam::before{ /* 細い金のグラデ線（中央） */
+  content:""; position:absolute; left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  width:min(70%,640px); height:1px;
+  background:linear-gradient(90deg,transparent,rgba(184,151,90,0.45) 22%,rgba(229,199,107,0.7) 50%,rgba(184,151,90,0.45) 78%,transparent);
+}
+.seam-coin{ /* 中央のコイン箔（同心円） */
+  position:relative; width:46px; height:46px; border-radius:50%;
+  background:
+    radial-gradient(circle at 38% 36%, rgba(229,199,107,0.28), rgba(212,175,55,0.10) 55%, transparent 72%),
+    repeating-radial-gradient(circle at center, rgba(212,175,55,0.30) 0 1px, transparent 1px 5px);
+  box-shadow:0 0 0 1px rgba(184,151,90,0.35), 0 0 18px rgba(212,175,55,0.18);
+  z-index:1;
+}
+.seam-coin::after{ /* 中央の小さな点 */
+  content:""; position:absolute; inset:42%; border-radius:50%;
+  background:rgba(229,199,107,0.55);
+}
+@media(max-width:768px){ .seam{ height:24px; } .seam-coin{ width:30px; height:30px; } }
+
+</style>
+</head>
+<body>
+<div class="coin-page" id="pg1">
+
+<div class="page">
+<div class="coin-glow"></div>
+<div class="coin-bg">
+<img alt="Victoria Una and Lion 1839" loading="eager" src="images/p01_v2_0.png"/>
+</div>
+<div class="coin-ring"></div>
+<div class="fade-mask"></div>
+<div class="fade-top"></div>
+<div class="fade-bottom"></div>
+<div class="header">
+<div class="logo serif-en">Universal · Coin</div>
+<div class="header-meta">
+      Investment Asset Report<br/>
+      Confidential — For Qualified Investors
+    </div>
+</div>
+<div class="gold-line"></div>
+<div class="main">
+<div class="eyebrow">Asset Intelligence Series</div>
+<h1 class="headline serif-en">
+      The Asset<br/>
+      That <em>Outlasts</em><br/>
+      Empires.
+    </h1>
+<p class="headline-ja serif-ja">
+      世界の富裕層が静かに動かしている、<br/>
+      もうひとつの資産クラス。
+    </p>
+<div class="ornament"><span>◆</span></div>
+<p class="desc">
+      アンティークコイン投資入門<br/>
+<strong>希少性・歴史性・価格安定性</strong>の三位一体。<br/>
+      なぜ今、世界の資産家が注目するのか。<br/>
+      データと論理で、その合理性を解説する。
+    </p>
+<div class="data-row">
+<div class="data-item">
+<div class="data-num serif-en">+248<span>%</span></div>
+<div class="data-lbl">10-Year Return</div>
+</div>
+<div class="data-item">
+<div class="data-num serif-en">13.3<span>%</span></div>
+<div class="data-lbl">Annual CAGR</div>
+</div>
+<div class="data-item">
+<div class="data-num serif-en">2600<span>yr</span></div>
+<div class="data-lbl">Asset History</div>
+</div>
+</div>
+</div>
+<div class="coin-caption">
+<div class="coin-name serif-en">Victoria — Una &amp; The Lion</div>
+<div class="coin-detail">
+      1839 · 5 Pounds Gold Proof<br/>
+      Mintage: 400 · W. Wyon R.A.
+    </div>
+</div>
+<div class="footer">
+</div>
+</div>
+
+</div>
+<div class="seam" aria-hidden="true"><span class="seam-coin"></span></div>
+<!-- ===== 帯1：pg2-3（12月大・オーストリア100コロナ背景） ===== -->
+<div class="bg-band">
+<div class="band-bg"><div class="band-sticky">
+<img class="band-img" src="images/bg_korona.webp" alt="">
+<div class="band-fade"></div>
+</div></div>
+<div class="coin-page" id="pg2">
+
+<div class="page">
+<!-- ヘッダー -->
+<!-- header removed -->
+<!-- セクションタイトル -->
+<div class="section-header">
+<div class="eyebrow">The Problem</div>
+<h2 class="section-title serif-en">あなたの資産は、<br/><em>本当に</em>安全ですか？</h2>
+<p class="section-sub serif-ja">「分散投資をしている」<br/>——その安心感が、最大のリスクかもしれない。</p>
+</div>
+<!-- 上段 2カラム -->
+<div class="grid-2-top">
+<!-- 左：通貨の減価 -->
+<div class="card" id="card-left" style="display:flex; flex-direction:column;">
+<div class="card-label" id="left-label">Currency Devaluation</div>
+<div class="card-title serif-ja" id="left-title">日本円<span style="color:var(--red);">だけ</span>が、落ちている</div>
+<!-- 4通貨ランキング -->
+<div style="margin-bottom:16px;">
+<div style="font-size:13px; letter-spacing:0.15em; color:var(--muted); margin-bottom:12px;">実質実効為替レート（REER）30年変化 ― 1995年比</div>
+<div class="reer-rank">
+<div class="reer-row">
+<span class="reer-cur">米ドル</span>
+<span class="reer-val serif-en" style="color:var(--cream);">+28<span class="u">%</span></span>
+</div>
+<div class="reer-row">
+<span class="reer-cur">ユーロ</span>
+<span class="reer-val serif-en" style="color:var(--gold-light);">−10<span class="u">%</span></span>
+</div>
+<div class="reer-row">
+<span class="reer-cur">人民元</span>
+<span class="reer-val serif-en" style="color:var(--cream);">+42<span class="u">%</span></span>
+</div>
+<div class="reer-row reer-row-jpy">
+<span class="reer-cur" style="color:var(--cream); font-weight:500;">日本円</span>
+<span class="reer-val serif-en" style="color:var(--red); font-size:30px;">−58.6<span class="u" style="font-size:18px;">%</span></span>
+</div>
+</div>
+</div>
+<div class="chart-area" id="left-visual" style="display:flex; align-items:center;">
+<svg viewbox="0 0 612 250" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="jpyfill" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="rgba(255,85,85,0.22)"></stop>
+<stop offset="100%" stop-color="rgba(255,85,85,0)"></stop>
+</lineargradient>
+</defs>
+<!-- Y軸グリッド: 180→24, 140→70.9, 100→117.7, 70→152.9, 40→188 -->
+<line stroke="rgba(255,255,255,0.12)" stroke-width="1" x1="56" x2="56" y1="24" y2="188"></line>
+<line stroke="rgba(255,255,255,0.12)" stroke-width="1" x1="56" x2="548" y1="188" y2="188"></line>
+<line stroke="rgba(255,255,255,0.05)" stroke-dasharray="4,4" x1="56" x2="548" y1="24" y2="24"></line>
+<text fill="#9A937F" font-family="Cinzel,serif" font-size="13" text-anchor="end" x="46" y="29">180</text>
+<line stroke="rgba(255,255,255,0.05)" stroke-dasharray="4,4" x1="56" x2="548" y1="70.9" y2="70.9"></line>
+<text fill="#9A937F" font-family="Cinzel,serif" font-size="13" text-anchor="end" x="46" y="75">140</text>
+<text fill="#9A937F" font-family="Cinzel,serif" font-size="13" text-anchor="end" x="46" y="122">100</text>
+<line stroke="rgba(255,255,255,0.05)" stroke-dasharray="4,4" x1="56" x2="548" y1="152.9" y2="152.9"></line>
+<text fill="#9A937F" font-family="Cinzel,serif" font-size="13" text-anchor="end" x="46" y="157">70</text>
+<text fill="#9A937F" font-family="Cinzel,serif" font-size="13" text-anchor="end" x="46" y="192">40</text>
+<!-- 基準ライン 100（=2020年水準） -->
+<line stroke="rgba(212,175,55,0.45)" stroke-dasharray="6,4" stroke-width="1" x1="56" x2="548" y1="117.7" y2="117.7"></line>
+<text fill="#8C6A2C" font-family="Cinzel,serif" font-size="11" text-anchor="end" x="548" y="113">100 (2020=base)</text>
+<!-- X軸ラベル -->
+<text fill="#9A937F" font-family="Cinzel,serif" font-size="13" text-anchor="middle" x="56" y="206">1995</text>
+<text fill="#9A937F" font-family="Cinzel,serif" font-size="13" text-anchor="middle" x="302" y="206">2010</text>
+<text fill="#9A937F" font-family="Cinzel,serif" font-size="13" text-anchor="middle" x="548" y="206">2025</text>
+<!-- 米ドル（クリーム・実線） -->
+<polyline fill="none" points="56,131.8 111,129.4 165,127.1 220,123.6 275,120.1 329,117.7 384,114.2 439,110.7 493,107.2 548,103.0" stroke="#F5F0E8" stroke-linejoin="round" stroke-width="2.2"></polyline>
+<text fill="#F5F0E8" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="500" x="551" y="100">米ドル</text>
+<!-- ユーロ（金・破線） -->
+<polyline fill="none" points="56,94.3 111,96.6 165,100.1 220,104.8 275,109.5 329,114.2 384,116.5 439,114.2 493,110.7 548,108.3" stroke="#D4AF37" stroke-dasharray="9,5" stroke-linejoin="round" stroke-width="2.2"></polyline>
+<text fill="#D4AF37" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="500" x="551" y="116">ユーロ</text>
+<!-- 人民元（青グレー・点線） -->
+<polyline fill="none" points="56,166.9 111,161.1 165,152.9 220,141.1 275,129.4 329,122.4 384,117.7 439,122.4 493,136.5 548,138.3" stroke="#8AA6BC" stroke-dasharray="2,5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></polyline>
+<text fill="#8AA6BC" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="500" x="551" y="145">人民元</text>
+<!-- 日本円（純赤・主役・塗り付き） -->
+<polygon fill="url(#jpyfill)" points="56,30.8 111,47.4 165,66.2 220,82.6 275,94.3 329,103.7 384,113.0 439,129.4 493,149.3 548,150.4 548,188 56,188"></polygon>
+<polyline fill="none" points="56,30.8 111,47.4 165,66.2 220,82.6 275,94.3 329,103.7 384,113.0 439,129.4 493,149.3 548,150.4" stroke="#FF5555" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline>
+<!-- 始点・終点マーカー -->
+<circle cx="56" cy="30.8" fill="#FF5555" r="4.5"></circle>
+<text fill="#FF5555" font-family="Cinzel,serif" font-size="14" font-weight="700" x="62" y="26">174.2</text>
+<circle cx="548" cy="150.4" fill="#FF5555" r="5" stroke="#1C1C18" stroke-width="2"></circle>
+<text fill="#FF5555" font-family="Cinzel,serif" font-size="14" font-weight="700" text-anchor="end" x="540" y="166">72.1</text>
+<!-- 凡例 -->
+<g font-family="'Noto Sans JP',sans-serif" font-size="13">
+<line stroke="#FF5555" stroke-width="3" x1="60" x2="84" y1="224" y2="224"></line>
+<text fill="#E8E2D8" x="90" y="228">日本円</text>
+<line stroke="#F5F0E8" stroke-width="2.2" x1="168" x2="192" y1="224" y2="224"></line>
+<text fill="#C8C0B0" x="198" y="228">米ドル</text>
+<line stroke="#D4AF37" stroke-dasharray="9,5" stroke-width="2.2" x1="276" x2="300" y1="224" y2="224"></line>
+<text fill="#C8C0B0" x="306" y="228">ユーロ</text>
+<line stroke="#8AA6BC" stroke-dasharray="2,5" stroke-linecap="round" stroke-width="2.2" x1="384" x2="408" y1="224" y2="224"></line>
+<text fill="#C8C0B0" x="414" y="228">人民元</text>
+</g>
+</svg>
+</div>
+<div class="alert-box" id="left-alert" style="margin-top:0; margin-bottom:0;">
+<div style="font-size:17px; color:var(--cream-dim); line-height:1.9; margin-bottom:10px;">
+          実質的な通貨の実力を示すREERで見ると、円は30年で<br/>
+<span style="font-size:19px; font-weight:700; color:var(--gold); border-bottom:2px solid var(--rule); padding-bottom:1px;">実力の約6割</span>を失った。
+        </div>
+<div style="font-size:17px; color:var(--cream-dim); line-height:1.9;">
+          主要通貨が価値を保つなか、<span style="font-size:19px; font-weight:700; color:var(--red);">円だけが沈んでいる。</span>
+</div>
+</div>
+<div style="margin-top:16px; padding:20px 22px; background:rgba(184,151,90,0.07); border-left:3px solid var(--gold); border-radius:0 8px 8px 0; flex:1;">
+<div style="font-size:13px; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase; margin-bottom:10px;">Economic Background</div>
+<div style="font-size:19px; color:var(--cream-dim); line-height:1.9; letter-spacing:0.03em;">
+          REERは物価と為替を加味した「通貨の真の購買力」。<br/>
+<span style="color:var(--cream); font-weight:400;">円資産で持つほど、世界に対して目減りする</span>時代に、<br/>
+          「円の現金で持ち続ける」という選択肢は<br/>
+<span style="color:var(--gold-light); font-weight:700;">静かなる資産減少</span>を意味する。
+        </div>
+</div>
+</div>
+<!-- 右：隠れたリスク -->
+<div class="card" id="card-right">
+<div class="card-label" id="right-label">Hidden Risk</div>
+<div class="card-title serif-ja" id="right-title">「分散」しているつもりが、<br/>同じリスクの中にいる</div>
+<div class="chart-area" id="right-visual" style="display:flex; align-items:center;">
+<svg viewbox="0 0 560 250" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialgradient cx="38%" cy="50%" id="riskglow" r="50%">
+<stop offset="0%" stop-color="rgba(255,85,85,0.16)"></stop>
+<stop offset="60%" stop-color="rgba(255,85,85,0.05)"></stop>
+<stop offset="100%" stop-color="rgba(255,85,85,0)"></stop>
+</radialgradient>
+<radialgradient cx="50%" cy="50%" id="ringfill" r="50%">
+<stop offset="0%" stop-color="rgba(255,85,85,0.02)"></stop>
+<stop offset="100%" stop-color="rgba(255,85,85,0.09)"></stop>
+</radialgradient>
+</defs>
+<!-- 危機グロー -->
+<ellipse cx="212" cy="125" fill="url(#riskglow)" rx="150" ry="120"></ellipse>
+<!-- 金融システムの輪（リスクの境界） -->
+<circle cx="212" cy="125" fill="url(#ringfill)" r="108" stroke="rgba(255,85,85,0.55)" stroke-dasharray="2,5" stroke-width="1.5"></circle>
+<text fill="#FF6B6B" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" letter-spacing="0.08em" text-anchor="middle" x="212" y="34">金融システムリスクの輪</text>
+<!-- 輪の中の4資産（密集＝同じリスクを共有） -->
+<g font-family="'Noto Serif JP',serif">
+<circle cx="170" cy="100" fill="rgba(232,226,216,0.05)" r="34" stroke="#E8E2D8" stroke-width="1.5"></circle>
+<text fill="#E8E2D8" font-size="20" text-anchor="middle" x="170" y="98">株</text>
+<text fill="#9A937F" font-family="Cinzel,serif" font-size="10" text-anchor="middle" x="170" y="116">EQUITY</text>
+<circle cx="250" cy="98" fill="rgba(232,226,216,0.05)" r="32" stroke="#E8E2D8" stroke-width="1.5"></circle>
+<text fill="#E8E2D8" font-size="20" text-anchor="middle" x="250" y="96">債</text>
+<text fill="#9A937F" font-family="Cinzel,serif" font-size="10" text-anchor="middle" x="250" y="113">BOND</text>
+<circle cx="168" cy="166" fill="rgba(232,226,216,0.05)" r="31" stroke="#E8E2D8" stroke-width="1.5"></circle>
+<text fill="#E8E2D8" font-size="19" text-anchor="middle" x="168" y="164">不</text>
+<text fill="#9A937F" font-family="Cinzel,serif" font-size="9" text-anchor="middle" x="168" y="181">REIT</text>
+<circle cx="247" cy="162" fill="rgba(212,175,55,0.06)" r="29" stroke="#D4AF37" stroke-width="1.5"></circle>
+<text fill="#D4AF37" font-size="16" text-anchor="middle" x="247" y="159">金</text>
+<text fill="#8C6A2C" font-family="Cinzel,serif" font-size="9" text-anchor="middle" x="247" y="175">GOLD</text>
+</g>
+<!-- 輪の外：アンティークコイン（独立＝相関ゼロ） -->
+<circle cx="468" cy="125" fill="rgba(212,175,55,0.08)" r="46" stroke="#D4AF37" stroke-width="2"></circle>
+<circle cx="468" cy="125" fill="none" r="46" stroke="rgba(212,175,55,0.25)" stroke-width="6"></circle>
+<text fill="#E5C76B" font-family="'Noto Serif JP',serif" font-size="15" text-anchor="middle" x="468" y="119">コイン</text>
+<text fill="#E5C76B" font-family="'Noto Serif JP',serif" font-size="13" text-anchor="middle" x="468" y="139">実物資産</text>
+<text fill="#D4AF37" font-family="Cinzel,serif" font-size="12" letter-spacing="0.05em" text-anchor="middle" x="468" y="190">OUTSIDE THE SYSTEM</text>
+<!-- 分断を示す境界 -->
+<line stroke="rgba(255,255,255,0.12)" stroke-dasharray="4,5" stroke-width="1" x1="360" x2="360" y1="40" y2="210"></line>
+</svg>
+</div>
+<div class="alert-box" id="right-alert" style="margin-top:0; margin-bottom:0;">
+<div style="font-size:17px; color:var(--cream-dim); line-height:1.9; margin-bottom:10px;">
+          ↑ これらはすべて<span style="font-size:19px; font-weight:700; color:var(--gold); border-bottom:2px solid var(--rule); padding-bottom:1px;">「金融システムリスク」の中に集中</span>している。
+        </div>
+<div style="font-size:17px; color:var(--cream-dim); line-height:1.9;">
+          リーマン級の危機が来れば、<span style="font-size:19px; font-weight:700; color:var(--red);">全資産が同時に毀損する。</span>
+</div>
+</div>
+<div style="flex:1; margin-top:16px; border-left:3px solid var(--gold); background:rgba(184,151,90,0.07); border-radius:0 8px 8px 0; padding:20px 22px; display:flex; flex-direction:column;">
+<ul class="risk-list" style="margin-top:0;">
+<li><span class="kw">マイナンバー連携</span>金融資産は完全可視化へ</li>
+<li><span class="kw">インフレ</span>現預金の実質価値は毎年目減り</li>
+<li><span class="kw">相続税</span>先進国最高水準。3代で資産がゼロに</li>
+</ul>
+<div style="margin-top:auto; padding-top:18px;">
+<div style="font-size:13px; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase; margin-bottom:12px;">Correlation to Equities</div>
+<div style="font-size:16px; color:var(--cream-dim); line-height:1.7; margin-bottom:14px;">株式との相関が高いほど、危機で「一緒に落ちる」。</div>
+<div style="display:flex; flex-direction:column; gap:10px;">
+<div style="display:flex; align-items:center; gap:12px;">
+<span style="width:64px; font-size:15px; color:var(--cream-dim);">不動産</span>
+<span style="flex:1; height:6px; background:rgba(255,255,255,0.06); border-radius:3px; overflow:hidden;"><span style="display:block; width:72%; height:100%; background:#9A937F;"></span></span>
+<span class="serif-en" style="width:40px; text-align:right; font-size:15px; color:var(--cream);">0.72</span>
+</div>
+<div style="display:flex; align-items:center; gap:12px;">
+<span style="width:64px; font-size:15px; color:var(--cream-dim);">金</span>
+<span style="flex:1; height:6px; background:rgba(255,255,255,0.06); border-radius:3px; overflow:hidden;"><span style="display:block; width:35%; height:100%; background:#9A937F;"></span></span>
+<span class="serif-en" style="width:40px; text-align:right; font-size:15px; color:var(--cream);">0.35</span>
+</div>
+<div style="display:flex; align-items:center; gap:12px;">
+<span style="width:64px; font-size:15px; color:var(--gold-light); font-weight:500;">コイン</span>
+<span style="flex:1; height:6px; background:rgba(255,255,255,0.06); border-radius:3px; overflow:hidden;"><span style="display:block; width:6%; height:100%; background:var(--gold);"></span></span>
+<span class="serif-en" style="width:40px; text-align:right; font-size:15px; color:var(--gold-light); font-weight:700;">0.06</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 下段 2カラム -->
+<div class="grid-2">
+<!-- 左：相続税 -->
+<div class="card" style="display:flex; flex-direction:column;">
+<div class="card-label">Inheritance Tax</div>
+<div class="card-title serif-ja">先進国で最も高い「相続税」の現実</div>
+<div class="stat-grid">
+<div class="stat-item">
+<div class="stat-number neg serif-en">55<span>%</span></div>
+<div class="stat-desc">日本の相続税<br/>最高税率</div>
+</div>
+<div class="stat-item">
+<div class="stat-number warn serif-en">40<span>%</span></div>
+<div class="stat-desc">米国の相続税<br/>最高税率</div>
+</div>
+<div class="stat-item">
+<div class="stat-number pos serif-en">0<span>%</span></div>
+<div class="stat-desc">カナダ・NZ<br/>相続税なし</div>
+</div>
+</div>
+<div class="card-body" style="flex:1;">
+        資産1億円→子→孫と引き継ぐだけで、<br/>
+        最終的な手取りは<span class="danger">約30%以下</span>になるケースも。<br/>
+        対策なき相続は、<strong>3代で資産消滅</strong>を意味する。
+      </div>
+</div>
+<!-- 右：新時代リスク -->
+<div class="card">
+<div class="card-label">New Era Risk</div>
+<div class="card-title serif-ja">AI管理社会と通貨システムへの違和感</div>
+<ul class="risk-list">
+<li><span class="kw">ドル武器化</span>トランプ政権の貿易戦争が加速。基軸通貨の信頼が揺らぐ</li>
+<li><span class="kw">円の弱体化</span>日銀の政策迷走。円資産だけでは守れない時代へ</li>
+<li><span class="kw">デジタル管理</span>CBDCの普及で政府による資産把握・課税が容易になる</li>
+<li><span class="kw">制度への不信</span>オールドメディア離れと既存制度への違和感が拡大</li>
+</ul>
+</div>
+</div>
+<!-- だからこそ今〜：全幅中央 -->
+<div class="grid-full" style="margin-bottom:24px;">
+<div style="
+      background: rgba(184,151,90,0.08);
+      border: 0.5px solid rgba(184,151,90,0.4);
+      border-radius: 14px;
+      padding: 36px 8vw;
+      text-align: center;
+    ">
+<div style="font-size:14px; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:16px; display:flex; align-items:center; justify-content:center; gap:12px;">
+<span style="display:block; width:40px; height:1px; background:var(--gold);"></span>
+        Conclusion
+        <span style="display:block; width:40px; height:1px; background:var(--gold);"></span>
+</div>
+<div style="font-size:24px; color:var(--cream); line-height:1.9; letter-spacing:0.05em;">
+        だからこそ今、<strong style="color:var(--gold-light); font-weight:400;">「国家・金融システムの外側に資産を置く」</strong>という発想が、<br/>
+        富裕層の間で<strong style="color:var(--gold-light); font-weight:400;">静かに広がっている。</strong>
+</div>
+</div>
+</div>
+<!-- 大きな問いかけ -->
+<div class="grid-full">
+<div class="big-question">
+<div class="big-q-deco serif-en">"</div>
+<div class="big-q-text serif-ja">
+        あなたの資産の何%が、<br/>10年後も同じ価値を保っていますか？
+      </div>
+<div class="big-q-sub serif-en">The question every asset owner must answer before it's too late.</div>
+</div>
+</div>
+<!-- フッター -->
+<div class="source-note serif-ja">※REERはBIS broad（FRED経由・年平均／2020年=100）。相関係数はStanley Gibbons GB200等を基にした概算。将来の投資成果を保証するものではありません。</div>
+
+</div>
+<script>
+// 左右カードの各セクションの高さをJSで完全に揃える
+function alignCardRows() {
+  // スマホ（768px以下）は1カラムなので高さ統一不要
+  if (window.innerWidth <= 768) {
+    // 高さリセット
+    ['left-label','left-title','left-visual','left-alert',
+     'right-label','right-title','right-visual','right-alert'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) { el.style.height = ''; el.style.overflow = ''; }
+    });
+    return;
+  }
+  // ↓ 以下PC用処理（元のコード）
+  var pairs = [
+    ['left-label',  'right-label'],
+    ['left-title',  'right-title'],
+    ['left-visual', 'right-visual'],
+    ['left-alert',  'right-alert'],
+  ];
+
+  pairs.forEach(function(pair) {
+    var left  = document.getElementById(pair[0]);
+    var right = document.getElementById(pair[1]);
+    if (!left || !right) return;
+
+    // 高さをリセット
+    left.style.height  = '';
+    right.style.height = '';
+    left.style.overflow  = '';
+    right.style.overflow = '';
+
+    // 自然な高さを取得
+    var lh = left.getBoundingClientRect().height;
+    var rh = right.getBoundingClientRect().height;
+    var maxH = Math.max(lh, rh);
+
+    // 大きい方に揃える
+    left.style.height  = maxH + 'px';
+    right.style.height = maxH + 'px';
+    left.style.overflow  = 'hidden';
+    right.style.overflow = 'hidden';
+    // alert-boxは縦中央揃え
+    if (pair[0] === 'left-alert') {
+      left.style.display  = 'flex';
+      right.style.display = 'flex';
+      left.style.flexDirection  = 'column';
+      right.style.flexDirection = 'column';
+      left.style.justifyContent  = 'center';
+      right.style.justifyContent = 'center';
+    }
+  });
+}
+
+// ロード後＋リサイズ時に実行
+if (document.readyState === 'complete') {
+  setTimeout(alignCardRows, 100);
+} else {
+  window.addEventListener('load', function() { setTimeout(alignCardRows, 100); });
+}
+window.addEventListener('resize', function() { setTimeout(alignCardRows, 50); });
+</script>
+
+</div>
+<div class="seam" aria-hidden="true"><span class="seam-coin"></span></div>
+<div class="coin-page" id="pg3">
+
+<div class="page">
+<div class="content">
+<!-- header removed -->
+<div class="section-header">
+<div class="eyebrow">Global Insight</div>
+<h2 class="section-title serif-en">世界の富裕層は、<br/><em>何を知っているのか？</em></h2>
+<p class="section-sub serif-ja">日本人だけが知らない、グローバル資産クラスの常識。</p>
+</div>
+<!-- 大数字：20% -->
+<div class="big-stat">
+<div class="big-stat-inner">
+<div class="big-num serif-en">20<span>%</span></div>
+<div>
+<div class="big-desc-title serif-ja">
+            世界の超富裕層（UHNWI）は<br/>
+            ポートフォリオの平均 <strong style="color:#E5C76B;font-size:30px;">20%</strong> を<br/>
+            ラグジュアリー資産に置いている
+          </div>
+<div class="big-desc-body" style="margin-top:10px;">
+            株・債券・不動産だけではない。<strong>アート・コイン・ワイン・時計</strong>など
+            「パッション資産」が、世界水準のポートフォリオには必ず含まれている。
+          </div>
+</div>
+</div>
+</div>
+<!-- 上段2カラム -->
+<div class="grid-2">
+<!-- 左：UHNWI資産構成 -->
+<div class="card">
+<div class="card-label">UHNWI Portfolio</div>
+<div class="card-title serif-ja">超富裕層の資産構成</div>
+<svg viewbox="0 0 480 320" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="g-green" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0%" stop-color="#96AEA1"></stop><stop offset="50%" stop-color="#7E998C"></stop><stop offset="100%" stop-color="#66806F"></stop>
+</lineargradient>
+<lineargradient id="g-blue" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0%" stop-color="#97A6B8"></stop><stop offset="50%" stop-color="#7E8FA3"></stop><stop offset="100%" stop-color="#66768A"></stop>
+</lineargradient>
+<lineargradient id="g-purple" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0%" stop-color="#A39CAD"></stop><stop offset="50%" stop-color="#8C8398"></stop><stop offset="100%" stop-color="#6E657A"></stop>
+</lineargradient>
+<lineargradient id="g-gray" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0%" stop-color="#B8B1A4"></stop><stop offset="50%" stop-color="#9E978A"></stop><stop offset="100%" stop-color="#847D70"></stop>
+</lineargradient>
+<lineargradient id="g-gold" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0%" stop-color="#E5C76B"></stop><stop offset="50%" stop-color="#D4AF37"></stop><stop offset="100%" stop-color="#B8923A"></stop>
+</lineargradient>
+<filter height="200%" id="coin-glow" width="200%" x="-50%" y="-50%">
+<fegaussianblur result="b" stddeviation="4"></fegaussianblur>
+<femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+</defs>
+<path d="M162.4,50.0 A110,110 0 0,1 269.2,173.3 L223.5,167.7 A64,64 0 0,0 161.4,96.0 Z" fill="url(#g-green)"></path>
+<path d="M268.5,178.0 A110,110 0 0,1 158.9,270.0 L159.4,224.0 A64,64 0 0,0 223.1,170.5 Z" fill="url(#g-blue)"></path>
+<path d="M154.1,269.8 A110,110 0 0,1 62.5,211.0 L103.3,189.7 A64,64 0 0,0 156.6,223.9 Z" fill="url(#g-purple)"></path>
+<path d="M60.4,206.7 A110,110 0 0,1 54.3,129.6 L98.5,142.3 A64,64 0 0,0 102.1,187.2 Z" fill="url(#g-gray)"></path>
+<path d="M55.7,125.1 A110,110 0 0,1 157.6,50.0 L158.6,96.0 A64,64 0 0,0 99.3,139.7 Z" fill="url(#g-gold)" filter="url(#coin-glow)"></path>
+<circle cx="160" cy="160" fill="var(--ink-card)" r="62"></circle>
+<text fill="#E5C76B" font-family="Cinzel, Georgia, serif" font-size="30" font-weight="300" text-anchor="middle" x="160" y="152">20%</text>
+<text fill="var(--muted)" font-family="sans-serif" font-size="14" text-anchor="middle" x="160" y="176">ラグジュアリー</text>
+<rect fill="url(#g-green)" height="14" rx="3" width="14" x="300" y="60"></rect>
+<text fill="#C8C0B0" font-family="sans-serif" font-size="15" font-weight="400" x="320" y="71">不動産 27%</text>
+<rect fill="url(#g-blue)" height="14" rx="3" width="14" x="300" y="85"></rect>
+<text fill="#C8C0B0" font-family="sans-serif" font-size="15" font-weight="400" x="320" y="96">株式 23%</text>
+<rect fill="url(#g-purple)" height="14" rx="3" width="14" x="300" y="110"></rect>
+<text fill="#C8C0B0" font-family="sans-serif" font-size="15" font-weight="400" x="320" y="121">債券 17%</text>
+<rect fill="url(#g-gray)" height="14" rx="3" width="14" x="300" y="135"></rect>
+<text fill="#C8C0B0" font-family="sans-serif" font-size="15" font-weight="400" x="320" y="146">現金 12%</text>
+<rect fill="url(#g-gold)" height="14" rx="3" width="14" x="300" y="160"></rect>
+<text fill="#E5C76B" font-family="sans-serif" font-size="15" font-weight="700" x="320" y="171">ラグジュアリー 20%</text>
+<line stroke="var(--gold)" stroke-dasharray="3,2" stroke-width="1" x1="106" x2="285" y1="91" y2="167"></line>
+</svg>
+<div class="source">出典：Knight Frank Wealth Report 2024 Attitudes Survey</div>
+</div>
+<!-- 右：KFLIIランキング -->
+<div class="card">
+<div class="card-label">KFLII Ranking</div>
+<div class="card-title serif-ja">Knight Frank ラグジュアリー資産<br/>10年リターンランキング（2022年）</div>
+<ul class="rank-list">
+<li class="rank-item">
+<span class="rank-num">1</span>
+<span class="rank-name">ウイスキー</span>
+<div class="rank-bar-wrap"><div class="rank-bar" style="width:100%;background:linear-gradient(90deg,#847D70,#9E978A,#B8B1A4);opacity:0.85;"></div></div>
+<span class="rank-val" style="color:var(--cream-dim);">+373%</span>
+</li>
+<li class="rank-item">
+<span class="rank-num">2</span>
+<span class="rank-name">クラシックカー</span>
+<div class="rank-bar-wrap"><div class="rank-bar" style="width:50%;background:linear-gradient(90deg,#847D70,#9E978A,#B8B1A4);opacity:0.78;"></div></div>
+<span class="rank-val" style="color:var(--cream-dim);">+185%</span>
+</li>
+<li class="rank-item">
+<span class="rank-num">3</span>
+<span class="rank-name">時計</span>
+<div class="rank-bar-wrap"><div class="rank-bar" style="width:40%;background:linear-gradient(90deg,#847D70,#9E978A,#B8B1A4);opacity:0.66;"></div></div>
+<span class="rank-val" style="color:var(--cream-dim);">+147%</span>
+</li>
+<li class="rank-item">
+<span class="rank-num">4</span>
+<span class="rank-name">ワイン</span>
+<div class="rank-bar-wrap"><div class="rank-bar" style="width:44%;background:linear-gradient(90deg,#847D70,#9E978A,#B8B1A4);opacity:0.58;"></div></div>
+<span class="rank-val" style="color:var(--cream-dim);">+162%</span>
+</li>
+<li class="rank-item">
+<span class="rank-num">5</span>
+<span class="rank-name">アート</span>
+<div class="rank-bar-wrap"><div class="rank-bar" style="width:25%;background:linear-gradient(90deg,#847D70,#9E978A,#B8B1A4);opacity:0.48;"></div></div>
+<span class="rank-val" style="color:var(--cream-dim);">+91%</span>
+</li>
+<li class="rank-item" style="background:rgba(184,151,90,0.06);border-radius:6px;padding:9px 8px;margin:4px -8px;">
+<span class="rank-num" style="color:var(--gold);">6</span>
+<span class="rank-name coin" style="color:#E5C76B;font-size:20px;">コイン ★</span>
+<div class="rank-bar-wrap"><div class="rank-bar" style="width:16%;background:linear-gradient(90deg,#B8923A,#D4AF37,#E5C76B);"></div></div>
+<span class="rank-val" style="color:#E5C76B;font-size:19px;font-weight:700;">+59%</span>
+</li>
+<li class="rank-item">
+<span class="rank-num">7</span>
+<span class="rank-name">ハンドバッグ</span>
+<div class="rank-bar-wrap"><div class="rank-bar" style="width:20%;background:linear-gradient(90deg,#847D70,#9E978A,#B8B1A4);opacity:0.38;"></div></div>
+<span class="rank-val" style="color:var(--muted);">+74%</span>
+</li>
+<li class="rank-item">
+<span class="rank-num">8</span>
+<span class="rank-name">ジュエリー</span>
+<div class="rank-bar-wrap"><div class="rank-bar" style="width:12%;background:linear-gradient(90deg,#847D70,#9E978A,#B8B1A4);opacity:0.32;"></div></div>
+<span class="rank-val" style="color:var(--muted);">+44%</span>
+</li>
+</ul>
+<div class="annotation">
+          コインは<strong style="color:#E5C76B;">10資産クラス中6位</strong>。ただし金融危機時の耐性は全資産中<strong style="color:#E5C76B;">最高水準</strong>。リターンとリスクのバランスが最も優れた資産クラス。
+        </div>
+<div class="source">出典：Knight Frank KFLII Q4 2022 / Wealth Report 2023</div>
+</div>
+</div>
+<!-- 下段3カラム -->
+<div class="grid-3">
+<div class="card">
+<div class="card-label">Asia &amp; Middle East</div>
+<div class="card-title serif-ja">アジア・中東富裕層の<br/>市場参入が加速</div>
+<div class="card-body">
+          従来ヨーロッパ人中心だったコイン市場に、2010年代以降<span class="hl">アジア・中東の富裕層が急増</span>。需要の国際化がイギリスコインの価格を過去10年で<span class="hl">5倍以上</span>に押し上げた。
+        </div>
+</div>
+<div class="card">
+<div class="card-label">Market Scale</div>
+<div class="card-title serif-ja">グローバル市場<br/>年間約1兆円規模</div>
+<div class="card-body">
+          米国だけで<span class="hl">150万人以上</span>の投資家・コレクターが存在。毎日世界のどこかでオークションが開催され、<span class="hl">完全にグローバルな流動性</span>を持つ唯一の現物資産クラス。
+        </div>
+</div>
+<div class="card">
+<div class="card-label">Uniqueness</div>
+<div class="card-title serif-ja">国際鑑定制度による<br/>透明性</div>
+<div class="card-body">
+          アートは真贋リスク、ワインは劣化リスク。コインは<span class="hl">PCGS・NGCによる国際鑑定</span>でグレードが数値化され、<span class="hl">世界共通の価値基準</span>が確立した唯一の現物資産。
+        </div>
+</div>
+</div>
+<!-- CTAボックス -->
+<div class="grid-full">
+<div class="gold-cta">
+<div class="gold-cta-label">
+<span></span>Key Insight<span></span>
+</div>
+<div class="gold-cta-title serif-ja">
+          「知らなかっただけ」の資産クラスが、<br/>
+          世界では<strong>すでに標準的なポートフォリオの一部</strong>になっている。
+        </div>
+<div class="gold-cta-sub serif-en" style="margin-top:12px;">
+          The question is not whether to include it — but when to start.
+        </div>
+</div>
+</div>
+<div class="source-note serif-ja">※データはKnight Frank Wealth Report 2024をもとに作成。過去の運用実績は将来の成果を保証するものではありません。</div>
+
+</div>
+</div>
+
+</div>
+<div class="seam" aria-hidden="true"><span class="seam-coin"></span></div>
+</div><!-- /帯1 -->
+<!-- ===== 帯2：pg4-5（ナポレオン金貨背景） ===== -->
+<div class="bg-band">
+<div class="band-bg"><div class="band-sticky">
+<img class="band-img" src="images/bg_napoleon.webp" alt="">
+<div class="band-fade"></div>
+</div></div>
+<div class="coin-page" id="pg4">
+
+<div class="page">
+<!-- header removed -->
+<div class="section-header">
+<div class="eyebrow">Design Your Own</div>
+<h2 class="section-title serif-en">世界に唯一、<br/><em>あなたの意思を入れた</em>ポートフォリオ</h2>
+<p class="section-sub serif-ja">「分散しましょう」で終わる時代は、終わった。<br/>これからは、あなた自身の意思でリスクを選び、配分を設計する。</p>
+</div>
+<div class="block">
+<p class="lead serif-ja">一般的な分散は「とりあえず4つに」で終わり、誰がやっても似た配分になる。けれど、あなたが今いちばん恐れているリスク ―― 戦争か、インフレか、財政破綻か ―― は、そこに反映されていません。<strong>どのリスクをどれだけ重く見るかを、自分の意思で決める。</strong>そうして初めて、世界に一つだけの配分になります。それを形にできる診断ツールを、私たちは用意しました。
+    <span class="sig">―― ユニバーサルコイン代表 <b>西村</b></span></p>
+</div>
+<!-- STEP 1 / 2 / 3 : 横3カラム -->
+<div class="step-row">
+<div class="card">
+<span class="step-no">STEP 01</span>
+<div class="step-h serif-ja">資産配分を入れ、危険度を知る</div>
+<div class="card-sub">7資産の割合を入れるだけ。リスク構造が0〜100の「危険度スコア」で立ち上がる。</div>
+<div class="shot shot-sm"><img alt="資産割合の入力とリスクスコア表示" src="images/p04_step1_score.jpg"/></div>
+<div class="shot-cap">▲ 配分を入れると<b>危険度スコア</b>が即表示。</div>
+</div>
+<div class="card">
+<span class="step-no">STEP 02</span>
+<div class="step-h serif-ja">恐れるリスクを、自分で決める</div>
+<div class="card-sub">6つのリスクの「20年以内の発生確率」を、あなた自身が入力。診断の核心。</div>
+<div class="shot shot-sm"><img alt="20年以内のリスク発生確率の入力" src="images/p04_step2_riskprob.jpg"/></div>
+<div class="shot-cap">▲ <b>世界観を、そのまま数値に</b>。スコアへ即時反映。</div>
+</div>
+<div class="card">
+<span class="step-no">STEP 03</span>
+<div class="step-h serif-ja">20年後、資産はどう動くか</div>
+<div class="card-sub">フローとインフレ率を入れ、名目／実質ストックの長期推移を試算。PDF保存可。</div>
+<div class="shot shot-sm"><img alt="名目／実質ストック推移のシミュレーション" src="images/p04_step3_sim.jpg"/></div>
+<div class="shot-cap">▲ <b>実質はインフレで目減り</b>。この差が見直しの理由。</div>
+</div>
+</div>
+<div class="cta-row">
+<div class="cta-text">
+<div class="t1 serif-ja">ポートフォリオ診断（無料・DEMO版）</div>
+<div class="t2">資産配分とリスク確率を入れるだけ。危険度スコア・20年シミュレーションが、ブラウザ上で立ち上がります。</div>
+</div>
+<a class="cta-link serif-ja" href="https://timeless-kizuna.com/Portfolio_Diagnosis_DEMO.html" rel="noopener" target="_blank">診断してみる<span class="arrow">→</span></a>
+</div>
+<div class="note">※ 表示される判定は前提値に基づく試算であり、特定の投資商品を推奨するものではありません。前提値（各リスクの寄与度など）をご自身の世界観でカスタマイズできる版は、kizuna（結束）会員向けにご用意しています。</div>
+<div class="source-note serif-ja">※本ページで案内する診断ツールは資産配分のリスク構造を可視化するデモ版です。個別のご相談は、お問い合わせより承ります。</div>
+
+</div>
+
+</div>
+<div class="seam" aria-hidden="true"><span class="seam-coin"></span></div>
+<div class="coin-page" id="pg5">
+
+<div class="page">
+<!-- header removed -->
+<div class="section-header">
+<div class="eyebrow">Evidence</div>
+<h2 class="section-title serif-en">価格安定性の<em>エビデンス</em></h2>
+<p class="section-sub serif-ja">データが語る。感情ではなく、論理でアンティークコインを選ぶ理由。</p>
+</div>
+<div class="metric-row">
+<div class="metric">
+<div class="metric-label">10年累計リターン</div>
+<div class="metric-value serif-en" style="color:var(--gold-light)">+248%</div>
+<div class="metric-note">Stanley Gibbons GB200<br/>（2002〜2012年）</div>
+</div>
+<div class="metric">
+<div class="metric-label">年平均成長率（CAGR）</div>
+<div class="metric-value serif-en" style="color:var(--gold-light)">13.3%</div>
+<div class="metric-note">この間、一度も<br/>下落なし</div>
+</div>
+<div class="metric">
+<div class="metric-label">リーマンショック時（2008年）</div>
+<div class="metric-value serif-en" style="color:var(--gold-light)">+38.6%</div>
+<div class="metric-note">株式市場が−50%の中<br/>逆に上昇</div>
+</div>
+</div>
+<!-- Chart 1: リーマン比較 SVG -->
+<div class="card">
+<div class="card-label">Crisis Resilience</div>
+<div class="card-title serif-ja">金融危機でも価格が下がらず、<em style="font-style:normal;color:var(--gold-light)">むしろ上がった</em>資産</div>
+<div class="card-sub" style="font-size:15px;color:var(--muted);margin-bottom:18px;">リーマンショック前後のアセット比較（2006〜2010年）／指数=2006年を100</div>
+<div class="legend">
+<div class="legend-item"><div class="legend-dot" style="background:#D4AF37"></div>レアコイン（Stanley Gibbons GB200）</div>
+<div class="legend-item"><div class="legend-dot" style="background:#5B9BD5"></div>FTSE 100（英国株式）</div>
+<div class="legend-item"><div class="legend-dot" style="background:#C97FD4"></div>金（Gold）</div>
+<div class="legend-item"><div class="legend-dot" style="background:#6FBF8E"></div>英国不動産</div>
+</div>
+<svg class="svg-chart" viewbox="0 0 800 340" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="c1-gold" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#F0D584"></stop><stop offset="50%" stop-color="#D4AF37"></stop><stop offset="100%" stop-color="#A87C28"></stop>
+</lineargradient>
+<lineargradient id="c1-goldfill" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="rgba(212,175,55,0.32)"></stop><stop offset="100%" stop-color="rgba(212,175,55,0.01)"></stop>
+</lineargradient>
+<lineargradient id="c1-crisisband" x1="0" x2="1" y1="0" y2="0">
+<stop offset="0%" stop-color="rgba(255,85,85,0.02)"></stop><stop offset="50%" stop-color="rgba(255,85,85,0.13)"></stop><stop offset="100%" stop-color="rgba(255,85,85,0.02)"></stop>
+</lineargradient>
+<filter height="180%" id="c1-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="4"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<filter height="160%" id="c1-shadow" width="160%" x="-30%" y="-30%">
+<fedropshadow dx="0" dy="4" flood-color="#000" flood-opacity="0.45" stddeviation="4"></fedropshadow>
+</filter>
+</defs>
+<!-- 背景 -->
+<rect fill="rgba(255,255,255,0.03)" height="340" rx="8" width="800"></rect>
+<!-- 危機帯バンド: 2007末〜2008 (x=243〜421) -->
+<rect fill="url(#c1-crisisband)" height="240" width="178" x="243" y="20"></rect>
+<line stroke="rgba(255,85,85,0.4)" stroke-dasharray="5,4" stroke-width="1.2" x1="243" x2="243" y1="20" y2="260"></line>
+<line stroke="rgba(255,85,85,0.4)" stroke-dasharray="5,4" stroke-width="1.2" x1="421" x2="421" y1="20" y2="260"></line>
+<text fill="#FF7A7A" font-family="sans-serif" font-size="13" letter-spacing="0.12em" text-anchor="middle" x="332" y="36">FINANCIAL CRISIS</text>
+<!-- 軸 -->
+<line stroke="rgba(255,255,255,0.1)" stroke-width="1" x1="70" x2="70" y1="20" y2="260"></line>
+<line stroke="rgba(255,255,255,0.1)" stroke-width="1" x1="70" x2="780" y1="260" y2="260"></line>
+<!-- Y軸グリッド＆ラベル: 表示域 40〜200, y=20→200, y=260→40, scale=(260-20)/(200-40)=1.5px/unit -->
+<!-- y = 260 - (val-40)*1.5 -->
+<!-- 200→y=20, 160→y=80, 120→y=140, 100→y=170, 80→y=200, 40→y=260 -->
+<line stroke="rgba(255,255,255,0.07)" stroke-dasharray="4,4" stroke-width="1" x1="70" x2="780" y1="20" y2="20"></line>
+<text fill="#C8C0B0" font-family="Cinzel, Georgia, serif" font-size="16" text-anchor="end" x="58" y="24">200</text>
+<line stroke="rgba(255,255,255,0.07)" stroke-dasharray="4,4" stroke-width="1" x1="70" x2="780" y1="80" y2="80"></line>
+<text fill="#C8C0B0" font-family="Cinzel, Georgia, serif" font-size="16" text-anchor="end" x="58" y="84">160</text>
+<line stroke="rgba(255,255,255,0.07)" stroke-dasharray="4,4" stroke-width="1" x1="70" x2="780" y1="140" y2="140"></line>
+<text fill="#C8C0B0" font-family="Cinzel, Georgia, serif" font-size="16" text-anchor="end" x="58" y="144">120</text>
+<!-- 基準線100 強調 -->
+<line stroke="rgba(255,255,255,0.22)" stroke-width="1.5" x1="70" x2="780" y1="170" y2="170"></line>
+<text fill="#E8E2D8" font-family="Cinzel, Georgia, serif" font-size="16" font-weight="500" text-anchor="end" x="58" y="174">100</text>
+<line stroke="rgba(255,255,255,0.07)" stroke-dasharray="4,4" stroke-width="1" x1="70" x2="780" y1="200" y2="200"></line>
+<text fill="#C8C0B0" font-family="Cinzel, Georgia, serif" font-size="16" text-anchor="end" x="58" y="204">80</text>
+<line stroke="rgba(255,255,255,0.07)" stroke-dasharray="4,4" stroke-width="1" x1="70" x2="780" y1="260" y2="260"></line>
+<text fill="#C8C0B0" font-family="Cinzel, Georgia, serif" font-size="16" text-anchor="end" x="58" y="256">40</text>
+<!-- X軸: 5点 2006〜2010, x=70,248,426,604,782... 端を内側に: 70,247.5,425,602.5,780 -->
+<text fill="#C8C0B0" font-family="Cinzel, Georgia, serif" font-size="17" text-anchor="middle" x="70" y="284">2006</text>
+<text fill="#C8C0B0" font-family="Cinzel, Georgia, serif" font-size="17" text-anchor="middle" x="248" y="284">2007</text>
+<text fill="#FF6B6B" font-family="Cinzel, Georgia, serif" font-size="18" font-weight="700" text-anchor="middle" x="425" y="284">2008</text>
+<text fill="#FF6B6B" font-family="sans-serif" font-size="12" text-anchor="middle" x="425" y="302">リーマンショック</text>
+<text fill="#C8C0B0" font-family="Cinzel, Georgia, serif" font-size="17" text-anchor="middle" x="603" y="284">2009</text>
+<text fill="#C8C0B0" font-family="Cinzel, Georgia, serif" font-size="17" text-anchor="middle" x="780" y="284">2010</text>
+<!-- ===== 他資産（先に描く・色をはっきり分ける） ===== -->
+<!-- y = 260 - (val-40)*1.5 -->
+<!-- FTSE100 青: 100,107,54,63,76 → y:170,159.5,239,224.5,206 -->
+<polyline fill="none" opacity="0.92" points="70,170 248,160 425,239 603,225 780,206" stroke="#5B9BD5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6"></polyline>
+<circle cx="425" cy="239" fill="#5B9BD5" r="6" stroke="#0A0A08" stroke-width="2"></circle>
+<circle cx="780" cy="206" fill="#5B9BD5" r="4"></circle>
+<!-- 金 紫: 100,108,115,125,155 → y:170,158,152.5,142.5,97.5 -->
+<polyline fill="none" opacity="0.9" points="70,170 248,158 425,152 603,142 780,97" stroke="#C97FD4" stroke-dasharray="9,4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"></polyline>
+<circle cx="425" cy="152" fill="#C97FD4" r="5" stroke="#0A0A08" stroke-width="1.5"></circle>
+<circle cx="780" cy="97" fill="#C97FD4" r="4"></circle>
+<!-- 英国不動産 緑: 100,110,88,82,86 → y:170,155,212,221,215 -->
+<polyline fill="none" opacity="0.9" points="70,170 248,155 425,212 603,221 780,215" stroke="#6FBF8E" stroke-dasharray="9,4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"></polyline>
+<circle cx="425" cy="212" fill="#6FBF8E" r="5" stroke="#0A0A08" stroke-width="1.5"></circle>
+<circle cx="780" cy="215" fill="#6FBF8E" r="4"></circle>
+<!-- ===== レアコイン（主役・最後に最前面） ===== -->
+<!-- 100,112,155,168,185 → y:170,152,87.5,68,52.5 -->
+<polygon fill="url(#c1-goldfill)" points="70,170 248,152 425,87 603,68 780,52 780,260 70,260"></polygon>
+<polyline fill="none" filter="url(#c1-glow)" points="70,170 248,152 425,87 603,68 780,52" stroke="url(#c1-gold)" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5"></polyline>
+<circle cx="70" cy="170" fill="#D4AF37" filter="url(#c1-shadow)" r="5.5"></circle>
+<circle cx="248" cy="152" fill="#D4AF37" filter="url(#c1-shadow)" r="5.5"></circle>
+<circle cx="425" cy="87" fill="#F0D584" filter="url(#c1-shadow)" r="8" stroke="#0A0A08" stroke-width="2.5"></circle>
+<circle cx="603" cy="68" fill="#D4AF37" filter="url(#c1-shadow)" r="5.5"></circle>
+<circle cx="780" cy="52" fill="#D4AF37" filter="url(#c1-shadow)" r="5.5"></circle>
+<!-- ===== 2008年の対比強調 ===== -->
+<!-- コイン +38.6% (上向き) -->
+<rect fill="rgba(212,175,55,0.16)" height="30" rx="6" stroke="rgba(212,175,55,0.5)" stroke-width="1" width="120" x="430" y="62"></rect>
+<text fill="#F0D584" font-family="Cinzel, Georgia, serif" font-size="18" font-weight="700" text-anchor="middle" x="490" y="82">+38.6% ↑</text>
+<!-- FTSE −46% (下向き) -->
+<rect fill="rgba(91,155,213,0.14)" height="30" rx="6" stroke="rgba(91,155,213,0.45)" stroke-width="1" width="120" x="290" y="224"></rect>
+<text fill="#7FB6E8" font-family="Cinzel, Georgia, serif" font-size="18" font-weight="700" text-anchor="middle" x="350" y="244">−46% ↓</text>
+</svg>
+<div class="annotation">▲ リーマンショックで株式（FTSE100）が約46%下落する中、レアコインは逆に<strong style="color:var(--gold-light);font-weight:600">+38.6%上昇</strong>。危機を「追い風」に変えた、ほぼ唯一の資産クラス。</div>
+<div class="source">出典：Stanley Gibbons GB200 Rare Coin Index / Knight Frank Wealth Report</div>
+</div>
+<!-- Chart 2: 年次リターン SVG棒グラフ -->
+<div class="card">
+<div class="card-label">Consistency</div>
+<div class="card-title serif-ja">いつでも価格が下がらない、<em style="font-style:normal;color:var(--gold-light)">という不動の強さ</em></div>
+<div class="card-sub" style="font-size:15px;color:var(--muted);margin-bottom:18px;">KFLII（Knight Frank Luxury Investment Index）は、絵画・クラシックカー・バッグ・宝石などのいわゆるラグジュアリー資産の値動きを示す指数。その中でコインは毎年プラスを積み上げ、下落した年は一度もない（2015〜2023年）。</div>
+<svg class="svg-chart" viewbox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="c2-gold" x1="0" x2="0" y1="1" y2="0">
+<stop offset="0%" stop-color="#8C6A2C"></stop><stop offset="100%" stop-color="#F0D584"></stop>
+</lineargradient>
+<filter height="220%" id="c2-glow" width="220%" x="-60%" y="-60%">
+<fegaussianblur result="b" stddeviation="4"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+</defs>
+<rect fill="rgba(255,255,255,0.03)" height="300" rx="8" width="800"></rect>
+<!-- 0%基準線（損益分岐） -->
+<line stroke="rgba(212,175,55,0.5)" stroke-width="2" x1="40" x2="790" y1="210" y2="210"></line>
+<!-- 凡例 -->
+<g font-family="Noto Sans JP, sans-serif" font-size="14">
+<rect fill="url(#c2-gold)" height="13" rx="3" width="13" x="470" y="14"></rect><text fill="#E8E2D8" text-anchor="start" x="490" y="25">レアコイン</text>
+<line stroke="#5B9BD5" stroke-dasharray="6,4" stroke-width="2" x1="588" x2="612" y1="20" y2="20"></line><text fill="#9FC3E8" text-anchor="start" x="618" y="25">KFLII全体平均</text>
+</g>
+<!-- 9本のカプセル柱: 中心間隔82, 先頭中心95, 幅44, px/%=11, 基準y=210 -->
+<g font-family="Cinzel, Georgia, serif" text-anchor="middle">
+<rect fill="url(#c2-gold)" height="66" rx="22" width="44" x="73" y="144"></rect><text fill="#E5C76B" font-size="16" x="95" y="134">+6%</text><text fill="#C8C0B0" font-size="15" x="95" y="234">2015</text>
+<rect fill="url(#c2-gold)" height="66" rx="22" width="44" x="155" y="144"></rect><text fill="#E5C76B" font-size="16" x="177" y="134">+6%</text><text fill="#C8C0B0" font-size="15" x="177" y="234">2016</text>
+<rect fill="url(#c2-gold)" height="77" rx="22" width="44" x="237" y="133"></rect><text fill="#E5C76B" font-size="16" x="259" y="123">+7%</text><text fill="#C8C0B0" font-size="15" x="259" y="234">2017</text>
+<rect fill="url(#c2-gold)" filter="url(#c2-glow)" height="132" rx="22" width="44" x="319" y="78"></rect><text fill="#F0D584" font-size="19" font-weight="700" x="341" y="68">+12%</text><text fill="#E8E2D8" font-size="15" font-weight="700" x="341" y="234">2018</text>
+<rect fill="url(#c2-gold)" height="88" rx="22" width="44" x="401" y="122"></rect><text fill="#E5C76B" font-size="16" x="423" y="112">+8%</text><text fill="#C8C0B0" font-size="15" x="423" y="234">2019</text>
+<rect fill="url(#c2-gold)" height="55" rx="22" width="44" x="483" y="155"></rect><text fill="#E5C76B" font-size="16" x="505" y="145">+5%</text><text fill="#C8C0B0" font-size="15" x="505" y="234">2020</text>
+<rect fill="url(#c2-gold)" height="66" rx="22" width="44" x="565" y="144"></rect><text fill="#E5C76B" font-size="16" x="587" y="134">+6%</text><text fill="#C8C0B0" font-size="15" x="587" y="234">2021</text>
+<rect fill="url(#c2-gold)" height="88" rx="22" width="44" x="647" y="122"></rect><text fill="#E5C76B" font-size="16" x="669" y="112">+8%</text><text fill="#C8C0B0" font-size="15" x="669" y="234">2022</text>
+<rect fill="url(#c2-gold)" height="44" rx="22" width="44" x="729" y="166"></rect><text fill="#E5C76B" font-size="16" x="751" y="156">+4%</text><text fill="#C8C0B0" font-size="15" x="751" y="234">2023</text>
+</g>
+<!-- KFLII全体平均（青の点線）: 値7,6,7,10,9,4,9,16,-1 / y=210-val*11 -->
+<!-- y: 133,144,133,100,111,166,111,34,221 -->
+<polyline fill="none" opacity="0.85" points="95,133 177,144 259,133 341,100 423,111 505,166 587,111 669,34 751,221" stroke="#5B9BD5" stroke-dasharray="6,4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline>
+<circle cx="669" cy="34" fill="#5B9BD5" r="3.5"></circle>
+<circle cx="751" cy="221" fill="#FF6B6B" r="4.5"></circle>
+<text fill="#FF6B6B" font-family="Cinzel, Georgia, serif" font-size="14" font-weight="700" text-anchor="middle" x="751" y="216">−1%</text>
+<!-- 一貫性バッジ -->
+<g transform="translate(225,265)">
+<rect fill="rgba(212,175,55,0.12)" height="34" rx="17" stroke="rgba(212,175,55,0.5)" stroke-width="1" width="300" x="-150" y="-18"></rect>
+<text fill="#F0D584" font-family="Noto Serif JP, serif" font-size="16" text-anchor="middle" x="0" y="5">9年連続プラス・マイナスの年ゼロ</text>
+</g>
+</svg>
+<div class="annotation">▲ 2015〜2023年の9年すべてでプラス。KFLII全体が−1%に沈んだ2023年もコインは<strong style="color:var(--gold-light);font-weight:600">+4%</strong>。最大は2018年の+12%。下落知らずの一貫性。</div>
+<div class="source">出典：Knight Frank Luxury Investment Index（KFLII）各年度版</div>
+</div>
+<div class="source-note serif-ja">※本ページのデータはStanley Gibbons GB200 Rare Coin IndexおよびKnight Frank Luxury Investment Index（KFLII）をもとに作成。過去の運用実績は将来の成果を保証するものではありません。</div>
+
+</div>
+
+</div>
+<div class="seam" aria-hidden="true"><span class="seam-coin"></span></div>
+</div><!-- /帯2 -->
+<!-- ===== 帯3：pg6（古代コイン背景） ===== -->
+<div class="bg-band">
+<div class="band-bg"><div class="band-sticky">
+<img class="band-img" src="images/bg_ancient.webp" alt="">
+<div class="band-fade"></div>
+</div></div>
+<div class="coin-page" id="pg6">
+
+<div class="fade-mask"></div>
+<div class="page">
+<!-- header removed -->
+<div class="section-header">
+<div class="eyebrow">Why It Is Real</div>
+<h2 class="section-title serif-en">なぜコインは<em>“本物”</em>なのか</h2>
+<p class="section-sub serif-ja">格付けも、鑑定も、希少性も、どの業界にもある言葉だ。<br/>コインだけが持つもの ― それは、2600年という奥行きである。</p>
+</div>
+<div class="layer">
+<div class="layer-eyebrow">Layer 01 — Money Itself</div>
+<h3 class="layer-title serif-ja">コインは、そもそも<em>お金</em>だった</h3>
+<p class="layer-body">株式は、企業の所有権を記した<strong>証書</strong>。不動産も、登記という<strong>証書</strong>。それらは「価値を約束する紙」であって、価値そのものではない。約束は、約束する者が消えれば消える。<br/>
+    だがコインは違う。金そのもの、銀そのもの。<span class="gold">価値を約束する紙ではなく、価値そのもの</span>である。発行した国家が滅んでも、手の中の金貨はびくともしない。これが、すべての出発点だ。</p>
+</div>
+<div class="layer-divider"><span>I  ·  II</span></div>
+<div class="layer">
+<div class="layer-eyebrow">Layer 02 — The Fourth Dimension</div>
+<h3 class="layer-title serif-ja">地球を、<em>時間</em>が幾重にも巡る</h3>
+<p class="layer-body">コインを把握するとは、平面の年表を眺めることではない。あらゆる国家を乗せた地球は、それだけで<strong>三次元</strong>の空間。そこに2600年という時間が、何周も何周も巻きついていく。世界に20〜30万種。カタログだけで、一つの図書館ができてしまう。</p>
+</div>
+<div class="card">
+<div class="card-label">Space (3D Earth) × Time (2600 yrs)</div>
+<div class="card-title serif-ja">空間 × 時間 ＝ 四次元</div>
+<div class="card-sub">中心にあるのは、すべての国家を内包する地球そのもの（三次元）。それを幾重にも取り巻く金色の螺旋が、2600年という時間の積み重ね。コインは「地球上のどこか」かつ「歴史上のいつか」の交点に灯る。</div>
+<div class="stage">
+<svg class="svg-4d" preserveaspectratio="xMidYMid meet" viewbox="0 0 900 640" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialgradient cx="42%" cy="38%" id="globe" r="68%">
+<stop offset="0%" stop-color="#3A352A"></stop><stop offset="55%" stop-color="#211E18"></stop><stop offset="100%" stop-color="#0E0C0A"></stop>
+</radialgradient>
+<radialgradient cx="50%" cy="50%" id="globeRim" r="50%">
+<stop offset="78%" stop-color="rgba(200,168,74,0)"></stop><stop offset="94%" stop-color="rgba(200,168,74,0.35)"></stop><stop offset="100%" stop-color="rgba(224,192,96,0.7)"></stop>
+</radialgradient>
+<radialgradient cx="50%" cy="50%" id="coinGlow" r="50%">
+<stop offset="0%" stop-color="rgba(224,192,96,0.65)"></stop><stop offset="100%" stop-color="rgba(224,192,96,0)"></stop>
+</radialgradient>
+<lineargradient id="orbA" x1="0" x2="1" y1="0" y2="0">
+<stop offset="0%" stop-color="#7A6228"></stop><stop offset="50%" stop-color="#E5C76B"></stop><stop offset="100%" stop-color="#7A6228"></stop>
+</lineargradient>
+<clippath id="globeClip"><circle cx="450" cy="310" r="158"></circle></clippath>
+</defs>
+<g opacity="0.5">
+<circle cx="120" cy="110" fill="#C8C0B0" r="1.2"></circle><circle cx="760" cy="120" fill="#C8C0B0" r="1.4"></circle>
+<circle cx="820" cy="430" fill="#C8C0B0" r="1.1"></circle><circle cx="90" cy="470" fill="#C8C0B0" r="1.3"></circle>
+<circle cx="660" cy="560" fill="#C8C0B0" r="1"></circle><circle cx="230" cy="580" fill="#C8C0B0" r="1.1"></circle><circle cx="540" cy="70" fill="#C8C0B0" r="1"></circle>
+</g>
+<g fill="none" opacity="0.4" stroke="#6E591F" transform="rotate(-20 450 310)">
+<ellipse cx="450" cy="310" rx="190" ry="60" stroke-width="1.4"></ellipse>
+<ellipse cx="450" cy="310" rx="248" ry="84" stroke-width="1.5"></ellipse>
+<ellipse cx="450" cy="310" rx="306" ry="108" stroke-width="1.6"></ellipse>
+<ellipse cx="450" cy="310" rx="364" ry="132" stroke-width="1.6"></ellipse>
+</g>
+<circle cx="450" cy="310" fill="url(#globe)" r="158"></circle>
+<g clip-path="url(#globeClip)">
+<path d="M455.888,152.11L450,153.538M448.076,152.012L450,153.538M439.768,152.332L450,153.538M428.221,153.508L439.058,152.767L450,153.538M404.813,158.599L427.112,154.064L450,153.538M316.235,225.911L327.815,209.879L341.363,195.459L356.659,182.882L373.457,172.352L391.488,164.038L410.461,158.073L430.07,154.554L450,153.538M377.172,450.215L359.886,439.636L344.22,426.728L330.455,411.721L318.839,394.887L309.58,376.526L302.845,356.97L298.755,336.569L297.384,315.691L298.119,300.328L300.316,285.058L303.955,270.028L309.001,255.382L315.404,241.263L323.104,227.806L332.026,215.141L342.084,203.389L353.181,192.663L365.211,183.068L378.057,174.695L391.596,167.626L405.698,161.927L420.226,157.654L435.041,154.849L450,153.538M419.198,464.969L398.813,458.694L379.84,448.316L362.803,434.121L348.173,416.501L336.352,395.941L327.668,373.01L322.36,348.34L320.574,322.613L323.061,291.846L330.426,261.777L342.386,233.561L358.482,208.283L378.095,186.913L400.471,170.274L412.43,163.936L424.75,159.005L437.314,155.527L450,153.538M434.675,467.255L419.349,463.334L404.96,454.723L391.948,441.685L380.712,424.62L371.595,404.05L364.876,380.602L360.761,354.996L359.375,328.013L361.116,297.142L366.273,266.766L374.648,238.051L385.918,212.101L399.651,189.914L415.319,172.341L432.32,160.058L441.117,156.057L450,153.538M444.112,467.89L437.029,465.12L430.357,457.432L424.307,445.07L419.072,428.425L414.818,408.027L411.679,384.52L409.107,331.24L409.892,300.308L412.219,269.748L415.998,240.735L421.084,214.383L427.281,191.707L434.351,173.576L442.022,160.688L450,153.538M451.924,467.988L454.318,465.439L456.576,457.932L460.395,429.154L462.899,385.294L463.771,331.906L462.722,270.363L459.737,214.854L455.27,173.831L452.687,160.818L450,153.538M460.232,467.668L471.698,464.447L482.486,456.393L492.256,443.759L500.705,426.94L507.567,406.461L512.628,382.965L515.729,357.185L516.774,329.929L515.491,299.022L511.691,268.537L505.52,239.645L497.216,213.456L487.097,190.978L475.553,173.074L463.027,160.432L450,153.538M471.779,466.492L490.195,461.58L507.426,452.204L522.966,438.639L536.358,421.286L547.205,400.656L555.191,377.356L560.078,352.072L561.723,325.549L559.576,294.726L553.218,264.49L542.894,236.003L529,210.359L512.07,188.545L492.754,171.398L471.796,159.577L460.951,155.815L450,153.538M495.187,461.401L515.777,453.247L534.766,441.605L551.69,426.758L566.138,409.067L577.757,388.963L586.264,366.937L591.453,343.523L593.197,319.293L590.445,288.59L582.296,258.71L569.064,230.801L551.255,205.936L529.556,185.069L517.502,176.393L504.799,169.004L491.568,162.973L477.936,158.357L464.036,155.202L450,153.538M583.765,394.089L593.954,375.027L601.375,354.714L605.886,333.542L607.399,311.916L606.641,296.571L604.374,281.355L600.621,266.415L595.417,251.895L588.813,237.934L580.872,224.668L571.671,212.223L561.298,200.72L549.853,190.269L537.446,180.971L524.197,172.916L510.234,166.181L495.69,160.831L480.707,156.918L465.428,154.479L450,153.538M522.828,169.785L505.628,162.227L487.57,156.952L468.931,154.04L450,153.538M480.802,155.031L465.513,153.154L450,153.538M465.325,152.745L450,153.538M433.436,467.129L434.263,467.213L435.258,467.306L436.282,467.392L437.331,467.472L438.405,467.546L439.501,467.613L440.616,467.673L441.75,467.727L442.899,467.774L444.062,467.813L445.236,467.846L446.419,467.871L447.609,467.889L448.803,467.9L450,467.904L451.197,467.9L452.391,467.889L453.581,467.871L454.764,467.846L455.938,467.813L457.101,467.774L458.25,467.727L459.384,467.673L460.499,467.613L461.595,467.546L462.669,467.472L463.718,467.392L464.742,467.306L465.737,467.213L466.564,467.129M373.39,448.184L373.692,448.346L374.656,448.807L375.764,449.261L377.014,449.708L378.402,450.147L379.926,450.577L381.584,450.998L383.372,451.408L385.287,451.807L387.325,452.194L389.482,452.568L391.755,452.928L394.139,453.275L396.628,453.606L399.22,453.923L401.908,454.223L404.687,454.507L407.553,454.773L410.5,455.022L413.522,455.253L416.613,455.465L419.768,455.658L422.98,455.832L426.244,455.986L429.553,456.12L432.901,456.234L436.282,456.328L439.688,456.401L443.115,456.453L446.554,456.485L450,456.495L453.446,456.485L456.885,456.453L460.312,456.401L463.718,456.328L467.099,456.234L470.447,456.12L473.756,455.986L477.02,455.832L480.232,455.658L483.387,455.465L486.478,455.253L489.5,455.022L492.447,454.773L495.313,454.507L498.092,454.223L500.78,453.923L503.372,453.606L505.861,453.275L508.245,452.928L510.518,452.568L512.675,452.194L514.713,451.807L516.628,451.408L518.416,450.998L520.074,450.577L521.598,450.147L522.986,449.708L524.236,449.261L525.344,448.807L526.308,448.346L526.61,448.184M329.82,412.57L330,412.771L330.804,413.497L331.834,414.218L333.089,414.932L334.567,415.637L336.264,416.333L338.178,417.018L340.305,417.691L342.641,418.35L345.181,418.994L347.92,419.623L350.854,420.234L353.976,420.827L357.282,421.4L360.764,421.952L364.415,422.483L368.23,422.991L372.2,423.476L376.319,423.936L380.577,424.371L384.968,424.779L389.482,425.16L394.112,425.514L398.848,425.839L403.682,426.135L408.604,426.401L413.604,426.637L418.674,426.843L423.803,427.018L428.982,427.161L434.202,427.273L439.451,427.353L444.721,427.401L450,427.417L455.279,427.401L460.549,427.353L465.798,427.273L471.018,427.161L476.197,427.018L481.326,426.843L486.396,426.637L491.396,426.401L496.318,426.135L501.152,425.839L505.888,425.514L510.518,425.16L515.032,424.779L519.423,424.371L523.681,423.936L527.8,423.476L531.77,422.991L535.585,422.483L539.236,421.952L542.718,421.4L546.024,420.827L549.146,420.234L552.08,419.623L554.819,418.994L557.359,418.35L559.695,417.691L561.822,417.018L563.736,416.333L565.433,415.637L566.911,414.932L568.166,414.218L569.196,413.497L570,412.771L570.18,412.57M301.725,364.577L302.094,365.314L302.799,366.21L303.784,367.101L305.048,367.986L306.588,368.861L308.4,369.727L310.482,370.581L312.83,371.421L315.439,372.246L318.304,373.054L321.42,373.845L324.78,374.616L328.379,375.365L332.21,376.092L336.264,376.795L340.535,377.473L345.015,378.124L349.694,378.748L354.564,379.342L359.616,379.907L364.84,380.44L370.226,380.94L375.764,381.408L381.444,381.842L387.253,382.241L393.182,382.604L399.22,382.93L405.354,383.22L411.573,383.472L417.865,383.687L424.218,383.863L430.621,384L437.06,384.098L443.524,384.157L450,384.177L456.476,384.157L462.94,384.098L469.379,384L475.782,383.863L482.135,383.687L488.427,383.472L494.646,383.22L500.78,382.93L506.818,382.604L512.747,382.241L518.556,381.842L524.236,381.408L529.774,380.94L535.16,380.44L540.384,379.907L545.436,379.342L550.306,378.748L554.985,378.124L559.465,377.473L563.736,376.795L567.79,376.092L571.621,375.365L575.22,374.616L578.58,373.845L581.696,373.054L584.561,372.246L587.17,371.421L589.518,370.581L591.6,369.727L593.412,368.861L594.952,367.986L596.216,367.101L597.201,366.21L597.906,365.314L598.275,364.577M292,310L292.15,310.959L292.601,311.916L293.352,312.87L294.4,313.818L295.745,314.759L297.384,315.691L299.313,316.612L301.529,317.521L304.027,318.415L306.803,319.293L309.852,320.154L313.168,320.995L316.744,321.815L320.574,322.613L324.65,323.386L328.965,324.134L333.51,324.856L338.277,325.549L343.257,326.212L348.44,326.845L353.816,327.445L359.375,328.013L365.107,328.546L371,329.043L377.044,329.505L383.226,329.929L389.536,330.316L395.961,330.663L402.488,330.972L409.107,331.24L415.803,331.468L422.564,331.655L429.377,331.801L436.229,331.906L443.108,331.968L450,331.989L456.892,331.968L463.771,331.906L470.623,331.801L477.436,331.655L484.197,331.468L490.893,331.24L497.512,330.972L504.039,330.663L510.464,330.316L516.774,329.929L522.956,329.505L529,329.043L534.893,328.546L540.625,328.013L546.184,327.445L551.56,326.845L556.743,326.212L561.723,325.549L566.49,324.856L571.035,324.134L575.35,323.386L579.426,322.613L583.256,321.815L586.832,320.995L590.148,320.154L593.197,319.293L595.973,318.415L598.471,317.521L600.687,316.612L602.616,315.691L604.255,314.759L605.6,313.818L606.648,312.87L607.399,311.916L607.85,310.959L608,310M301.725,255.423L301.67,255.585L301.529,256.487L301.67,257.388L302.094,258.288L302.799,259.184L303.784,260.075L305.048,260.959L306.588,261.835L308.4,262.7L310.482,263.554L312.83,264.394L315.439,265.219L318.304,266.028L321.42,266.818L324.78,267.589L328.379,268.339L332.21,269.066L336.264,269.769L340.535,270.447L345.015,271.098L349.694,271.721L354.564,272.316L359.616,272.88L364.84,273.413L370.226,273.914L375.764,274.382L381.444,274.815L387.253,275.214L393.182,275.577L399.22,275.904L405.354,276.194L411.573,276.446L417.865,276.66L424.218,276.836L430.621,276.973L437.06,277.071L443.524,277.13L450,277.15L456.476,277.13L462.94,277.071L469.379,276.973L475.782,276.836L482.135,276.66L488.427,276.446L494.646,276.194L500.78,275.904L506.818,275.577L512.747,275.214L518.556,274.815L524.236,274.382L529.774,273.914L535.16,273.413L540.384,272.88L545.436,272.316L550.306,271.721L554.985,271.098L559.465,270.447L563.736,269.769L567.79,269.066L571.621,268.339L575.22,267.589L578.58,266.818L581.696,266.028L584.561,265.219L587.17,264.394L589.518,263.554L591.6,262.7L593.412,261.835L594.952,260.959L596.216,260.075L597.201,259.184L597.906,258.288L598.33,257.388L598.471,256.487L598.33,255.585L598.275,255.423M329.82,207.43L329.426,207.96L329.08,208.693L328.965,209.428L329.08,210.163L329.426,210.896L330,211.627L330.804,212.353L331.834,213.074L333.089,213.788L334.567,214.493L336.264,215.189L338.178,215.874L340.305,216.547L342.641,217.206L345.181,217.85L347.92,218.479L350.854,219.09L353.976,219.682L357.282,220.256L360.764,220.808L364.415,221.339L368.23,221.847L372.2,222.332L376.319,222.792L380.577,223.226L384.968,223.635L389.482,224.016L394.112,224.369L398.848,224.695L403.682,224.991L408.604,225.257L413.604,225.493L418.674,225.699L423.803,225.873L428.982,226.017L434.202,226.129L439.451,226.209L444.721,226.257L450,226.273L455.279,226.257L460.549,226.209L465.798,226.129L471.018,226.017L476.197,225.873L481.326,225.699L486.396,225.493L491.396,225.257L496.318,224.991L501.152,224.695L505.888,224.369L510.518,224.016L515.032,223.635L519.423,223.226L523.681,222.792L527.8,222.332L531.77,221.847L535.585,221.339L539.236,220.808L542.718,220.256L546.024,219.682L549.146,219.09L552.08,218.479L554.819,217.85L557.359,217.206L559.695,216.547L561.822,215.874L563.736,215.189L565.433,214.493L566.911,213.788L568.166,213.074L569.196,212.353L570,211.627L570.574,210.896L570.92,210.163L571.035,209.428L570.92,208.693L570.574,207.96L570.18,207.43M373.39,171.816L372.873,172.12L372.2,172.59L371.676,173.065L371.301,173.541L371.075,174.02L371,174.5L371.075,174.979L371.301,175.458L371.676,175.935L372.2,176.409L372.873,176.879L373.692,177.345L374.656,177.806L375.764,178.26L377.014,178.707L378.402,179.146L379.926,179.576L381.584,179.997L383.372,180.407L385.287,180.806L387.325,181.193L389.482,181.567L391.755,181.928L394.139,182.274L396.628,182.606L399.22,182.922L401.908,183.222L404.687,183.506L407.553,183.772L410.5,184.021L413.522,184.252L416.613,184.464L419.768,184.657L422.98,184.831L426.244,184.985L429.553,185.12L432.901,185.234L436.282,185.327L439.688,185.4L443.115,185.452L446.554,185.484L450,185.494L453.446,185.484L456.885,185.452L460.312,185.4L463.718,185.327L467.099,185.234L470.447,185.12L473.756,184.985L477.02,184.831L480.232,184.657L483.387,184.464L486.478,184.252L489.5,184.021L492.447,183.772L495.313,183.506L498.092,183.222L500.78,182.922L503.372,182.606L505.861,182.274L508.245,181.928L510.518,181.567L512.675,181.193L514.713,180.806L516.628,180.407L518.416,179.997L520.074,179.576L521.598,179.146L522.986,178.707L524.236,178.26L525.344,177.806L526.308,177.345L527.127,176.879L527.8,176.409L528.324,175.935L528.699,175.458L528.925,174.979L529,174.5L528.925,174.02L528.699,173.541L528.324,173.065L527.8,172.59L527.127,172.12L526.61,171.816M433.436,152.871L433.298,152.885L432.364,152.99L431.464,153.099L430.6,153.215L429.772,153.335L428.982,153.46L428.233,153.59L427.525,153.725L426.86,153.863L426.239,154.005L425.664,154.152L425.134,154.301L424.652,154.453L424.218,154.609L423.833,154.766L423.498,154.926L423.214,155.088L422.98,155.252L422.798,155.416L422.668,155.582L422.59,155.748L422.564,155.915L422.59,156.081L422.668,156.247L422.798,156.413L422.98,156.578L423.214,156.741L423.498,156.903L423.833,157.063L424.218,157.221L424.652,157.376L425.134,157.528L425.664,157.678L426.239,157.824L426.86,157.966L427.525,158.105L428.233,158.239L428.982,158.369L429.772,158.494L430.6,158.615L431.464,158.73L432.364,158.84L433.298,158.944L434.263,159.043L435.258,159.135L436.282,159.222L437.331,159.302L438.405,159.375L439.501,159.442L440.616,159.503L441.75,159.556L442.899,159.603L444.062,159.643L445.236,159.675L446.419,159.7L447.609,159.719L448.803,159.729L450,159.733L451.197,159.729L452.391,159.719L453.581,159.7L454.764,159.675L455.938,159.643L457.101,159.603L458.25,159.556L459.384,159.503L460.499,159.442L461.595,159.375L462.669,159.302L463.718,159.222L464.742,159.135L465.737,159.043L466.702,158.944L467.636,158.84L468.536,158.73L469.4,158.615L470.228,158.494L471.018,158.369L471.767,158.239L472.475,158.105L473.14,157.966L473.761,157.824L474.336,157.678L474.866,157.528L475.348,157.376L475.782,157.221L476.167,157.063L476.502,156.903L476.786,156.741L477.02,156.578L477.202,156.413L477.332,156.247L477.41,156.081L477.436,155.915L477.41,155.748L477.332,155.582L477.202,155.416L477.02,155.252L476.786,155.088L476.502,154.926L476.167,154.766L475.782,154.609L475.348,154.453L474.866,154.301L474.336,154.152L473.761,154.005L473.14,153.863L472.475,153.725L471.767,153.59L471.018,153.46L470.228,153.335L469.4,153.215L468.536,153.099L467.636,152.99L466.702,152.885L466.564,152.871" fill="none" opacity="0.35" stroke="#D4AF37" stroke-width="0.5"></path>
+<path d="M382.184,452.706L382.104,452.668L382.109,452.666L382.928,453.048L383.573,453.355L383.782,453.455L383.782,453.455ZM425.018,466.012L425.022,466.013L425.208,466.038L425.129,466.013L425.085,465.986L424.757,465.903L425.071,465.922L425.479,465.954L425.677,465.966L426.39,466.042L426.924,466.076L427.268,466.073L427.569,466.053L427.837,466.025L428.194,465.979L428.257,465.894L428.441,465.824L428.101,465.675L427.089,465.514L426.758,465.348L426.788,465.238L427.252,465.202L427.736,465.148L428.096,465.048L428.217,464.89L428.052,464.669L428.316,464.558L429.339,464.651L430.083,464.853L431.077,464.93L430.738,464.735L430.776,464.545L431.77,464.648L432.325,464.86L433.36,464.94L434.294,464.898L435.264,464.882L436.273,464.952L436.925,465.179L437.636,465.042L438.406,464.978L439.319,464.936L440.235,464.89L441.036,464.785L441.983,464.722L442.694,464.617L443.138,464.425L443.914,464.584L444.846,464.52L445.629,464.792L446.216,464.99L447.216,464.893L447.581,464.679L448.511,464.528L449.752,464.565L450.116,464.775L450.895,464.564L451.919,464.493L453.035,464.463L454.033,464.465L455.059,464.521L456.054,464.54L456.387,464.721L456.881,464.872L457.937,464.756L459.024,464.709L460.051,464.683L461.069,464.644L462.05,464.539L463.081,464.439L464.062,464.25L465.044,464.113L466.05,464.015L466.965,463.817L467.914,463.446L468.727,463.203L469.578,463.259L469.634,463.469L470.21,463.577L471.23,463.475L471.516,463.661L471.908,463.78L473.048,463.578L473.827,463.283L474.825,463.114L476.137,462.827L477.176,462.67L478.464,462.455L479.436,462.248L480.474,462.019L481.46,461.802L482.137,461.816L483.421,461.482L484.383,461.219L485.187,461.154L486.258,460.9L486.952,460.603L488.112,460.304L489.14,460.065L490.269,459.837L491.199,459.68L491.863,459.641L492.503,459.628L492.712,459.776L492.061,460.123L492.19,460.304L492.182,460.463L492.879,460.434L492.876,460.582L492.968,460.711L493.534,460.657L494.465,460.416L495.852,459.99L496.078,460.06L496.498,460.046L496.875,460.034L497.337,459.985L497.953,459.87L496.276,460.601L495.72,460.801L494.702,461.153L493.635,461.441L492.421,461.789L491.683,462.047L492.33,461.919L491.43,462.2L490.38,462.497L489.273,462.807L489.003,462.93L489.361,462.881L490.295,462.659L491.413,462.35L492.387,462.068L493.339,461.797L494.29,461.523L495.19,461.243L496.531,460.822L497.055,460.676L497.688,460.514L498.413,460.307L499.232,460.063L500.347,459.689L501.335,459.346L502.497,458.947L503.518,458.6L504.332,458.319L505.343,457.948L505.991,457.712L506.658,457.468L506.819,457.422L507.393,457.205L507.969,456.982L507.969,456.982L502.804,458.915L497.575,460.667L492.288,462.236L486.949,463.619L481.565,464.815L476.143,465.822L470.689,466.64L465.21,467.266L459.712,467.701L454.203,467.944L448.688,467.995L443.175,467.853L437.67,467.518L432.18,466.992L426.712,466.274ZM354.842,435.675L356.169,436.588L356.744,437.082L356.728,437.254L355.791,436.59L356.372,437.118L355.216,436.281L354.474,435.585L355.383,436.188ZM533.982,437.445L532.281,437.858L533.153,437.012L534.005,436.314L534.421,435.966L534.575,436.347L535.342,436.355L535.049,436.656ZM538.225,364.171L538.112,367.23L538.483,368.369L538.059,369.615L537.549,370.401L537.065,368.979L536.524,369.774L536.616,371.614L536.238,372.701L535.53,373.343L534.992,375.479L533.569,378.461L531.789,381.951L529.413,386.668L527.786,390.056L526.126,392.869L524.251,393.571L522.123,394.71L521.035,394.217L519.519,393.52L519.206,392.331L519.541,390.251L519.169,388.415L519.317,386.708L520.072,384.938L521.194,384.441L521.361,383.63L522.797,381.699L523.292,380.115L522.972,378.987L522.815,377.458L523.003,375.175L524.028,373.706L524.587,372.08L525.744,371.895L527.101,371.273L528.016,370.743L529.019,370.63L530.527,369.068L532.617,367.33L533.474,365.98L533.321,364.906L534.231,365.129L535.708,363.224L535.961,361.657L536.847,360.426L537.474,361.471L537.917,362.516ZM607.283,325.031L607.359,324.169L607.432,322.439L607.492,320.953L607.5,319.024L607.495,317.169L607.422,313.641L607.208,311.698L607.1,309.461L606.936,307.471L606.576,306.095L606.269,303.955L605.878,302.716L605.193,300.101L605.027,298.75L605.324,298.619L605.986,298.559L606.508,300.885L606.867,302.441L607.082,303.367L607.437,305.939L607.627,305.59L607.802,307.141L607.904,309.206L607.967,310.163L607.929,312.544L607.949,313.271L607.962,313.203L607.919,315.041L607.896,315.723L607.896,315.724L607.6,321.231ZM593.739,301.926L592.82,302.853L592.052,300.844L591.379,296.984L591.268,292.409L592.279,293.681L593.067,295.436L593.96,298.11L594.118,301.003ZM299.116,287.795L298.529,287.786L298.46,287.477L298.773,286.838L298.953,285.765L299.386,285.625L299.504,285.797ZM301.947,264.474L301.626,265.041L301.331,264.752L301.084,264.633L301.428,263.494L301.605,263.167L301.909,263.474L302.042,263.888ZM300.339,259.349L300.307,259.445L300.16,259.922L299.913,260.737L299.671,261.504L299.705,261.296L299.705,261.296L299.592,261.621L299.727,261.195L299.727,261.195ZM301.54,257.691L301.506,258.409L301.683,258.013L301.813,258.307L301.695,259.185L301.777,259.214L301.495,260.194L301.648,260.343L301.371,261.103L301.461,261.357L301.28,262.488L300.818,263.412L300.874,262.676L300.72,262.62L300.682,262.377L300.485,262.783L300.35,262.807L300.529,262.117L300.342,262.37L299.691,264.011L299.784,263.503L300.019,262.735L300.074,262.052L299.963,262.06L299.974,261.649L299.786,261.963L300.035,260.958L300.318,260.157L300.242,260.851L300.239,261.333L300.474,260.889L300.81,259.601L301.159,258.616L301.248,257.987L301.523,257.357ZM304.282,248.924L303.993,249.622L303.258,251.488L302.752,252.857L302.745,252.941L302.519,253.671L302.244,254.366L302.194,254.734L301.814,256.054L301.588,256.611L301.457,256.696L301.42,256.579L301.523,256.132L301.565,255.862L302.02,254.679L302.314,253.867L302.439,253.522L302.439,253.522ZM305.532,246.072L305.507,246.109L306.183,244.589L306.566,243.742L307.27,242.251L307.185,242.451L306.185,244.627ZM308.871,239.023L308.831,239.04L309.3,238.116L309.323,238.083L309.195,238.383ZM308.798,239.279L307.948,240.957L308.119,240.583L308.755,239.31L309.295,238.195L309.437,237.918ZM493.008,235.593L491.796,236.697L492.054,237.148L492.158,237.343L490.156,238.441L489.036,238.168L488.35,237.208L489.354,237.072L489.498,237.053L489.689,236.448L491.232,236.411ZM469.409,236.337L470.706,237.133L472.414,236.952L474.082,237.083L474.078,237.511L475.243,237.185L475.056,237.918L471.88,238.208L471.86,237.8L469.095,237.384ZM451.13,230.45L450.354,232.333L450.68,233.078L450.222,234.316L448.532,233.407L447.418,233.144L444.394,231.909L444.729,230.681L447.263,230.91L449.484,230.656ZM438.01,223.379L439.128,225.038L438.618,228.133L437.664,227.969L436.738,228.743L435.984,228.107L436.145,225.279L435.787,223.944L436.916,224.079ZM438.895,221.227L438.078,222.986L437.185,222.505L436.852,220.958L437.337,220.122L438.707,219.275ZM343.458,199.386L343.476,199.833L343.911,200.019L342.907,200.69L342.633,200.72L342.974,199.566L343.546,198.855L344.292,198.358ZM349.292,195.014L349.057,194.929L349.213,194.031L349.872,192.943L350.157,192.877L350.105,193.652L349.651,194.668ZM355.277,193.449L353.147,194.905L354.189,194.435L354.155,194.986L353.254,195.553L353.248,196.275L354.014,195.926L354.054,196.738L352.431,198.058L353.228,197.896L352.304,198.944L351.344,200.223L349.4,201.85L349.015,201.814L348.917,201.281L350.61,199.732L350.669,199.419L348.269,200.828L347.964,200.61L349.297,199.87L349.176,199.162L348.438,199.013L347.46,198.473L347.965,197.868L348.973,197.352L349.291,196.733L350.918,195.805L354.669,193.111L356.16,192.224L357.343,191.8L357.517,191.983L356.855,192.427ZM414.105,198.768L410.828,199.765L408.76,199.33L410.949,197.379L411.098,195.387L413.813,194.038L415.328,193.235L416.587,193.229L417.67,194.466L416.313,195.72L415.996,197.099ZM446.4,193.296L445.378,194.806L443.803,193.734L443.651,192.957L445.96,192.366ZM424.581,187.288L422.299,189.114L423.826,188.938L425.361,189.015L424.437,190.452L422.504,192.022L423.98,192.207L424.612,194.655L425.567,194.999L425.87,197.209L426.105,197.989L427.966,198.429L427.442,199.677L426.447,200.228L426.848,201.278L425.061,202.278L422.818,202.173L419.796,202.611L419.144,202.18L417.734,203.073L416.272,202.769L414.83,203.486L414.094,203.035L417.267,201.045L418.879,200.687L416.454,200.231L416.295,199.424L418.191,198.9L417.721,197.806L418.5,196.558L420.751,196.844L421.373,195.744L420.771,194.507L419.076,194.088L418.931,193.565L419.813,192.765L419.541,192.233L418.384,193.063L419.068,191.293L418.77,190.336L420.135,188.525L421.857,187.163L422.876,187.355ZM376.413,170.886L375.18,171.477L375.434,171.289L376.187,170.867L376.349,170.789L377.033,170.486L376.936,170.586ZM378.086,169.739L376.943,170.206L377.129,170.054L377.826,169.686L378.804,169.26L378.553,169.51ZM385.893,165.85L384.774,166.349L385.054,166.264L384.299,166.641L383.264,167.197L382.325,167.735L381.139,168.296L381.235,168.329L380.335,168.837L379.667,169.058L380.481,168.511L381.678,167.897L380.558,168.344L379.601,168.707L381.098,167.969L381.198,167.852L382.178,167.435L384.068,166.582L386.248,165.649ZM418.911,174.207L417.882,175.101L418.178,176.171L415.913,177.187L412.055,177.957L410.923,178.148L409.796,177.801L407.526,177.051L409.129,176.504L407.847,175.578L409.77,175.48L410.176,175.057L408.652,174.524L410.276,173.687L411.828,173.628L412.221,174.713L414.401,174.089L415.178,174.592L417.427,173.98ZM388.651,165.688L388.552,165.574L389.806,165.029L391.22,164.521L391.553,164.512L390.84,164.903L389.747,165.346L389.394,165.474ZM516.583,220.453L518.179,221.98L519.032,222.01L519.835,222.573L518.5,222.893L518.968,224.71L519.014,225.55L518.588,226.154L519.108,227.307L520.379,228.987L522.282,229.314L524.01,230.376L526.702,230.525L529.149,229.604L529.07,229.03L528.008,227.41L527.126,224.95L525.458,224.313L525.138,222.693L523.973,222.681L523.413,220.725L525.231,221.11L526.286,220.225L524.427,219.007L523.306,217.781L522.302,218.494L522.959,220.158L521.724,218.756L521.363,218.22L521.288,217.251L520.584,216.511L518.328,215.952L516.597,214.059L515.421,213.596L515.006,212.896L516.663,212.946L515.883,211.365L517.012,210.88L518.534,211.054L517.617,208.956L516.585,207.69L515.146,207.949L513.569,207.572L512.312,208.671L511.093,209.254L511.023,210.579L509.64,211.072L509.078,213.442L511.568,215.385L512.09,216.887L515.146,219.35ZM596.676,251.262L596.745,251.436L597.737,254.086L598.686,256.803L599.329,258.669L600.217,261.119L601.209,264.177L601.23,264.246L601.23,264.246L602.735,269.551L604.053,274.906L605.184,280.304L605.796,283.7L606.223,286.542L605.949,284.954L605.638,283.02L605.351,281.776L605.233,281.697L604.93,280.454L604.302,277.876L603.91,276.986L603.771,277.356L603.312,275.207L603.132,275.549L603.786,278.515L604.457,282.635L604.808,285.136L605.158,287.066L605.34,286.902L605.817,289.215L606.182,291.495L606.491,292.835L606.636,292.922L606.874,294.131L606.932,294.301L607.167,295.714L607.37,297.378L607.521,299.19L607.599,300.471L607.666,301.37L607.759,302.954L607.816,303.571L607.922,305.836L607.945,306.763L607.911,307.22L607.765,305.559L607.503,303.846L607.409,302.5L607.182,300.898L606.981,298.695L606.769,297.348L606.596,295.323L606.418,294.256L606.199,293.363L605.988,292.085L605.637,290.754L605.308,289.654L605.484,291.306L605.209,289.874L604.986,288.143L604.648,285.444L604.254,283.479L603.945,281.306L603.513,279.843L602.888,276.897L602.432,275.667L601.52,272.605L600.538,269.332L599.741,267.307L599.888,268.87L599.952,271.165L599.629,271.131L599.156,270.738L598.362,267.347L597.487,264.963L596.089,262.236L595.825,261.256L595.401,261.129L594.251,259.27L593.587,258.02L593.053,256.729L592.46,255.562L591.617,254.217L591.008,254.434L591.487,255.455L591.845,256.992L591.363,256.616L591.446,257.137L591.145,256.95L590.786,256.853L591.047,257.842L590.542,258.044L589.795,258.997L590.553,260.928L590.662,262.647L590.027,264.897L589.988,268.368L589.767,270.291L589.271,272.359L589.605,273.584L589.268,274.41L588.559,275.67L588.082,275.967L588.255,278.106L589.304,281.529L589.846,283.745L589.88,286.454L590.7,291.06L590.119,291.371L589.906,293.596L590.4,294.391L589.413,295.47L589.25,297.438L588.845,298.36L587.301,296.129L586.136,292.47L585.173,289.856L584.483,288.689L583.28,286.258L582.255,282.959L581.654,281.332L579.55,277.934L577.65,272.887L576.283,269.584L575.329,266.386L574.284,263.988L572.736,265.992L571.618,265.89L568.691,263.093L569.095,262.009L568.319,261.07L565.816,259.201L564.477,258.747L563.372,256.97L561.478,255.225L558.724,256.201L556.068,256.673L553.801,257.395L550.259,257.078L548.124,256.745L545.964,256.68L544.177,253.62L543.151,253.274L541.874,253.907L540.365,255.374L537.773,254.784L535.221,253.024L533.128,252.493L531.082,250.205L528.589,246.972L527.667,247.484L526.152,246.767L525.718,247.821L524.494,247.805L525.243,248.885L525.231,249.481L526.429,251.339L527.844,253.475L529.007,253.968L529.599,254.836L531.279,255.785L531.688,256.84L531.724,257.723L532.212,258.572L532.989,259.241L533.483,260.069L533.949,260.679L533.32,258.797L533.495,257.38L533.965,257.044L534.794,257.798L535.243,259.311L535.209,260.891L535.853,261.852L536.176,261.686L536.441,262.396L537.9,261.818L539.56,261.706L540.769,261.653L541.607,259.736L542.547,257.903L543.257,256.167L543.52,255.225L543.824,255.418L543.981,256.505L543.878,257.008L544.748,259.02L546.113,260.696L547.428,261.51L548.888,261.679L550.109,262.01L551.363,263.402L552.102,264.205L552.849,264.449L553.008,265.037L552.779,266.697L552.688,267.479L552.133,268.43L551.897,270.336L551.008,270.308L550.769,270.994L550.793,272.384L551.442,274.139L551.337,274.488L550.448,274.592L549.453,275.745L549.543,277.076L549.216,277.699L547.977,277.826L547.331,278.597L547.554,279.686L546.725,280.548L545.556,280.421L544.35,281.485L543.423,281.741L542.039,282.632L541.837,283.88L541.945,284.808L540.003,286.172L536.723,287.785L535.011,289.895L534.05,290.133L533.36,290.037L532.183,291.286L530.8,291.935L528.895,292.241L528.332,292.446L527.908,293.21L527.321,293.459L527.047,294.182L525.88,294.214L525.169,294.643L523.525,294.629L522.74,293.077L522.642,291.577L522.159,290.802L521.462,288.817L520.646,287.746L521.105,287.577L520.703,286.351L520.922,285.805L520.666,284.631L520.206,283.49L519.387,282.729L519.052,281.661L517.71,280.775L516.139,278.599L515.15,276.447L513.255,274.709L512.142,274.336L510.201,271.884L509.643,270.045L509.491,268.463L507.679,265.608L506.422,264.641L505.079,264.17L504.061,262.704L504.087,262.106L503.217,260.78L502.445,260.238L501.218,258.345L499.454,256.328L497.985,254.612L496.842,254.682L496.961,253.248L496.903,252.348L496.997,251.311L496.857,250.943L496.405,252.005L496.248,253.968L495.851,255.343L495.384,255.82L494.477,255.021L493.257,253.921L491.034,250.319L490.832,250.559L492.211,253.222L494.039,255.751L496.423,259.715L497.499,261.094L498.484,262.539L501.032,265.347L500.633,265.833L500.959,267.55L504.063,269.786L504.56,270.308L505.703,272.887L505.246,273.402L505.961,276.144L507.257,279.315L508.261,279.925L509.704,280.849L511.484,283.897L512.446,286.354L513.918,287.597L517.489,289.956L518.987,291.417L520.455,292.904L521.301,293.79L522.551,294.529L523.203,295.335L523.24,296.478L521.949,297.237L523.042,297.909L523.869,298.357L524.436,299.455L525.607,300.526L526.782,300.443L528.93,299.563L531.42,299.026L533.356,297.996L534.467,297.713L535.22,297.139L536.489,296.928L537.2,296.804L538.18,296.298L539.319,295.911L540.251,294.871L541.076,294.779L541.215,295.529L541.206,297.143L541.375,298.58L541.015,299.62L540.69,302.65L539.884,305.82L538.753,309.466L537.045,313.679L535.223,316.932L532.604,320.917L530.292,323.338L526.755,326.34L524.51,328.594L521.827,332.091L521.247,333.569L520.68,334.252L518.929,335.457L518.302,336.628L517.366,336.892L516.965,338.823L516.137,339.965L515.598,341.791L514.559,342.745L513.275,346.127L513.352,347.636L514.906,348.513L514.942,349.199L514.172,350.851L514.268,351.652L514.029,352.928L514.787,354.53L515.62,357.063L516.468,357.579L516.767,358.728L516.44,361.332L516.518,363.593L516.182,367.611L516.46,368.838L515.521,370.705L514.366,372.525L512.634,374.185L510.305,375.278L507.419,376.654L504.335,379.473L503.339,379.975L501.409,381.813L500.326,382.428L499.896,384.176L500.792,385.955L501.055,387.341L500.981,388.058L501.421,387.918L500.989,390.258L500.427,391.375L500.914,391.753L500.403,392.75L499.278,393.632L497.202,394.514L494.154,395.904L492.979,396.805L493.03,397.76L493.607,397.888L493.205,399.098L492.338,400.772L491.748,402.647L490.971,403.678L489.196,404.86L488.693,405.199L487.522,406.35L486.693,407.491L485.126,409.088L482.184,411.375L480.379,412.693L478.531,413.697L476.05,414.569L474.891,414.709L474.519,415.289L473.191,415.018L472.02,415.438L469.618,415.096L468.221,415.375L467.293,415.285L464.884,416.133L462.917,416.486L461.471,417.271L460.436,417.331L459.526,416.62L458.761,416.59L457.822,415.686L457.702,415.971L457.422,415.422L457.489,414.213L456.795,412.823L457.553,412.434L457.558,410.815L456.082,408.826L454.939,406.997L454.93,406.993L453.259,404.146L451.465,402.471L450.52,400.829L449.972,398.62L449.362,396.959L448.51,393.381L448.432,390.56L448.104,389.263L447.103,388.278L445.751,386.283L444.354,383.366L443.77,381.825L441.603,379.401L441.407,377.495L441.131,375.919L441.454,373.713L442.336,371.401L442.465,370.308L443.303,368.011L443.929,366.958L445.454,365.281L446.319,364.133L446.592,362.209L446.439,360.73L445.625,359.794L444.893,358.202L444.218,356.618L444.361,356.075L445.189,355.028L444.352,352.468L443.782,350.682L442.404,348.984L442.657,348.466L442.268,347.634L441.528,345.613L439.262,342.741L436.433,339.985L434.607,337.722L432.93,334.891L433.017,333.989L433.619,333.126L434.28,331.148L434.835,329.128L434.322,328.704L435.28,325.641L435.684,323.476L434.629,321.648L433.38,321.164L432.838,319.922L432.143,319.515L432.18,318.756L429.332,319.7L428.304,319.532L427.248,320.13L425.077,320.023L423.644,318.266L422.789,316.255L420.909,314.388L418.884,314.37L416.518,314.296L414.306,314.549L412.141,315.064L407.935,316.524L406.447,317.413L404.056,318.111L401.735,317.227L400.55,317.205L398.748,316.58L397.086,316.531L394.019,316.854L392.215,317.55L389.662,318.418L389.17,318.32L388.504,318.304L385.95,316.834L383.762,314.595L381.712,312.951L380.144,311.064L379.494,310.813L377.801,309.579L376.636,308.016L376.277,306.978L376.125,304.922L375.198,303.218L374.361,302.068L373.785,301.668L373.245,301.073L373.083,299.838L372.792,299.207L372.16,298.702L371.022,297.453L370.064,297.191L369.621,296.376L369.674,295.96L369.042,295.321L368.96,294.72L368.827,292.59L369.272,291.404L368.606,289.198L367.618,288.131L368.678,287.702L370.037,285.886L370.777,284.534L370.801,283.058L371.639,281.778L372.323,279.254L372.531,276.576L372.495,275.217L372.962,273.898L372.627,272.577L371.698,271.326L372.015,270.212L372.367,268.988L373.344,268.336L374.343,267.016L374.391,266.109L375.539,264.311L377.112,262.738L377.93,262.375L378.845,260.897L379.204,259.509L380.349,257.963L382.004,257.126L383.99,254.592L385.347,253.651L387.432,253.508L389.542,251.877L390.785,251.266L393.081,249.258L393.265,246.077L394.598,243.972L395.202,242.672L396.976,241.08L399.366,240.076L401.177,239.148L403.187,236.688L404.196,235.233L405.741,235.322L406.777,236.419L408.833,236.347L410.941,236.989L411.873,237.055L414.193,235.808L416.594,235.479L418.123,234.528L420.32,233.863L424.042,233.549L427.648,233.45L428.702,233.832L430.859,232.932L433.188,232.958L434.026,233.533L435.535,233.415L437.982,232.477L439.498,232.785L439.357,234.004L441.271,233.138L441.408,233.601L440.245,234.773L440.171,235.9L440.912,236.514L440.522,238.631L438.969,239.854L439.334,241.209L440.508,241.263L441.036,242.452L441.899,242.848L444.584,243.731L445.564,243.52L447.493,243.942L450.57,245.066L451.677,247.311L453.803,247.794L457.153,248.841L459.722,250.082L460.856,249.41L461.933,248.226L461.289,246.297L461.957,245.06L463.558,243.862L465.129,243.499L468.274,243.956L469.155,245.062L470.02,245.053L470.79,245.467L473.111,245.708L473.76,246.53L476.821,246.406L479.12,247.007L481.491,247.684L482.611,248.042L484.263,247.174L485.092,246.417L487.058,246.131L488.717,246.385L489.532,247.612L489.924,246.764L491.824,247.283L493.601,247.344L494.585,246.654L495.068,245.795L494.889,245.658L495.248,244.456L495.31,242.548L495.494,241.905L495.551,241.876L495.889,239.817L496.561,238.03L496.579,237.94L495.949,236.083L496.224,235.057L495.196,234L495.758,233.053L494.55,233.328L492.678,232.863L491.554,234.32L488.406,234.738L486.43,233.515L484.119,233.526L483.809,234.547L482.374,234.893L480.084,233.677L477.742,233.794L476.112,231.446L474.365,230.167L475.124,228.297L473.631,227.208L475.582,224.908L478.717,224.717L479.237,222.932L483.116,223.091L485.156,221.506L487.274,220.76L490.455,220.554L494.274,221.978L497.298,222.706L499.396,222.216L501.086,222.317L502.87,220.975L502.797,219.989L501.771,218.486L500.421,217.732L499.32,217.543L498.406,216.904L495.433,215.182L493.081,214.475L491.088,213.281L492.277,212.858L493.108,210.969L491.817,210.18L494.046,209.159L493.816,208.701L492.408,209.134L491.088,209.388L490.169,210.141L488.557,210.342L487.284,211.219L487.81,212.558L488.861,213.034L490.666,212.806L490.563,213.599L488.69,214.085L486.556,215.481L485.396,215.078L485.516,214.03L483.315,213.482L483.534,213.051L485.077,212.249L484.41,211.779L481.428,211.361L481.089,210.563L479.476,210.896L479.09,212.107L478.027,213.768L478.194,214.33L477.38,214.839L476.762,214.65L476.774,217.341L475.946,218.302L475.529,219.935L476.401,221.21L476.799,222.084L478.694,222.763L478.431,223.34L476.048,223.548L475.302,224.286L473.783,225.59L472.976,224.526L472.927,224.047L471.67,224.013L470.569,223.821L468.154,224.481L469.746,225.756L468.733,226.159L467.575,226.183L466.343,225.006L466.006,225.526L466.616,226.913L467.787,227.994L467.04,228.53L468.342,229.596L469.471,230.261L469.653,231.609L467.592,231.016L468.354,232.227L467.003,232.506L468.031,234.617L466.578,234.674L464.687,233.653L463.72,231.745L463.217,230.163L462.301,229.082L461.109,227.75L460.926,227.083L460.55,226.925L460.479,226.41L459.264,225.636L459.019,224.532L459.096,222.955L459.333,222.236L458.971,221.879L458.526,221.706L457.911,220.97L457.009,220.523L455.07,219.7L453.877,218.892L452.029,218.229L450.348,216.586L450.745,216.42L449.844,215.491L449.81,214.744L448.559,214.397L447.949,215.346L447.387,214.606L447.445,213.845L447.515,213.812L447.95,213.613L446.424,213.29L444.827,214.058L444.887,215.149L444.622,215.776L445.223,216.911L447.058,218.048L448.039,219.912L450.294,221.749L451.896,221.735L452.406,222.238L451.834,222.698L453.705,223.522L455.252,224.214L457.091,225.412L457.33,225.848L456.973,226.687L455.761,225.604L453.92,225.231L453.073,226.745L454.622,227.609L454.402,228.844L453.509,228.988L452.393,231.029L451.487,231.217L451.489,230.485L451.919,229.21L452.376,228.704L451.53,227.341L450.873,226.16L449.999,225.868L449.381,224.862L448.037,224.44L447.153,223.506L445.619,223.351L444.043,222.302L442.243,220.801L440.945,219.478L440.478,217.251L439.516,216.982L437.978,216.226L437.045,216.513L435.798,217.528L434.962,217.676L433.013,218.909L429.189,218.21L426.204,218.862L425.743,220.212L425.627,221.541L423.457,223.007L420.779,223.407L420.448,224.178L418.947,225.417L417.785,227.29L418.331,228.668L416.931,229.676L416.183,231.206L414.501,231.619L412.638,233.405L409.962,233.319L407.975,233.179L406.472,233.967L405.463,234.838L404.488,234.584L403.915,233.729L403.674,232.314L401.867,231.834L400.882,232.407L399.908,232.007L398.795,232.207L399.626,230.36L399.86,228.893L399.043,228.618L398.838,227.696L399.463,226.177L400.5,225.378L400.931,224.449L401.767,223.088L402.034,222.116L401.917,221.274L402.089,220.5L402.719,218.901L402.296,217.879L405.441,216.432L407.568,216.964L410.076,217.083L411.97,217.565L413.571,217.523L416.635,217.732L417.952,216.438L419.399,212.088L418.126,209.759L417.121,208.628L414.694,207.689L415.022,206.162L417.396,205.816L420.144,206.477L420.28,204.119L421.648,205.068L426.075,203.618L426.997,201.977L428.572,201.62L430.01,201.264L430.994,200.741L433.046,197.884L435.423,197.127L436.763,197.211L437.143,196.809L438.51,196.73L438.755,197.159L439.975,196.23L439.704,195.508L439.773,194.435L439.284,193.387L439.521,191.503L439.844,191.018L440.354,190.48L441.676,190.389L442.259,189.9L443.497,189.409L443.357,190.33L442.855,190.912L442.981,191.425L443.779,191.709L443.341,192.397L442.903,192.193L441.649,193.51L441.978,194.428L441.924,195.156L443.498,195.618L443.424,196.296L445.094,195.951L446.026,195.435L447.809,196.195L448.567,196.811L449.679,196.247L452.183,195.363L454.164,194.713L455.769,195.02L455.925,195.481L457.47,195.488L457.748,194.651L459.846,194.015L459.312,192.457L459.184,191.079L459.752,189.935L461.038,189.301L462.449,190.619L463.633,190.557L463.627,189.178L463.568,188.132L463.091,188.367L462.06,187.763L461.74,186.767L463.393,186.251L465.065,185.959L466.628,186.197L468.027,186.105L469.254,185.113L467.595,184.365L465.224,184.57L463.011,185.246L460.866,185.652L459.905,184.745L458.508,184.215L458.536,182.588L457.672,181.14L458.113,180.209L459.032,179.211L461.327,177.504L462,177.171L461.695,176.546L459.942,175.89L458.121,176.342L457.22,177.398L457.568,178.318L455.852,179.582L453.594,180.96L452.803,183.245L453.829,184.408L455.205,185.332L454.078,187.276L452.617,187.692L452.17,190.677L451.356,192.39L449.491,192.214L448.59,193.68L446.778,193.759L446.366,192.008L445.236,189.94L444.341,187.434L443.501,186.362L440.436,188.336L438.446,188.713L436.642,187.776L436.565,185.91L437.097,182.064L438.522,181.059L442.07,179.797L444.694,178.239L447.023,176.174L449.752,173.429L451.447,172.396L453.976,170.712L455.93,170.119L457.47,170.16L458.518,169.084L460.147,169.097L461.605,168.802L464.831,169.616L463.866,170L465.305,170.769L465.99,170.28L467.973,170.996L470.704,171.178L475.361,172.468L476.61,173.065L477.416,173.978L476.892,174.791L475.504,175.274L470.212,174.441L469.555,174.656L471.869,175.623L473.274,177.807L474.985,178.191L476.1,178.536L475.794,177.796L474.693,177.169L475.068,176.591L478.289,177.356L478.933,176.936L477.449,175.909L478.722,174.355L479.689,174.37L481.023,174.792L480.733,173.787L479.216,173.029L478.927,172.189L477.503,171.417L480.375,171.643L481.625,172.344L480.654,172.605L481.379,173.359L482.557,173.771L483.687,173.349L483.023,172.465L484.144,171.66L485.646,170.258L486.307,170.255L486.516,171.118L487.669,171.14L487.665,170.636L489.044,170.426L489.404,169.765L491.307,170.408L490.894,169.47L489.108,168.864L488.853,168.418L491.351,168.491L492.842,168.724L497.395,169.716L496.715,169.002L495.019,168.482L494.566,168.234L493.653,168.248L492.881,167.659L490.978,166.823L490.308,166.467L489.406,165.303L487.799,164.295L487.727,164.028L489.497,164.045L490.823,164.589L492.171,165.535L493.172,165.814L494.865,166.545L497.742,168.131L499.663,168.724L500.888,169.583L502.78,171.614L503.787,171.656L503.252,171.142L503.332,170.676L502.4,170.023L501.815,169.332L500.256,168.721L499.029,167.89L498.295,167.923L496.949,167.313L495.1,166.103L492.681,165.366L491.963,164.481L490.248,163.787L490.401,163.716L491.885,164.218L493.918,165.254L494.797,165.332L492.952,164.63L492.714,164.056L493.365,163.786L495.376,164.154L493.074,163.43L490.479,162.432L490.529,162.077L491.316,161.877L491.537,161.545L490.027,161.175L488.633,160.517L488.806,160.387L487.898,159.814L487.968,159.469L487.297,159.235L487.368,158.93L488.046,159.016L486.819,158.44L486.971,158.287L485.829,157.979L484.72,157.627L483.663,157.184L484.53,157.232L485.2,157.495L485.589,157.393L486.908,157.672L486.232,157.442L486.115,157.192L487.233,157.281L488.142,157.433L489.539,157.779L490.433,158.078L492.115,158.717L492.946,159.004L493.235,158.974L493.773,158.999L493.185,158.769L494.807,159.174L494.078,158.939L493.458,158.658L493.357,158.433L494.51,158.732L493.954,158.385L492.025,157.87L491.914,157.767L491.452,157.602L492.242,157.777L493.631,158.153L494.837,158.504L496.066,158.865L496.067,158.865L501.313,160.565L506.497,162.446L511.612,164.508L516.652,166.747L521.611,169.16L526.483,171.745L531.261,174.499L535.941,177.417L540.515,180.497L544.98,183.735L549.329,187.127L553.556,190.668L557.658,194.355L561.628,198.182L565.463,202.146L569.156,206.242L572.705,210.463L576.104,214.806L579.349,219.265L582.437,223.835L585.363,228.509L588.125,233.283L590.718,238.15L593.14,243.105L595.387,248.141ZM400.198,160.054L399.613,160.25L398.97,160.469L398.408,160.662L397.275,161.06L397.275,161.06L396.7,161.262L396.7,161.262ZM363.415,177.837L362.675,178.331L361.431,179.184L360.888,179.627L360.435,180.012L358.537,181.306L356.255,182.958L353.675,184.936L351.379,186.868L351.973,186.506L354.14,184.929L357.687,182.265L358.952,181.284L359.825,180.914L361.337,180.083L362.903,179.151L364.45,178.143L366.462,176.77L368.318,175.461L370.715,174.251L372.908,172.956L376.709,170.891L377.232,170.726L376.507,171.373L376.268,171.679L376.922,171.493L376.13,172.092L374.796,173.073L373.885,173.645L373.889,174.077L371.876,175.222L368.928,177.074L368.703,177.48L367.455,178.487L369.04,177.957L371.84,176.546L373.091,176.012L371.202,177.437L368.639,179.581L366.287,181.648L364.738,182.554L363.978,183.734L363.086,184.855L363.229,185.615L362.847,186.285L361.241,187.802L361.364,188.196L360.79,188.935L358.502,190.923L357.329,191.43L356.226,191.895L354.661,192.155L352.381,193.35L351.318,193.243L350.958,192.346L350.495,191.972L350.061,191.846L348.351,192.934L347.147,193.423L344.166,195.495L342.135,196.925L342.585,196.837L345.537,194.798L347.743,193.791L348.38,193.979L347.664,195.102L345.99,196.119L343.933,198.24L342.557,199.779L342.068,201.093L343.045,201.239L345.684,199.305L344.307,200.735L343.929,201.613L342.079,202.588L339.989,203.186L338.842,203.728L337.092,204.877L336.988,204.518L338.579,202.812L340.736,201.642L340.146,201.279L339.593,201.22L339.006,201.913L337.804,202.583L336.916,202.989L336.155,203.289L334.83,204.44L334.501,204.74L333.513,205.812L332.588,206.99L332.612,207.16L333.265,206.38L332.91,206.92L332.372,207.486L331.962,207.628L331.928,207.449L331.514,207.6L331.379,207.576L331.238,207.509L330.663,207.867L331.111,207.903L330.799,208.381L330.14,208.597L330.106,208.415L330.326,208.171L329.818,208.659L329.746,208.84L328.464,210.28L327.106,211.691L327.553,211.124L327.646,210.948L328.085,210.326L327.143,211.524L326.831,211.976L326.185,212.787L325.523,213.525L324.193,215.079L324.264,214.964L325.398,213.588L326.068,212.614L327.505,210.816L326.767,211.673L325.669,213.092L325.962,212.583L325.386,213.456L323.79,215.527L323.663,215.765L323.09,216.552L321.462,218.801L320.308,220.258L319.921,220.594L319.085,221.702L319.052,221.688L318.569,222.356L318.083,223.074L317.425,224.047L317.425,224.047L320.506,219.472L323.744,215.008L327.136,210.66L330.678,206.432L334.365,202.331L338.193,198.361L342.157,194.527L346.253,190.834L350.475,187.286L354.818,183.887L359.278,180.642ZM294.047,284.651L294.121,284.205L294.152,284.073L294.304,283.189L294.712,280.985L294.947,279.957L294.969,280.144L295.084,279.616L295.083,280.134L295.433,279.077L295.607,278.627L295.956,277.518L295.976,277.813L295.868,278.617L295.642,279.446L295.506,280.065L295.35,280.158L295.157,281.498L294.888,282.9L294.54,284.295L294.236,286.579L294.336,286.569L294.705,284.704L294.818,283.639L295.192,281.585L295.658,280.958L295.887,279.645L296.147,278.933L295.841,280.95L296.023,281.254L295.924,282.997L295.768,283.9L296.07,284.263L296.537,284.384L296.561,285.802L296.854,286.422L297.277,285.788L297.409,285.113L298.096,285.411L298.808,285.811L298.156,286.298L298.131,287.701L298.586,288.197L298.855,289.808L298.63,292.039L298.994,292.169L299.18,292.952L299.524,294.191L299.763,296.189L299.617,297.601L299.908,297.803L300.195,299.332L300.423,300.421L301.41,301.405L301.555,300.949L302.319,301.042L303.278,302.161L303.59,302.583L304.278,303.491L305.211,306.173L305.312,307.351L305.696,307.341L305.876,308.942L306.293,313.919L306.9,314.555L306.887,316.452L306.002,318.443L306.355,319.374L308.454,320.411L308.53,323.162L309.448,321.631L311.076,323.036L313.349,325.258L314.071,327.014L313.9,328.466L315.517,328.011L318.455,330.079L320.768,330.446L323.255,333.152L325.559,336.574L326.921,337.582L328.403,337.946L329.101,338.902L329.982,342.423L330.431,344.095L330.231,348.392L329.569,349.973L327.722,353.235L327.167,356.017L326.385,358.065L325.998,358.039L325.934,359.871L327.109,364.733L327.651,368.586L327.929,370.228L327.721,371.131L328.43,374.436L327.958,377.38L328.575,379.874L327.803,380.695L328.013,382.091L326.528,381.759L324.822,382.218L324.36,383.085L323.275,383.45L322.694,385.004L322.784,387.116L323.437,388.842L324.235,390.194L325.194,392.501L325.527,393.568L325.452,394.626L326.55,398.308L326.753,399.827L326.76,400.672L327.664,402.645L327.902,403.703L328.444,404.949L328.359,405.82L327.5,405.169L327.257,405.238L325.962,404.029L325.544,403.894L324.321,402.494L325.05,403.619L327.188,405.865L328.151,407.31L329.252,408.422L329.982,409.444L331.393,411.848L331.365,412.532L330.615,412.382L329.908,411.856L331.019,413.148L332.211,414.618L333.176,415.691L333.523,416.228L333.337,416.217L332.314,415.207L332.639,415.626L334.48,417.652L335.277,418.437L334.917,417.968L335.982,419.073L336.193,419.425L337.06,420.412L338.912,422.304L339.859,423.254L339.579,423.007L339.913,423.335L339.913,423.335L336.024,419.424L332.275,415.379L328.669,411.207L325.211,406.911L321.905,402.496L318.755,397.97L315.764,393.336L312.938,388.6L310.278,383.769L309.816,382.886L308.033,379.343L305.712,374.327L303.426,368.825L301.83,364.633L300.522,360.938L299.842,359.083L299.487,357.988L298.886,356.138L298.886,356.138L297.368,350.836L296.036,345.484L294.892,340.089L293.936,334.658L293.17,329.196L292.596,323.711L292.213,318.21L292.023,312.698L292.025,307.183L292.22,301.671L292.606,296.17L293.185,290.685L293.955,285.224ZM343.677,426.873L344.148,427.295L345.829,428.796L345.829,428.796ZM394.757,161.972L394.424,162.099L396.705,161.275L398.554,160.621L399.927,160.149L402.577,159.304L403.986,158.905L403.21,159.171L401.835,159.619L398.666,160.677L397.695,160.973L396.684,161.385L396.684,161.385L394.15,162.287L395.757,161.766L393.869,162.503L392.09,163.152L390.186,163.942L391.763,163.391L393.795,162.681L396.567,161.704L396.143,161.956L395.56,162.282L394.132,162.916L392.857,163.393L391.586,163.802L390.145,164.432L388.927,164.906L387.444,165.334L387.301,165.283L388.253,164.816L387.07,165.289L385.215,166.03L384.22,166.456L382.886,167.014L383.15,166.855L382.395,167.197L380.876,167.923L380.895,167.914L380.895,167.914L385.896,165.589L390.975,163.439ZM404.087,160.143L403.359,160.372L403.461,160.229L403.563,160.09L403.268,160.072L403.447,159.992L404.921,159.466L405.866,159.205L406.003,159.208L405.592,159.532ZM405.151,158.972L403.412,159.518L405.373,159.026L406.148,159.004L403.282,159.965L401.581,160.465L402.204,160.463L403.204,160.254L401.819,160.92L400.568,161.486L399.428,161.882L400.072,161.908L398.466,162.609L397.631,163.283L396.686,163.782L394.407,164.84L392.993,165.067L391.639,166.083L391.351,166.547L389.341,167.782L389.542,168.089L387.737,168.861L384.467,169.986L385.263,169.273L387.374,167.905L386.87,167.851L385.422,168.492L384.13,169.346L383.231,170.123L382.658,170.517L380.386,171.872L378.569,172.747L378.966,172.176L380.519,170.732L378.623,172.066L377.346,173.037L376.538,173.529L377.048,172.519L378.225,171.396L379.329,170.577L380.048,170.288L381.247,169.412L382.424,168.597L381.703,168.941L381.384,168.647L382.292,168.108L384.085,167.378L384.054,167.66L384.377,167.842L385.268,167.385L386.528,166.885L389.04,166.022L390.153,165.513L391.017,165.101L392.232,164.392L393.137,163.775L393.773,163.617L395.408,162.886L395.596,162.716L396.522,162.303L395.794,162.501L395.625,162.379L396.686,161.704L397.814,161.18L398.53,160.85L399.6,160.46L400.529,160.22L400.846,160.047L403.481,159.238L405.594,158.68L406.444,158.507L406.716,158.595ZM408.38,157.58L407.585,157.803L409.522,157.277L410.27,157.097L410.27,157.097L409.38,157.341L409.143,157.439L408.354,157.649L407.471,157.863L405.955,158.31L403.815,158.924L403.429,159.022L403.976,158.852L405.133,158.504L405.595,158.368L405.595,158.368ZM405.545,158.524L403.97,158.936L404.391,158.782L406.735,158.107L407.957,157.781L408.864,157.563L409.285,157.491L408.701,157.72L407.67,158.072L405.741,158.517ZM411.193,157.065L410.345,157.244L410.892,157.061L411.86,156.794L412.838,156.589L413.162,156.57L412.075,156.847ZM484.155,155.736L484.097,155.723L482.348,155.35L481.448,155.162L481.156,155.102L481.156,155.102ZM416.714,155.708L415.381,155.998L414.107,156.266L412.401,156.631L412.634,156.537L413.345,156.354L414.741,156.046L415.06,155.947L416.915,155.562L416.523,155.663L416.922,155.623L416.413,155.764ZM419.614,154.949L419.818,154.91L420.28,154.824L419.66,154.947L418.471,155.181L418.471,155.181L417.531,155.373L417.59,155.366L417.125,155.469L415.941,155.72L415.074,155.909L415.161,155.889L415.161,155.889ZM485.266,167.662L485.022,167.815L482.533,167.93L481.625,167.43L479.933,167.255L478.988,166.643L479.343,166.33L478.445,165.724L478.286,164.671L477.528,164.603L477.426,163.542L476.49,163.108L476.716,162.453L477.088,161.639L478.173,161.249L478.1,160.808L478.575,160.565L479.687,160.85L480.098,161.168L479.66,161.869L479.201,162.532L479.402,163.684L480.316,164.799L481.026,165.955L482.573,166.873ZM416.783,155.834L415.741,156.084L415.37,156.248L414.37,156.495L413.443,156.68L412.654,156.911L411.932,157.107L411.602,157.258L411.17,157.446L411.539,157.463L411.556,157.6L411.234,157.797L410.159,158.143L409.049,158.441L408.385,158.56L407.935,158.556L408.381,158.344L408.333,158.156L408.604,157.961L409.21,157.721L410.569,157.263L412.04,156.906L413.327,156.615L414.646,156.292L415.41,156.054L416.455,155.804L417.389,155.639ZM417.685,155.7L417.7,155.678L418.249,155.503L419.007,155.358L418.56,155.517L417.956,155.656ZM422.486,154.431L422.514,154.412L423.74,154.199L424.127,154.142L423.846,154.2L423.036,154.345ZM455.615,161.601L454.478,162.018L453.365,161.812L453.69,161.562L453.258,161.267L454.337,161.062L454.699,161.406ZM424.316,154.152L424.274,154.14L424.827,154.036L425.126,153.993L425.439,153.962L425.17,154.008ZM419.439,155.307L419.234,155.286L419.996,155.126L421.019,154.944L422.063,154.778L421.692,154.882L421.41,154.948L420.3,155.173ZM421.038,154.89L419.922,155.087L420.597,154.923L421.802,154.682L422.488,154.518L422.925,154.476L423.81,154.315L424.727,154.186L423.905,154.353L422.378,154.657ZM482.022,156.779L482.908,157.448L479.451,156.559L479.173,156.441L479.364,156.422L480.924,156.536ZM451.602,159.983L453.449,160.619L452.201,160.995L452.017,161.685L451.532,161.868L451.334,162.681L450.577,162.722L449.254,162.12L449.806,161.779L448.953,161.503L447.991,160.717L447.746,160.02L449.125,159.722L449.366,160.024L450.071,160.013L450.249,159.719L450.948,159.688ZM454.774,159.329L455.863,159.596L455.448,160.076L454.057,160.213L452.531,160.092L452.378,159.854L451.68,159.845L451.098,159.46L452.455,159.215L453.183,159.404L453.534,159.148ZM465.302,158.578L465.011,158.728L464.786,158.819L464.98,158.952L464.763,159.124L463.987,158.975L463.761,158.713L462.857,158.761L463.352,158.56L463.898,158.5L464.381,158.698L464.231,158.496L464.318,158.341L465.196,158.45ZM480.352,156.849L480.559,157.081L479.568,157.117L478.389,157.011L476.411,156.659L475.742,156.637L474.177,156.121L473.735,155.885L475.208,156.011L477.937,156.348ZM422.26,155.257L421.286,155.476L420.637,155.509L418.881,155.713L418.951,155.612L419.62,155.4L420.847,155.151L421.776,155.005L422.329,154.956L422.616,154.836L423.651,154.643L424.91,154.45L425.916,154.35L426.583,154.297L426.615,154.334L427.264,154.242L427.084,154.356L425.534,154.599L424.77,154.775L424.092,154.946ZM431.159,154.967L431.065,155.12L430.852,155.271L430.258,155.473L429.547,155.589L428.195,155.66L427.497,155.62L426.839,155.671L426.983,155.791L425.205,155.94L424.361,155.977L422.082,156.27L421.583,156.213L421.024,156.271L420.741,156.111L420.387,156.272L419.911,156.313L418.569,156.635L417.653,156.748L416.924,156.781L415.883,156.963L415.143,157.016L414.528,157.159L414.563,157.283L413.909,157.432L412.429,157.56L413.367,157.158L413.279,156.986L413.794,156.786L414.217,156.591L415.485,156.324L415.803,156.361L417.765,155.956L417.868,155.97L416.421,156.402L418.267,155.97L418.963,155.755L419.889,155.637L420.339,155.658L421.242,155.522L422.415,155.259L423.825,155.027L423.473,155.219L423.125,155.315L424.014,155.265L424.465,155.078L424.592,154.886L425.676,154.659L426.833,154.478L427.732,154.325L428.651,154.215L428.993,154.239L428.967,154.29L429.235,154.343L430.13,154.31L429.918,154.385L429.099,154.523L430.525,154.398L430.91,154.413L431.156,154.463L431.218,154.591L430.923,154.649L431.398,154.725L431.262,154.846ZM438.045,156.379L438.285,157.054L437.126,157.252L435.964,157.156L434.342,157.024L434.12,157.157L435.289,157.217L435.538,157.554L436.648,157.412L436.308,157.685L434.982,158.059L436.436,157.881L438.627,157.752L439.397,157.971L439.061,158.303L436.571,158.723L436.023,158.883L434.521,158.903L435.355,159.024L433.79,159.565L432.453,160.069L430.757,161.037L430.374,161.688L429.51,161.649L428.171,161.858L428.316,162.457L427.155,163.304L426.396,163.337L425.854,164.291L424.392,164.231L424.468,164.731L423.719,165.087L422.584,165.161L421.706,165.07L421.406,165.894L420.706,166.392L420.085,165.79L419.307,166.048L419.775,166.428L419.688,167.222L418.695,168.198L417.094,168.289L417.178,167.77L417.295,167.003L416.381,167.819L414.679,168.346L416.492,168.618L417.422,168.794L414.01,169.642L410.642,170.381L407.886,170.529L407.097,170.419L405.643,170.798L402.649,172.008L399.767,172.679L399.206,172.649L397.803,172.809L396.367,172.936L394.531,173.654L393.078,174.615L391.386,175.462L388.63,176.361L387.294,177.557L385.287,178.713L382.929,180.113L381.809,179.975L382.525,178.499L381.284,178.161L381.902,177.195L383.673,175.687L385.571,173.696L386.815,172.748L388.815,171.56L390.377,170.195L392.254,169.349L392.823,168.835L395.979,167.608L397.448,167.379L398.591,166.959L400.514,166.125L399.238,166.371L398.681,166.467L398.014,166.51L398.377,166.001L400.004,165.272L401.425,164.769L401.765,164.862L401.841,165.378L402.765,164.522L403.308,164.076L402.659,164.103L403.028,163.761L405.646,162.99L406.398,162.577L407.917,161.868L410.302,160.836L411.025,160.396L412.097,160.063L413.137,159.371L413.019,159.127L412.598,158.915L412.183,158.745L412.952,158.42L414.551,157.853L415.532,157.875L415.825,158.009L416.251,157.491L417.284,157.067L418.333,156.858L419.767,156.872L421.304,156.863L422.304,156.688L423.084,156.317L424.209,156.171L426.337,156.032L426.748,156.062L427.906,155.822L428.822,155.822L429.56,155.902L429.962,156.048L429.322,156.263L431.097,156.103L430.563,156.414L430.624,156.523L430.252,156.809L431.084,156.391L432.139,156.166L434.124,155.989L434.649,156.147L435.707,155.994L436.586,156.061Z" fill="#D4AF37" opacity="0.42" stroke="#E5C76B" stroke-width="0.5"></path>
+</g>
+<circle cx="450" cy="310" fill="url(#globeRim)" r="158"></circle>
+<circle cx="450" cy="310" fill="none" opacity="0.5" r="158" stroke="#E5C76B" stroke-width="1"></circle>
+<g fill="none" stroke="url(#orbA)" stroke-linecap="round" transform="rotate(-20 450 310)">
+<path d="M260,310 A190,60 0 0 0 640,310" opacity="0.9" stroke-width="2.4"></path>
+<path d="M202,310 A248,84 0 0 0 698,310" opacity="0.95" stroke-width="2.7"></path>
+<path d="M144,310 A306,108 0 0 0 756,310" opacity="1" stroke-width="3"></path>
+<path d="M86,310 A364,132 0 0 0 814,310" opacity="0.9" stroke-width="3"></path>
+</g>
+<g><circle cx="150" cy="372" fill="url(#coinGlow)" r="16"></circle><circle cx="150" cy="372" fill="#E5C76B" r="6.5" stroke="#0A0A08" stroke-width="1.5"></circle></g>
+<g><circle cx="262" cy="424" fill="url(#coinGlow)" r="16"></circle><circle cx="262" cy="424" fill="#E5C76B" r="6.5" stroke="#0A0A08" stroke-width="1.5"></circle></g>
+<g><circle cx="450" cy="446" fill="url(#coinGlow)" r="16"></circle><circle cx="450" cy="446" fill="#E5C76B" r="6.5" stroke="#0A0A08" stroke-width="1.5"></circle></g>
+<g><circle cx="640" cy="404" fill="url(#coinGlow)" r="22"></circle><circle cx="640" cy="404" fill="#E5C76B" r="8.5" stroke="#0A0A08" stroke-width="1.5"></circle></g>
+<g><circle cx="752" cy="344" fill="url(#coinGlow)" r="15"></circle><circle cx="752" cy="344" fill="#E5C76B" r="6" stroke="#0A0A08" stroke-width="1.5"></circle></g>
+<text fill="#E8E2D8" font-family="sans-serif" font-size="13" text-anchor="middle" x="150" y="352">古代ギリシャ</text>
+<text fill="#E8E2D8" font-family="sans-serif" font-size="13" text-anchor="middle" x="262" y="452">ローマ</text>
+<text fill="#E8E2D8" font-family="sans-serif" font-size="13" text-anchor="middle" x="450" y="474">近世欧州</text>
+<text fill="#E5C76B" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="640" y="376">ウナとライオン</text>
+<text fill="#E8E2D8" font-family="sans-serif" font-size="13" text-anchor="start" x="772" y="326">現代の市場</text>
+<text fill="#8C6A2C" font-family="sans-serif" font-size="13" letter-spacing="0.34em" text-anchor="middle" x="450" y="600">TIME · 2600 YEARS · 幾重にも巡る時間</text>
+</svg>
+</div>
+<div class="axis-note">
+<div><b>地球</b>　空間（三次元）― すべての国家を乗せた世界そのもの</div>
+<div><b>幾重もの螺旋</b>　時間（第四の軸）― 2600年の積み重ね</div>
+<div><b>コイン</b>　空間と時間、両方の交点に灯る</div>
+</div>
+<div class="annotation serif-ja">▲ コインを把握するとは、その一枚の背後にある国王・年代・国家の興亡・図像の意味まで知ること。それを世界中・全時代ぶん把握し続けてきた営みは、ビッグデータを扱うAIでさえ難儀する。この奥行きこそが、コインの正体だ。</div>
+</div>
+<div class="layer-divider"><span>II  ·  II½</span></div>
+<div class="layer">
+<div class="layer-eyebrow">The Fifth Dimension — Secrecy</div>
+<h3 class="layer-title serif-ja">4次元 × 市場価値 ＝ <em>リアルタイム5次元情報</em>という秘匿性</h3>
+<p class="layer-body">2600年間、地球上のすべての文明に残された貨幣の存在という<strong>4次元情報</strong>に、世界中のオークションで競りにかけられたリアルタイム価格という<strong>価値情報</strong>を加えた<strong>5次元情報</strong>。これを持ち合わせるコインコレクターが、世界に100万人以上存在している。膨大かつ特異なこの情報、そして特異な人々のみが知り得た市場 ― だからこそ、希少コインは<span class="gold">秘匿性の高い資産</span>として、世界の富裕層に支持され続けている。</p>
+</div>
+<div class="layer-divider"><span>II  ·  III</span></div>
+<div class="layer">
+<div class="layer-eyebrow">Layer 03 — Gold vs. Coin · 章の心臓</div>
+<h3 class="layer-title serif-ja">金とコインは、何が<em>違う</em>のか</h3>
+<p class="layer-body">金もお金だった。コインも、もとは金貨・銀貨。どちらも「本物のお金」である。<br/>
+    だが、資産を守るツールとして見たとき、両者には<strong>決定的な差</strong>がある。なぜ収集家たちはコインを家宝としたのか ― その理由は、この差にある。</p>
+</div>
+<div class="cmp">
+<table>
+<thead>
+<tr><th class="rowhead"></th><th class="h-gold">金（ゴールド）</th><th class="h-coin">希少コイン</th></tr>
+</thead>
+<tbody>
+<tr>
+<td class="rowhead">本質</td>
+<td class="gold-col">本物のお金。いつの時代も全世界で通用し、法定通貨に変換できる。</td>
+<td class="coin-col">もとは金貨・銀貨。価値そのものである点は同じ。</td>
+</tr>
+<tr>
+<td class="rowhead">価格</td>
+<td class="gold-col">市場レートが一律に決まり、大きく変動する。約20年間、価格が上がらなかった時代もある。</td>
+<td class="coin-col">希少性が価値を支える。一枚ごとに固有の価値を持ち、レートに一律支配されない。</td>
+</tr>
+<tr>
+<td class="rowhead">没収リスク</td>
+<td class="gold-col">全階層が価値を認めるがゆえ、財政危機や戦争で国民資産として没収された歴史が、何度も繰り返された。</td>
+<td class="coin-col">小さく持ち運べ、価値が分かりにくい。だからこそ没収を免れ、手の中に残せた。</td>
+</tr>
+<tr>
+<td class="rowhead">市場</td>
+<td class="gold-col">公的で開かれている。誰もが価格を知る。</td>
+<td class="coin-col">2000年代まではクローズドな世界。スマホとネットの普及で、誰もが参加できる市場へ開かれつつある。</td>
+</tr>
+<tr class="concl">
+<td class="rowhead">結論</td>
+<td class="gold-col">保有はする。だが、一定量に留める。</td>
+<td class="coin-col">膨大な知識と理解力を持つ者にとって、資産を守る最良のツールであり続けた。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="layer" style="padding-top:8px;">
+<p class="layer-body" style="font-size:17px;">金は、誰の目にも価値が見える。だから国家は、危機のときそれを<span class="gold">没収</span>できた。コインは、知る者にしか価値が見えない。だから ― 残せた。この一点が、2600年を貫いている。</p>
+</div>
+<div class="layer-divider"><span>III  ·  IV</span></div>
+<div class="layer">
+<div class="layer-eyebrow">Layer 04 — What Cannot Be Taken</div>
+<h3 class="layer-title serif-ja">奪われない<em>もの</em></h3>
+<p class="layer-body">なぜ、その差を知り尽くし、コインを守り継いだ人々がいたのか。<br/>
+    国家を奪われ、町を追われ、全資産の没収を ― 一度ならず ― 経験してきた民がいた。彼らが最後に頼ったのは、二つだけだった。</p>
+<p class="layer-body" style="margin-top:18px;">一つは、<span class="gold">奪われない思想と知恵</span>。横軸の知識と、縦軸の思考。これは、国も軍も奪えない。<br/>
+    もう一つは、<span class="gold">持って逃げられる希少コイン</span>。金は没収された。だが、小さく価値の見えにくいコインは、手の中に残せた。家を、国を、仕事を奪われたとき、彼らが携えていたのは ― 思想と、コインだった。</p>
+</div>
+<div class="layer-divider"><span>IV  ·  V</span></div>
+<div class="layer">
+<div class="layer-eyebrow">Layer 05 — Substance Behind the Words</div>
+<h3 class="layer-title serif-ja">同じ言葉でも、<em>重み</em>が違う</h3>
+<p class="layer-body">格付け。鑑定。希少性。オークションハウス。― これらの言葉は、どの業界にもある。語感だけなら、コインも他と変わらないように聞こえるだろう。<br/>
+    だが、その背後にあるものが違う。コインの「希少性」とは、2600年の興亡そのものだ。グレーディングの数字も、価格安定のデータも、この奥行きの上に立って初めて、<span class="gold">本物の重み</span>を持つ。次のページからの一つひとつの言葉を、どうか、この奥行きとともに読んでほしい。</p>
+</div>
+<div class="lib">
+<div class="lib-label">The Library — もっと深く</div>
+<p class="lib-lead serif-ja">ここに記したのは、2600年の入り口にすぎない。その奥行きの一端に触れたい方へ。</p>
+<div class="lib-links">
+<a class="lib-link" href="https://timeless-kizuna.com/" rel="noopener" target="_blank">
+<span><span class="ja serif-ja">2600年 コイン史</span><span class="en">2600 YEARS OF COINAGE</span></span><span class="arrow">詳しくはこちら →</span>
+</a>
+<a class="lib-link" href="https://timeless-kizuna.com/" rel="noopener" target="_blank">
+<span><span class="ja serif-ja">素敵なコイン 冊子</span><span class="en">COIN BOOKLET ARCHIVE</span></span><span class="arrow">詳しくはこちら →</span>
+</a>
+<a class="lib-link" href="https://timeless-kizuna.com/" rel="noopener" target="_blank">
+<span><span class="ja serif-ja">800年周期 関連記事</span><span class="en">THE 800-YEAR CYCLE</span></span><span class="arrow">詳しくはこちら →</span>
+</a>
+</div>
+</div>
+<div class="source-note serif-ja">※本ページの歴史的記述は、コインおよび貨幣史の一般的知見に基づく。資産運用に関する記述は将来の成果を保証するものではありません。</div>
+
+</div>
+
+</div>
+<div class="seam" aria-hidden="true"><span class="seam-coin"></span></div>
+</div><!-- /帯3 -->
+<!-- ===== 帯4：pg7（11月・聖ジョージ銀貨背景） ===== -->
+<div class="bg-band">
+<div class="band-bg"><div class="band-sticky">
+<img class="band-img" src="images/bg_silver.webp" alt="">
+<div class="band-fade"></div>
+</div></div>
+<div class="coin-page" id="pg7">
+
+<div class="page">
+<!-- header removed -->
+<!-- ===== セクションヘッダ ===== -->
+<div class="section-header">
+<div class="eyebrow">What It Is</div>
+<h2 class="section-title serif-en">アンティークコインとは、<em>何か</em></h2>
+<p class="section-sub serif-ja">2600年の奥行きを知ったいま、改めて問う。<br/>一枚のコインの価値は、何によって決まるのか。</p>
+</div>
+<div class="block">
+<p class="lead serif-ja">アンティークコインの世界には、価値を語るための確かな<strong>共通言語</strong>がある。希少性、状態、歴史性、需要 ―― この4つだ。そして、その状態を世界共通の基準で保証する仕組みが、すでに確立している。</p>
+</div>
+<!-- ===== 希少性 ===== -->
+<div class="card">
+<div class="card-label">Rarity ― 希少性</div>
+<div class="card-title serif-ja">「発行枚数」と「現存枚数」</div>
+<div class="card-body">希少性は、二つの数で測られる。当初の<strong>発行枚数</strong>と、いま世界に残る<strong>現存枚数</strong>だ。数百年の時を経て、多くは失われ、溶かされ、散逸した。発行枚数が100枚を切るような記念貨ともなれば、現存はさらに少ない。コインの希少性は、刷れば増える紙幣とは正反対に、<strong>時間とともに減りこそすれ、決して増えない</strong>。</div>
+</div>
+<!-- ===== グレーディング制度 ===== -->
+<div class="card">
+<div class="card-label">Grading ― グレーディング制度</div>
+<div class="card-title serif-ja">状態を、世界共通の数字で保証する</div>
+<div class="card-body"><strong>PCGS</strong>・<strong>NGC</strong> ―― 米国の二大鑑定機関が、コインの状態を専門家が評価し、改ざん不可能なケースに封入して格付けする。これにより、コインの状態は主観ではなく、<span class="gold">世界中で通用する客観的な数字</span>になった。買い手は現物を疑わずに取引でき、市場の透明性と流動性が一気に高まった。</div>
+<div class="grade-scale">
+<div class="grade-bar"></div>
+<div class="grade-ticks"><span>PO-1</span><span>VF-20</span><span>AU-50</span><span><b>MS-65</b></span><span><b>MS-70</b></span></div>
+<div class="grade-note">▲ シェルドン・スケール（1〜70）。数字が高いほど未使用に近い完全な状態。<span class="gold">高グレード品ほど希少で、価値も大きく跳ね上がる。</span></div>
+</div>
+</div>
+<!-- ===== Authorized Dealer 認定 ===== -->
+<div class="dealer-block">
+<div class="dealer-eyebrow">Authorized Dealer</div>
+<div class="dealer-title">Universal Coin は、PCGS・NGC 両機関の公認ディーラーです</div>
+<div class="dealer-sub">世界二大鑑定機関より、正規取扱の認定を受けています。お客様にお渡しするコインはすべて、両機関いずれかの鑑定済み・封入済みの本物です。</div>
+<div class="dealer-logos">
+<div class="dealer-card"><img alt="PCGS Authorized Dealer" src="images/p07_v4__2__0.webp"/></div>
+<div class="dealer-card"><img alt="NGC Authorized Dealer" src="images/p07_v4__2__1.webp"/></div>
+</div>
+<div class="dealer-note">
+      ※PCGS（<a href="https://www.pcgs.com" rel="noopener" target="_blank">pcgs.com</a>）は1985年米国カリフォルニア設立、これまで4,250万枚超を鑑定。NGC（<a href="https://www.ngccoin.com" rel="noopener" target="_blank">ngccoin.com</a>）は1987年米国フロリダ設立、累計7,000万枚超を鑑定。両機関とも改ざん不可能な密閉ホルダーで鑑定品を封入し、世界共通の客観基準を提供しています。
+    </div>
+</div>
+<!-- ===== 4要素 ===== -->
+<div class="block" style="margin-top:24px;">
+<div class="layer-eyebrow">The Four Factors</div>
+<h3 class="layer-title serif-ja">価値を決める、<em>4つの要素</em></h3>
+<p class="body">コインの価値は、この4つの掛け合わせで決まる。どれか一つではなく、すべてが揃ったとき、価値は本物になる。</p>
+</div>
+<div class="elements">
+<div class="elem">
+<div class="elem-no">01</div>
+<div class="elem-name serif-ja">希少性<span class="en">RARITY</span></div>
+<div class="elem-desc">発行枚数・現存枚数。少ないほど価値は高い。決して増えない。</div>
+</div>
+<div class="elem">
+<div class="elem-no">02</div>
+<div class="elem-name serif-ja">状態<span class="en">CONDITION</span></div>
+<div class="elem-desc">グレーディングで保証される保存状態。高グレードは桁違いに評価される。</div>
+</div>
+<div class="elem">
+<div class="elem-no">03</div>
+<div class="elem-name serif-ja">歴史性<span class="en">HISTORY</span></div>
+<div class="elem-desc">どの時代の、どの権力が刻んだ一枚か。背後の物語が価値を支える。</div>
+</div>
+<div class="elem">
+<div class="elem-no">04</div>
+<div class="elem-name serif-ja">需要<span class="en">DEMAND</span></div>
+<div class="elem-desc">世界の収集家が、いま求めているか。開かれた市場が需要を可視化する。</div>
+</div>
+</div>
+<div class="block">
+<p class="body">格付けも、鑑定も、希少性も ―― P06で見たとおり、コインのそれは<span class="gold">2600年の興亡の上に立っている</span>。この4要素は、その奥行きを、誰もが扱える「価値の言語」へと翻訳する仕組みなのだ。</p>
+</div>
+<!-- ===== 落札実績 ===== -->
+<div class="block" style="margin-top:30px;">
+<div class="layer-eyebrow">Price Records ― 実績</div>
+<h3 class="layer-title serif-ja">4つの要素が揃うと、<em>こうなる</em></h3>
+<p class="body">これは理屈ではない。世界の正規オークションハウス（モナコ／スイス／英国）で、近年実際に動いた7点の<span class="gold">買い手総支払額</span>である。一枚の小さな円盤に、なぜこれだけの価値が宿るのか ―― そこに刻まれた時代と人物と職人技を、ご覧いただきたい。</p>
+</div>
+<div class="records">
+<div class="rec-head">
+<div>No</div>
+<div class="h-img">画像</div>
+<div>コイン詳細</div>
+<div style="text-align:right;">場所／年</div>
+<div style="text-align:right;">落札実績</div>
+</div>
+<div class="rec-row">
+<div class="rec-no">01</div>
+<div class="rec-img"><img alt="ウナとライオン 5ポンド金貨" src="images/p07_v4__2__2.webp"/></div>
+<div class="rec-body">
+<div class="rec-name">英国 1839年 ヴィクトリア 5ポンド金貨「ウナとライオン」</div>
+<div class="rec-detail">PCGS PR67 DCAM ／ 発行400枚のうち最高グレード</div>
+</div>
+<div class="rec-where">モナコ<span class="year">2023</span></div>
+<div class="rec-price">約2.5<span class="unit"> 億円</span></div>
+</div>
+<div class="rec-row">
+<div class="rec-no">02</div>
+<div class="rec-img"><img alt="ウィリアム4世 5ポンド金貨" src="images/p07_v4__2__3.webp"/></div>
+<div class="rec-body">
+<div class="rec-name">英国 1831年 ウィリアム4世 5ポンド金貨</div>
+<div class="rec-detail">NGC PR66★ 最高鑑定 ／ 現存6〜10枚</div>
+</div>
+<div class="rec-where">モナコ<span class="year">2020</span></div>
+<div class="rec-price">約1.2<span class="unit"> 億円</span></div>
+</div>
+<div class="rec-row">
+<div class="rec-no">03</div>
+<div class="rec-img"><img alt="ペティション・クラウン銀貨" src="images/p07_v4__2__4.jpg"/></div>
+<div class="rec-body">
+<div class="rec-name">英国 1663年 チャールズ2世 パターン・クラウン銀貨</div>
+<div class="rec-detail">NGC MS63+ 最高鑑定 ／ 現存極僅か</div>
+</div>
+<div class="rec-where">スイス<span class="year">2024</span></div>
+<div class="rec-price">約1.6<span class="unit"> 億円</span></div>
+</div>
+<div class="rec-row">
+<div class="rec-no">04</div>
+<div class="rec-img"><img alt="フェルディナンド3世 100ダカット金貨" src="images/p07_v4__2__5.jpg"/></div>
+<div class="rec-body">
+<div class="rec-name">神聖ローマ帝国 1629年 フェルディナンド3世 100ダカット金貨</div>
+<div class="rec-detail">NGC AU58 ／ 現存4枚のみ</div>
+</div>
+<div class="rec-where">スイス<span class="year">2025</span></div>
+<div class="rec-price">約4.6<span class="unit"> 億円</span></div>
+</div>
+<div class="rec-row">
+<div class="rec-no">05</div>
+<div class="rec-img"><img alt="アレクサンドロス デカドラクマ銀貨" src="images/p07_v4__2__6.jpg"/></div>
+<div class="rec-body">
+<div class="rec-name">古代マケドニア BC327頃 アレクサンドロス デカドラクマ銀貨</div>
+<div class="rec-detail">現存10枚 ／ 古代ギリシャ貨幣芸術の頂点</div>
+</div>
+<div class="rec-where">スイス<span class="year">2025</span></div>
+<div class="rec-price">約2.1<span class="unit"> 億円</span></div>
+</div>
+<div class="rec-row">
+<div class="rec-no">06</div>
+<div class="rec-img"><img alt="パンティカパイオン スターテル金貨" src="images/p07_v4__2__7.jpg"/></div>
+<div class="rec-body">
+<div class="rec-name">古代ギリシャ BC350-300 パンティカパイオン スターテル金貨</div>
+<div class="rec-detail">極めて希少 ／ 黒海貿易都市の至宝</div>
+</div>
+<div class="rec-where">スイス<span class="year">2023</span></div>
+<div class="rec-price">約8.2<span class="unit"> 億円</span></div>
+</div>
+<div class="rec-row">
+<div class="rec-no">07</div>
+<div class="rec-img"><img alt="ブルータス アウレウス金貨" src="images/p07_v4__2__8.webp"/></div>
+<div class="rec-body">
+<div class="rec-name">古代ローマ BC42 ブルータス アウレウス金貨</div>
+<div class="rec-detail">NGC MS★ 5/5・3/5 Fine Style ／ 現存3枚（内2枚は博物館・銀行所蔵）</div>
+</div>
+<div class="rec-where">英国<span class="year">2020</span></div>
+<div class="rec-price">約4.5<span class="unit"> 億円</span></div>
+</div>
+</div>
+<div class="note-block">
+    ※落札実績は<strong>買い手総支払額（ハンマー価格＋オークション手数料22.5%）</strong>の円換算概算。消費税および国際送料は含まれていません。為替は落札月のレート（CHF/JPY・GBP/JPY・EUR/JPY）に基づく概算であり、表示金額は実勢価格と異なる場合があります。
+  </div>
+<div class="libnote">▶ 各時代のコインがなぜその価値を持つのか ―― 詳しくは <a href="https://timeless-kizuna.com/" rel="noopener" target="_blank">2600年 コイン史</a> ／ <a href="https://timeless-kizuna.com/" rel="noopener" target="_blank">素敵なコイン 冊子</a> でも触れています。</div>
+<div class="source-note serif-ja">※グレーディングの評価基準・呼称は鑑定機関により異なります。落札実績は世界の正規オークション（MDC Monaco／NAC／Roma Numismatics等）における過去の実落札データに基づきます。</div>
+
+</div>
+
+</div>
+<script>
+
+// 左右カードの各セクションの高さをJSで完全に揃える
+function alignCardRows() {
+  // スマホ（768px以下）は1カラムなので高さ統一不要
+  if (window.innerWidth <= 768) {
+    // 高さリセット
+    ['left-label','left-title','left-visual','left-alert',
+     'right-label','right-title','right-visual','right-alert'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) { el.style.height = ''; el.style.overflow = ''; }
+    });
+    return;
+  }
+  // ↓ 以下PC用処理（元のコード）
+  var pairs = [
+    ['left-label',  'right-label'],
+    ['left-title',  'right-title'],
+    ['left-visual', 'right-visual'],
+    ['left-alert',  'right-alert'],
+  ];
+
+  pairs.forEach(function(pair) {
+    var left  = document.getElementById(pair[0]);
+    var right = document.getElementById(pair[1]);
+    if (!left || !right) return;
+
+    // 高さをリセット
+    left.style.height  = '';
+    right.style.height = '';
+    left.style.overflow  = '';
+    right.style.overflow = '';
+
+    // 自然な高さを取得
+    var lh = left.getBoundingClientRect().height;
+    var rh = right.getBoundingClientRect().height;
+    var maxH = Math.max(lh, rh);
+
+    // 大きい方に揃える
+    left.style.height  = maxH + 'px';
+    right.style.height = maxH + 'px';
+    left.style.overflow  = 'hidden';
+    right.style.overflow = 'hidden';
+    // alert-boxは縦中央揃え
+    if (pair[0] === 'left-alert') {
+      left.style.display  = 'flex';
+      right.style.display = 'flex';
+      left.style.flexDirection  = 'column';
+      right.style.flexDirection = 'column';
+      left.style.justifyContent  = 'center';
+      right.style.justifyContent = 'center';
+    }
+  });
+}
+
+// ロード後＋リサイズ時に実行
+if (document.readyState === 'complete') {
+  setTimeout(alignCardRows, 100);
+} else {
+  window.addEventListener('load', function() { setTimeout(alignCardRows, 100); });
+}
+window.addEventListener('resize', function() { setTimeout(alignCardRows, 50); });
+
+</script>
+</div><!-- /帯4 -->
+</body>
+</html>
