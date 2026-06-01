@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>原油の実態 ─ 2つのカラクリ × 備蓄シミュレーター ─ 統合プレゼン版</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700;900&family=Oswald:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0B0F; --bg2:#121218; --panel:#16161E; --panel2:#1C1C26;
+  --gold:#D4AF37; --gold2:#C9A227; --gold3:#E8C766; --goldpale:#F0E0A8;
+  --white:#F2EFE8; --gray:#9A9AA8; --grayd:#6A6A78;
+  --s1:#4CB286; --s2:#4A90D9; --s3:#E0954A; --s4:#E05555; --sD:#A569D9;
+  --line:rgba(212,175,55,0.18);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--white);font-family:'Noto Sans JP',sans-serif;line-height:1.75;font-size:17px;
+  background-image:radial-gradient(ellipse at 20% 0%,rgba(212,175,55,0.05),transparent 55%),radial-gradient(ellipse at 90% 100%,rgba(74,144,217,0.04),transparent 50%);}
+
+/* ===== nav ===== */
+.topnav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  padding:14px 5vw;background:rgba(11,11,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+.topnav .logo{font-family:'Oswald','Noto Sans JP',sans-serif;font-weight:700;letter-spacing:2px;color:var(--gold3);font-size:18px;margin-right:auto;}
+.topnav a{color:var(--gray);text-decoration:none;font-size:14px;padding:5px 11px;border-radius:6px;transition:.2s;letter-spacing:.5px;}
+.topnav a:hover{color:var(--gold3);background:rgba(212,175,55,0.1);}
+.topnav .ver{font-family:'Oswald','Noto Sans JP',sans-serif;color:var(--gold);font-size:13px;letter-spacing:1px;border:1px solid var(--line);padding:4px 10px;border-radius:20px;}
+
+/* ===== cover ===== */
+#cover{padding:72px 6vw 50px;border-bottom:1px solid var(--line);position:relative;overflow:hidden;}
+.tag-top{font-family:'Oswald','Noto Sans JP',sans-serif;letter-spacing:5px;color:var(--gold);font-size:14px;font-weight:500;margin-bottom:22px;}
+h1.main{font-family:'Noto Serif JP',serif;font-weight:900;font-size:clamp(32px,5vw,62px);line-height:1.2;letter-spacing:1px;}
+h1.main .hl{color:var(--gold3);}
+h1.main .op{color:var(--grayd);font-weight:400;margin:0 6px;}
+.sub{font-family:'Noto Serif JP',serif;font-size:clamp(16px,1.9vw,21px);color:var(--gray);margin-top:24px;line-height:1.95;max-width:960px;}
+.sub b{color:var(--goldpale);font-weight:600;}
+.meta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px;}
+.meta-pill{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:13px;letter-spacing:1px;padding:7px 15px;border:1px solid var(--line);border-radius:24px;color:var(--gold3);}
+.meta-pill.date{background:rgba(212,175,55,0.08);}
+.meta-pill.up{background:rgba(224,85,85,0.12);border-color:rgba(224,85,85,0.4);color:#F0A0A0;}
+
+/* hero quantitative banner */
+.hero-stats{display:flex;align-items:stretch;gap:14px;flex-wrap:wrap;margin-top:34px;}
+.hstat{flex:1;min-width:200px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 22px 18px;border-top:3px solid var(--gold);}
+.hstat.red{border-top-color:var(--s4);}
+.hstat .hs-lbl{font-family:'Noto Sans JP';font-size:15px;font-weight:500;color:var(--goldpale);}
+.hstat .hs-val{font-family:'Oswald','Noto Sans JP',sans-serif;font-weight:700;font-size:48px;line-height:1.05;margin-top:8px;color:var(--gold3);}
+.hstat.red .hs-val{color:var(--s4);}
+.hstat.blue .hs-val{color:var(--s2);}
+.hstat.amber .hs-val{color:var(--s3);}
+.hstat.red{border-top-color:var(--s4);}
+.hstat.blue{border-top-color:var(--s2);}
+.hstat.amber{border-top-color:var(--s3);}
+.hstat .hs-val .u{font-size:24px;color:var(--gray);font-weight:500;}
+.hstat .hs-val .jp{font-family:'Noto Serif JP',serif;font-size:38px;}
+.hstat .hs-d{font-size:14px;color:var(--gray);margin-top:8px;line-height:1.5;}
+.hstat .hs-d b{color:var(--goldpale);}
+
+/* crisis banner */
+.crisis-banner{margin-top:30px;padding:30px 32px;border-radius:16px;text-align:center;
+  background:radial-gradient(ellipse at 50% 0%,rgba(224,85,85,0.16),rgba(224,85,85,0.04));
+  border:1px solid rgba(224,85,85,0.45);border-top:4px solid var(--s4);}
+.crisis-banner .cb-lead{font-family:'Noto Sans JP';font-size:17px;color:var(--gray);letter-spacing:1px;}
+.crisis-banner .cb-main{font-family:'Noto Serif JP',serif;font-weight:700;font-size:clamp(24px,3.4vw,38px);color:var(--white);line-height:1.45;margin-top:10px;}
+.crisis-banner .cb-main .cb-hl{color:var(--s4);}
+.crisis-banner .cb-sub{font-size:16px;color:var(--gray);margin-top:14px;line-height:1.7;max-width:760px;margin-left:auto;margin-right:auto;}
+
+/* two-trick hero */
+.trick-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:34px;}
+.trick{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 22px 20px;border-top:3px solid;}
+.trick.t1{border-top-color:var(--s3);}
+.trick.t2{border-top-color:var(--s4);}
+.trick .tk-n{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:14px;letter-spacing:2px;color:var(--grayd);}
+.trick .tk-h{font-family:'Noto Serif JP',serif;font-weight:700;font-size:26px;margin-top:8px;color:#FFF;line-height:1.35;}
+.trick.t1 .tk-h b{color:var(--s3);} .trick.t2 .tk-h b{color:var(--s4);}
+.trick .tk-b{font-size:19px;color:var(--white);margin-top:12px;line-height:1.7;}
+.trick .tk-b b{color:var(--gold3);}
+
+/* ===== section ===== */
+.sec{padding:54px 6vw;border-bottom:1px solid rgba(255,255,255,0.05);}
+.sec-head{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:14px;}
+.sec-num{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:15px;letter-spacing:3px;color:var(--gold);}
+.sec-title{font-family:'Noto Serif JP',serif;font-weight:700;font-size:clamp(23px,3vw,33px);color:#FFF;}
+.sec-sub{color:var(--gray);font-size:16px;width:100%;max-width:920px;margin-top:-4px;margin-bottom:8px;line-height:1.8;}
+.sec-sub b{color:var(--goldpale);}
+
+/* red alert emphasis line */
+.alert-line{margin-top:20px;padding:20px 26px;border-radius:13px;background:linear-gradient(135deg,rgba(224,85,85,0.14),rgba(224,85,85,0.03));
+  border:1px solid rgba(224,85,85,0.4);border-left:5px solid var(--s4);font-family:'Noto Serif JP',serif;font-size:22px;color:var(--white);line-height:1.5;}
+.alert-line .big{color:var(--s4);font-weight:700;font-size:30px;}
+
+/* ===== KPI ===== */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:24px;}
+.kpi{background:var(--panel);border:1px solid var(--line);border-left-width:4px;border-radius:12px;padding:20px 20px 18px;transition:.2s;border-left-color:var(--gold);}
+.kpi:hover{background:var(--panel2);}
+.kpi .k-lbl{font-family:'Noto Sans JP',sans-serif;font-size:15px;font-weight:500;letter-spacing:.3px;color:var(--goldpale);line-height:1.4;}
+.kpi .k-val{font-family:'Oswald','Noto Sans JP',sans-serif;font-weight:700;font-size:38px;line-height:1.1;margin-top:8px;color:var(--gold3);}
+.kpi .k-val .u{font-size:19px;}
+.kpi .k-meta{font-size:14px;color:var(--gray);margin-top:7px;line-height:1.55;}
+.kpi.red{border-left-color:var(--s4);} .kpi.red .k-val{color:var(--s4);}
+.kpi.blue{border-left-color:var(--s2);} .kpi.blue .k-val{color:var(--s2);}
+
+/* ===== chart ===== */
+.chart-wrap{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 18px 14px;margin-top:18px;overflow-x:auto;}
+.chart-title{font-family:'Noto Serif JP',serif;font-size:18px;color:var(--gold3);margin-bottom:4px;padding-left:6px;}
+.chart-note{font-size:13px;color:var(--grayd);padding-left:6px;margin-bottom:10px;line-height:1.6;}
+.legend-inline{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--gray);margin-top:10px;padding-left:6px;}
+.legend-inline span{display:flex;align-items:center;gap:6px;}
+.legend-inline i{width:18px;height:3px;border-radius:2px;display:inline-block;}
+
+/* ===== table ===== */
+.tbl-wrap{overflow-x:auto;margin-top:16px;border-radius:12px;border:1px solid var(--line);}
+table.dt{width:100%;border-collapse:collapse;min-width:760px;background:var(--panel);font-size:18px;}
+table.dt th,table.dt td{padding:13px 13px;text-align:center;border:1px solid rgba(255,255,255,0.05);font-family:'Oswald','Noto Sans JP',sans-serif;letter-spacing:.3px;}
+table.dt thead th{background:rgba(212,175,55,0.12);color:var(--gold3);font-size:17px;letter-spacing:.6px;position:sticky;top:0;}
+table.dt td.mlbl{font-family:'Noto Sans JP';text-align:left;color:var(--white);font-size:17px;background:rgba(255,255,255,0.02);white-space:nowrap;}
+table.dt tr.hi td{background:rgba(74,144,217,0.08);}
+table.dt tr.hi td.mlbl{color:#A9D0F5;}
+table.dt td.src{font-family:'Noto Sans JP';text-align:left;color:var(--gray);font-size:14px;letter-spacing:0;line-height:1.5;white-space:normal;min-width:240px;}
+table.dt tr.totalrow td{background:rgba(212,175,55,0.08);font-weight:700;}
+table.dt tr.totalrow td.mlbl{color:var(--gold3);}
+table.dt .pos{color:var(--s1);} table.dt .neg{color:var(--s4);}
+.tag-m{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:11px;letter-spacing:.5px;padding:1px 6px;border-radius:8px;margin-right:5px;vertical-align:middle;}
+.tag-m.jisoku{background:rgba(76,178,134,0.18);color:var(--s1);}
+.tag-m.mikomi{background:rgba(74,144,217,0.18);color:var(--s2);}
+.tag-m.suitei{background:rgba(106,106,120,0.25);color:var(--gray);}
+.tbl-cap{font-size:14px;color:var(--grayd);margin-top:10px;line-height:1.7;}
+.tbl-cap b{color:var(--gray);}
+
+/* ===== box ===== */
+.box{border-radius:13px;padding:22px 24px;margin-top:20px;border:1px solid var(--line);background:var(--panel);}
+.box h3{font-family:'Noto Serif JP',serif;font-size:25px;color:var(--gold3);margin-bottom:12px;font-weight:700;line-height:1.4;}
+.box p{font-size:17px;color:#DEDAD0;margin-bottom:10px;line-height:1.8;}
+.box p:last-child{margin-bottom:0;}
+.box.gold{border-color:rgba(212,175,55,0.4);background:linear-gradient(135deg,rgba(212,175,55,0.08),rgba(212,175,55,0.02));}
+.box.red{border-color:rgba(224,85,85,0.4);background:linear-gradient(135deg,rgba(224,85,85,0.08),transparent);}
+.box.blue{border-color:rgba(74,144,217,0.35);background:linear-gradient(135deg,rgba(74,144,217,0.07),transparent);}
+.box.teal{border-color:rgba(91,200,192,0.4);background:linear-gradient(135deg,rgba(91,200,192,0.07),transparent);}
+.box strong{color:var(--gold3);} .box .rd{color:var(--s4);font-weight:700;} .box .gn{color:var(--s1);font-weight:700;}
+.box ul{margin:8px 0 4px 22px;} .box li{font-size:16px;color:#DEDAD0;margin-bottom:7px;line-height:1.75;}
+.box li b{color:var(--gold3);}
+
+/* breakdown equation (実需要の積上) */
+.eq-flow{display:flex;align-items:stretch;justify-content:center;gap:0;flex-wrap:wrap;margin:18px 0;}
+.eq-box{flex:1;min-width:130px;background:var(--panel);border:1px solid var(--line);padding:16px 14px;text-align:center;position:relative;}
+.eq-box:first-child{border-radius:12px 0 0 12px;}
+.eq-box:last-child{border-radius:0 12px 12px 0;background:linear-gradient(135deg,rgba(91,200,192,0.14),transparent);}
+.eq-box .e-l{font-family:'Noto Sans JP';font-size:14px;letter-spacing:.3px;color:var(--goldpale);font-weight:500;}
+.eq-box .e-v{font-family:'Oswald','Noto Sans JP',sans-serif;font-weight:700;font-size:30px;color:var(--gold3);margin-top:6px;}
+.eq-box:last-child .e-v{color:var(--gold3);}
+.eq-box .e-d{font-size:13px;color:var(--gray);margin-top:5px;line-height:1.45;}
+.eq-box .plus{position:absolute;right:-12px;top:50%;transform:translateY(-50%);z-index:2;color:var(--gold);font-size:18px;font-family:'Oswald','Noto Sans JP',sans-serif;background:var(--bg);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;}
+.eq-box .plus.eq{color:var(--gold3);}
+
+/* lever cards (simulator) */
+.lever-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:18px;}
+.lever{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;border-left:3px solid var(--s2);}
+.lever.core{border-left-color:var(--gold);}
+.lever .lv-h{font-family:'Noto Serif JP',serif;font-size:20px;color:#FFF;font-weight:700;}
+.lever .lv-tag{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:11px;letter-spacing:1px;padding:2px 9px;border-radius:10px;margin-left:8px;background:rgba(212,175,55,0.18);color:var(--gold3);}
+.lever .lv-tag.weak{background:rgba(106,106,120,0.25);color:var(--gray);}
+.lever .lv-val{font-family:'Oswald','Noto Sans JP',sans-serif;font-weight:700;font-size:30px;color:var(--gold3);margin:8px 0 4px;}
+.lever .lv-b{font-size:16px;color:var(--white);line-height:1.65;}
+.lever .lv-b b{color:var(--gold3);}
+
+/* tier cards */
+.tier-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:18px;}
+.tier{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;border-left:3px solid;}
+.tier.solid{border-left-color:var(--s1);} .tier.core{border-left-color:var(--gold);} .tier.weak{border-left-color:var(--grayd);}
+.tier .ti-h{font-family:'Noto Serif JP',serif;font-size:20px;color:#FFF;font-weight:700;}
+.tier .ti-tag{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:11px;letter-spacing:1px;padding:2px 9px;border-radius:10px;margin-left:8px;}
+.tier.solid .ti-tag{background:rgba(76,178,134,0.18);color:var(--s1);}
+.tier.core .ti-tag{background:rgba(212,175,55,0.18);color:var(--gold3);}
+.tier.weak .ti-tag{background:rgba(106,106,120,0.25);color:var(--gray);}
+.tier .ti-b{font-size:16px;color:var(--white);line-height:1.65;margin-top:8px;}
+.tier .ti-b b{color:var(--gold3);}
+
+/* reference appendix (small,参照スタイル) */
+.ref{margin-top:18px;border-left:3px solid var(--line);background:rgba(255,255,255,0.015);border-radius:0 10px 10px 0;padding:18px 20px;}
+.ref .ref-h{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:13px;letter-spacing:1.5px;color:var(--grayd);margin-bottom:10px;}
+.ref h4{font-family:'Noto Sans JP';font-size:14px;color:var(--gray);font-weight:700;margin:12px 0 5px;}
+.ref p,.ref li{font-size:13px;color:var(--grayd);line-height:1.65;margin-bottom:5px;}
+.ref ul{margin-left:18px;} .ref b{color:var(--gray);}
+.ref .formula-mini{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:14px;color:var(--gray);background:rgba(0,0,0,0.25);padding:6px 12px;border-radius:6px;display:inline-block;margin:4px 0;}
+
+/* footer */
+.footer{padding:42px 6vw;background:var(--bg2);border-top:2px solid var(--gold);font-size:13.5px;color:var(--gray);line-height:1.9;}
+.footer strong{color:var(--gold3);}
+.footer .brand{font-family:'Oswald','Noto Sans JP',sans-serif;letter-spacing:2px;color:var(--gold3);font-size:15px;font-weight:700;margin-top:12px;}
+.footer .disc{color:var(--grayd);font-size:12.5px;margin-top:14px;line-height:1.7;}
+
+@media(max-width:680px){
+  body{font-size:16px;}
+  .sec{padding:40px 5vw;} #cover{padding:50px 5vw 36px;}
+  .trick-row{grid-template-columns:1fr;}
+  .kpi .k-val{font-size:28px;}
+  .eq-box .plus{display:none;}
+  .eq-box{border-radius:10px!important;margin-bottom:8px;}
+  .box p{font-size:16px;} .box li{font-size:15px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="topnav">
+  <span class="logo">OIL REALITY</span>
+  <a href="#cover">表紙</a>
+  <a href="#supply">①供給</a>
+  <a href="#demand">②需要</a>
+  <a href="#stock">③備蓄</a>
+  <a href="#sim">④試算</a>
+  <a href="#ref">根拠</a>
+  <span class="ver">統合プレゼン版 v2 / 5.30基準</span>
+</nav>
+
+<!-- ===== COVER ===== -->
+<section id="cover">
+  <div class="tag-top">CRUDE OIL ─ THE REAL NUMBERS</div>
+  <h1 class="main">原油輸入は<span class="hl">前年比 ▲65.7%</span>。<br>なのに、なぜ生活は<span class="hl">平時通り</span>なのか。</h1>
+
+  <!-- 結論の3数字 -->
+  <div class="hero-stats">
+    <div class="hstat red">
+      <div class="hs-lbl">原油輸入量（4月・供給）</div>
+      <div class="hs-val">▲65.7<span class="u">%</span></div>
+      <div class="hs-d">407万kL。<b>1989年以降で最少</b>。ホルムズ封鎖が直撃</div>
+    </div>
+    <div class="hstat blue">
+      <div class="hs-lbl">実際に使えた量（4月・需要）</div>
+      <div class="hs-val">83<span class="u">%</span></div>
+      <div class="hs-d">前年比。削減はわずか▲17%。だから生活は回る</div>
+    </div>
+    <div class="hstat amber">
+      <div class="hs-lbl">削減の主因（産業しわ寄せ）</div>
+      <div class="hs-val"><span class="jp">ナフサ</span> ▲37<span class="u">%</span></div>
+      <div class="hs-d">▲17%減の大半は石化原料。家庭向けはほぼ温存</div>
+    </div>
+  </div>
+
+  <!-- カラクリ（定量で語る） -->
+  <div class="trick-row">
+    <div class="trick t1">
+      <div class="tk-n">カラクリ ①　needs を絞る</div>
+      <div class="tk-h">全体 <b>▲17%</b> 減らした分を、<br><b>石油化学（ナフサ）が被った</b></div>
+      <div class="tk-b">削減の主因はナフサ▲37%。家庭のガソリン・軽油はほぼ平時通り。だから「生活は平時通り」に見える → ②需要</div>
+    </div>
+    <div class="trick t2">
+      <div class="tk-n">カラクリ ②　stock で埋める</div>
+      <div class="tk-h">輸入 <b>▲65.7%</b> の不足を、<br><b>備蓄の取り崩しが埋めた</b></div>
+      <div class="tk-b">毎月17日分（約494万kL）の貯金を切り崩して供給。これが「平時通り」のもう一つの正体 → ③備蓄</div>
+    </div>
+  </div>
+
+  <!-- 危機をズドンと中央に -->
+  <div class="crisis-banner">
+    <div class="cb-lead">だが、その貯金は無限ではない</div>
+    <div class="cb-main">このペースなら <span class="cb-hl">7月中旬</span> に、<br>国際最低ライン <span class="cb-hl">IEA備蓄90日</span> へ到達する</div>
+    <div class="cb-sub">＝「節約のお願い」が物理的に避けられなくなる局面。本資料は、この危機までの距離を供給・需要・備蓄の3軸で検証する。</div>
+  </div>
+
+  <div class="meta-row">
+    <span class="meta-pill date">2026.05.30 時点</span>
+    <span class="meta-pill">ホルムズ封鎖から3ヶ月</span>
+    <span class="meta-pill up">石油統計速報 4月分確定反映（5/29公表）</span>
+  </div>
+</section>
+
+<!-- ===== ① 供給 ===== -->
+<section id="supply">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 01 ─ SUPPLY</span>
+    <span class="sec-title">① 供給 ─ 5月、代替ルートで原油は戻り始めた</span>
+  </div>
+  <p class="sec-sub">
+    見せたい結論はひとつ。<b>4月に407万kLまで落ちた原油の物理供給が、5月は859万kLへ回復した</b>。米国・中東バイパス（サウジ陸送）・南米ブラジルなどの代替ルートを、商社と政府が必死に確保した成果。だが、これで「平時に戻った」わけではない。
+  </p>
+
+  <!-- 5月回復の結論KPI -->
+  <div class="kpi-grid">
+    <div class="kpi"><div class="k-lbl">原油 物理供給（5月・暫定）</div><div class="k-val">859<span class="u"> 万kL</span></div><div class="k-meta">4月407から +111%。代替ルートで倍増</div></div>
+    <div class="kpi blue"><div class="k-lbl">5月の前年比（暫定ベース）</div><div class="k-val">▲27<span class="u"> %</span></div><div class="k-meta">前年5月1,184万kL比。4月の▲65.7%から大幅改善</div></div>
+    <div class="kpi"><div class="k-lbl">代替ルート主力（5月）</div><div class="k-val">米+南米</div><div class="k-meta">米国150・南米175・中東バイパス180が牽引</div></div>
+    <div class="kpi red"><div class="k-lbl">それでも平時（1,527）比</div><div class="k-val">56<span class="u"> %</span></div><div class="k-meta">回復しても平時の約半分。差は備蓄で穴埋め</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">◆ 原油 調達ルート別 実績（万kL/月）─ 4月から5月への回復</div>
+    <div class="chart-note">タグ ─ <b style="color:var(--s1)">実測</b>：確定・公式統計 ／ <b style="color:var(--s2)">追跡</b>：船舶追跡・暫定 ／ <b style="color:var(--gray)">推定</b>：TF言及・非公表。<b style="color:var(--s2)">青網</b>＝5月に効いた代替ルート</div>
+    <div class="tbl-wrap">
+    <table class="dt">
+      <thead><tr><th style="text-align:left">調達ルート</th><th>平時</th><th>4月</th><th>5月</th><th style="text-align:left">根拠・確認ソース</th></tr></thead>
+      <tbody>
+        <tr><td class="mlbl">● 中東直行（ホルムズ経由）</td><td>1,260</td><td class="neg">0</td><td class="neg">60</td><td class="src"><span class="tag-m jisoku">実測</span>ホルムズ通航停止（5/6以降2隻/日,PortWatch）。封鎖継続で戻らず</td></tr>
+        <tr class="hi"><td class="mlbl">○ 中東バイパス（サウジ/UAE陸送）</td><td>—</td><td>110</td><td class="pos">180</td><td class="src"><span class="tag-m mikomi">追跡</span>サウジ東西PL能力700万B/D。4/5フジャイラ初着。想定以上に稼働</td></tr>
+        <tr class="hi"><td class="mlbl">○ 米国（湾岸）</td><td>50</td><td>80</td><td class="pos">150</td><td class="src"><span class="tag-m mikomi">追跡</span>5月VLCC9隻=1,670万バレル（西山氏AIS）。喜望峰・パナマ経由</td></tr>
+        <tr class="hi"><td class="mlbl">○ 南米（ブラジル等）</td><td>15</td><td>25</td><td class="pos">175</td><td class="src"><span class="tag-m suitei">推定</span>経産省TF・首相官邸5/25会見で言及。5月に急拡大</td></tr>
+        <tr><td class="mlbl">○ アフリカ（ナイジェリア等）</td><td>15</td><td>—</td><td>50</td><td class="src"><span class="tag-m suitei">推定</span>読売5/27「6月は新たにアフリカからも調達めど」</td></tr>
+        <tr><td class="mlbl">○ 中央アジア（アゼル/カザフ）</td><td>15</td><td>—</td><td>25</td><td class="src"><span class="tag-m suitei">推定</span>5/19アゼルバイジャン産が日本初到着</td></tr>
+        <tr><td class="mlbl">○ マレーシアSTS（湾内積替え）</td><td>202</td><td>110</td><td>110</td><td class="src"><span class="tag-m mikomi">追跡</span>西山氏AIS 4隻確認。新規調達でなく在庫流動化＝持続性低い</td></tr>
+        <tr><td class="mlbl">○ ロシア他（サハリン2）</td><td>45</td><td>—</td><td>50</td><td class="src"><span class="tag-m suitei">推定</span>太陽石油サハリン2スポット購入。米財務省3/12容認</td></tr>
+        <tr><td class="mlbl">○ 製品輸入等</td><td>—</td><td>36</td><td>59</td><td class="src"><span class="tag-m mikomi">追跡</span>原油でなく石油製品（ナフサ・ガソリン等）</td></tr>
+        <tr class="totalrow"><td class="mlbl">★ 原油 物理供給 合計</td><td>1,527</td><td>407</td><td class="pos">859</td><td class="src"><span class="tag-m jisoku">実測</span>4月:石油統計速報5/29確定（▲65.7%）/5月:Bloomberg船舶追跡5/25暫定（▲27%）</td></tr>
+        <tr><td class="mlbl">＋ ナフサ等 製品輸入（中東外）</td><td>45</td><td>168</td><td>135</td><td class="src"><span class="tag-m jisoku">実測</span>米国産ナフサ前年比5倍（日経5/28）</td></tr>
+        <tr class="totalrow"><td class="mlbl">★ 物理供給 計（原油+製品）</td><td>1,572</td><td>575</td><td>994</td><td class="src">通関で実際に入った量。回復しても平時1,572には届かない</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="tbl-cap">数値は財務省貿易統計・Bloomberg船舶追跡・経産省TF等による（4月は確定、5月はBloomberg船舶追跡ベースの暫定）。平時欄は原油換算の便宜表示（全石油液体の平時=BP統計）。</p>
+  </div>
+
+  <div class="box red">
+    <h3>このセクションの結論 ─ 回復しても、構造は「備蓄頼み」のまま</h3>
+    <p>5月の859万kLは確かな回復だ。だが本質はここ ── <span class="rd">ホルムズ封鎖が続く限り、中東直行（平時の94%）はゼロのまま。代替ルートをどれだけ積んでも、物理供給が前年水準に戻ることはない。</span></p>
+    <p>つまり、平時1,572との差は<strong>埋まらない</strong>。その差を埋める手段は、ただ一つ ── <span class="rd">備蓄の取り崩し</span>しかない。代替調達は「時間を稼ぐ」だけで、「解決」はしない。だから次に見るべきは、その備蓄があと何日もつか（→③）だ。</p>
+    <p style="font-size:14px;color:var(--gray);margin-top:6px;">※注意：5月の859・南米175・アフリカ50などは船舶追跡・TF言及ベースの暫定値。STS（湾内積替え110）は新規調達でなく在庫流動化で持続性が低い。確報で下方修正の可能性あり。</p>
+  </div>
+</section>
+
+<!-- ===== ② 需要 ===== -->
+<section id="demand">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 02 ─ DEMAND</span>
+    <span class="sec-title">② 需要 ─ 削られたのは「工場の原料」だった</span>
+  </div>
+  <p class="sec-sub">
+    平時の全石油消費 <b>1,527万kL/月</b>（BP統計2024実績）を用途別に分け、各用途が前年比で何%減ったかを当てはめて削減量を合算する。
+    分母（平時）も分子（積上）も<b>同じ全石油ベース</b>なので統計が整合し、結論がブレない。これが節約率の主軸。
+  </p>
+
+  <div class="box blue">
+    <h3>2つの「物差し」を混同しない ─ ▲65.7% と ▲17% は別の数字</h3>
+    <p><strong>① 輸入の激減＝▲65.7%</strong>（原油輸入407万kL ÷ 前年1,189万kL）。これは「外から入ってきた原油」の話。<strong>② 実際に使った量の減少＝▲17%</strong>（実需要1,269万kL ÷ 平時1,527万kL）。この2つが大きく違うのは、足りない分を<span class="rd">備蓄取り崩し（494）と通関外供給（約200）で埋めている</span>から。</p>
+    <p>注意点 ── 供給側（通関＝原油+製品）と需要側（BP全石油1,527）は<strong>数えている範囲が違う</strong>。需要側にはLPG・国際バンカー・精製ゲイン（合計<span class="rd">約200万kL</span>）が含まれ、これらは通関に出ない。だから通関575を単純に積み上げても1,527には届かない。この約200を供給源として正しく足し込むことで、実需要1,269＝通関575＋備蓄494＋通関外200 が整合する。</p>
+  </div>
+
+  <!-- 実需要の積上 -->
+  <div class="eq-flow">
+    <div class="eq-box"><div class="e-l">新規に入った（通関）</div><div class="e-v">575</div><div class="e-d">原油407+製品168<br>船で新たに到着</div><span class="plus">+</span></div>
+    <div class="eq-box"><div class="e-l">備蓄の取り崩し</div><div class="e-v">494</div><div class="e-d">真の備蓄<br>貯金を切り崩し →③</div><span class="plus">+</span></div>
+    <div class="eq-box"><div class="e-l">通関外供給</div><div class="e-v">約200</div><div class="e-d">LPG・バンカー<br>精製ゲイン等</div><span class="plus eq">=</span></div>
+    <div class="eq-box"><div class="e-l">実際に使われた量</div><div class="e-v">1,269</div><div class="e-d">全石油・平時の83%<br>＝需要▲17%後</div></div>
+  </div>
+  <p class="tbl-cap"><b>平時1,527から引くのではなく、実需要1,269を積み上げるのが正しい見方。</b>①の575は通関ベース、実需要1,269は全石油ベースで統計範囲が異なるため、通関外供給「約200」には民間在庫取崩しに加え統計範囲のズレ（LPG・国際バンカー・精製ゲイン）が含まれる。</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">◆ 用途別積上 ─ 4月実測 ＆ 5月見込み</div>
+    <div class="chart-note">タグ ─ <b style="color:var(--s1)">実測</b>：生産実績・公式統計（確報）／ <b style="color:var(--s2)">見込み</b>：業界見通し ／ <b style="color:var(--gray)">推定</b>：観察+類推（直接統計なし）</div>
+    <div class="tbl-wrap">
+    <table class="dt">
+      <thead><tr><th style="text-align:left">用途</th><th>シェア</th><th>平時</th><th>4月<br>節約率</th><th>4月<br>削減</th><th>5月<br>節約率</th><th style="text-align:left">節約率の根拠</th></tr></thead>
+      <tbody>
+        <tr><td class="mlbl">ナフサ</td><td>22.2%</td><td>339</td><td class="neg">37%</td><td>125</td><td>30%</td><td class="src"><span class="tag-m jisoku">実測</span>JPCAエチレン▲37%（稼働率67.3%・過去最低）。5/29速報でナフサ販売▲35.6%確定。5月はJPCA工藤会長「70%回復見込み」</td></tr>
+        <tr><td class="mlbl">ガソリン</td><td>23.7%</td><td>362</td><td class="neg">▲7.5%</td><td>27</td><td>▲7.5%</td><td class="src"><span class="tag-m jisoku">実測</span>5/29速報で国内販売310.3万kL（前年比▲10.9%）確定。構造減少▲2-3%除く真水▲7.5%。補助金170円維持でも予防的節約</td></tr>
+        <tr><td class="mlbl">軽油</td><td>18.3%</td><td>280</td><td>0%</td><td>—</td><td>5%</td><td class="src"><span class="tag-m jisoku">実測</span>経産省統計「前年超え」+暫定税率廃止（4/1）+補助金。物流需要は底堅い</td></tr>
+        <tr><td class="mlbl">LPG・潤滑油・アスファルト等</td><td>12.4%</td><td>190</td><td>35%</td><td>66</td><td>35%</td><td class="src"><span class="tag-m suitei">推定</span>石化由来製品の連鎖減産から類推。直接の月次統計なし。要確報検証</td></tr>
+        <tr><td class="mlbl">灯油</td><td>6.7%</td><td>103</td><td>10%</td><td>10</td><td>8%</td><td class="src"><span class="tag-m jisoku">実測</span>経産省速報「前年比減」+季節要因（暖房端境期）</td></tr>
+        <tr><td class="mlbl">国際バンカー（船舶燃料）</td><td>6.6%</td><td>100</td><td>15%</td><td>15</td><td>18%</td><td class="src"><span class="tag-m suitei">推定</span>中東タンカー貿易の停滞で日本港の給油需要減と類推</td></tr>
+        <tr><td class="mlbl">A重油</td><td>3.6%</td><td>55</td><td>15%</td><td>—</td><td>12%</td><td class="src"><span class="tag-m suitei">推定</span>経産省統計「前年比減」+産業稼働低下から類推</td></tr>
+        <tr><td class="mlbl">ジェット・国際航空・B/C重油</td><td>6.5%</td><td>—</td><td>8-10%</td><td>—</td><td>小幅</td><td class="src"><span class="tag-m jisoku">実測</span><span class="tag-m suitei">推定</span>B/C重油は前年超え（在庫潤沢）。航空は中東迂回で微減</td></tr>
+        <tr class="totalrow"><td class="mlbl">合計</td><td>100%</td><td>1,527</td><td class="neg">▲17%</td><td>258</td><td class="neg">▲17%</td><td class="src">4月実需要=1,527−258=<b style="color:var(--gold3)">1,269万kL</b>（83%）／5月=1,527−251=<b style="color:var(--gold3)">1,276万kL</b>（84%）</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="tbl-cap">5月削減：ナフサ102・LPG66・ガソリン27・国際バンカー18・軽油14ほか、合計251万kL。</p>
+  </div>
+
+  <div class="box blue">
+    <h3>POINT ─ 根拠の強さは正直に分けて示す</h3>
+    <p><strong>実測</strong>が付くのは <span class="gn">ナフサ4月▲35.6%</span>（5/29速報確定）、<span class="gn">ガソリン▲10.9%</span>（同）、軽油・B/C重油は前年超え。ここは確報レベルで動かない。一方 <b>LPG・潤滑油35%は直接の月次統計がなく「推定」</b>で、確報検証が必要。</p>
+    <p>結論の節約率17%は、最大セグメントの<strong>ナフサ（実測▲35.6%）とガソリン（実測▲10.9%）が支えている</strong>ため頑健。LPG等の推定部分は6月以降の確報で振れる可能性がある。この透明性を保つことが「数字がブレない」ことの担保。</p>
+  </div>
+</section>
+
+<!-- ===== ③ 備蓄 ===== -->
+<section id="stock">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 03 ─ STOCKPILE</span>
+    <span class="sec-title">③ 備蓄 ─ あと何日もつか</span>
+  </div>
+  <p class="sec-sub">
+    供給で物理的に入る原油は平時の3分の1。その差を埋めているのが<b>国の備蓄の取り崩し</b>。ここでは「真の備蓄＝国家備蓄＋産油国共同備蓄」（民間備蓄=運転在庫は除外）が何日分＝何万kL残っているかを追う。
+    毎月<b>17日分（約494万kL）</b>ずつ減少し、<b>7月中旬</b>に国際最低ライン90日＝2,583万kLに到達する。
+  </p>
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="k-lbl">5月末残（起点）</div><div class="k-val">118<span class="u"> 日</span></div><div class="k-meta">3,387万kL（5/17速報採用）</div></div>
+    <div class="kpi"><div class="k-lbl">月次取り崩しペース</div><div class="k-val">17<span class="u"> 日/月</span></div><div class="k-meta">約494万kL。ガソリン▲7.5%反映後</div></div>
+    <div class="kpi red"><div class="k-lbl">IEA90日ライン到達</div><div class="k-val">7<span class="u"> 月中旬</span></div><div class="k-meta">90日=2,583万kL。あと28日分（804万kL）</div></div>
+    <div class="kpi"><div class="k-lbl">28.7 vs 50.9 の罠</div><div class="k-val">×1.78</div><div class="k-meta">政府基準（28.7万kL/日）は実体消費の1/1.78に過小評価</div></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">◆ 備蓄残の推移（日数 ＝ 万kL）</div>
+    <svg viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:'Oswald','Noto Sans JP',sans-serif;">
+      <!-- 90日ライン -->
+      <line x1="60" y1="250" x2="850" y2="250" stroke="#E05555" stroke-width="1.5" stroke-dasharray="6 5" opacity="0.7"/>
+      <text x="855" y="254" fill="#F0A0A0" font-size="15" text-anchor="end" opacity="0.9">IEA 90日ライン (2,583万kL)</text>
+      <!-- bars -->
+      <!-- 3月末 152日 -->
+      <rect x="110" y="70" width="90" height="220" rx="4" fill="#4A90D9" opacity="0.55"/>
+      <text x="155" y="58" fill="#E8C766" font-size="22" font-weight="700" text-anchor="middle">152日</text>
+      <text x="155" y="312" fill="#9A9AA8" font-size="15" text-anchor="middle">3月末</text>
+      <text x="155" y="328" fill="#6A6A78" font-size="14" text-anchor="middle">封鎖直後</text>
+      <text x="155" y="180" fill="#F2EFE8" font-size="15" text-anchor="middle">4,362</text>
+      <!-- 4月末 135日 -->
+      <rect x="290" y="118" width="90" height="172" rx="4" fill="#4A90D9" opacity="0.45"/>
+      <text x="335" y="106" fill="#E8C766" font-size="22" font-weight="700" text-anchor="middle">135日</text>
+      <text x="335" y="312" fill="#9A9AA8" font-size="15" text-anchor="middle">4月末</text>
+      <text x="335" y="210" fill="#F2EFE8" font-size="15" text-anchor="middle">3,875</text>
+      <!-- 5月末 118日 -->
+      <rect x="470" y="160" width="90" height="130" rx="4" fill="#E0954A" opacity="0.75"/>
+      <text x="515" y="148" fill="#E8C766" font-size="22" font-weight="700" text-anchor="middle">118日</text>
+      <text x="515" y="312" fill="#F2EFE8" font-size="15" text-anchor="middle">5月末（現在）</text>
+      <text x="515" y="232" fill="#F2EFE8" font-size="15" text-anchor="middle">3,387</text>
+      <!-- 7月中旬 90日 -->
+      <rect x="650" y="250" width="90" height="40" rx="4" fill="#E05555" opacity="0.85"/>
+      <text x="695" y="238" fill="#F0A0A0" font-size="22" font-weight="700" text-anchor="middle">90日</text>
+      <text x="695" y="312" fill="#F0A0A0" font-size="15" text-anchor="middle">7月中旬</text>
+      <text x="695" y="328" fill="#E05555" font-size="14" text-anchor="middle">★IEA最低ライン</text>
+      <!-- 取り崩し矢印 -->
+      <text x="245" y="100" fill="#6A6A78" font-size="14" text-anchor="middle">▼17日</text>
+      <text x="425" y="142" fill="#6A6A78" font-size="14" text-anchor="middle">▼17日</text>
+      <text x="605" y="205" fill="#6A6A78" font-size="14" text-anchor="middle">▼同ペース</text>
+    </svg>
+    <div class="tbl-wrap">
+    <table class="dt">
+      <thead><tr><th style="text-align:left">月</th><th>残(日数)</th><th>残(万kL)</th><th>取崩し</th><th style="text-align:left">状態・根拠</th></tr></thead>
+      <tbody>
+        <tr><td class="mlbl">2月末（封鎖直前）</td><td>151</td><td>4,333</td><td>—</td><td class="src"><span class="tag-m jisoku">実測</span>資源エネ庁「石油備蓄の現況」。出発点</td></tr>
+        <tr><td class="mlbl">3月末（第1弾放出後）</td><td>152</td><td>4,362</td><td>±0</td><td class="src"><span class="tag-m jisoku">実測</span>第1弾放出で日数維持。影響はまだ軽微</td></tr>
+        <tr><td class="mlbl">4月末</td><td>135</td><td>3,875</td><td class="neg">▲494</td><td class="src"><span class="tag-m mikomi">暫定</span>17日分減。5/29速報で通関575確定・需要1,269に下方修正しペース見直し</td></tr>
+        <tr><td class="mlbl">5月末</td><td>118</td><td>3,387</td><td class="neg">▲488</td><td class="src"><span class="tag-m mikomi">暫定</span>5/17速報118日を月末値採用。原油回復で17日分減ペース継続</td></tr>
+        <tr class="totalrow"><td class="mlbl">7月中旬（予測）</td><td>90</td><td>2,583</td><td>同ペース</td><td class="src">★IEA加盟国の最低義務ライン到達。ここから「節約のお願い」が物理的に視野に。需要圧縮深化で2-3週後ろ倒し</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="tbl-cap">万kL換算は <b>日数 × 28.7万kL/日</b>（備蓄法基準）。実体消費（BP統計50.9万kL/日）で割ると同じ備蓄量でも日数は約1.78倍短くなる（118日→約66日相当）。本表は政府公式基準（28.7）で統一表示。</p>
+  </div>
+
+  <div class="box gold">
+    <h3>POINT ─ 「年越し可能」の正体は、この貯金の取り崩し</h3>
+    <p>政府の「供給確保・年越し可能」は、<strong>物理供給575 ＋ 備蓄取崩し494</strong> を足せば当面の量は足りる、という意味。嘘ではない。</p>
+    <p>だが<strong>貯金は毎月17日分ずつ確実に減り、7月中旬にIEA最低ライン90日＝2,583万kLに届く</strong>。そこから先は備蓄バッファが効かなくなり、需要の絞り込みを一段深める＝<span class="rd">「節約のお願い」が物理的に避けられない局面</span>に入る。民間備蓄（81日分前後）は石油会社の運転在庫で「緊急時も容易に放出できない」ため、この90日カウントには含めていない。</p>
+  </div>
+</section>
+
+<!-- ===== ④ シミュレーター ===== -->
+<section id="sim">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 04 ─ SIMULATOR</span>
+    <span class="sec-title">④ 備蓄はいつ尽きるか ─ 前提を動かして検証する</span>
+  </div>
+  <p class="sec-sub">
+    5月末残118日（3,387万kL）を起点に、<b>代替調達・節約率・中東直行回復カーブ</b>を動かすと、4シナリオの90日ライン到達・年末残がどう変わるか。掃海6ヶ月版（慎重）ベース。
+    まず<b>「動かす前提」と「動かさない土台」</b>を切り分けるのが、この試算の肝。
+  </p>
+
+  <h3 style="font-family:'Noto Serif JP',serif;font-size:21px;color:#FFF;margin-top:26px;">◆ 前提を動かす ─ 3つのレバー</h3>
+  <div class="lever-grid">
+    <div class="lever core">
+      <div class="lv-h">① 代替調達+製品<span class="lv-tag">論点の核</span></div>
+      <div class="lv-val">780 <span style="font-size:15px;color:var(--gray)">万kL/月</span></div>
+      <div class="lv-b"><b>最も効くレバー（±100で備蓄寿命±20日）</b>。5/29速報で原油407+製品168=575（4月は代替立ち上がりの月）。5月実績は日量170万バレル≒原油810（政府見通し超）。サウジ・UAE陸送が想定以上。米国産は31と想定80より少ない。</div>
+    </div>
+    <div class="lever core">
+      <div class="lv-h">② 節約率<span class="lv-tag">論点の核</span></div>
+      <div class="lv-val">17 <span style="font-size:15px;color:var(--gray)">%</span></div>
+      <div class="lv-b">平時全石油1,527に対する削減率。4月実績=17%（ナフサ▲35.6%・ガソリン▲10.9%が主因）。開放遅延（④+D=60%）前提なら17%維持が中心。<b>20%超は政府の追加需要抑制＝経済打撃</b>（3要素モデル④に接続）。</div>
+    </div>
+    <div class="lever">
+      <div class="lv-h">③ 統計ギャップ<span class="lv-tag weak">根拠薄・割り切り</span></div>
+      <div class="lv-val">200 <span style="font-size:15px;color:var(--gray)">万kL/月</span></div>
+      <div class="lv-b">正確には測れないと最初から分かっている数字（LPG・精製ゲイン・バンカー）。4月実測で約200。<b>150〜250で振っても結論（90日割れ・枯渇回避）は変わらない</b>＝重要度は低い。</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif JP',serif;font-size:21px;color:#FFF;margin-top:30px;">◆ 数字の重要度を3階層に分ける</h3>
+  <p class="sec-sub" style="margin-top:4px;">測れない数字に時間をかけても意味がない。固い数字・論点の核・割り切る数字を切り分け、根拠の強さを明示する。</p>
+  <div class="tier-grid">
+    <div class="tier solid">
+      <div class="ti-h">① 固い数字<span class="ti-tag">信頼できる土台</span></div>
+      <div class="ti-b">備蓄残の起点=<b>118日（3,387万kL）</b>、取り崩しペース=<b>月17日分（494万kL）</b>。5/29速報確定でペースを月20日（旧）→月17日（新）に下方修正。資源エネ庁の日数実測と整合。通関の振れと無関係に確定。<b>議論の土台はここ。</b></div>
+    </div>
+    <div class="tier core">
+      <div class="ti-h">② 論点の核<span class="ti-tag">整合だけ取る</span></div>
+      <div class="ti-b">代替調達（感度最大）・節約率・開放時期×掃海。<b>結論（90日割れ・枯渇の有無）を決めるのはこの3つ</b>。スライダーで動かして議論する数字。</div>
+    </div>
+    <div class="tier weak">
+      <div class="ti-h">③ 割り切る数字<span class="ti-tag">深追いしない</span></div>
+      <div class="ti-b">ギャップ約200は正確に測れない（LPG・精製ゲイン・バンカー）。毎月だいたい200で固定。少々動いても結論を変えないので、ここで整合性を議論しない。</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">◆ 備蓄残の推移 ─ 「いつ90日を割り、いつ枯渇するか」</div>
+    <div class="chart-note">見たいのは2つの時点。①IEA90日ライン（2,583万kL）を割る時期、②本当に備蓄が尽きる時期。基本シナリオは<b style="color:#A569D9">D（解放なし）</b>── まだ解放は宣言されていない。②④はいま交渉中の「希望」。</div>
+    <svg viewBox="0 0 900 410" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:'Oswald','Noto Sans JP',sans-serif;">
+      <!-- grid y -->
+      <line x1="70" y1="40" x2="70" y2="360" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+      <line x1="70" y1="360" x2="865" y2="360" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+      <line x1="70" y1="200" x2="865" y2="200" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <line x1="70" y1="280" x2="865" y2="280" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <line x1="70" y1="120" x2="865" y2="120" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <!-- IEA 90日ライン y=153.4 -->
+      <rect x="70" y="153" width="795" height="207" fill="rgba(224,85,85,0.05)"/>
+      <line x1="70" y1="153" x2="865" y2="153" stroke="#E05555" stroke-width="2" stroke-dasharray="7 5"/>
+      <text x="700" y="147" fill="#F0A0A0" font-size="14" font-weight="700" text-anchor="start">★ IEA 90日ライン（2,583万kL）</text>
+      <!-- y labels -->
+      <text x="62" y="45" fill="#9A9AA8" font-size="13" text-anchor="end">4,000</text>
+      <text x="62" y="124" fill="#9A9AA8" font-size="13" text-anchor="end">3,000</text>
+      <text x="62" y="204" fill="#9A9AA8" font-size="13" text-anchor="end">2,000</text>
+      <text x="62" y="284" fill="#9A9AA8" font-size="13" text-anchor="end">1,000</text>
+      <text x="62" y="364" fill="#9A9AA8" font-size="13" text-anchor="end">0</text>
+      <text x="20" y="200" fill="#6A6A78" font-size="13" text-anchor="middle" transform="rotate(-90,20,200)">備蓄残（万kL）</text>
+      <!-- x labels -->
+      <text x="70" y="382" fill="#9A9AA8" font-size="14" text-anchor="middle">5月末</text>
+      <text x="228" y="382" fill="#9A9AA8" font-size="14" text-anchor="middle">7月</text>
+      <text x="386" y="382" fill="#9A9AA8" font-size="14" text-anchor="middle">9月</text>
+      <text x="544" y="382" fill="#9A9AA8" font-size="14" text-anchor="middle">11月</text>
+      <text x="702" y="382" fill="#9A9AA8" font-size="14" text-anchor="middle">翌1月</text>
+      <text x="860" y="382" fill="#9A9AA8" font-size="14" text-anchor="middle">翌3月</text>
+      <!-- 90日割れ縦線(7月中旬 ≒ x=210) -->
+      <line x1="210" y1="153" x2="210" y2="360" stroke="#E05555" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+      <text x="214" y="350" fill="#F0A0A0" font-size="13">7月中旬<tspan font-size="12">：90日割れ</tspan></text>
+      <!-- D枯渇縦線(x≒623, 12月) -->
+      <line x1="623" y1="200" x2="623" y2="360" stroke="#A569D9" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
+      <text x="627" y="345" fill="#C9A0E8" font-size="13">12月頃：D枯渇</text>
+      <!-- lines -->
+      <polyline points="70,89.0 149,128.6 228,136.6 307,144.6 386,124.6 465,104.6 544,89.0 623,89.0 702,89.0 781,89.0 860,89.0" fill="none" stroke="#4A90D9" stroke-width="2.5"/>
+      <polyline points="70,89.0 149,128.6 228,168.1 307,180.1 386,192.1 465,176.1 544,160.1 623,144.1 702,128.1 781,112.1 860,96.1" fill="none" stroke="#E0954A" stroke-width="2.5"/>
+      <polyline points="70,89.0 149,128.6 228,168.1 307,207.6 386,247.1 465,263.1 544,279.1 623,267.1 702,255.1 781,243.1 860,231.1" fill="none" stroke="#E05555" stroke-width="2.5"/>
+      <polyline points="70,89.0 149,128.6 228,168.1 307,207.6 386,247.1 465,286.6 544,326.2 623,360.0" fill="none" stroke="#A569D9" stroke-width="3.5"/>
+      <!-- start dot -->
+      <circle cx="70" cy="89" r="5" fill="#E8C766"/>
+      <text x="80" y="80" fill="#E8C766" font-size="14" font-weight="700">5月末 118日 (3,387)</text>
+      <!-- D枯渇点 -->
+      <circle cx="623" cy="360" r="5" fill="#A569D9"/>
+    </svg>
+    <div class="legend-inline">
+      <span><i style="background:#A569D9;height:4px"></i><b style="color:#C9A0E8">D 解放なし (30%) ─ 基本シナリオ・12月頃に枯渇</b></span>
+      <span><i style="background:#E05555"></i>④9末開放 (30%)</span>
+      <span><i style="background:#E0954A"></i>③7末 (10%)</span>
+      <span><i style="background:#4A90D9"></i>②6末開放 (30%)</span>
+    </div>
+  </div>
+
+  <div class="box gold">
+    <h3>このグラフの読み方 ─ 「年内は大丈夫」は条件付き</h3>
+    <p>政府は「年内は供給を確保できる」と言う。だがそれは<strong>②④のように夏〜秋に解放（掃海開始）が起きた場合</strong>の話。<span class="rd">まだ解放は宣言されていない</span>ため、いま現実に進行しているのは<span style="color:#C9A0E8;font-weight:700">紫のD（解放なし）</span>だ。</p>
+    <p>Dを延長すると、<strong>7月中旬にIEA90日ラインを割り、12月頃には備蓄そのものが尽きる</strong>。②④（赤・青）は、その破滅を回避するために交渉している「希望のシナリオ」にすぎない。下振れ（④+D）の確率は合計<span class="rd">60%</span>。</p>
+  </div>
+
+  <div class="box blue">
+    <h3>前提：シナリオ確率と計算式</h3>
+    <p>物理開放時期ベース（西村校正 5/28）：②6月末開放=30% ／ ③7月末=10% ／ ④9月末=30% ／ D解放なし=30%（①5月末=0%）。「開放」は停戦合意ではなく、機雷掃海が始まり中東直行が物理的に戻り始める時期を指す。</p>
+    <p style="font-size:14px;color:var(--gray);">計算式：取り崩し＝実需要−物理供給（代替調達+製品+中東直行）。実需要=平時1,527×（1−節約率）。マイナス時は取り崩しゼロ（余剰は積み増さず据え置き＝保守的）。基準取り崩しは実績（月17日分=494万kL）と整合。</p>
+  </div>
+</section>
+
+<!-- ===== 根拠・引き継ぎ（参照スタイル・小さく） ===== -->
+<section id="ref">
+  <div class="sec-head">
+    <span class="sec-num">APPENDIX ─ METHODOLOGY</span>
+    <span class="sec-title">根拠・考え方・計算方法</span>
+  </div>
+  <p class="sec-sub">以下は2カラクリと試算を支える分析の詳細。プレゼン本体の補足として、数値の出所と計算ロジックを参照用に残す。</p>
+
+  <div class="ref">
+    <div class="ref-h">A ─ 2つの軸を厳密に分ける（混ぜると数字が動く）</div>
+    <p><b>需要軸（カラクリ①/節約率）</b>：「平時に対して何%絞られたか」を出す主軸。用途別10セグメントの節約率を積み上げる。分母（平時1,527）も分子（積上）も同じ全石油ベースなので統計が整合し、結論がブレない。</p>
+    <p><b>供給軸（カラクリ②/枯渇時期）</b>：「あと何日もつか」を出す。備蓄取り崩しのペースから算出。これは需要軸からは出てこない数字。通関の物理供給（原油407+製品168等）は参考のみ。LPG・国際バンカー・精製ゲインを含まず平時1,527と範囲がズレるため、これで割って節約率を出すことはしない。</p>
+
+    <h4>B ─ 「平時1,527万kL/月」の出所（動かさない基準）</h4>
+    <p>BP統計（Energy Institute "Statistical Review of World Energy" 2024年実績）。日本の全石油液体消費 3.14〜3.20百万バレル/日 × 0.159 kL/バレル × 30日 ≒ 1,527万kL/月。国際航空・国際海運バンカー・精製ロス・LPG等を含む全石油液体ベース（バイオ燃料除く）。プロジェクトの根幹主張「政府の備蓄日数算定（分母180万B/D=28.7万kL/日）は実体（320万B/D=50.9万kL/日）の1/1.78に過小評価」を支えるため、この値は変更不可。</p>
+
+    <h4>C ─ 備蓄取り崩しの計算（供給軸）</h4>
+    <p>「真の備蓄」= 国家備蓄 + 産油国共同備蓄（民間備蓄=運転在庫は岩瀬昇氏の指摘により除外）。取り崩し量 =（期初日数 − 期末日数）× 28.7万kL/日（備蓄法基準）。</p>
+    <p>4月: 152日→135日（▲17日）= 取り崩し494万kL、月末残3,875万kL ／ 5月: 135日→118日（▲17日）= 488万kL、月末残3,387万kL。IEA90日ライン（2,583万kL）到達 = 7月中旬（5月末118日からあと28日分=804万kL、月17日ペースで約1.6ヶ月後）。</p>
+
+    <h4>D ─ 採用した式（5/29一次データで再検証済み）</h4>
+    <p class="formula-mini">備蓄取り崩し = 全石油需要 − 通関供給 − ギャップ</p>
+    <p>4月で答え合わせ：1,269（需要・ガソリン▲7.5%反映）− 575（通関・5/29速報）− 200（ギャップ）= 494 = 取り崩し17日/月。需要を賄う供給源は3つ：①通関輸入 ②ギャップ分（LPG・精製ゲイン等の実在供給 約200）③備蓄取り崩し。①②で足りない分だけ③を取り崩す。取り崩しペースが旧20日/月→新17日/月に下方修正されたため、90日割れタイミングが6月末〜7月初→7月中旬に2-3週間後ろ倒し。</p>
+
+    <h4>E ─ 統計ギャップ約200の正体（物理の穴ではなく「物差しの違い」）</h4>
+    <p>需要を測る物差し（BP統計=全石油1,527）と供給を測る物差し（財務省通関=原油+製品）は数えている範囲が違う。ギャップの中身：精製ゲイン約50（製油所で体積増）／ LPG約80（別ルート輸入・単位トン）／ 国際バンカー約100（日本港で外航船に給油し国外へ）／ 国際航空他約27。結論：ギャップは謎の石油ではない。LPG・精製ゲインは実際に供給されているため、「需要−通関」を単純に引くと実在の供給分まで「備蓄で賄った」ことになり取り崩しを過大評価する。だから需要軸の積上（分母と同じ全石油ベース）を主軸にし、通関逆算は参考に留める。</p>
+
+    <h4>F ─ 自己反論の記録（一度間違えた主張と訂正）</h4>
+    <p><b>最初の主張（ボツ）</b>：「4-5月の574ペースを基準に中東直行回復分を引く」→ 4月の代替調達は実際には400万kLしかなかった。574を基準にするのは代替調達400の数字を720の世界で使い回す誤り＝二重の過小評価。破棄。</p>
+    <p><b>次の主張（言い過ぎ）</b>：「引き算はダメ」→ 引き算はダメではない。ギャップを引けば実測と一致する。引き算が過大になるのはギャップを引かないからで、引けば正しい。</p>
+    <p><b>5/30確定</b>：5/29速報でガソリン▲10.9%・通関575が確定。需要1,269・取り崩し494/月へ全体下方修正。「補助金で家計は守られる」は半分嘘で、家計はガソリンも▲7.5%（構造減少除く）削っていた。式は不変、入力値が一次データで修正された。</p>
+
+    <h4>G ─ 追える数値 / 追えない数値</h4>
+    <p>LPG：日本LPガス協会の需給月報で月次追跡可（単位トン・係数約1.85必要）。国際バンカー：石油連盟「ボンド扱石油製品」で月次追跡可（封鎖で変動大）。精製ゲイン：月次の独立統計なし、原油処理量の数%として概算のみ。追えないのは精製ゲインのみだが、3つとも原油の物質収支に毎月きれいに足し込むのは困難。これが需要軸（積上）を主軸にした実務上の理由。</p>
+
+    <h4>H ─ 次の更新トリガー</h4>
+    <ul>
+      <li><b>~6/12 石油統計（確報）令和8年4月分</b> → 速報からの修正があれば反映。</li>
+      <li><b>~6/15 石油備蓄の現況（5月末確定）</b> → IEA90日X-DAY到達日（現:7月中旬予測）の確定。</li>
+      <li><b>6月下旬 JPCA 5月生産実績（確報）</b> → ナフサ▲30%（70%回復見込み）の確認。</li>
+      <li><b>~6/30 石油統計速報 令和8年5月分</b> → 5月の節約率・取り崩し・代替調達が確定。本資料v0.3へ更新。</li>
+      <li><b>6-7月 Energy Institute年次更新の可能性</b> → 平時1,527の再確認（現状3.14-3.20 mb/d）。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  <div><strong>原油の実態 ─ 2つのカラクリ × 備蓄シミュレーター（統合プレゼン版 v1）</strong></div>
+  <div>ホルムズ封鎖から3ヶ月 ─ 2026.05.30時点。4月分は <strong>5/29石油統計速報確定値</strong> を反映（ガソリン▲10.9%・ナフサ販売▲35.6%・原油輸入407万kL・中東依存87.6%）。5月分は暫定（6/30石油統計速報5月分等で確定予定）。</div>
+  <div style="margin-top:10px;color:var(--grayd);font-size:12.5px;">出典: 経産省石油統計速報 令和8年4月分（5/29公表）/ JPCA 2026年4月生産実績 / 芳香族工業会4月速報 / 資源エネルギー庁「石油備蓄の現況」/ 経産省「2024〜2028年度石油製品需要見通し」/ 財務省貿易統計 / Bloomberg船舶追跡 / WaPo・Al Jazeera・Kpler（掃海6ヶ月）</div>
+  <div class="brand">© 2026 NAOKI NISHIMURA / UNIVERSAL COIN × MACRO INTELLIGENCE</div>
+  <div class="disc">本資料は分析・教育目的の情報提供であり、投資勧誘や売買推奨を目的としたものではありません。シナリオ・確率は作成者の前提に基づく推計を含み、将来を保証するものではありません。投資判断はご自身の責任で行ってください。</div>
+</div>
+
+</body>
+</html>
