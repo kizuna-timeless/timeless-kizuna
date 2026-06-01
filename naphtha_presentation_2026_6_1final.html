@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ナフサの実態 ─ 全体17%の裏で工場は▲35.6% ─ 統合プレゼン版</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700;900&family=Oswald:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0B0F; --bg2:#121218; --panel:#16161E; --panel2:#1C1C26;
+  --gold:#D4AF37; --gold2:#C9A227; --gold3:#E8C766; --goldpale:#F0E0A8;
+  --white:#F2EFE8; --gray:#9A9AA8; --grayd:#6A6A78;
+  --s1:#4CB286; --s2:#4A90D9; --s3:#E0954A; --s4:#E05555; --sD:#A569D9;
+  --line:rgba(212,175,55,0.18);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--white);font-family:'Noto Sans JP',sans-serif;line-height:1.75;font-size:17px;
+  background-image:radial-gradient(ellipse at 20% 0%,rgba(212,175,55,0.05),transparent 55%),radial-gradient(ellipse at 90% 100%,rgba(224,85,85,0.04),transparent 50%);}
+
+/* ===== nav ===== */
+.topnav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  padding:14px 5vw;background:rgba(11,11,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+.topnav .logo{font-family:'Oswald','Noto Sans JP',sans-serif;font-weight:700;letter-spacing:2px;color:var(--gold3);font-size:18px;margin-right:auto;}
+.topnav a{color:var(--gray);text-decoration:none;font-size:14px;padding:5px 11px;border-radius:6px;transition:.2s;letter-spacing:.5px;}
+.topnav a:hover{color:var(--gold3);background:rgba(212,175,55,0.1);}
+.topnav .ver{font-family:'Oswald','Noto Sans JP',sans-serif;color:var(--gold);font-size:13px;letter-spacing:1px;border:1px solid var(--line);padding:4px 10px;border-radius:20px;}
+
+/* ===== cover ===== */
+#cover{padding:72px 6vw 50px;border-bottom:1px solid var(--line);position:relative;overflow:hidden;}
+.tag-top{font-family:'Oswald','Noto Sans JP',sans-serif;letter-spacing:5px;color:var(--gold);font-size:14px;font-weight:500;margin-bottom:22px;}
+h1.main{font-family:'Noto Serif JP',serif;font-weight:900;font-size:clamp(32px,5vw,62px);line-height:1.2;letter-spacing:1px;}
+h1.main .hl{color:var(--gold3);}
+h1.main .rd{color:var(--s4);}
+.sub{font-family:'Noto Serif JP',serif;font-size:clamp(16px,1.9vw,21px);color:var(--gray);margin-top:24px;line-height:1.95;max-width:960px;}
+.sub b{color:var(--goldpale);font-weight:600;}
+.meta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px;}
+.meta-pill{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:13px;letter-spacing:1px;padding:7px 15px;border:1px solid var(--line);border-radius:24px;color:var(--gold3);}
+.meta-pill.date{background:rgba(212,175,55,0.08);}
+.meta-pill.up{background:rgba(76,178,134,0.12);border-color:rgba(76,178,134,0.4);color:#9EE0B4;}
+
+/* hero quantitative banner */
+.hero-stats{display:flex;align-items:stretch;gap:14px;flex-wrap:wrap;margin-top:34px;}
+.hstat{flex:1;min-width:210px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 22px 18px;border-top:3px solid var(--gold);}
+.hstat .hs-lbl{font-family:'Noto Sans JP';font-size:15px;font-weight:500;color:var(--goldpale);}
+.hstat .hs-val{font-family:'Oswald','Noto Sans JP',sans-serif;font-weight:700;font-size:48px;line-height:1.05;margin-top:8px;color:var(--gold3);}
+.hstat.red .hs-val{color:var(--s4);}
+.hstat.blue .hs-val{color:var(--s2);}
+.hstat.amber .hs-val{color:var(--s3);}
+.hstat.red{border-top-color:var(--s4);}
+.hstat.blue{border-top-color:var(--s2);}
+.hstat.amber{border-top-color:var(--s3);}
+.hstat .hs-val .u{font-size:24px;color:var(--gray);font-weight:500;}
+.hstat .hs-val .jp{font-family:'Noto Serif JP',serif;font-size:38px;}
+.hstat .hs-d{font-size:14px;color:var(--gray);margin-top:8px;line-height:1.5;}
+.hstat .hs-d b{color:var(--goldpale);}
+
+/* two-trick hero */
+.trick-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:34px;}
+.trick{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 22px 20px;border-top:3px solid;}
+.trick.t1{border-top-color:var(--s2);}
+.trick.t2{border-top-color:var(--s4);}
+.trick .tk-n{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:14px;letter-spacing:2px;color:var(--grayd);}
+.trick .tk-h{font-family:'Noto Serif JP',serif;font-weight:700;font-size:26px;margin-top:8px;color:#FFF;line-height:1.35;}
+.trick.t1 .tk-h b{color:var(--s2);} .trick.t2 .tk-h b{color:var(--s4);}
+.trick .tk-b{font-size:19px;color:var(--white);margin-top:12px;line-height:1.7;}
+.trick .tk-b b{color:var(--gold3);}
+
+/* crisis banner */
+.crisis-banner{margin-top:30px;padding:30px 32px;border-radius:16px;text-align:center;
+  background:radial-gradient(ellipse at 50% 0%,rgba(224,85,85,0.16),rgba(224,85,85,0.04));
+  border:1px solid rgba(224,85,85,0.45);border-top:4px solid var(--s4);}
+.crisis-banner .cb-lead{font-family:'Noto Sans JP';font-size:17px;color:var(--gray);letter-spacing:1px;}
+.crisis-banner .cb-main{font-family:'Noto Serif JP',serif;font-weight:700;font-size:clamp(24px,3.4vw,38px);color:var(--white);line-height:1.45;margin-top:10px;}
+.crisis-banner .cb-main .cb-hl{color:var(--s4);}
+.crisis-banner .cb-sub{font-size:16px;color:var(--gray);margin-top:14px;line-height:1.7;max-width:780px;margin-left:auto;margin-right:auto;}
+
+/* ===== section ===== */
+.sec{padding:54px 6vw;border-bottom:1px solid rgba(255,255,255,0.05);}
+.sec-head{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:14px;}
+.sec-num{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:15px;letter-spacing:3px;color:var(--gold);}
+.sec-title{font-family:'Noto Serif JP',serif;font-weight:700;font-size:clamp(23px,3vw,33px);color:#FFF;}
+.sec-title em{font-style:normal;color:var(--gold3);}
+.sec-sub{color:var(--gray);font-size:17px;width:100%;max-width:940px;margin-top:-4px;margin-bottom:8px;line-height:1.85;}
+.sec-sub b{color:var(--goldpale);}
+
+/* red alert emphasis line */
+.alert-line{margin-top:20px;padding:20px 26px;border-radius:13px;background:linear-gradient(135deg,rgba(224,85,85,0.14),rgba(224,85,85,0.03));
+  border:1px solid rgba(224,85,85,0.4);border-left:5px solid var(--s4);font-family:'Noto Serif JP',serif;font-size:22px;color:var(--white);line-height:1.5;}
+.alert-line .big{color:var(--s4);font-weight:700;font-size:30px;}
+
+/* ===== KPI ===== */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:24px;}
+.kpi{background:var(--panel);border:1px solid var(--line);border-left-width:4px;border-radius:12px;padding:20px 20px 18px;transition:.2s;border-left-color:var(--gold);}
+.kpi:hover{background:var(--panel2);}
+.kpi .k-lbl{font-family:'Noto Sans JP',sans-serif;font-size:15px;font-weight:500;letter-spacing:.3px;color:var(--goldpale);line-height:1.4;}
+.kpi .k-val{font-family:'Oswald','Noto Sans JP',sans-serif;font-weight:700;font-size:38px;line-height:1.1;margin-top:8px;color:var(--gold3);}
+.kpi .k-val .u{font-size:19px;}
+.kpi .k-val .jp{font-family:'Noto Serif JP',serif;font-size:28px;}
+.kpi .k-meta{font-size:14px;color:var(--gray);margin-top:7px;line-height:1.55;}
+.kpi.red{border-left-color:var(--s4);} .kpi.red .k-val{color:var(--s4);}
+.kpi.blue{border-left-color:var(--s2);} .kpi.blue .k-val{color:var(--s2);}
+.kpi.amber{border-left-color:var(--s3);} .kpi.amber .k-val{color:var(--s3);}
+
+/* ===== chart ===== */
+.chart-wrap{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 18px 14px;margin-top:18px;overflow-x:auto;}
+.chart-title{font-family:'Noto Serif JP',serif;font-size:19px;color:var(--gold3);margin-bottom:4px;padding-left:6px;}
+.chart-note{font-size:14px;color:var(--gray);padding-left:6px;margin-bottom:10px;line-height:1.6;}
+.legend-inline{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--gray);margin-top:10px;padding-left:6px;}
+.legend-inline span{display:flex;align-items:center;gap:6px;}
+.legend-inline i{width:18px;height:3px;border-radius:2px;display:inline-block;}
+
+/* ===== table ===== */
+.tbl-wrap{overflow-x:auto;margin-top:16px;border-radius:12px;border:1px solid var(--line);}
+table.dt{width:100%;border-collapse:collapse;min-width:760px;background:var(--panel);font-size:18px;}
+table.dt th,table.dt td{padding:13px 13px;text-align:center;border:1px solid rgba(255,255,255,0.05);font-family:'Oswald','Noto Sans JP',sans-serif;letter-spacing:.3px;}
+table.dt thead th{background:rgba(212,175,55,0.12);color:var(--gold3);font-size:17px;letter-spacing:.6px;}
+table.dt td.mlbl{font-family:'Noto Sans JP';text-align:left;color:var(--white);font-size:17px;background:rgba(255,255,255,0.02);white-space:nowrap;}
+table.dt tr.hot td{background:rgba(224,85,85,0.08);}
+table.dt tr.hot td.mlbl{color:#F0A0A0;}
+table.dt td.src{font-family:'Noto Sans JP';text-align:left;color:var(--gray);font-size:14px;letter-spacing:0;line-height:1.5;white-space:normal;min-width:240px;}
+table.dt tr.totalrow td{background:rgba(212,175,55,0.08);font-weight:700;}
+table.dt tr.totalrow td.mlbl{color:var(--gold3);}
+table.dt .big{font-size:26px;font-weight:700;}
+table.dt .pos{color:var(--s1);} table.dt .neg{color:var(--s4);}
+table.dt .gd{color:var(--gold3);} table.dt .or{color:var(--s3);} table.dt .gn{color:var(--s1);} table.dt .bl{color:var(--s2);}
+.tag-m{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:12px;letter-spacing:.5px;padding:1px 7px;border-radius:8px;margin-right:5px;vertical-align:middle;}
+.tag-m.jisoku{background:rgba(76,178,134,0.18);color:var(--s1);}
+.tag-m.mikomi{background:rgba(74,144,217,0.18);color:var(--s2);}
+.tag-m.suitei{background:rgba(106,106,120,0.25);color:var(--gray);}
+.tbl-cap{font-size:14px;color:var(--gray);margin-top:10px;line-height:1.7;}
+.tbl-cap b{color:var(--goldpale);}
+
+/* ===== box ===== */
+.box{border-radius:13px;padding:22px 24px;margin-top:20px;border:1px solid var(--line);background:var(--panel);}
+.box h3{font-family:'Noto Serif JP',serif;font-size:25px;color:var(--gold3);margin-bottom:12px;font-weight:700;line-height:1.4;}
+.box p{font-size:17px;color:#DEDAD0;margin-bottom:10px;line-height:1.8;}
+.box p:last-child{margin-bottom:0;}
+.box.gold{border-color:rgba(212,175,55,0.4);background:linear-gradient(135deg,rgba(212,175,55,0.08),rgba(212,175,55,0.02));}
+.box.red{border-color:rgba(224,85,85,0.4);background:linear-gradient(135deg,rgba(224,85,85,0.08),transparent);}
+.box.blue{border-color:rgba(74,144,217,0.35);background:linear-gradient(135deg,rgba(74,144,217,0.07),transparent);}
+.box strong{color:var(--gold3);} .box .rd{color:var(--s4);font-weight:700;} .box .gn{color:var(--s1);font-weight:700;} .box .bl{color:var(--s2);font-weight:700;}
+.box ul{margin:8px 0 4px 22px;} .box li{font-size:16px;color:#DEDAD0;margin-bottom:7px;line-height:1.75;}
+.box li b{color:var(--gold3);}
+
+/* gap compare (緩衝材) */
+.gap-strip{display:flex;align-items:stretch;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:20px;}
+.gap-box{flex:1;min-width:220px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:24px 26px;text-align:center;}
+.gap-box.b1{border-top:3px solid var(--s2);}
+.gap-box.b2{border-top:3px solid var(--s4);}
+.gap-box .gl{font-family:'Noto Sans JP';font-size:16px;letter-spacing:.3px;color:var(--goldpale);font-weight:500;margin-bottom:10px;}
+.gap-box .gv{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:46px;font-weight:700;line-height:1;}
+.gap-box .gv .u{font-size:20px;color:var(--gray);}
+.gap-box.b1 .gv{color:var(--s2);} .gap-box.b2 .gv{color:var(--s4);}
+.gap-box .gc{font-size:15px;color:var(--gray);margin-top:12px;line-height:1.65;}
+.gap-arrow{display:flex;align-items:center;font-family:'Oswald','Noto Sans JP',sans-serif;font-size:26px;color:var(--gold);font-weight:700;}
+
+/* industry bars */
+.indbar-wrap{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin-top:18px;}
+.indbar{display:flex;align-items:center;gap:16px;margin-bottom:15px;}
+.indbar .ilbl{flex:0 0 250px;font-size:16px;color:var(--white);line-height:1.35;}
+.indbar .ilbl small{display:block;font-size:13px;color:var(--gray);margin-top:2px;}
+.indbar .itrack{flex:1;height:36px;background:rgba(255,255,255,0.05);border-radius:6px;position:relative;overflow:hidden;}
+.indbar .ifill{height:100%;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding-right:13px;font-family:'Oswald','Noto Sans JP',sans-serif;font-weight:700;font-size:18px;color:#0B0B0F;}
+.indbar .inum{flex:0 0 64px;text-align:right;font-family:'Oswald','Noto Sans JP',sans-serif;font-weight:700;font-size:17px;}
+.indbar-note{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-size:16px;color:#DEDAD0;line-height:1.75;}
+.indbar-note b{color:var(--s4);}
+
+/* simulator scenario cards */
+.scen-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px;}
+.scen{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 18px 16px;border-top:4px solid;position:relative;}
+.scen.s2{border-top-color:var(--s1);} .scen.s3{border-top-color:var(--s2);} .scen.s4{border-top-color:var(--s3);} .scen.sD{border-top-color:var(--s4);}
+.scen .sc-prob{position:absolute;top:14px;right:16px;font-family:'Oswald','Noto Sans JP',sans-serif;font-size:13px;letter-spacing:.5px;color:var(--gray);}
+.scen .sc-name{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:700;color:#FFF;margin-bottom:12px;}
+.scen .sc-val{font-family:'Oswald','Noto Sans JP',sans-serif;font-weight:700;font-size:44px;line-height:1;}
+.scen.s2 .sc-val{color:var(--s1);} .scen.s3 .sc-val{color:var(--s2);} .scen.s4 .sc-val{color:var(--s3);} .scen.sD .sc-val{color:var(--s4);}
+.scen .sc-val .u{font-size:18px;color:var(--gray);}
+.scen .sc-vlbl{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:13px;letter-spacing:.5px;color:var(--gray);margin:4px 0 10px;}
+.scen .sc-row{display:flex;justify-content:space-between;font-size:14px;color:var(--gray);margin-bottom:5px;}
+.scen .sc-row .v{font-family:'Oswald','Noto Sans JP',sans-serif;font-weight:600;color:var(--white);}
+.scen .sc-row .v.danger{color:var(--s4);} .scen .sc-row .v.ok{color:var(--s1);}
+@media(max-width:760px){.scen-grid{grid-template-columns:1fr 1fr;}}
+
+/* reference appendix */
+.ref{margin-top:18px;border-left:3px solid var(--line);background:rgba(255,255,255,0.015);border-radius:0 10px 10px 0;padding:18px 22px;}
+.ref .ref-h{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:13px;letter-spacing:1.5px;color:var(--grayd);margin-bottom:10px;}
+.ref h4{font-family:'Noto Sans JP';font-size:14px;color:var(--gray);font-weight:700;margin:14px 0 5px;}
+.ref p,.ref li{font-size:13px;color:var(--grayd);line-height:1.65;margin-bottom:5px;}
+.ref ul{margin-left:18px;} .ref b{color:var(--gray);}
+.ref .formula-mini{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:14px;color:var(--gray);background:rgba(0,0,0,0.25);padding:6px 12px;border-radius:6px;display:inline-block;margin:4px 0;}
+
+/* footer */
+.footer{padding:42px 6vw;background:var(--bg2);border-top:2px solid var(--gold);font-size:13.5px;color:var(--gray);line-height:1.9;}
+.footer strong{color:var(--gold3);}
+.footer .brand{font-family:'Oswald','Noto Sans JP',sans-serif;letter-spacing:2px;color:var(--gold3);font-size:15px;font-weight:700;margin-top:12px;}
+.footer .disc{color:var(--grayd);font-size:12.5px;margin-top:14px;line-height:1.7;}
+
+@media(max-width:680px){
+  body{font-size:16px;}
+  .sec{padding:40px 5vw;} #cover{padding:50px 5vw 36px;}
+  .trick-row{grid-template-columns:1fr;}
+  .kpi .k-val{font-size:28px;}
+  .hstat .hs-val{font-size:38px;}
+  .gap-box .gv{font-size:38px;}
+  .indbar .ilbl{flex:0 0 150px;font-size:14px;}
+  .box p{font-size:16px;} .box li{font-size:15px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="topnav">
+  <span class="logo">NAPHTHA REALITY</span>
+  <a href="#cover">表紙</a>
+  <a href="#demand">①痛みの偏り</a>
+  <a href="#buffer">②なぜ集中</a>
+  <a href="#industry">③業種への伝播</a>
+  <a href="#recover">④底打ち</a>
+  <a href="#sim">⑤これから</a>
+  <a href="#ref">根拠</a>
+  <span class="ver">統合プレゼン版 v1 / 6.01</span>
+</nav>
+
+<!-- ===== COVER ===== -->
+<section id="cover">
+  <div class="tag-top">NAPHTHA ─ THE REAL NUMBERS</div>
+  <h1 class="main">全石油は<span class="hl">▲17%</span>。<br>でも工場の原料は<span class="rd">▲35.6%</span>だった。</h1>
+
+  <!-- 結論の3数字 -->
+  <div class="hero-stats">
+    <div class="hstat red">
+      <div class="hs-lbl">ナフサ国内販売（4月・前年比）</div>
+      <div class="hs-val">▲35.6<span class="u">%</span></div>
+      <div class="hs-d">193.8万kL。<b>石油統計速報4月分で確定</b>（5/29公表）</div>
+    </div>
+    <div class="hstat blue">
+      <div class="hs-lbl">家庭のガソリン（4月・前年比）</div>
+      <div class="hs-val">▲7.5<span class="u">%</span></div>
+      <div class="hs-d">補助金で価格170円維持。<b>痛みは家庭にほぼ及んでいない</b></div>
+    </div>
+    <div class="hstat amber">
+      <div class="hs-lbl">エチレン稼働率（4月・JPCA）</div>
+      <div class="hs-val">67.3<span class="u">%</span></div>
+      <div class="hs-d"><b>過去最低</b>。石化プラントは操業停止級の打撃を受けた</div>
+    </div>
+  </div>
+
+  <!-- カラクリ（定量で語る） -->
+  <div class="trick-row">
+    <div class="trick t1">
+      <div class="tk-n">構造 ①　痛みは偏って配られた</div>
+      <div class="tk-h">全体 <b>▲17%</b> の削減は、<br>均等ではなく<b>工場の原料に集中</b>した</div>
+      <div class="tk-b">家庭のガソリンは▲7.5%。一方ナフサは▲35.6%。「平均17%」という数字が、この集中を覆い隠す → ①痛みの偏り</div>
+    </div>
+    <div class="trick t2">
+      <div class="tk-n">構造 ②　ナフサには逃げ場が無い</div>
+      <div class="tk-h">原油は備蓄で時間を稼げる。<br>だが<b>ナフサは備蓄対象外</b></div>
+      <div class="tk-b">緩衝材は川中製品在庫1.8ヶ月だけ。供給不足が即・減産に直結する。だから痛みがナフサに集まった → ②なぜ集中</div>
+    </div>
+  </div>
+
+  <!-- 危機をズドンと中央に -->
+  <div class="crisis-banner">
+    <div class="cb-lead">そして、この打撃は工場で止まらない</div>
+    <div class="cb-main">ナフサ依存度 <span class="cb-hl">88%</span> の業種にとって、<br>これは<span class="cb-hl">事業継続そのもの</span>の問題になる</div>
+    <div class="cb-sub">プラスチック・合成繊維・染料・医薬・接着剤・タイヤ。川下の最終製品の価格と供給は、この▲35.6%を起点に動き始める。</div>
+  </div>
+
+  <div class="meta-row">
+    <span class="meta-pill date">2026 . 06 . 01 時点</span>
+    <span class="meta-pill up">4月分＝5/29石油統計速報 確定値反映</span>
+    <span class="meta-pill">5月分＝暫定（6月下旬 確報化予定）</span>
+  </div>
+</section>
+
+<!-- ===== ① 痛みの偏り（需要） ===== -->
+<section id="demand" class="sec">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 01</span>
+    <h2 class="sec-title">「平均17%」は、<em>痛みの偏り</em>を隠している</h2>
+  </div>
+  <p class="sec-sub">
+    <b>このセクションで見せたい結論：</b>全石油でならせば節約率は17%。だがその17%は均等に薄く広がってはいない。家庭のガソリンは▲7.5%で温存され、痛みは工場の原料＝ナフサ（▲35.6%）に集中して押し付けられた。
+  </p>
+
+  <div class="kpi-grid">
+    <div class="kpi red">
+      <div class="k-lbl">ナフサ（工場の原料）</div>
+      <div class="k-val">▲35.6<span class="u">%</span></div>
+      <div class="k-meta">国内販売193.8万kL。5/29速報で確定。平時シェア22%</div>
+    </div>
+    <div class="kpi blue">
+      <div class="k-lbl">ガソリン（家計）</div>
+      <div class="k-val">▲7.5<span class="u">%</span></div>
+      <div class="k-meta">構造減を除いた真水。販売自体は▲10.9%</div>
+    </div>
+    <div class="kpi amber">
+      <div class="k-lbl">エチレン稼働率</div>
+      <div class="k-val">67.3<span class="u">%</span></div>
+      <div class="k-meta">JPCA4月実績。過去最低水準</div>
+    </div>
+    <div class="kpi">
+      <div class="k-lbl">全石油 加重平均</div>
+      <div class="k-val">▲17<span class="u">%</span></div>
+      <div class="k-meta">用途別を平時シェアで加重平均した数字</div>
+    </div>
+  </div>
+
+  <div class="chart-title" style="margin-top:30px;">◆ 用途別の節約率（4月）─ 同じ「平均17%」でもこの開き</div>
+  <div class="tbl-wrap">
+    <table class="dt">
+      <thead>
+        <tr><th class="mlbl" style="text-align:left;">用途</th><th>平時シェア</th><th>節約率</th><th class="src" style="text-align:left;">根拠</th></tr>
+      </thead>
+      <tbody>
+        <tr class="hot">
+          <td class="mlbl"><b>ナフサ（工場の原料）</b></td>
+          <td>22.2%</td>
+          <td class="big neg">▲35.6%</td>
+          <td class="src"><span class="tag-m jisoku">実測</span>5/29石油統計速報4月分でナフサ国内販売193.8万kL（前年比▲35.6%）確定。生産は90.7万kL（▲22.8%）。芳香族工業会4月速報もベンゼン▲36%・キシレン▲37%と整合</td>
+        </tr>
+        <tr class="hot">
+          <td class="mlbl">LPG・潤滑油等（石化由来）</td>
+          <td>12.4%</td>
+          <td class="big neg">▲35%</td>
+          <td class="src"><span class="tag-m suitei">推定</span>石化誘導品の連鎖減産から類推。直接の月次統計なし。要確報検証</td>
+        </tr>
+        <tr>
+          <td class="mlbl">国際バンカー（船舶燃料）</td>
+          <td>6.6%</td>
+          <td class="or">▲15%</td>
+          <td class="src"><span class="tag-m suitei">推定</span>中東タンカー貿易停滞で日本港の給油需要減と類推</td>
+        </tr>
+        <tr>
+          <td class="mlbl">灯油・A重油・ジェット等</td>
+          <td>14.9%</td>
+          <td class="or">▲8〜12%</td>
+          <td class="src"><span class="tag-m suitei">推定</span>季節要因・産業稼働による小幅減</td>
+        </tr>
+        <tr>
+          <td class="mlbl">軽油（物流）</td>
+          <td>18.3%</td>
+          <td class="or">▲5%</td>
+          <td class="src"><span class="tag-m suitei">推定</span>暫定税率廃止効果は継続もわずか減</td>
+        </tr>
+        <tr class="hot">
+          <td class="mlbl"><b>ガソリン（家計）</b></td>
+          <td>23.7%</td>
+          <td class="big bl">▲7.5%</td>
+          <td class="src"><span class="tag-m jisoku">実測</span>5/29速報でガソリン国内販売310.3万kL（▲10.9%）確定。構造減（燃費改善・EV化）▲2〜3%を除いた真水は▲7〜8%。補助金で170円維持下でも家計が予防的節約に入った</td>
+        </tr>
+        <tr class="totalrow">
+          <td class="mlbl"><b>全石油 加重平均</b></td>
+          <td class="gd">100%</td>
+          <td class="big gd">▲17%</td>
+          <td class="src"><b style="color:var(--gold3);">これが「全体の節約率17%」の正体。</b>ガソリン▲7.5%とナフサ▲35.6%を平時シェアで加重平均した値。痛みの集中を覆い隠す平均値</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="tbl-cap">※用途別シェアは経産省石油統計の平時構成。<b>確報レベルで確定しているのはナフサ▲35.6%・ガソリン▲10.9%</b>。LPG等は石化連鎖からの推定で、6月下旬の確報で検証予定。</p>
+
+  <div class="box gold">
+    <h3>「平均17%」は、痛みの偏りを隠す数字</h3>
+    <p>全体17%という数字は嘘ではない。だが<strong>家計（ガソリン▲7.5%）は控えめな痛みで、工場（ナフサ▲35.6%）が削減の大半を被っている</strong>という構造を、平均値は見えなくする。家庭の生活が「平時通り」に見えるのは、痛みが見えない場所に集中して押し付けられているからだ。</p>
+    <p>では、なぜ痛みは家庭ではなく工場に集まったのか。理由は「ナフサには逃げ場が無い」こと ── 次のセクションへ。</p>
+  </div>
+</section>
+
+<!-- ===== ② なぜナフサに集中したか（緩衝材） ===== -->
+<section id="buffer" class="sec">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 02</span>
+    <h2 class="sec-title">原油は<em>備蓄で時間を稼げる</em>。ナフサは稼げない</h2>
+  </div>
+  <p class="sec-sub">
+    <b>このセクションで見せたい結論：</b>痛みがナフサに集中したのは偶然ではない。ナフサは1987年の石油審議会決定で<b>国家備蓄の対象外</b>。原油のように貯金を取り崩して時間を稼ぐ緩衝材が無いため、供給不足が即・減産（▲35.6%）に直結した。
+  </p>
+
+  <div class="gap-strip">
+    <div class="gap-box b1">
+      <div class="gl">原油の緩衝材</div>
+      <div class="gv">112<span class="u">日</span></div>
+      <div class="gc">国家備蓄＋共同備蓄（5月末）。IEA最低ライン90日まで取り崩して時間を稼げる</div>
+    </div>
+    <div class="gap-arrow">VS</div>
+    <div class="gap-box b2">
+      <div class="gl">ナフサの緩衝材</div>
+      <div class="gv">1.8<span class="u">ヶ月</span></div>
+      <div class="gc">川中製品在庫のみ。しかもこれは原料ではなく製品（PE/PPペレット）で、ナフサには戻せない</div>
+    </div>
+  </div>
+
+  <div class="alert-line">
+    供給28%減（充足率72%）の穴を埋める貯金が無い。だから穴は、その月のうちに<span class="big">▲35.6%</span>の減産として現れた。
+  </div>
+
+  <div class="chart-title" style="margin-top:30px;">◆ 政府「ナフサ年越し供給可能」（4/30）の4つのトリック</div>
+  <div class="tbl-wrap">
+    <table class="dt">
+      <thead>
+        <tr><th class="mlbl" style="text-align:left;width:26%;">トリック</th><th class="src" style="text-align:left;">内容</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mlbl gd">① 国産990の継続前提</td>
+          <td class="src">国産ナフサの継続を前提にするが、これは原油の精製に依存する。原油版で備蓄が枯渇すれば国産も止まる。政府254日→実効71日に圧縮済（原油版）</td>
+        </tr>
+        <tr class="hot">
+          <td class="mlbl">② 川中製品在庫560の混入</td>
+          <td class="src">PE/PPペレットを「ナフサ4ヶ月分」に算入。だが<b style="color:#FFF;">化学プロセスは不可逆でペレットはナフサに戻らない</b>。これは製品在庫であって原料在庫ではない</td>
+        </tr>
+        <tr>
+          <td class="mlbl gd">③「中東以外3倍」の根拠</td>
+          <td class="src">経産省は5月に米国・アルジェリア等から平時の3倍（135万kL超）まで拡大と説明。ただし継続性と単価上昇は別問題（4月の輸入単価は中東産より2割高）</td>
+        </tr>
+        <tr class="hot">
+          <td class="mlbl">④ ナフサ自体は備蓄対象外</td>
+          <td class="src">1987年「総合エネルギー調査会・石油審議会」決定でナフサは石油備蓄法の対象外。境野春彦氏（資源エネルギー庁有識者委員）：「川中製品在庫を原料の在庫に単純加算しており正確でない」「現場では既に不足が生じている」</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box blue">
+    <h3>「合計が足りる」と「毎月足りる」は別問題</h3>
+    <p>政府の「年越し可能」は<strong>9ヶ月合計の足し算</strong>であって、毎月の充足とは別の話。緩衝材が無いナフサは、不足が即・減産に直結する。だからこそ4月、政府が「節約不要」と言う一方で、現場のエチレン稼働率は67.3%（過去最低）まで落ちた。</p>
+    <p>では、このナフサ▲35.6%の打撃は、川下の業種にどう伝わるのか ── 次のセクションへ。</p>
+  </div>
+</section>
+
+<!-- ===== ③ 業種への伝播 ===== -->
+<section id="industry" class="sec">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 03</span>
+    <h2 class="sec-title">ナフサ▲35.6%は、<em>業種ごとに不均等</em>に刺さる</h2>
+  </div>
+  <p class="sec-sub">
+    <b>このセクションで見せたい結論：</b>ナフサ供給が▲28%（充足率72%）絞られても、全業種が一律に減産するわけではない。<b>ナフサ依存度が高い業種ほど、代替が効かず供給制約が直撃する</b>。依存度88%の環式中間物にとって、これは事業継続そのものの問題になる。
+  </p>
+
+  <div class="indbar-wrap">
+    <div class="indbar">
+      <div class="ilbl">環式中間物製造<small>プラ・合繊・染料・医薬・化粧品・農薬の原料</small></div>
+      <div class="itrack"><div class="ifill" style="width:88.4%;background:linear-gradient(90deg,#C9453F,#E05555);">88.4%</div></div>
+      <div class="inum" style="color:var(--s4);">最深</div>
+    </div>
+    <div class="indbar">
+      <div class="ilbl">ゼラチン・接着剤製造<small>酢酸ビニル・エポキシ樹脂系接着剤</small></div>
+      <div class="itrack"><div class="ifill" style="width:87.3%;background:linear-gradient(90deg,#C9453F,#E05555);">87.3%</div></div>
+      <div class="inum" style="color:var(--s4);">最深</div>
+    </div>
+    <div class="indbar">
+      <div class="ilbl">界面活性剤製造<small>洗濯洗剤・自動車用塗料</small></div>
+      <div class="itrack"><div class="ifill" style="width:84.0%;background:linear-gradient(90deg,#C9453F,#E05555);">84.0%</div></div>
+      <div class="inum" style="color:var(--s4);">最深</div>
+    </div>
+    <div class="indbar">
+      <div class="ilbl">化学工業・石油石炭（全体）<small>3,148社 / サプライチェーン最大</small></div>
+      <div class="itrack"><div class="ifill" style="width:67.2%;background:linear-gradient(90deg,#D0823F,#E0954A);">67.2%</div></div>
+      <div class="inum" style="color:var(--s3);">深</div>
+    </div>
+    <div class="indbar">
+      <div class="ilbl">工業用ゴム製品<small>自動車・船舶・航空機用ゴム部品</small></div>
+      <div class="itrack"><div class="ifill" style="width:53.9%;background:linear-gradient(90deg,#D0823F,#E0954A);">53.9%</div></div>
+      <div class="inum" style="color:var(--s3);">中</div>
+    </div>
+    <div class="indbar">
+      <div class="ilbl">ゴム製品（全体）<small>817社 / 防振ゴム・シーリング・グローブ</small></div>
+      <div class="itrack"><div class="ifill" style="width:51.5%;background:linear-gradient(90deg,#D0823F,#E0954A);">51.5%</div></div>
+      <div class="inum" style="color:var(--s3);">中</div>
+    </div>
+    <div class="indbar-note">
+      バーの長さ＝<b style="color:var(--goldpale);">ナフサ依存度</b>（帝国データバンク調査・商流該当比率）であって、減産率そのものではない。だが供給制約下では<b>依存度が高い業種ほど代替が効かず、減産圧力が一律平均を超えて直撃する</b>。依存度50%超が25業種中23業種。
+    </div>
+  </div>
+
+  <div class="alert-line">
+    全体は「節約17%」。ナフサ単体で「▲35.6%」。<br>依存度88%の業種にとっては、それが<span class="big">事業継続</span>そのものの問題になる。
+  </div>
+
+  <div class="box gold">
+    <h3>痛みは三段階で深くなる</h3>
+    <ul>
+      <li><b>全石油 ▲17%</b> ── 加重平均（見えない）</li>
+      <li><b>ナフサ単体 ▲35.6%</b> ── 用途別で工場原料に集中（5/29確定）</li>
+      <li><b>依存度88%業種</b> ── 業態別でさらに不均等に直撃（死活問題）</li>
+    </ul>
+    <p style="margin-top:10px;">この3段階は、それぞれ加重平均・用途別・業態別という別の指標であり、出所が違うので結論は動かない。ここまでが4月の実態だ。では供給は5月以降どう動いたのか ── まず一旦、底を脱する。次のセクションへ。</p>
+  </div>
+</section>
+
+<!-- ===== ④ 5〜6月：一旦、底を脱する ===== -->
+<section id="recover" class="sec">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 04</span>
+    <h2 class="sec-title">5〜6月、ナフサ供給は<em>一旦、底を脱する</em></h2>
+  </div>
+  <p class="sec-sub">
+    <b>このセクションで見せたい結論：</b>ここまでは4月の話。だが供給は4月の72%を底に、5月75%・6月80%へと持ち直していく。中東の穴を、米国・アルジェリア等の<b>代替調達（5月に平時の3倍）</b>と、原油6月調達の目処が立った<b>国産ナフサの下支え</b>で埋め始めたからだ。
+  </p>
+
+  <div class="kpi-grid">
+    <div class="kpi amber">
+      <div class="k-lbl">4月（底）</div>
+      <div class="k-val">72<span class="u">%</span></div>
+      <div class="k-meta">供給201万kL。封鎖の直撃で最も絞られた月</div>
+    </div>
+    <div class="kpi amber">
+      <div class="k-lbl">5月（暫定）</div>
+      <div class="k-val">75<span class="u">%</span></div>
+      <div class="k-meta">供給209万kL。中東以外が平時の3倍へ拡大</div>
+    </div>
+    <div class="kpi blue">
+      <div class="k-lbl">6月（見通し）</div>
+      <div class="k-val">80<span class="u">%</span></div>
+      <div class="k-meta">供給225万kL。原油6月調達7割超の目処で国産も維持</div>
+    </div>
+    <div class="kpi blue">
+      <div class="k-lbl">代替調達率（5月）</div>
+      <div class="k-val">約6<span class="u">割</span></div>
+      <div class="k-meta">米国産は平時の5倍へ。政府「年越し可能」の根拠</div>
+    </div>
+  </div>
+
+  <div class="chart-title" style="margin-top:30px;">◆ なぜ底を脱するのか ─ 4ルート別の供給積み上げ（4月→6月）</div>
+  <div class="tbl-wrap">
+    <table class="dt">
+      <thead>
+        <tr><th class="mlbl" style="text-align:left;">調達ルート</th><th>平時</th><th>4月</th><th>5月</th><th>6月見通し</th><th class="src" style="text-align:left;">封鎖時の挙動・根拠</th></tr>
+      </thead>
+      <tbody>
+        <tr class="hot">
+          <td class="mlbl">中東直接</td>
+          <td>120</td><td class="big neg">0</td><td class="big neg">0</td><td class="big neg">0</td>
+          <td class="src"><span class="tag-m jisoku">実測</span>ホルムズ封鎖で全量消失。タンカー出航ゼロ（Kpler船舶追跡）。シェア43%が丸ごと欠落したまま</td>
+        </tr>
+        <tr>
+          <td class="mlbl">国産（原油連動）</td>
+          <td>110</td><td class="or">91</td><td class="or">99</td><td class="bl">102</td>
+          <td class="src"><span class="tag-m jisoku">実測/見込み</span>5/29速報で4月生産90.7万kL（▲22.8%）確定。原油6月調達は7割超の目処（米国産は前年比約8倍）が立ち、国産精製を維持できる見通し</td>
+        </tr>
+        <tr>
+          <td class="mlbl">米国産</td>
+          <td>10</td><td class="gn">35</td><td class="gn">45</td><td class="gn">55</td>
+          <td class="src"><span class="tag-m suitei">推定</span>戦時拡大。日経5/28「米国からのナフサ輸入が5倍へ」。シェール由来で輸出余力大。ただし相場は3割高</td>
+        </tr>
+        <tr>
+          <td class="mlbl">非中東（その他）</td>
+          <td>43</td><td class="gn">75</td><td class="gn">65</td><td class="gn">68</td>
+          <td class="src"><span class="tag-m mikomi">追跡</span>アルジェリア・ペルー・豪・印等。中東以外からの輸入は5月に平時45万kL→135万kL超（約3倍）の見込み（経産省4/30）</td>
+        </tr>
+        <tr class="totalrow">
+          <td class="mlbl"><b>供給合計</b></td>
+          <td class="gd">280</td><td class="gd">201</td><td class="gd">209</td><td class="gd">225</td>
+          <td class="src"><b style="color:var(--gold3);">充足率 4月72% → 5月75% → 6月80%。</b>中東の穴を代替調達と国産が段階的に埋め、底（4月）を脱していく</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="tbl-cap">※4月は5/29速報の確定値（国産90.7＋輸入110.3＝201）。<b>5月は暫定、6月は見通し</b>で、6月下旬のJPCA5月実績・財務省貿易統計で確報化予定。ルート内訳（米国産・非中東の配分）は船舶追跡＋貿易統計ベースの推定。</p>
+
+  <div class="box blue">
+    <h3>ただし「充足」は危機前への復帰ではない</h3>
+    <p>供給量は8割まで戻る見通しだが、代替調達には<strong>価格上昇（輸入単価は中東産より2割高・相場3割高）・輸送期間の長期化・品質適合・在庫の偏在・川下へのコスト転嫁</strong>という課題が残る。経産省自身、一部で「供給の偏り」「流通の目詰まり」が続くと明記している。量が戻っても、軽質偏重の原油は日本の製油所（中質最適化）で処理がボトルネックになり、国産ナフサが頭打ちになるリスクも残る。</p>
+    <p>そして何より、この5〜6月の底打ちは<span class="bl">「中東ゼロのまま代替で凌いでいる」状態</span>にすぎない。中東直接（平時120）がいつ戻り始めるか ── そこから先の回復の分かれ道を、次のセクションで見る。</p>
+  </div>
+</section>
+
+<!-- ===== ⑤ 7月以降：回復は解放時期次第（シミュレーター） ===== -->
+<section id="sim" class="sec">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 05</span>
+    <h2 class="sec-title">7月以降の回復は、<em>ホルムズ解放の時期</em>次第</h2>
+  </div>
+  <p class="sec-sub">
+    <b>このセクションで見せたい結論：</b>5〜6月で底（72%→80%）を脱した先、充足率が100%まで戻るかは、封鎖された中東直接ナフサ（平時120）が<b>いつ物理的に戻り始めるか</b>で決まる。だが政府方針の「節約0%」を前提にすると、<b>下振れシナリオ（④＋D＝60%）では年内に100%へ届かず、需要抑制が物理的に避けられない</b>。
+  </p>
+
+  <div class="scen-grid">
+    <div class="scen s2">
+      <span class="sc-prob">確率 30%</span>
+      <div class="sc-name">② 6月末 解放</div>
+      <div class="sc-val">11<span class="u">月</span></div>
+      <div class="sc-vlbl">充足率100%回復</div>
+      <div class="sc-row"><span>年内平均充足率</span><span class="v ok">90%</span></div>
+      <div class="sc-row"><span>物理的不足</span><span class="v danger">夏まで継続</span></div>
+    </div>
+    <div class="scen s3">
+      <span class="sc-prob">確率 10%</span>
+      <div class="sc-name">③ 7月末 解放</div>
+      <div class="sc-val">12<span class="u">月</span></div>
+      <div class="sc-vlbl">充足率100%回復</div>
+      <div class="sc-row"><span>年内平均充足率</span><span class="v">88%</span></div>
+      <div class="sc-row"><span>物理的不足</span><span class="v danger">秋まで継続</span></div>
+    </div>
+    <div class="scen s4">
+      <span class="sc-prob">確率 30%</span>
+      <div class="sc-name">④ 9月末 解放</div>
+      <div class="sc-val">翌2<span class="u">月</span></div>
+      <div class="sc-vlbl">充足率100%回復</div>
+      <div class="sc-row"><span>年内平均充足率</span><span class="v danger">84%</span></div>
+      <div class="sc-row"><span>物理的不足</span><span class="v danger">越年</span></div>
+    </div>
+    <div class="scen sD">
+      <span class="sc-prob">確率 30%</span>
+      <div class="sc-name">D 解放なし</div>
+      <div class="sc-val">未達<span class="u"></span></div>
+      <div class="sc-vlbl">充足率100%回復</div>
+      <div class="sc-row"><span>年内平均充足率</span><span class="v danger">61%</span></div>
+      <div class="sc-row"><span>国産も連動減</span><span class="v danger">9月〜半減</span></div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">◆ 月別 充足率の推移（%）─ 4シナリオ同時・来年3月まで</div>
+    <div class="chart-note">横線＝充足率100%（平時280万kL＝政府0%節約で需要を満たす水準）。これを割った分が「物理的に必要な節約率」。下に行くほど不足が深い。4〜6月は前セクションの底打ち（72→80%）、<b>7月以降が解放時期で分かれる</b>。</div>
+    <svg viewBox="0 0 920 440" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:'Oswald','Noto Sans JP',sans-serif;">
+      <!-- grid -->
+      <line x1="58" y1="394.0" x2="750" y2="394.0" stroke="rgba(255,255,255,0.06)"/>
+      <line x1="58" y1="332.3" x2="750" y2="332.3" stroke="rgba(255,255,255,0.06)"/>
+      <line x1="58" y1="270.7" x2="750" y2="270.7" stroke="rgba(255,255,255,0.06)"/>
+      <line x1="58" y1="209.0" x2="750" y2="209.0" stroke="rgba(255,255,255,0.06)"/>
+      <line x1="58" y1="147.3" x2="750" y2="147.3" stroke="rgba(255,255,255,0.06)"/>
+      <line x1="58" y1="24.0" x2="750" y2="24.0" stroke="rgba(255,255,255,0.06)"/>
+      <text x="50" y="398" fill="#9A9AA8" font-size="13" text-anchor="end" style="font-family:'Oswald','Noto Sans JP',sans-serif;">50%</text>
+      <text x="50" y="336" fill="#9A9AA8" font-size="13" text-anchor="end" style="font-family:'Oswald','Noto Sans JP',sans-serif;">60%</text>
+      <text x="50" y="275" fill="#9A9AA8" font-size="13" text-anchor="end" style="font-family:'Oswald','Noto Sans JP',sans-serif;">70%</text>
+      <text x="50" y="213" fill="#9A9AA8" font-size="13" text-anchor="end" style="font-family:'Oswald','Noto Sans JP',sans-serif;">80%</text>
+      <text x="50" y="151" fill="#9A9AA8" font-size="13" text-anchor="end" style="font-family:'Oswald','Noto Sans JP',sans-serif;">90%</text>
+      <text x="50" y="28" fill="#9A9AA8" font-size="13" text-anchor="end" style="font-family:'Oswald','Noto Sans JP',sans-serif;">110%</text>
+      <!-- 確定実態+見通しゾーン（4〜6月） -->
+      <rect x="58" y="24" width="157.2" height="370" fill="rgba(224,149,74,0.06)"/>
+      <text x="136" y="40" fill="#E0954A" font-size="13" text-anchor="middle" font-weight="700" style="font-family:'Oswald','Noto Sans JP',sans-serif;">4〜6月 実績・見通し</text>
+      <text x="490" y="40" fill="#6A6A78" font-size="13" text-anchor="middle" style="font-family:'Oswald','Noto Sans JP',sans-serif;">7月以降＝解放時期で分岐</text>
+      <!-- 100%ライン -->
+      <line x1="58" y1="85.7" x2="750" y2="85.7" stroke="#4CB286" stroke-width="2" stroke-dasharray="6 5"/>
+      <text x="58" y="78" fill="#9EE0B4" font-size="13" text-anchor="start" style="font-family:'Oswald','Noto Sans JP',sans-serif;">充足率 100%（政府0%節約で満たす水準）</text>
+      <!-- x labels -->
+      <text x="58.0" y="416" fill="#9A9AA8" font-size="13" text-anchor="middle" style="font-family:'Oswald','Noto Sans JP',sans-serif;">4月</text>
+      <text x="120.9" y="416" fill="#9A9AA8" font-size="13" text-anchor="middle" style="font-family:'Oswald','Noto Sans JP',sans-serif;">5月</text>
+      <text x="183.8" y="416" fill="#9A9AA8" font-size="13" text-anchor="middle" style="font-family:'Oswald','Noto Sans JP',sans-serif;">6月</text>
+      <text x="246.7" y="416" fill="#9A9AA8" font-size="13" text-anchor="middle" style="font-family:'Oswald','Noto Sans JP',sans-serif;">7月</text>
+      <text x="309.6" y="416" fill="#9A9AA8" font-size="13" text-anchor="middle" style="font-family:'Oswald','Noto Sans JP',sans-serif;">8月</text>
+      <text x="372.5" y="416" fill="#9A9AA8" font-size="13" text-anchor="middle" style="font-family:'Oswald','Noto Sans JP',sans-serif;">9月</text>
+      <text x="435.5" y="416" fill="#9A9AA8" font-size="13" text-anchor="middle" style="font-family:'Oswald','Noto Sans JP',sans-serif;">10月</text>
+      <text x="498.4" y="416" fill="#9A9AA8" font-size="13" text-anchor="middle" style="font-family:'Oswald','Noto Sans JP',sans-serif;">11月</text>
+      <text x="561.3" y="416" fill="#9A9AA8" font-size="13" text-anchor="middle" style="font-family:'Oswald','Noto Sans JP',sans-serif;">12月</text>
+      <text x="624.2" y="416" fill="#9A9AA8" font-size="13" text-anchor="middle" style="font-family:'Oswald','Noto Sans JP',sans-serif;">1月</text>
+      <text x="687.1" y="416" fill="#9A9AA8" font-size="13" text-anchor="middle" style="font-family:'Oswald','Noto Sans JP',sans-serif;">2月</text>
+      <text x="750.0" y="416" fill="#9A9AA8" font-size="13" text-anchor="middle" style="font-family:'Oswald','Noto Sans JP',sans-serif;">3月</text>
+      <!-- D（基本シナリオ・主役の太線・赤） -->
+      <path d="M58.0 258.3 L120.9 239.8 L183.8 209.0 L246.7 196.7 L309.6 196.7 L372.5 307.7 L435.5 326.2 L498.4 326.2 L561.3 326.2 L624.2 326.2 L687.1 326.2 L750.0 326.2" fill="none" stroke="#E05555" stroke-width="3.5" opacity="0.95"/>
+      <!-- ④ -->
+      <path d="M58.0 258.3 L120.9 239.8 L183.8 209.0 L246.7 196.7 L309.6 190.5 L372.5 184.3 L435.5 159.7 L498.4 135.0 L561.3 104.2 L624.2 91.8 L687.1 79.5 L750.0 79.5" fill="none" stroke="#E0954A" stroke-width="2.2" opacity="0.9"/>
+      <!-- ③ -->
+      <path d="M58.0 258.3 L120.9 239.8 L183.8 209.0 L246.7 184.3 L309.6 159.7 L372.5 135.0 L435.5 104.2 L498.4 91.8 L561.3 79.5 L624.2 79.5 L687.1 79.5 L750.0 79.5" fill="none" stroke="#4A90D9" stroke-width="2.2" opacity="0.9"/>
+      <!-- ② -->
+      <path d="M58.0 258.3 L120.9 239.8 L183.8 209.0 L246.7 159.7 L309.6 135.0 L372.5 104.2 L435.5 91.8 L498.4 79.5 L561.3 79.5 L624.2 79.5 L687.1 79.5 L750.0 79.5" fill="none" stroke="#4CB286" stroke-width="2.2" opacity="0.9"/>
+      <!-- 右ガターのラベル（線と重ねない） -->
+      <text x="760" y="83.5" fill="#9EE0B4" font-size="13" text-anchor="start" style="font-family:'Oswald','Noto Sans JP',sans-serif;">②③④ 回復 101%</text>
+      <text x="760" y="330" fill="#E05555" font-size="13" text-anchor="start" font-weight="700" style="font-family:'Oswald','Noto Sans JP',sans-serif;">D 解放なし 61%</text>
+      <!-- D急減点の縦点線（9月） -->
+      <line x1="372.5" y1="184.3" x2="372.5" y2="307.7" stroke="#E05555" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
+      <text x="372.5" y="350" fill="#E05555" font-size="12" text-anchor="middle" style="font-family:'Oswald','Noto Sans JP',sans-serif;">9月 国産連動減</text>
+    </svg>
+    <div class="legend-inline">
+      <span><i style="background:#4CB286;"></i>② 6末解放（30%）</span>
+      <span><i style="background:#4A90D9;"></i>③ 7末解放（10%）</span>
+      <span><i style="background:#E0954A;"></i>④ 9末解放（30%）</span>
+      <span><i style="background:#E05555;height:4px;"></i>D 解放なし（30%・基本線）</span>
+      <span><i style="background:#4CB286;height:0;border-top:2px dashed #4CB286;"></i>充足率100%ライン</span>
+    </div>
+  </div>
+
+  <div class="box red">
+    <h3>「政府0%節約のまま」では、回復しきる前に物理的に足りなくなる</h3>
+    <p>5〜6月で底（72→80%）を脱しても、それは中東ゼロのまま代替で凌いだ8割。100%へ戻すには中東直接の回復が要る。最頻シナリオ②（6月末解放）でも、充足率が100%に戻るのは11月。それまでは物理的に供給が需要に届かない。下振れ（④＋D＝<span class="rd">合計60%</span>）では年内に100%へ戻らず、需要抑制が避けられない。さらにシナリオDでは、原油備蓄の枯渇に連動して<span class="rd">9月以降は国産ナフサも半減</span>し、充足率が61%まで二段階で押し下げられる。</p>
+    <p>政府の「節約不要」は9ヶ月合計の話。だが現場では、解放が遅れるほど減産が深く・長くなる。これがナフサショックの時間軸の正体だ。</p>
+  </div>
+</section>
+
+<!-- ===== 巻末:根拠（参照スタイル・小さく） ===== -->
+<section id="ref" class="sec" style="border-bottom:none;">
+  <div class="sec-head">
+    <span class="sec-num">APPENDIX</span>
+    <h2 class="sec-title" style="font-size:clamp(20px,2.4vw,26px);">根拠・計算ロジック・出典</h2>
+  </div>
+
+  <div class="ref">
+    <div class="ref-h">核心の式（原油版とパラレル／ナフサは備蓄対象外のため充足率が主軸）</div>
+    <span class="formula-mini">充足率 ＝ 月次供給合計 ÷ 平時280 ／ 必要節約率 ＝ max(0, 1 − 供給合計÷280)</span>
+    <p>原油版が「備蓄という貯金を取り崩して時間を稼ぐ」のに対し、ナフサは「毎月の現金収支がそのまま赤字になる」。緩衝材が無いため、供給≒需要に収束する（供給72%と需要側ナフサ▲35.6%→稼働64%がほぼ一致）。</p>
+
+    <h4>① 4ルート供給構造（平時280万kL/月）</h4>
+    <ul>
+      <li>中東直接120（封鎖中ゼロ）／国産110（原油連動）／米国産10（戦時30〜60へ拡大）／非中東43（戦時60〜65へ拡大）。中東依存合計82%。</li>
+      <li>4月実供給201（充足率72%）＝5/29速報で国産90.7＋輸入110.3の合計値が確定。5月209（75%）は暫定。</li>
+    </ul>
+
+    <h4>② シナリオ確率（原油・JGB・CPIと完全統一・5/28校正）</h4>
+    <p>②6月末解放＝30% ／ ③7月末＝10% ／ ④9月末＝30% ／ D解放なし＝30%（①5月末＝0%）。「解放」は停戦合意ではなく、機雷掃海が始まり中東直接ナフサが物理的に戻り始める時期。下振れ（④＋D）＝60%。中東直接の回復カーブは業界予測平均（30→60→90→108→120）を解放月起点に適用（掃海6ヶ月版）。</p>
+
+    <h4>③ 軽質偏重キャップ（西村論点・本プレゼンでは簡略）</h4>
+    <p>代替原油が軽質（米シェール等）に偏ると、収率はむしろ上がる（重質16%／軽質25%／超軽質53%）が、日本の製油所はアラビアンライト最適化のため軽質過多でCDU塔頂凝縮がボトルネックになり処理量が頭打ち。ネットで軽質100%なら国産は平時110に届かず約93で頭打ち。本チャートは中質前提（キャップ無し）の素地。係数は感度確認用で、製油所別アッセイが入れば精緻化。</p>
+
+    <h4>④ 確定値 / 暫定値の区別</h4>
+    <ul>
+      <li><b>確報レベルで確定（5/29速報）：</b>ナフサ国内販売193.8万kL（▲35.6%）・生産90.7万kL（▲22.8%）・ガソリン販売310.3万kL（▲10.9%）・エチレン稼働率67.3%（JPCA4月実績）・芳香族BTX▲36〜42%。</li>
+      <li><b>暫定・推定：</b>5月ナフサ▲30%（JPCA見込み）／LPG・潤滑油▲35%（石化連鎖からの推定）／4ルートの内訳（米国産35・非中東75は船舶追跡＋貿易統計ベースの推定）。なお4月のホルムズ非通過ナフサ輸入は経産省説明で約104万kL。</li>
+      <li>主軸のナフサ（最大セグメント）が確報で実証されたため、推定値が振れても結論（全体17%・ナフサ▲35.6%）は頑健。</li>
+    </ul>
+
+    <h4>⑤ 次の更新トリガー</h4>
+    <ul>
+      <li>～6/12 石油統計（確報）令和8年4月分 → 速報からの修正反映。</li>
+      <li>6月下旬 JPCA 5月生産実績（確報）→ 5月ナフサ▲30%（70%回復見込み）の確認。</li>
+      <li>～6/30 石油統計速報 令和8年5月分 → 5月のナフサ販売確定。</li>
+      <li>随時 帝国データバンク続報 → 倒産実数（供給不足の3ヶ月遅行指標）。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div>本資料は4-5月の実績（4月分は<strong>5/29石油統計速報の確定値</strong>）を起点に、6月以降の充足率回復をシナリオ別に描いたものです。5月分は暫定で、6月下旬のJPCA5月実績・6/30石油統計速報5月分で確報化されます。シナリオ確率は原油版・JGB版・CPI版と統一しています。</div>
+  <div style="margin-top:12px;">出典：経済産業省 石油統計速報 令和8年4月分（5/29公表）／ 石油化学工業協会（JPCA）2026年4月生産実績（エチレン稼働率67.3%）／ 芳香族工業会4月速報 ／ 経産省4/30資料（第6回中東情勢関係閣僚会議）・高市首相4/30発言 ／ 境野春彦氏 東京新聞2026/4/25 ／ 帝国データバンク大阪支社「ナフサショック」調査（ダイヤモンドオンライン2026/5/11）／ 日本経済新聞2026/5/28（4月貿易統計・代替調達）／ 共同通信5/29 ／ Argus・Kpler・Bloomberg船舶追跡 ／ BP統計2024</div>
+  <div class="brand">NAPHTHA REALITY ─ 統合プレゼン版 v1 / 2026.06.01</div>
+  <div class="disc">© 2026 Naoki Nishimura. 本資料は議論・情報提供を目的とし、投資・経営判断を推奨するものではありません。暫定値・推定値を含み、確報により改定される可能性があります。</div>
+</footer>
+
+</body>
+</html>
