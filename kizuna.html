@@ -1,0 +1,2151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>kizuna(結束) — 新しい日本の村を、一緒につくりませんか</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #141210;
+  --ink2: #2A2620;
+  --ink3: #4A4030;
+  --bg: #FFFFFF;
+  --bg2: #F7F5F0;
+  --bg3: #EDEBE4;
+  --gold: #7A5A08;
+  --gold2: #9A7818;
+  --gold3: #C09828;
+  --gold-light: #FDF5DC;
+  --green: #1E4A28;
+  --green2: #2E6A3A;
+  --green-light: #E6F4EC;
+  --red: #7A2010;
+  --blue: #1A3050;
+  --border: rgba(122,90,8,0.15);
+  --border-dark: rgba(20,18,16,0.1);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Noto Serif JP', serif;
+  font-size: 20px;
+  line-height: 2.0;
+  overflow-x: hidden;
+}
+.container { max-width: 960px; margin: 0 auto; padding: 0 48px; }
+.section { padding: 100px 0; }
+.section-alt { background: var(--bg2); }
+
+/* ── EYEBROW / TITLE ── */
+.sec-eyebrow {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--gold2);
+  margin-bottom: 14px;
+}
+.sec-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(30px, 3.8vw, 46px);
+  font-weight: 700; line-height: 1.3;
+  margin-bottom: 22px;
+}
+.sec-title em { font-style: italic; color: var(--gold2); }
+.sec-title.light { color: #F0EDE4; }
+.sec-title.light em { color: #E8C840; }
+.sec-lead {
+  font-size: 20px; color: var(--ink3);
+  max-width: 700px; line-height: 2.1;
+  margin-bottom: 52px;
+}
+.sec-lead.light { color: rgba(240,237,228,0.78); }
+.divider { width: 52px; height: 2px; background: var(--gold2); margin: 26px 0; }
+.divider.light { background: #E8C840; }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding-bottom: 80px;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('images/kizuna/hero_bg.jpg');
+  background-size: cover; background-position: center 30%;
+  filter: brightness(0.72);
+}
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: 960px; margin: 0 auto; padding: 0 48px;
+}
+.hero-award {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.35);
+  padding: 8px 20px; border-radius: 2px;
+  margin-bottom: 32px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px; font-weight: 700; letter-spacing: .1em;
+  color: rgba(255,255,255,0.9);
+}
+.hero-award-icon { color: #E8C840; font-size: 18px; }
+.hero-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(38px, 5.5vw, 64px);
+  font-weight: 700; line-height: 1.35;
+  color: #FFFFFF; margin-bottom: 20px;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.3);
+}
+.hero-title em { font-style: italic; color: #E8C840; }
+.hero-sub {
+  font-size: 22px; color: rgba(255,255,255,0.82);
+  max-width: 580px; line-height: 2.0; margin-bottom: 48px;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+}
+.hero-scroll {
+  display: flex; align-items: center; gap: 14px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+.hero-scroll::before {
+  content: ''; display: block;
+  width: 48px; height: 1px; background: rgba(255,255,255,0.25);
+}
+
+/* ── PHOTO GRID ── */
+.photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 420px 320px;
+  gap: 4px;
+  margin-bottom: 0;
+}
+.photo-cell {
+  overflow: hidden; position: relative;
+}
+.photo-cell img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+  display: block;
+}
+.photo-cell:hover img { transform: scale(1.03); }
+.photo-cell.wide { grid-column: span 2; }
+.photo-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.55));
+  padding: 32px 24px 16px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px; color: rgba(255,255,255,0.85);
+  letter-spacing: .06em;
+}
+
+/* ── WHY NOW ── */
+.crisis-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 3px; margin-bottom: 48px;
+}
+.crisis-card {
+  padding: 36px 32px;
+  background: var(--bg3);
+}
+.crisis-card.dark {
+  background: var(--ink2); color: #F0EDE4;
+}
+.crisis-icon { font-size: 32px; margin-bottom: 16px; }
+.crisis-card-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 22px; font-weight: 700; margin-bottom: 12px;
+}
+.crisis-card.dark .crisis-card-title { color: #E8C840; }
+.crisis-card-body { font-size: 17px; color: var(--ink3); line-height: 1.95; }
+.crisis-card.dark .crisis-card-body { color: rgba(240,237,228,0.68); }
+.crisis-quote {
+  border-left: 4px solid var(--gold2);
+  padding: 22px 32px;
+  background: var(--gold-light);
+  margin-top: 44px;
+}
+.crisis-quote-text {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 28px; font-weight: 700; color: var(--gold);
+  line-height: 1.7;
+}
+.crisis-quote-attr {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px; color: var(--ink3); margin-top: 12px;
+  letter-spacing: .06em;
+}
+
+/* ── VISION (dark) ── */
+.section-dark { background: var(--ink2); }
+.vision-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 56px; align-items: start;
+  margin-bottom: 56px;
+}
+.phase-item {
+  display: flex; gap: 22px; align-items: flex-start;
+  padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.phase-item:last-child { border-bottom: none; }
+.phase-num {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 42px; font-weight: 700;
+  color: rgba(232,200,64,0.25); line-height: 1;
+  flex-shrink: 0; width: 44px;
+}
+.phase-tag {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 2px; margin-bottom: 7px;
+}
+.phase-tag.now { background: #E8C840; color: var(--ink); }
+.phase-tag.near { background: rgba(232,200,64,0.18); color: #E8C840; }
+.phase-tag.future { border: 1px solid rgba(232,200,64,0.2); color: rgba(232,200,64,0.45); font-size: 10px; }
+
+/* ── 800年周期 文明図 (JINEN MODEL) ── */
+.cycle800 {
+  width: 100%;
+  margin: 28px 0 48px;
+  padding: 32px 24px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(232,200,64,0.15);
+  border-radius: 4px;
+}
+.cycle800-label {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: .22em;
+  text-transform: uppercase; color: #E8C840;
+  margin-bottom: 10px; text-align: center;
+}
+.cycle800-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 24px; font-weight: 700; color: #fff;
+  text-align: center; margin-bottom: 28px;
+  letter-spacing: .02em;
+  line-height: 1.5;
+}
+.cycle800-img-wrap {
+  width: 100%;
+  background: rgba(255,255,255,0.02);
+  padding: 8px;
+  border-radius: 3px;
+}
+.cycle800-img {
+  width: 100%; height: auto;
+  display: block;
+  border-radius: 2px;
+}
+.cycle800-note {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px; font-weight: 300;
+  color: rgba(240,237,228,0.80);
+  line-height: 2.0;
+  margin-top: 24px;
+  text-align: center;
+  letter-spacing: .02em;
+}
+@media (max-width: 720px) {
+  .cycle800 { padding: 20px 12px; }
+  .cycle800-title { font-size: 20px; }
+  .cycle800-note { font-size: 14px; }
+}
+.phase-content h4 {
+  font-family: 'Noto Serif JP', serif; font-size: 18px;
+  font-weight: 500; color: #F0EDE4; margin-bottom: 5px;
+}
+.phase-content p { font-size: 15px; color: rgba(240,237,228,0.55); line-height: 1.75; }
+
+.currency-box {
+  border: 1px solid rgba(232,200,64,0.22);
+  padding: 36px 40px;
+  background: rgba(232,200,64,0.05);
+  margin-top: 44px;
+}
+.currency-box-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 44px; font-weight: 700; color: #E8C840; margin-bottom: 20px;
+  line-height: 1.3;
+}
+.currency-box-body {
+  font-size: 18px; color: rgba(240,237,228,0.72); line-height: 2.1;
+}
+.point-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(232,200,64,0.10);
+  border: 1px solid rgba(232,200,64,0.28);
+  padding: 8px 18px; border-radius: 4px;
+  margin: 12px 8px 0 0;
+  font-size: 16px; color: #E8C840;
+  font-family: 'Noto Sans JP', sans-serif; font-weight: 500;
+}
+
+/* ── GOLD/COIN SECTION ── */
+.asset-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  margin-bottom: 36px;
+}
+.asset-card {
+  border: 1.5px solid var(--border-dark);
+  padding: 36px 32px; background: #fff;
+}
+.asset-icon { font-size: 36px; margin-bottom: 14px; }
+.asset-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 24px; font-weight: 700; margin-bottom: 12px;
+}
+.asset-body { font-size: 18px; color: var(--ink3); line-height: 2.0; }
+
+.flow-box {
+  background: var(--bg2); padding: 40px 44px;
+  border: 1px solid var(--bg3);
+}
+.flow-label {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--gold2); margin-bottom: 24px;
+}
+.flow-steps {
+  display: flex; align-items: center; gap: 0; flex-wrap: wrap;
+}
+.flow-step {
+  padding: 16px 22px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(232,200,64,0.2);
+  font-size: 16px; color: rgba(240,237,228,0.85);
+  line-height: 1.6; text-align: center; min-width: 140px;
+}
+.flow-step strong {
+  display: block; color: #E8C840; font-weight: 700;
+  font-size: 14px; margin-bottom: 4px;
+}
+.flow-sep { color: #E8C840; font-size: 22px; padding: 0 10px; flex-shrink: 0; }
+.flow-note {
+  margin-top: 18px; font-size: 14px;
+  color: var(--ink3); line-height: 1.9;
+}
+
+/* ── 循環フロー図 (緊急時換金) ── */
+.flow-circ-wrap {
+  width: 100%; max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+}
+.flow-circ-svg {
+  width: 100%; height: auto; overflow: visible;
+}
+.flow-circ-c-node { cursor: default; transition: filter .3s; }
+.flow-circ-c-node:hover { filter: brightness(1.15); }
+.flow-circ-path {
+  fill: none; stroke-width: 2; stroke-linecap: round;
+  stroke-dasharray: 800; stroke-dashoffset: 800;
+}
+.flow-circ-path.cp1 { stroke: #9A7818; animation: fcDraw 1.2s .3s ease forwards; }
+.flow-circ-path.cp2 { stroke: #2A5A8C; animation: fcDraw 1.2s .8s ease forwards; }
+.flow-circ-path.cp3 { stroke: #2E6A3A; animation: fcDraw 1.2s 1.3s ease forwards; }
+.flow-circ-path.cp4 { stroke: #9A7818; animation: fcDraw 1.4s 1.8s ease forwards; }
+@keyframes fcDraw { to { stroke-dashoffset: 0; } }
+.flow-circ-n1 { animation: fcPop .5s .1s ease backwards; }
+.flow-circ-n2 { animation: fcPop .5s .5s ease backwards; }
+.flow-circ-n3 { animation: fcPop .5s .9s ease backwards; }
+.flow-circ-n4 { animation: fcPop .5s 1.3s ease backwards; }
+@keyframes fcPop {
+  from { transform: scale(0.6); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes fcFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fcPulseRing {
+  0% { r: 0; opacity: .6; }
+  100% { r: 14; opacity: 0; }
+}
+.flow-circ-pulse {
+  animation: fcPulseRing 2s ease-out infinite;
+  fill: none; stroke-width: 2;
+}
+.flow-circ-legend {
+  width: 100%; max-width: 640px;
+  margin: 24px auto 0;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  opacity: 0; animation: fcFadeIn .6s 2.8s ease forwards;
+}
+.flow-circ-legend-item {
+  display: flex; align-items: center;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid var(--bg3);
+  border-radius: 4px;
+}
+.flow-circ-legend-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  margin-right: 10px; flex-shrink: 0;
+}
+.flow-circ-legend-text {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 12px; font-weight: 500;
+  color: var(--ink);
+  letter-spacing: .03em;
+}
+@media (max-width: 560px) {
+  .flow-circ-legend { grid-template-columns: 1fr; }
+}
+
+/* ── 4 ENTRIES ── */
+.entry-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 22px; margin-bottom: 28px;
+}
+.entry-card {
+  border: 1.5px solid var(--border-dark);
+  padding: 36px 32px; background: #fff;
+  position: relative; overflow: hidden;
+}
+.entry-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 5px;
+}
+.entry-card.e1::before { background: var(--green2); }
+.entry-card.e2::before { background: var(--gold2); }
+.entry-card.e3::before { background: var(--green); }
+.entry-card.e4::before { background: var(--blue); }
+.entry-num {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 56px; font-weight: 700; opacity: .1;
+  line-height: 1; margin-bottom: 8px;
+}
+.entry-tag {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.entry-card.e1 .entry-tag { color: var(--green2); }
+.entry-card.e2 .entry-tag { color: var(--gold2); }
+.entry-card.e3 .entry-tag { color: var(--green); }
+.entry-card.e4 .entry-tag { color: var(--blue); }
+.entry-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 24px; font-weight: 700; margin-bottom: 10px;
+  line-height: 1.4;
+}
+.entry-body { font-size: 17px; color: var(--ink3); line-height: 1.95; margin-bottom: 18px; }
+.entry-auto {
+  display: inline-block; font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px; font-weight: 700;
+  padding: 5px 14px; border-radius: 2px; margin-bottom: 18px;
+}
+.entry-card.e2 .entry-auto { background: rgba(154,120,24,0.1); color: var(--gold); }
+.entry-card.e3 .entry-auto { background: rgba(30,74,40,0.1); color: var(--green); }
+.entry-card.e4 .entry-auto { background: rgba(26,48,80,0.1); color: var(--blue); }
+.cta-btn {
+  position: relative;
+  display: block; width: 100%; padding: 20px 26px;
+  text-align: center; text-decoration: none;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 17px; font-weight: 700; letter-spacing: .04em;
+  border-radius: 6px; cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.15);
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+  overflow: hidden;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+.cta-btn::after {
+  content: '→';
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 18px; font-weight: 700;
+  transition: transform .25s ease;
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+.cta-btn:hover::after {
+  transform: translateX(4px);
+}
+.cta-btn:active {
+  transform: translateY(2px);
+  filter: brightness(0.94);
+}
+/* 各カラーバリアント: グラデ + 厚みのある縁 */
+.cta-btn.green {
+  background: linear-gradient(180deg, #5BB872 0%, #3A9050 50%, #256830 100%);
+  color: #fff;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.35) inset,
+    0 -4px 0 rgba(0,0,0,0.35) inset,
+    1px 0 0 rgba(255,255,255,0.1) inset,
+    -1px 0 0 rgba(0,0,0,0.12) inset,
+    0 8px 0 #174820,
+    0 10px 20px rgba(0,0,0,0.35),
+    0 3px 6px rgba(0,0,0,0.3);
+}
+.cta-btn.green:hover {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.4) inset,
+    0 -4px 0 rgba(0,0,0,0.35) inset,
+    1px 0 0 rgba(255,255,255,0.12) inset,
+    -1px 0 0 rgba(0,0,0,0.12) inset,
+    0 10px 0 #174820,
+    0 16px 32px rgba(0,0,0,0.45),
+    0 5px 10px rgba(0,0,0,0.35);
+}
+.cta-btn.green:active {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.3) inset,
+    0 -4px 0 rgba(0,0,0,0.35) inset,
+    0 4px 0 #174820,
+    0 6px 12px rgba(0,0,0,0.3);
+}
+.cta-btn.gold {
+  background: linear-gradient(180deg, #E0B838 0%, #B08820 50%, #7A5E10 100%);
+  color: #fff;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.45) inset,
+    0 -4px 0 rgba(0,0,0,0.4) inset,
+    1px 0 0 rgba(255,255,255,0.12) inset,
+    -1px 0 0 rgba(0,0,0,0.15) inset,
+    0 8px 0 #5A4408,
+    0 10px 20px rgba(0,0,0,0.4),
+    0 3px 6px rgba(0,0,0,0.3);
+}
+.cta-btn.gold:hover {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.5) inset,
+    0 -4px 0 rgba(0,0,0,0.4) inset,
+    1px 0 0 rgba(255,255,255,0.14) inset,
+    -1px 0 0 rgba(0,0,0,0.15) inset,
+    0 10px 0 #5A4408,
+    0 16px 32px rgba(0,0,0,0.5),
+    0 5px 10px rgba(0,0,0,0.35);
+}
+.cta-btn.gold:active {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.35) inset,
+    0 -4px 0 rgba(0,0,0,0.4) inset,
+    0 4px 0 #5A4408,
+    0 6px 12px rgba(0,0,0,0.35);
+}
+.cta-btn.dark-green {
+  background: linear-gradient(180deg, #347548 0%, #1E5030 50%, #0E3018 100%);
+  color: #fff;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.25) inset,
+    0 -4px 0 rgba(0,0,0,0.45) inset,
+    1px 0 0 rgba(255,255,255,0.08) inset,
+    -1px 0 0 rgba(0,0,0,0.18) inset,
+    0 8px 0 #08200E,
+    0 10px 20px rgba(0,0,0,0.45),
+    0 3px 6px rgba(0,0,0,0.35);
+}
+.cta-btn.dark-green:hover {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.3) inset,
+    0 -4px 0 rgba(0,0,0,0.45) inset,
+    1px 0 0 rgba(255,255,255,0.1) inset,
+    -1px 0 0 rgba(0,0,0,0.18) inset,
+    0 10px 0 #08200E,
+    0 16px 32px rgba(0,0,0,0.55),
+    0 5px 10px rgba(0,0,0,0.4);
+}
+.cta-btn.dark-green:active {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.2) inset,
+    0 -4px 0 rgba(0,0,0,0.45) inset,
+    0 4px 0 #08200E,
+    0 6px 12px rgba(0,0,0,0.4);
+}
+.cta-btn.blue {
+  background: linear-gradient(180deg, #4A80B0 0%, #2A5080 50%, #123056 100%);
+  color: #fff;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.3) inset,
+    0 -4px 0 rgba(0,0,0,0.42) inset,
+    1px 0 0 rgba(255,255,255,0.1) inset,
+    -1px 0 0 rgba(0,0,0,0.15) inset,
+    0 8px 0 #0A1E38,
+    0 10px 20px rgba(0,0,0,0.42),
+    0 3px 6px rgba(0,0,0,0.3);
+}
+.cta-btn.blue:hover {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.36) inset,
+    0 -4px 0 rgba(0,0,0,0.42) inset,
+    1px 0 0 rgba(255,255,255,0.12) inset,
+    -1px 0 0 rgba(0,0,0,0.15) inset,
+    0 10px 0 #0A1E38,
+    0 16px 32px rgba(0,0,0,0.52),
+    0 5px 10px rgba(0,0,0,0.35);
+}
+.cta-btn.blue:active {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.25) inset,
+    0 -4px 0 rgba(0,0,0,0.42) inset,
+    0 4px 0 #0A1E38,
+    0 6px 12px rgba(0,0,0,0.35);
+}
+
+/* ── MEMBERSHIP TABLE ── */
+.mem-wrap { overflow-x: auto; }
+.mem-table {
+  width: 100%; border-collapse: collapse; min-width: 720px;
+}
+.mem-table th {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 15px; font-weight: 700; letter-spacing: .06em;
+  padding: 10px 18px; text-align: center;
+  border-bottom: 2px solid var(--ink);
+  background: var(--bg2);
+}
+.mem-table th.lbl { text-align: left; }
+.mem-table th.t-bronze { color: #7A4A20; }
+.mem-table th.t-silver { color: #3A3A5A; }
+.mem-table th.t-gold { color: var(--gold); }
+.mem-table th.t-plat { color: var(--blue); }
+.mem-table th.t-x { color: var(--ink); }
+.mem-table td {
+  padding: 8px 18px; text-align: center;
+  border-bottom: 1px solid var(--bg3);
+  font-size: 18px; vertical-align: middle;
+}
+.mem-table td.lbl {
+  text-align: left; font-size: 16px; color: var(--ink3);
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg2);
+}
+.mem-table td.cat {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--gold2);
+  background: var(--gold-light); text-align: left;
+  padding: 7px 18px; border-left: 4px solid var(--gold2);
+}
+.mem-table .fee-row td {
+  background: var(--bg3); font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700; font-size: 18px; padding: 10px 18px;
+}
+.dot { color: var(--gold2); font-size: 20px; }
+.dotg { color: var(--green2); font-size: 20px; }
+.dsh { color: #CCC; font-size: 20px; }
+.prt { font-size: 15px; color: #888; }
+.note-up {
+  margin-top: 14px; padding: 14px 22px;
+  background: rgba(154,120,24,0.07);
+  border-left: 4px solid var(--gold2);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 16px; color: var(--ink3); line-height: 2.0;
+}
+/* ── POINT SYSTEM ── */
+.point-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 3px; margin-bottom: 44px;
+}
+.point-card { padding: 40px 36px; background: var(--bg3); }
+.point-card.featured { background: var(--ink2); }
+.point-rate {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 80px; font-weight: 700; line-height: 1; margin-bottom: 6px;
+}
+.point-card .point-rate { color: var(--gold2); }
+.point-card.featured .point-rate { color: #E8C840; }
+.point-unit {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 15px; color: var(--ink3); margin-bottom: 24px;
+}
+.point-card.featured .point-unit { color: rgba(240,237,228,0.5); }
+.point-row {
+  display: flex; justify-content: space-between;
+  padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.07);
+  font-size: 18px;
+}
+.point-card.featured .point-row { border-bottom-color: rgba(255,255,255,0.08); }
+.point-row:last-child { border-bottom: none; }
+.point-key { color: var(--ink3); }
+.point-card.featured .point-key { color: rgba(240,237,228,0.55); }
+.point-val { font-weight: 700; color: var(--ink); }
+.point-card.featured .point-val { color: #E8C840; }
+
+/* ポイント制度の開始時期注釈 */
+.point-note {
+  margin: -20px 0 44px;
+  padding: 14px 22px;
+  background: rgba(154,120,24,0.08);
+  border-left: 3px solid var(--gold2);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 15px; color: var(--ink3);
+  line-height: 1.8;
+}
+.point-note strong {
+  color: var(--gold2); font-weight: 700;
+  letter-spacing: .02em;
+}
+.point-use-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 14px; margin-top: 44px;
+}
+.point-use-card {
+  border: 1.5px solid var(--border-dark);
+  padding: 24px 20px; background: #fff; text-align: center;
+}
+.point-use-icon { font-size: 32px; margin-bottom: 10px; }
+.point-use-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.point-use-body { font-size: 15px; color: var(--ink3); line-height: 1.75; }
+
+/* ── ROADMAP ── */
+.roadmap-wrap {
+  display: grid; grid-template-columns: 120px 1fr; gap: 0;
+}
+.rm-year {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 20px; font-weight: 700; color: var(--gold2);
+  text-align: right; padding: 22px 22px 22px 0;
+  border-right: 2px solid var(--border);
+  position: relative;
+}
+.rm-year::after {
+  content: ''; position: absolute;
+  right: -8px; top: 30px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--gold2); border: 3px solid var(--bg);
+}
+.rm-year.now { color: var(--ink); }
+.rm-year.now::after { background: var(--ink); }
+.rm-content {
+  padding: 18px 0 28px 32px;
+  border-bottom: 1px solid var(--bg3);
+}
+.rm-content:last-child { border-bottom: none; }
+.rm-phase {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; margin-bottom: 6px; color: var(--gold2);
+}
+.rm-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.rm-body { font-size: 18px; color: var(--ink3); line-height: 2.0; }
+
+/* ── COMPACT: Membership & Roadmap 1画面収まり対応 ── */
+#membership.section,
+#roadmap.section { padding: 40px 0 36px; }
+
+#membership .sec-title,
+#roadmap .sec-title { margin-bottom: 10px; font-size: clamp(26px, 3.2vw, 38px); }
+
+#membership .divider,
+#roadmap .divider { margin: 12px 0 18px; }
+
+/* Membership table - 縦を詰める */
+#membership .mem-table th { padding: 8px 16px; font-size: 14px; }
+#membership .mem-table td { padding: 4px 16px; font-size: 16px; }
+#membership .mem-table td.lbl { font-size: 14px; }
+#membership .mem-table td.cat { padding: 4px 16px; font-size: 12px; }
+#membership .mem-table .fee-row td { padding: 6px 16px; font-size: 17px; }
+#membership .dot,
+#membership .dotg,
+#membership .dsh { font-size: 18px; }
+#membership .prt { font-size: 13px; }
+#membership .note-up {
+  margin-top: 10px; padding: 8px 16px;
+  font-size: 13px; line-height: 1.7;
+}
+
+/* Roadmap - 縦を詰める */
+#roadmap .roadmap-wrap { grid-template-columns: 100px 1fr; }
+#roadmap .rm-year {
+  font-size: 17px; padding: 10px 18px 10px 0;
+}
+#roadmap .rm-year::after { top: 18px; width: 12px; height: 12px; right: -7px; }
+#roadmap .rm-content { padding: 10px 0 14px 24px; }
+#roadmap .rm-phase { font-size: 12px; margin-bottom: 4px; }
+#roadmap .rm-title { font-size: 19px; margin-bottom: 4px; }
+#roadmap .rm-body { font-size: 15px; line-height: 1.7; }
+
+/* ロードマップ 過去実績(2020-2025) */
+#roadmap .rm-year.rm-past {
+  color: rgba(74,64,48,0.55);
+}
+#roadmap .rm-year.rm-past::after {
+  background: rgba(74,64,48,0.45);
+}
+#roadmap .rm-content.rm-past {
+  opacity: 0.85;
+}
+#roadmap .rm-past-phase {
+  color: var(--green2) !important;
+  font-size: 12px;
+  opacity: .9;
+}
+#roadmap .rm-content.rm-past .rm-title {
+  color: var(--ink2);
+}
+#roadmap .rm-content.rm-past .rm-body {
+  color: var(--ink3);
+}
+
+/* ── FULL PHOTO BREAK ── */
+.photo-break {
+  height: 480px; overflow: hidden; position: relative;
+}
+.photo-break img {
+  width: 100%; height: 100%; object-fit: cover;
+  object-position: center 60%;
+}
+.photo-break-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(20,18,16,0.55) 0%, transparent 60%);
+  display: flex; align-items: center;
+}
+.photo-break-text {
+  max-width: 960px; margin: 0 auto; padding: 0 48px;
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(24px, 3.2vw, 38px); font-weight: 700;
+  color: #fff; line-height: 1.5;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.4);
+}
+.photo-break-text em { font-style: italic; color: #E8C840; }
+
+/* ── FINAL CTA ── */
+#final-cta {
+  background: var(--ink);
+  padding: 100px 0; text-align: center;
+}
+.final-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700; color: #F0EDE4;
+  line-height: 1.4; margin-bottom: 18px;
+}
+.final-title em { font-style: italic; color: #E8C840; }
+.final-sub {
+  font-size: 20px; color: rgba(240,237,228,0.62);
+  max-width: 540px; margin: 0 auto 60px;
+  line-height: 2.0;
+}
+.cta-grid {
+  display: grid; grid-template-columns: repeat(2,1fr);
+  gap: 28px; max-width: 640px; margin: 0 auto 40px;
+}
+.cta-grid-btn {
+  position: relative;
+  display: block; padding: 26px 22px;
+  text-align: center; text-decoration: none;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 17px; font-weight: 700;
+  border-radius: 7px;
+  border: 1px solid rgba(0,0,0,0.18);
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+  overflow: hidden;
+  isolation: isolate;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+}
+/* shimmer(光の反射)レイヤー */
+.cta-grid-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255,255,255,0.22) 50%,
+    transparent 100%);
+  transform: skewX(-20deg);
+  transition: left .6s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+.cta-grid-btn:hover::before {
+  left: 140%;
+}
+.cta-grid-btn::after {
+  content: '→';
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 18px; font-weight: 700;
+  transition: transform .25s ease;
+  position: relative; z-index: 2;
+}
+.cta-grid-btn:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.1);
+}
+.cta-grid-btn:hover::after {
+  transform: translateX(5px);
+}
+.cta-grid-btn:active {
+  transform: translateY(3px);
+  filter: brightness(0.94);
+}
+.cta-grid-btn .lbl {
+  display: block; font-size: 12px; font-weight: 500;
+  opacity: .9; margin-bottom: 8px;
+  letter-spacing: .1em; text-transform: uppercase;
+  position: relative; z-index: 2;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+}
+/* 4つのCTAカラーバリアント */
+.cta-grid-btn.btn-support {
+  background: linear-gradient(180deg, #68C582 0%, #3A9050 50%, #206828 100%);
+  color: #fff;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.4) inset,
+    0 -5px 0 rgba(0,0,0,0.38) inset,
+    1px 0 0 rgba(255,255,255,0.12) inset,
+    -1px 0 0 rgba(0,0,0,0.14) inset,
+    0 10px 0 #154020,
+    0 14px 28px rgba(0,0,0,0.4),
+    0 5px 10px rgba(0,0,0,0.3);
+}
+.cta-grid-btn.btn-support:hover {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.48) inset,
+    0 -5px 0 rgba(0,0,0,0.38) inset,
+    1px 0 0 rgba(255,255,255,0.14) inset,
+    -1px 0 0 rgba(0,0,0,0.14) inset,
+    0 12px 0 #154020,
+    0 20px 40px rgba(0,0,0,0.5),
+    0 8px 16px rgba(0,0,0,0.35);
+}
+.cta-grid-btn.btn-support:active {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.35) inset,
+    0 -5px 0 rgba(0,0,0,0.38) inset,
+    0 4px 0 #154020,
+    0 8px 16px rgba(0,0,0,0.35);
+}
+.cta-grid-btn.btn-coin {
+  background: linear-gradient(180deg, #EAC040 0%, #B08820 50%, #705810 100%);
+  color: #fff;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.55) inset,
+    0 -5px 0 rgba(0,0,0,0.42) inset,
+    1px 0 0 rgba(255,255,255,0.15) inset,
+    -1px 0 0 rgba(0,0,0,0.16) inset,
+    0 10px 0 #503A08,
+    0 14px 28px rgba(0,0,0,0.42),
+    0 5px 10px rgba(0,0,0,0.3);
+}
+.cta-grid-btn.btn-coin:hover {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.6) inset,
+    0 -5px 0 rgba(0,0,0,0.42) inset,
+    1px 0 0 rgba(255,255,255,0.18) inset,
+    -1px 0 0 rgba(0,0,0,0.16) inset,
+    0 12px 0 #503A08,
+    0 20px 40px rgba(0,0,0,0.5),
+    0 8px 16px rgba(0,0,0,0.35);
+}
+.cta-grid-btn.btn-coin:active {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.45) inset,
+    0 -5px 0 rgba(0,0,0,0.42) inset,
+    0 4px 0 #503A08,
+    0 8px 16px rgba(0,0,0,0.38);
+}
+.cta-grid-btn.btn-bond {
+  background: linear-gradient(180deg, #3A7A50 0%, #1E5030 50%, #0E3018 100%);
+  color: #fff;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.3) inset,
+    0 -5px 0 rgba(0,0,0,0.5) inset,
+    1px 0 0 rgba(255,255,255,0.1) inset,
+    -1px 0 0 rgba(0,0,0,0.2) inset,
+    0 10px 0 #061A0C,
+    0 14px 28px rgba(0,0,0,0.5),
+    0 5px 10px rgba(0,0,0,0.35);
+}
+.cta-grid-btn.btn-bond:hover {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.38) inset,
+    0 -5px 0 rgba(0,0,0,0.5) inset,
+    1px 0 0 rgba(255,255,255,0.12) inset,
+    -1px 0 0 rgba(0,0,0,0.2) inset,
+    0 12px 0 #061A0C,
+    0 20px 40px rgba(0,0,0,0.6),
+    0 8px 16px rgba(0,0,0,0.4);
+}
+.cta-grid-btn.btn-bond:active {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.22) inset,
+    0 -5px 0 rgba(0,0,0,0.5) inset,
+    0 4px 0 #061A0C,
+    0 8px 16px rgba(0,0,0,0.42);
+}
+.cta-grid-btn.btn-facility {
+  background: linear-gradient(180deg, #508AB8 0%, #2A5080 50%, #102E54 100%);
+  color: #fff;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.36) inset,
+    0 -5px 0 rgba(0,0,0,0.45) inset,
+    1px 0 0 rgba(255,255,255,0.12) inset,
+    -1px 0 0 rgba(0,0,0,0.16) inset,
+    0 10px 0 #081830,
+    0 14px 28px rgba(0,0,0,0.45),
+    0 5px 10px rgba(0,0,0,0.32);
+}
+.cta-grid-btn.btn-facility:hover {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.44) inset,
+    0 -5px 0 rgba(0,0,0,0.45) inset,
+    1px 0 0 rgba(255,255,255,0.14) inset,
+    -1px 0 0 rgba(0,0,0,0.16) inset,
+    0 12px 0 #081830,
+    0 20px 40px rgba(0,0,0,0.55),
+    0 8px 16px rgba(0,0,0,0.38);
+}
+.cta-grid-btn.btn-facility:active {
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.28) inset,
+    0 -5px 0 rgba(0,0,0,0.45) inset,
+    0 4px 0 #081830,
+    0 8px 16px rgba(0,0,0,0.38);
+}
+
+/* 未定/無効ボタン (グランピング施設など準備中のCTA) */
+.cta-btn-disabled,
+a.cta-btn-disabled {
+  cursor: not-allowed;
+  filter: grayscale(0.7) brightness(0.75);
+  opacity: 0.7;
+  pointer-events: auto;
+}
+.cta-btn-disabled:hover {
+  transform: none !important;
+  filter: grayscale(0.7) brightness(0.78) !important;
+}
+.cta-btn-disabled:active {
+  transform: none !important;
+}
+.cta-btn-disabled::after {
+  content: '⌛' !important;
+}
+
+/* ── 申込期限スケジュール (Final CTA) ── */
+.deadline-box {
+  max-width: 720px;
+  margin: 0 auto 36px;
+  padding: 28px 32px 24px;
+  background: rgba(232,200,64,0.06);
+  border: 1px solid rgba(232,200,64,0.35);
+  border-radius: 8px;
+  text-align: center;
+}
+.deadline-label {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: .22em;
+  text-transform: uppercase; color: #E8C840;
+  margin-bottom: 22px;
+}
+.deadline-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.deadline-item {
+  padding: 18px 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(232,200,64,0.18);
+  border-radius: 6px;
+}
+.deadline-item-final {
+  background: rgba(232,200,64,0.12);
+  border-color: rgba(232,200,64,0.55);
+  box-shadow: 0 0 18px rgba(232,200,64,0.12);
+}
+.deadline-step {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: .2em;
+  color: rgba(232,200,64,0.85);
+  margin-bottom: 6px;
+}
+.deadline-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 14px; font-weight: 700; color: #fff;
+  margin-bottom: 8px;
+  letter-spacing: .02em;
+}
+.deadline-date {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 16px; font-weight: 500;
+  color: rgba(240,237,228,0.85);
+  letter-spacing: .02em;
+}
+.deadline-date strong {
+  font-size: 28px; font-weight: 700;
+  color: #E8C840;
+  margin: 0 2px;
+  letter-spacing: 0;
+}
+.deadline-arrow {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 22px; font-weight: 700;
+  color: rgba(232,200,64,0.55);
+  user-select: none;
+}
+.deadline-note {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 14px; font-weight: 300;
+  color: rgba(240,237,228,0.78);
+  line-height: 1.85;
+  padding-top: 16px;
+  border-top: 1px solid rgba(232,200,64,0.15);
+  letter-spacing: .02em;
+}
+.deadline-note strong {
+  color: #E8C840; font-weight: 700;
+}
+
+@media (max-width: 700px) {
+  .deadline-box { padding: 22px 18px 18px; }
+  .deadline-grid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .deadline-arrow {
+    transform: rotate(90deg);
+    font-size: 18px;
+    padding: 4px 0;
+  }
+  .deadline-date strong { font-size: 24px; }
+}
+
+/* ── メインCTA (kizuna(結束)有料会員申込) ── */
+.cta-main {
+  position: relative;
+  display: block; width: 100%; max-width: 640px;
+  margin: 0 auto;
+  padding: 30px 24px;
+  text-align: center; text-decoration: none;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 22px; font-weight: 700; letter-spacing: .04em;
+  color: #fff;
+  background: linear-gradient(180deg, #EAC040 0%, #B08820 50%, #705810 100%);
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 8px;
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+  overflow: hidden;
+  isolation: isolate;
+  text-shadow: 0 2px 3px rgba(0,0,0,0.4);
+  box-shadow:
+    0 3px 0 rgba(255,255,255,0.6) inset,
+    0 -6px 0 rgba(0,0,0,0.45) inset,
+    1px 0 0 rgba(255,255,255,0.16) inset,
+    -1px 0 0 rgba(0,0,0,0.18) inset,
+    0 12px 0 #503A08,
+    0 18px 36px rgba(0,0,0,0.5),
+    0 6px 12px rgba(0,0,0,0.35);
+}
+.cta-main::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255,255,255,0.28) 50%,
+    transparent 100%);
+  transform: skewX(-20deg);
+  transition: left .7s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+.cta-main::after {
+  content: '→';
+  display: inline-block;
+  margin-left: 12px;
+  font-size: 22px; font-weight: 700;
+  transition: transform .25s ease;
+  position: relative; z-index: 2;
+}
+.cta-main:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.1);
+  box-shadow:
+    0 3px 0 rgba(255,255,255,0.7) inset,
+    0 -6px 0 rgba(0,0,0,0.45) inset,
+    1px 0 0 rgba(255,255,255,0.2) inset,
+    -1px 0 0 rgba(0,0,0,0.18) inset,
+    0 15px 0 #503A08,
+    0 24px 48px rgba(0,0,0,0.6),
+    0 10px 20px rgba(0,0,0,0.4);
+}
+.cta-main:hover::before {
+  left: 140%;
+}
+.cta-main:hover::after {
+  transform: translateX(6px);
+}
+.cta-main:active {
+  transform: translateY(4px);
+  filter: brightness(0.94);
+  box-shadow:
+    0 3px 0 rgba(255,255,255,0.5) inset,
+    0 -6px 0 rgba(0,0,0,0.45) inset,
+    0 4px 0 #503A08,
+    0 8px 16px rgba(0,0,0,0.4);
+}
+.cta-main .lbl {
+  display: block;
+  font-size: 13px; font-weight: 500;
+  opacity: .9; margin-bottom: 10px;
+  letter-spacing: .12em; text-transform: uppercase;
+  position: relative; z-index: 2;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+}
+.cta-consult {
+  margin-top: 24px; font-family: 'Noto Sans JP', sans-serif;
+  font-size: 17px; color: rgba(240,237,228,0.45);
+}
+.cta-consult a { color: rgba(240,237,228,0.65); text-decoration: underline; text-underline-offset: 4px; }
+
+/* ── FOOTER ── */
+footer {
+  background: #090807; padding: 44px 0; text-align: center;
+}
+.footer-logo {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 26px; font-weight: 700;
+  letter-spacing: 0;
+  color: #C09828; margin-bottom: 10px;
+}
+.footer-note {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px; color: rgba(240,237,228,0.70); line-height: 2.0;
+}
+
+@media (max-width: 720px) {
+  .container { padding: 0 24px; }
+  .section { padding: 64px 0; }
+  .crisis-grid, .vision-grid, .asset-grid, .entry-grid,
+  .point-grid, .point-use-grid, .cta-grid, .photo-grid { grid-template-columns: 1fr; }
+  .photo-grid { grid-template-rows: auto; }
+  .photo-cell.wide { grid-column: span 1; }
+  .flow-steps { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-award">
+      kizuna(結束) — 日本の新しい村への参加
+    </div>
+    <h1 class="hero-title">
+      新しい日本の村を、<br>
+      <em>一緒につくりませんか。</em>
+    </h1>
+    <p class="hero-sub">
+      食があり、水があり、仲間がいる。<br>
+      平時も有事も、本当の意味で豊かに生きられる場所を、<br>
+      利他の精神を持つ人々と、ここから始めます。
+    </p>
+    <div class="hero-scroll">scroll</div>
+  </div>
+</section>
+
+<!-- ══ PHOTO GALLERY ══ -->
+<div class="photo-grid">
+  <div class="photo-cell wide">
+    <img src="images/kizuna/farm_exterior.jpg" alt="アイカフェファーム外観・夕景" loading="lazy">
+    <div class="photo-caption">山梨県北杜市 ／ アイカフェファーム ／ 2024年商店建築大賞受賞</div>
+  </div>
+  <div class="photo-cell">
+    <img src="images/kizuna/cafe_view.jpg" alt="南アルプスを望むカフェ空間" loading="lazy">
+    <div class="photo-caption">南アルプスを一望するカフェスペース</div>
+  </div>
+  <div class="photo-cell">
+    <img src="images/kizuna/cafe_interior.jpg" alt="カフェ内観" loading="lazy">
+    <div class="photo-caption">薪ストーブとエジソンバルブの灯り</div>
+  </div>
+</div>
+
+<!-- ══ 02: WHY NOW ══ -->
+<section class="section section-alt" id="why">
+  <div class="container">
+    <div class="sec-eyebrow">Section 01 — なぜ今なのか</div>
+    <h2 class="sec-title">日本社会の<em>構造的な違和感</em>に、<br>あなたも気づいているはずです。</h2>
+    <div class="divider"></div>
+
+    <div class="crisis-grid">
+      <div class="crisis-card dark">
+        <div class="crisis-icon">🪪</div>
+        <div class="crisis-card-title">マイナンバーと管理社会</div>
+        <div class="crisis-card-body">マイナンバーによる個人資産・行動・医療情報の一元管理が進む。金融・行政・医療のあらゆるデータが紐づけられ、国家による監視の範囲は年々拡大している。「誰が、何を、いくら持っているか」が完全に可視化される社会が目前に迫っている。</div>
+      </div>
+      <div class="crisis-card">
+        <div class="crisis-icon">💴</div>
+        <div class="crisis-card-title">円安・インフレの加速</div>
+        <div class="crisis-card-body">2026年、日本のインフレ率は10%に迫る水準になりつつある。銀行預金の実質価値は毎年確実に目減りしている。給与は上がらず、物価だけが上がる構造の中で、既存の「貯蓄・運用」の常識はもはや通用しない。</div>
+      </div>
+      <div class="crisis-card">
+        <div class="crisis-icon">⛽</div>
+        <div class="crisis-card-title">エネルギー・食料の脆弱性</div>
+        <div class="crisis-card-body">イラン情勢の緊迫化によるホルムズ海峡リスク、ナフサ供給の不安定化——日本の産業・食料・エネルギーの基盤がいかに脆弱かが露わになっている。都市に住む限り、この脆弱性から逃れることはできない。</div>
+      </div>
+      <div class="crisis-card dark">
+        <div class="crisis-icon">🌐</div>
+        <div class="crisis-card-title">プラザ合意から続く構造</div>
+        <div class="crisis-card-body">プラザ合意以来、日本はアメリカの経済秩序の中に組み込まれてきた。防衛・通貨・エネルギー政策において独自の判断が困難な構造は今も変わっていない。この構造を「仕方ない」と受け入れるのか、別の道を選ぶのか。</div>
+      </div>
+    </div>
+
+    <!-- 有機農業ブロック -->
+    <div style="margin-top:3px;">
+      <div style="background:var(--green);padding:48px 40px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;">
+        <div>
+          <div style="font-family:'Noto Sans JP',sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(200,240,210,0.6);margin-bottom:16px;">ORGANIC FARMING</div>
+          <div style="font-family:'Noto Serif JP',serif;font-size:34px;font-weight:700;color:#fff;line-height:1.45;margin-bottom:24px;">日本の土と食は、<br><em style="font-style:italic;color:#A8E0B0;">誰が守るのか？</em></div>
+          <div style="font-size:19px;color:rgba(255,255,255,0.85);line-height:2.1;margin-bottom:20px;">
+            政府に任せてきた結果が、<strong style="color:#A8E0B0;font-size:21px;">有機農業わずか1%</strong>という現実だ。総人口を賄うための慣行農法の必要性は理解できる。しかし、自然のリスクも経済のリスクも、すべてを有機農家が一人で背負わなければならない環境の中で、有機農家はどんどん潰れていく。
+          </div>
+          <div style="font-size:19px;color:rgba(255,255,255,0.85);line-height:2.1;margin-bottom:28px;">
+            化学肥料は土中の微生物の生態系を破壊し、一度壊れた土が回復するには<strong style="color:#A8E0B0;font-size:21px;">10年単位の年月</strong>が必要だ。イラン紛争により化学肥料の原料供給が止まりつつある今、その現実はもはや対岸の火事ではない。
+          </div>
+          <div style="background:rgba(168,224,176,0.12);border-left:4px solid #A8E0B0;padding:24px 28px;">
+            <div style="font-family:'Noto Serif JP',serif;font-size:22px;font-weight:700;color:#fff;line-height:1.85;">
+              私たちの安心安全な食と、<br>
+              持続可能な日本の未来を守るのは、<br>
+              <em style="color:#A8E0B0;font-style:normal;">私たち消費者ではないのか。</em>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="border-left:3px solid rgba(168,224,176,0.4);padding-left:28px;margin-bottom:28px;">
+            <div style="font-family:'Noto Sans JP',sans-serif;font-size:96px;font-weight:900;color:rgba(168,224,176,0.35);line-height:1;margin-bottom:8px;">1<span style="font-size:60px;font-weight:900;">%</span></div>
+            <div style="font-family:'Noto Sans JP',sans-serif;font-size:18px;font-weight:700;color:#A8E0B0;margin-bottom:10px;">日本の全農業に占める有機農業の割合</div>
+            <div style="font-size:17px;color:rgba(255,255,255,0.75);line-height:1.95;">残り99%は化学肥料・農薬に依存している。輸入が止まれば、日本の食料生産は根底から揺らぐ。その時に初めて気づいても、土の回復には10年かかる。</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(168,224,176,0.2);padding:24px 26px;">
+            <div style="font-family:'Noto Sans JP',sans-serif;font-size:16px;font-weight:700;color:#A8E0B0;letter-spacing:.1em;margin-bottom:12px;">私たちが有機農家と連携する理由</div>
+            <div style="font-size:17px;color:rgba(255,255,255,0.80);line-height:2.0;">
+              アイカフェファームの有機農家は、輸入に依存しない農法で土の生態系を守り続けている。補助もなく、正当な対価も得られない構造の中で、それでも続けている農家がいる。この農地と農家を消費者として支えることが、10年後・20年後の日本の食の安全保障に直結する。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="crisis-quote">
+      <div class="crisis-quote-text">「管理される側ではなく、自分たちで設計する側に立つ。<br>それが、私たちがこの村をつくる理由です。」</div>
+      <div class="crisis-quote-attr">— 西村 直樹 ／ UNIVERSAL COIN CO.,Ltd. 代表</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PHOTO BREAK 1 ══ -->
+<div class="photo-break">
+  <img src="images/kizuna/farm_dome.jpg" alt="夕日と農場とドームテント" loading="lazy">
+  <div class="photo-break-overlay">
+    <div class="photo-break-text">
+      食があり、火があり、<em>仲間がいる。</em><br>
+      ここが、村の原型です。
+    </div>
+  </div>
+</div>
+
+<!-- ══ 03: VISION ══ -->
+<section class="section section-dark" id="vision">
+  <div class="container">
+    <div class="sec-eyebrow" style="color:#C09828;">Section 02 — 私たちのビジョン</div>
+    <h2 class="sec-title light">JINEN MODEL——<br><em>新しい文明の、小さな実験を始める。</em></h2>
+    <div class="divider light"></div>
+    <p class="sec-lead light">
+      800年ごとに文明の支配原理は変わってきた。金貨・宗教・紙幣、そして次はAIと人間の幸福。私たちが作ろうとしている村は、その転換点における小さくて本気の実証実験です。
+    </p>
+
+    <!-- ══ 800年周期 文明図 ══ -->
+    <div class="cycle800">
+      <div class="cycle800-label">CIVILIZATION CYCLE &mdash; 800 YEARS</div>
+      <div class="cycle800-title">文明は、<span style="color:#E8C840;">800年</span>ごとに支配原理を変えてきた。</div>
+
+      <div class="cycle800-img-wrap">
+        <img src="images/kizuna/civilization_cycle.jpg" alt="800年周期の文明図 — 成長期と停滞期の文明サイクル" class="cycle800-img">
+      </div>
+
+      <div class="cycle800-note">
+        次の転換点は、<span style="color:#E8C840;font-weight:700;">AIと人間の幸福</span>が新しい支配原理になる時代。<br>
+        JINEN MODELは、その転換を先取りする小さな実証実験です。
+      </div>
+    </div>
+
+    <div class="vision-grid">
+      <div>
+        <p style="font-size:19px;color:rgba(240,237,228,0.72);line-height:2.1;margin-bottom:26px;">
+          山梨県北杜市・アイカフェファームを起点に、食・住・エネルギー・通貨のすべてが自立した村をつくります。管理社会とは別のルールで動く、人が本来の豊かさを取り戻せる場所です。
+        </p>
+        <p style="font-size:19px;color:rgba(240,237,228,0.72);line-height:2.1;">
+          それは移住者だけのものではありません。緊急時に駆け込める拠点として、投資・社会貢献の対象として、あなたの関わり方で参加できる開かれた村です。
+        </p>
+      </div>
+      <div>
+        <div class="phase-item">
+          <div class="phase-num">1</div>
+          <div class="phase-content">
+            <span class="phase-tag now">現在〜2028年</span>
+            <h4>食・住・仲間の基盤をつくる</h4>
+            <p>会員を募り、土地を取得し、施設を建てる。アイカフェファームを起点に、村の器を整える。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">2</div>
+          <div class="phase-content">
+            <span class="phase-tag near">2028〜2035年</span>
+            <h4>村として自立させる</h4>
+            <p>居住・移住プラン開始。独自通貨（ポイント）本格稼働。食・エネルギーの自給体制を整える。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">3</div>
+          <div class="phase-content">
+            <span class="phase-tag future">2035年〜</span>
+            <h4>新しい文明の実証へ</h4>
+            <p>JINEN MODEL の本格実装。AI・新通貨・HTPによる村の最適化。日本・世界への横展開。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="currency-box">
+      <div class="currency-box-title">村の独自通貨「Alex」構想</div>
+      <div class="currency-box-body">
+        法定通貨（円・ドル）は、政府・中央銀行の政策によってインフレが起き、価値が棄損し続けます。私たちの新通貨「Alex」は<strong style="color:#E8C840;">食の価値</strong>を物差しにします。インフレが進んでも「Alex」の購買力は変わりません。
+      </div>
+
+      <!-- 概念図 -->
+      <div style="margin-top:32px;background:#111A14;padding:48px 40px;">
+
+        <!-- タイトル -->
+        <div style="text-align:center;margin-bottom:40px;">
+          <div style="font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C09828;margin-bottom:12px;">Currency Design</div>
+          <div style="font-family:'Noto Serif JP',serif;font-size:26px;font-weight:700;color:#FFFFFF;line-height:1.6;">
+            法定通貨の価値は地下へ沈み続ける。<br>
+            <span style="color:#D4A828;">Alexは地上に留まり続ける。</span>
+          </div>
+        </div>
+
+        <!-- 左右比較 -->
+        <div style="display:grid;grid-template-columns:1fr 56px 1fr;align-items:end;gap:0;">
+
+          <!-- 左：円 -->
+          <div style="display:flex;flex-direction:column;">
+            <div style="font-size:15px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-align:center;color:#FF8C6E;background:rgba(255,100,70,0.12);border:1px solid rgba(255,100,70,0.3);padding:9px 12px;margin-bottom:18px;">法定通貨（円）の世界</div>
+
+            <!-- 2026：地上 -->
+            <div style="display:flex;align-items:center;padding:14px 18px;gap:14px;background:rgba(50,110,70,0.25);border:1px solid rgba(80,180,100,0.4);">
+              <div style="font-size:16px;font-weight:700;color:#7EE8A0;width:44px;flex-shrink:0;text-align:right;">2026</div>
+              <div style="font-family:'Noto Sans JP',sans-serif;font-size:26px;font-weight:700;color:#FFFFFF;flex-shrink:0;">¥10,000</div>
+              <div style="font-size:16px;color:#AAAAAA;">=</div>
+              <div style="font-size:17px;font-weight:700;color:#7EE8A0;">🌾 米 10kg</div>
+            </div>
+
+            <!-- 地上ライン -->
+            <div style="display:flex;align-items:center;gap:10px;margin:5px 0;">
+              <div style="flex:1;height:2px;background:rgba(255,255,255,0.35);"></div>
+              <div style="font-size:13px;font-weight:700;color:#CCCCCC;white-space:nowrap;">↑ 地上ライン</div>
+              <div style="flex:1;height:2px;background:rgba(255,255,255,0.35);"></div>
+            </div>
+
+            <!-- 2028〜2035 地下へ -->
+            <div style="display:flex;align-items:center;padding:14px 18px;gap:14px;background:rgba(160,100,30,0.25);border:1px solid rgba(210,150,50,0.35);">
+              <div style="font-size:16px;font-weight:700;color:#F0C060;width:44px;flex-shrink:0;text-align:right;">2028</div>
+              <div style="font-family:'Noto Sans JP',sans-serif;font-size:26px;font-weight:700;color:#F5D070;flex-shrink:0;">¥12,000</div>
+              <div style="font-size:16px;color:#AAAAAA;">=</div>
+              <div style="font-size:17px;font-weight:700;color:#E8C060;">🌾 米 10kg</div>
+            </div>
+            <div style="display:flex;align-items:center;padding:14px 18px;gap:14px;background:rgba(180,80,30,0.28);border:1px solid rgba(220,110,60,0.35);">
+              <div style="font-size:16px;font-weight:700;color:#FFA060;width:44px;flex-shrink:0;text-align:right;">2030</div>
+              <div style="font-family:'Noto Sans JP',sans-serif;font-size:26px;font-weight:700;color:#FF9050;flex-shrink:0;">¥14,000</div>
+              <div style="font-size:16px;color:#AAAAAA;">=</div>
+              <div style="font-size:17px;font-weight:700;color:#FF9860;">🌾 米 10kg</div>
+            </div>
+            <div style="display:flex;align-items:center;padding:14px 18px;gap:14px;background:rgba(180,50,25,0.32);border:1px solid rgba(220,80,50,0.38);">
+              <div style="font-size:16px;font-weight:700;color:#FF7850;width:44px;flex-shrink:0;text-align:right;">2033</div>
+              <div style="font-family:'Noto Sans JP',sans-serif;font-size:26px;font-weight:700;color:#FF7040;flex-shrink:0;">¥17,000</div>
+              <div style="font-size:16px;color:#AAAAAA;">=</div>
+              <div style="font-size:17px;font-weight:700;color:#FF7850;">🌾 米 10kg</div>
+            </div>
+            <div style="display:flex;align-items:center;padding:14px 18px;gap:14px;background:rgba(160,30,15,0.38);border:1px solid rgba(220,60,40,0.45);">
+              <div style="font-size:16px;font-weight:700;color:#FF6040;width:44px;flex-shrink:0;text-align:right;">2035</div>
+              <div style="font-family:'Noto Sans JP',sans-serif;font-size:26px;font-weight:700;color:#FF5030;flex-shrink:0;">¥20,000</div>
+              <div style="font-size:16px;color:#AAAAAA;">=</div>
+              <div style="font-size:17px;font-weight:700;color:#FF6040;">🌾 米 10kg</div>
+            </div>
+
+            <div style="margin-top:18px;text-align:center;">
+              <div style="font-size:26px;color:#FF6040;animation:bounceD 1.4s ease-in-out infinite;">▼</div>
+              <div style="font-size:17px;font-weight:700;color:#FF8060;line-height:1.9;margin-top:6px;">
+                数字は上がる。<br>でも<span style="color:#FFFFFF;">円の価値が下がっている</span>証拠。
+              </div>
+            </div>
+          </div>
+
+          <!-- 中央 -->
+          <div style="display:flex;align-items:center;justify-content:center;padding-bottom:60px;">
+            <div style="font-family:'Noto Sans JP',sans-serif;font-size:16px;font-weight:700;color:#888888;letter-spacing:.2em;text-transform:uppercase;">vs</div>
+          </div>
+
+          <!-- 右：Alex -->
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="font-size:15px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-align:center;color:#7EE8A0;background:rgba(80,200,120,0.12);border:1px solid rgba(80,200,120,0.3);padding:9px 12px;margin-bottom:18px;width:100%;">新通貨「Alex」の世界</div>
+
+            <!-- 円柱 -->
+            <div style="width:100%;position:relative;">
+              <div style="position:absolute;left:-52px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:700;letter-spacing:.1em;color:#7EE8A0;writing-mode:vertical-rl;border-left:2px solid rgba(120,220,150,0.4);padding-left:6px;">1F — 安定ゾーン</div>
+
+              <!-- 天面 -->
+              <div style="width:100%;height:28px;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(120,220,150,0.7),rgba(40,130,70,0.9));border-radius:50%;border:2px solid rgba(120,220,150,0.6);box-shadow:0 -6px 24px rgba(60,200,100,0.25);position:relative;z-index:3;"></div>
+
+              <!-- 本体 -->
+              <div style="width:100%;background:linear-gradient(180deg,rgba(25,75,45,0.97) 0%,rgba(18,58,35,0.99) 100%);border-left:2px solid rgba(80,180,110,0.4);border-right:2px solid rgba(80,180,110,0.4);padding:28px 22px 32px;position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:18px;">
+
+                <div style="font-family:'Noto Sans JP',sans-serif;font-size:44px;font-weight:700;color:#D4A828;letter-spacing:.08em;line-height:1;text-shadow:0 0 28px rgba(212,168,40,0.45);">Alex</div>
+                <div style="font-size:14px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#7EE8A0;">食に連動する通貨</div>
+
+                <!-- 回転リング -->
+                <div style="width:88px;height:88px;border-radius:50%;border:2px dashed rgba(120,220,150,0.4);position:relative;animation:spinRing 8s linear infinite;">
+                  <span style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:24px;animation:spinRing 8s linear infinite reverse;">🌾</span>
+                  <span style="position:absolute;bottom:-13px;left:50%;transform:translateX(-50%);font-size:24px;animation:spinRing 8s linear infinite reverse;">🌾</span>
+                </div>
+
+                <!-- 価値テーブル -->
+                <div style="display:flex;align-items:center;width:100%;background:rgba(120,220,150,0.08);border:1px solid rgba(120,220,150,0.22);padding:12px 16px;gap:12px;">
+                  <div style="font-size:15px;font-weight:700;color:#BBDDCC;width:44px;flex-shrink:0;">2026</div>
+                  <div style="font-family:'Noto Sans JP',sans-serif;font-size:22px;font-weight:700;color:#D4A828;flex-shrink:0;">1 Alex</div>
+                  <div style="font-size:16px;color:#AAAAAA;">=</div>
+                  <div style="font-size:17px;font-weight:700;color:#7EE8A0;">🌾 米 10kg</div>
+                </div>
+                <div style="display:flex;align-items:center;width:100%;background:rgba(120,220,150,0.08);border:1px solid rgba(120,220,150,0.22);padding:12px 16px;gap:12px;">
+                  <div style="font-size:15px;font-weight:700;color:#BBDDCC;width:44px;flex-shrink:0;">2030</div>
+                  <div style="font-family:'Noto Sans JP',sans-serif;font-size:22px;font-weight:700;color:#D4A828;flex-shrink:0;">1 Alex</div>
+                  <div style="font-size:16px;color:#AAAAAA;">=</div>
+                  <div style="font-size:17px;font-weight:700;color:#7EE8A0;">🌾 米 10kg</div>
+                </div>
+                <div style="display:flex;align-items:center;width:100%;background:rgba(120,220,150,0.08);border:1px solid rgba(120,220,150,0.22);padding:12px 16px;gap:12px;">
+                  <div style="font-size:15px;font-weight:700;color:#BBDDCC;width:44px;flex-shrink:0;">2035</div>
+                  <div style="font-family:'Noto Sans JP',sans-serif;font-size:22px;font-weight:700;color:#D4A828;flex-shrink:0;">1 Alex</div>
+                  <div style="font-size:16px;color:#AAAAAA;">=</div>
+                  <div style="font-size:17px;font-weight:700;color:#7EE8A0;">🌾 米 10kg</div>
+                </div>
+
+                <div style="width:100%;background:rgba(120,220,150,0.15);border:1px solid rgba(120,220,150,0.4);padding:12px 16px;text-align:center;font-size:17px;font-weight:700;color:#FFFFFF;line-height:1.7;">
+                  何年経っても変わらない<br><span style="color:#7EE8A0;">食の価値</span>が物差し
+                </div>
+              </div>
+
+              <!-- 底面 -->
+              <div style="width:100%;height:20px;background:radial-gradient(ellipse 80% 60% at 50% 60%,rgba(20,70,40,0.95),rgba(10,40,22,1));border-radius:50%;border:2px solid rgba(60,160,90,0.4);position:relative;z-index:1;margin-top:-2px;"></div>
+            </div>
+
+            <div style="margin-top:18px;text-align:center;font-size:17px;font-weight:700;color:#7EE8A0;line-height:1.9;">
+              円換算では値上がりしても<br>
+              <span style="color:#FFFFFF;">Alexは地上に留まり続ける</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 下部まとめ -->
+        <div style="margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:3px;">
+          <div style="padding:22px 26px;font-size:17px;line-height:1.9;background:rgba(180,50,30,0.2);border:1px solid rgba(220,80,50,0.3);color:#FFBBA0;">
+            <div style="font-size:16px;font-weight:700;color:#FF8060;margin-bottom:8px;">円の価値基準＝国家の信用</div>
+            政策・戦争・財政悪化で変動する。数字は上がり続けるが、それは円の価値が下がっている証拠にすぎない。
+          </div>
+          <div style="padding:22px 26px;font-size:17px;line-height:1.9;background:rgba(30,100,55,0.2);border:1px solid rgba(80,180,110,0.3);color:#AADDBB;">
+            <div style="font-size:16px;font-weight:700;color:#7EE8A0;margin-bottom:8px;">Alexの価値基準＝食（生命の必要）</div>
+            生命の維持に最も直結するものを物差しにする。国家が何をしようと、人間が食を必要とする事実は永遠に変わらない。
+          </div>
+        </div>
+
+      </div>
+
+      <style>
+        @keyframes bounceD { 0%,100%{transform:translateY(0);opacity:.6;} 50%{transform:translateY(6px);opacity:1;} }
+        @keyframes spinRing { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+      </style>
+
+      <!-- バッジ -->
+      <div style="margin-top:24px;">
+        <span class="point-badge">🌾 有機野菜・米と交換</span>
+        <span class="point-badge">🏕️ 施設宿泊と交換</span>
+        <span class="point-badge">🏡 土地・施設購入に充当</span>
+        <span class="point-badge">🍶 地産地消品と交換</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PHOTO BREAK 2 ══ -->
+<div class="photo-break">
+  <img src="images/kizuna/firepit.jpg" alt="ファイヤーピットと農場風景" loading="lazy">
+  <div class="photo-break-overlay">
+    <div class="photo-break-text">
+      農地が広がり、<em>山が見える。</em><br>
+      ここが、村の中心になります。
+    </div>
+  </div>
+</div>
+
+<!-- ══ 04: GOLD & COIN ══ -->
+<section class="section" id="assets">
+  <div class="container">
+    <div class="sec-eyebrow">Section 03 — 金・コインという備え</div>
+    <h2 class="sec-title">緊急時に、<em>金とコインで</em><br>食・住・土地が買える。</h2>
+    <div class="divider"></div>
+    <p class="sec-lead">
+      本当の緊急時には、現金はインフレで価値を失います。しかし金・アンティークコインはインフレに強い実物資産。私たちはグループ会社の連携により、金・コインを直接、食・住・土地に変換できる仕組みを持っています。
+    </p>
+    <div class="asset-grid">
+      <div class="asset-card">
+        <div class="asset-icon">🪙</div>
+        <div class="asset-title">アンティークコイン</div>
+        <div class="asset-body">800年以上の歴史を持つ実物資産。流通量が限られ希少性が高く、インフレ・通貨崩壊時の価値保全として機能。1,000万円以上のご購入でBronze会員に自動配置。購入額の<strong>1%分のポイント</strong>を付与します。</div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-icon">🥇</div>
+        <div class="asset-title">金（ゴールド）</div>
+        <div class="asset-body">有史以来、あらゆる通貨崩壊を生き延びてきた究極の実物資産。円安・ハイパーインフレ・社会不安時に最も信頼できる価値の保存手段。kizuna(結束)会員の資産ポートフォリオの現物枠として推奨しています。</div>
+      </div>
+    </div>
+    <div class="flow-box">
+      <div class="flow-label">緊急時の換金・活用フロー（グループ会社連携だから実現できる）</div>
+
+      <div class="flow-circ-wrap">
+        <svg class="flow-circ-svg" viewBox="0 0 700 620" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="fc-arr-gold" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#9A7818"/>
+            </marker>
+            <marker id="fc-arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#2A5A8C"/>
+            </marker>
+            <marker id="fc-arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#2E6A3A"/>
+            </marker>
+
+            <radialGradient id="fc-grad-you" cx="50%" cy="40%">
+              <stop offset="0%" stop-color="#FFFDF7" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#F5EEDD" stop-opacity="1"/>
+            </radialGradient>
+            <radialGradient id="fc-grad-uac" cx="50%" cy="40%">
+              <stop offset="0%" stop-color="#F7FAFD" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#E4EEF7" stop-opacity="1"/>
+            </radialGradient>
+            <radialGradient id="fc-grad-itsuki" cx="50%" cy="40%">
+              <stop offset="0%" stop-color="#F5FAF5" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#E0EEE0" stop-opacity="1"/>
+            </radialGradient>
+            <radialGradient id="fc-grad-return" cx="50%" cy="40%">
+              <stop offset="0%" stop-color="#FFFBF0" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#F5E8C8" stop-opacity="1"/>
+            </radialGradient>
+          </defs>
+
+          <!-- 循環パス(時計回り) -->
+          <path class="flow-circ-path cp1" d="M410,105 C500,130 560,180 580,260"
+            marker-end="url(#fc-arr-gold)"/>
+          <path class="flow-circ-path cp2" d="M580,340 C560,420 500,470 410,495"
+            marker-end="url(#fc-arr-blue)"/>
+          <path class="flow-circ-path cp3" d="M290,495 C200,470 140,420 120,340"
+            marker-end="url(#fc-arr-green)"/>
+          <path class="flow-circ-path cp4" d="M120,260 C140,180 200,130 290,105"
+            marker-end="url(#fc-arr-gold)"/>
+
+          <!-- 中央: Universal Group -->
+          <g opacity="0" style="animation:fcFadeIn .6s 2.4s forwards">
+            <circle cx="350" cy="300" r="58" fill="rgba(154,120,24,0.05)" stroke="rgba(154,120,24,0.35)" stroke-width="1" stroke-dasharray="3 3"/>
+            <text x="350" y="290" text-anchor="middle" font-family="Noto Sans JP" font-size="11" font-weight="700" letter-spacing="2.5" fill="#9A7818">UNIVERSAL</text>
+            <text x="350" y="312" text-anchor="middle" font-family="Noto Sans JP" font-size="15" font-weight="700" letter-spacing="1.5" fill="#1A1612">Group</text>
+          </g>
+
+          <!-- ① あなた(上) -->
+          <g class="flow-circ-c-node flow-circ-n1">
+            <circle cx="350" cy="75" r="68" fill="url(#fc-grad-you)" stroke="#9A7818" stroke-width="2"/>
+            <circle cx="350" cy="75" r="68" fill="none" stroke="#E8C840" stroke-width="1" stroke-opacity=".5"/>
+            <circle class="flow-circ-pulse" cx="350" cy="75" r="0" stroke="#9A7818"/>
+            <text x="350" y="55" text-anchor="middle" font-family="Noto Sans JP" font-size="11" font-weight="700" letter-spacing="3" fill="#9A7818">STEP 1</text>
+            <text x="350" y="78" text-anchor="middle" font-family="Noto Sans JP" font-size="17" font-weight="700" letter-spacing="1" fill="#1A1612">あなた</text>
+            <text x="350" y="99" text-anchor="middle" font-family="Noto Sans JP" font-size="11" font-weight="500" letter-spacing="1" fill="#4A4030">金・コインを保有</text>
+          </g>
+
+          <!-- ② UNIVERSAL COIN(右) -->
+          <g class="flow-circ-c-node flow-circ-n2">
+            <circle cx="580" cy="300" r="68" fill="url(#fc-grad-uac)" stroke="#2A5A8C" stroke-width="2"/>
+            <circle cx="580" cy="300" r="68" fill="none" stroke="#6AABDC" stroke-width="1" stroke-opacity=".5"/>
+            <circle class="flow-circ-pulse" cx="580" cy="300" r="0" stroke="#2A5A8C" style="animation-delay:.5s;"/>
+            <text x="580" y="278" text-anchor="middle" font-family="Noto Sans JP" font-size="11" font-weight="700" letter-spacing="3" fill="#2A5A8C">STEP 2</text>
+            <text x="580" y="298" text-anchor="middle" font-family="Noto Sans JP" font-size="12" font-weight="700" letter-spacing="1.5" fill="#1A1612">UNIVERSAL COIN</text>
+            <text x="580" y="315" text-anchor="middle" font-family="Noto Sans JP" font-size="11" font-weight="500" letter-spacing="1" fill="#4A4030">コイン・金を買取</text>
+            <text x="580" y="333" text-anchor="middle" font-family="Noto Sans JP" font-size="10" font-weight="400" letter-spacing="1" fill="rgba(42,90,140,0.75)">(現金化)</text>
+          </g>
+
+          <!-- ③ 合同会社 樹(下) -->
+          <g class="flow-circ-c-node flow-circ-n3">
+            <circle cx="350" cy="525" r="68" fill="url(#fc-grad-itsuki)" stroke="#2E6A3A" stroke-width="2"/>
+            <circle cx="350" cy="525" r="68" fill="none" stroke="#7EE8A0" stroke-width="1" stroke-opacity=".5"/>
+            <circle class="flow-circ-pulse" cx="350" cy="525" r="0" stroke="#2E6A3A" style="animation-delay:1s;"/>
+            <text x="350" y="502" text-anchor="middle" font-family="Noto Sans JP" font-size="11" font-weight="700" letter-spacing="3" fill="#2E6A3A">STEP 3</text>
+            <text x="350" y="523" text-anchor="middle" font-family="Noto Sans JP" font-size="14" font-weight="700" letter-spacing="1" fill="#1A1612">合同会社 樹</text>
+            <text x="350" y="541" text-anchor="middle" font-family="Noto Sans JP" font-size="11" font-weight="500" letter-spacing="1" fill="#4A4030">現金を受領 / 現物手配</text>
+            <text x="350" y="558" text-anchor="middle" font-family="Noto Sans JP" font-size="10" font-weight="400" letter-spacing="1" fill="rgba(46,106,58,0.75)">(現地法人)</text>
+          </g>
+
+          <!-- ④ 食・住・土地(左) -->
+          <g class="flow-circ-c-node flow-circ-n4">
+            <circle cx="120" cy="300" r="68" fill="url(#fc-grad-return)" stroke="#7A5A08" stroke-width="2"/>
+            <circle cx="120" cy="300" r="68" fill="none" stroke="#E8C840" stroke-width="1.5" stroke-opacity=".55"/>
+            <circle class="flow-circ-pulse" cx="120" cy="300" r="0" stroke="#7A5A08" style="animation-delay:1.5s;"/>
+            <text x="120" y="278" text-anchor="middle" font-family="Noto Sans JP" font-size="11" font-weight="700" letter-spacing="3" fill="#7A5A08">STEP 4</text>
+            <text x="120" y="300" text-anchor="middle" font-family="Noto Sans JP" font-size="15" font-weight="700" letter-spacing="1.5" fill="#7A5A08">食・住・土地</text>
+            <text x="120" y="320" text-anchor="middle" font-family="Noto Sans JP" font-size="11" font-weight="500" letter-spacing="1" fill="#4A4030">現物としてあなたへ</text>
+          </g>
+
+          <!-- 矢印中間の小ラベル -->
+          <g opacity="0" style="animation:fcFadeIn .5s 2.2s forwards">
+            <rect x="470" y="135" width="96" height="24" rx="3" fill="rgba(154,120,24,0.10)" stroke="rgba(154,120,24,0.35)" stroke-width="1"/>
+            <text x="518" y="152" text-anchor="middle" font-family="Noto Sans JP" font-size="11" font-weight="700" letter-spacing="1" fill="#7A5A08">金・コインを渡す</text>
+          </g>
+          <g opacity="0" style="animation:fcFadeIn .5s 2.3s forwards">
+            <rect x="470" y="441" width="96" height="24" rx="3" fill="rgba(42,90,140,0.08)" stroke="rgba(42,90,140,0.35)" stroke-width="1"/>
+            <text x="518" y="458" text-anchor="middle" font-family="Noto Sans JP" font-size="11" font-weight="700" letter-spacing="1" fill="#2A5A8C">現金で精算</text>
+          </g>
+          <g opacity="0" style="animation:fcFadeIn .5s 2.4s forwards">
+            <rect x="134" y="441" width="96" height="24" rx="3" fill="rgba(46,106,58,0.08)" stroke="rgba(46,106,58,0.35)" stroke-width="1"/>
+            <text x="182" y="458" text-anchor="middle" font-family="Noto Sans JP" font-size="11" font-weight="700" letter-spacing="1" fill="#2E6A3A">現物を用意</text>
+          </g>
+          <g opacity="0" style="animation:fcFadeIn .5s 2.5s forwards">
+            <rect x="134" y="135" width="96" height="24" rx="3" fill="rgba(154,120,24,0.10)" stroke="rgba(154,120,24,0.35)" stroke-width="1"/>
+            <text x="182" y="152" text-anchor="middle" font-family="Noto Sans JP" font-size="11" font-weight="700" letter-spacing="1" fill="#7A5A08">現物を受領</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="flow-circ-legend">
+        <div class="flow-circ-legend-item">
+          <span class="flow-circ-legend-dot" style="background:#9A7818;"></span>
+          <span class="flow-circ-legend-text">金・コイン／食・住・土地(実物)</span>
+        </div>
+        <div class="flow-circ-legend-item">
+          <span class="flow-circ-legend-dot" style="background:#2A5A8C;"></span>
+          <span class="flow-circ-legend-text">現金決済(グループ内)</span>
+        </div>
+        <div class="flow-circ-legend-item">
+          <span class="flow-circ-legend-dot" style="background:#2E6A3A;"></span>
+          <span class="flow-circ-legend-text">現物手配(現地法人)</span>
+        </div>
+        <div class="flow-circ-legend-item">
+          <span class="flow-circ-legend-dot" style="background:#9A7818;opacity:.4;"></span>
+          <span class="flow-circ-legend-text">Universal Group による循環</span>
+        </div>
+      </div>
+
+      <div class="flow-note">※ 裏側では現金が動きますが、元本はインフレに強い実物資産（金・コイン）で保全されています。他の村・コミュニティにはない、グループ会社連携による唯一の仕組みです。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PHOTO BREAK 3 ══ -->
+<div class="photo-break" style="height:400px;">
+  <img src="images/kizuna/hinoki_bath.jpg" alt="檜露天風呂" loading="lazy">
+  <div class="photo-break-overlay">
+    <div class="photo-break-text">
+      森の中の<em>檜露天風呂。</em><br>
+      平時の豊かさが、有事の拠点になる。
+    </div>
+  </div>
+</div>
+
+<!-- ══ 05: 4 ENTRIES ══ -->
+<section class="section section-alt" id="join">
+  <div class="container">
+    <div class="sec-eyebrow">Section 04 — 参加の方法</div>
+    <h2 class="sec-title">5つの入口から、<br><em>あなたのペースで参加できます。</em></h2>
+    <div class="divider"></div>
+    <p class="sec-lead">関わり方は一つではありません。まず会員になることが村づくりへの参加の基本です。その上で、コイン・債券・施設購入など、あなたの意志と資金力に応じた入口があります。</p>
+
+    <!-- 最重要：kizuna(結束)有料会員 -->
+    <div style="margin-bottom:20px;">
+      <div style="background:#fff;padding:36px 36px 32px;position:relative;overflow:hidden;border:2px solid var(--gold2);">
+        <div style="position:absolute;top:0;left:0;right:0;height:5px;background:var(--gold2);"></div>
+        <div style="display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;">
+          <div>
+            <div style="font-family:'Noto Sans JP',sans-serif;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2);margin-bottom:10px;">最初の一歩 — 会員として村づくりに参加する</div>
+            <div style="font-family:'Noto Serif JP',serif;font-size:26px;font-weight:700;color:var(--ink);margin-bottom:10px;line-height:1.4;">kizuna(結束)有料会員に<br>申し込む</div>
+            <div style="font-size:16px;color:var(--ink3);line-height:1.9;max-width:500px;">Bronze・Silver・Gold・Platinum・Xの5段階。セミナー参加・施設割引・運用相談・緊急時の食と住まいの確保まで、ランクに応じたサービスが受けられます。年会費は1,000万円債券の利息でのお支払いも可能。</div>
+            <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+              <span style="font-size:13px;font-weight:700;padding:3px 12px;background:var(--gold-light);color:var(--gold2);border-radius:2px;">Bronze 年会費1万円〜</span>
+              <span style="font-size:13px;font-weight:700;padding:3px 12px;background:var(--gold-light);color:var(--gold2);border-radius:2px;">Gold 緊急時利用権付</span>
+            </div>
+          </div>
+          <div style="flex-shrink:0;max-width:340px;">
+            <a href="https://unvcoin-blog.com/portfolio/kizuna-infomation" target="_blank" rel="noopener" class="cta-btn gold">
+              kizuna(結束)有料会員について問い合わせする
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;font-family:'Noto Sans JP',sans-serif;font-size:15px;color:var(--muted, #7A7060);margin-bottom:20px;letter-spacing:.06em;">— または、以下の入口から参加する（購入と同時に会員に自動配置されます）—</div>
+
+    <div class="entry-grid">
+      <div class="entry-card e1">
+        <div class="entry-num">01</div>
+        <div class="entry-tag">誰でも参加できる入口</div>
+        <div class="entry-title">有機農産物を買って、<br>日本の土を守る</div>
+        <div class="entry-body">
+          化学肥料が土の微生物生態系を壊し、有機農業は日本全体のわずか1%。それでも有機農家は輸入に頼らず、土を守り続けています。アイカフェファームの有機野菜・お米・地産地消品をご購入いただくことが、農家への直接支援であり、日本の土と食の未来を守ることに繋がります。大きな投資でなくても、ここから始められます。
+        </div>
+        <a href="https://aicafefarm.com/" target="_blank" rel="noopener" class="cta-btn green">農産物・通販はこちら（支援購入）</a>
+      </div>
+      <div class="entry-card e2">
+        <div class="entry-num">02</div>
+        <div class="entry-tag">現物資産での参加</div>
+        <div class="entry-title">アンティークコインを<br>ポートフォリオに導入する</div>
+        <div class="entry-body">インフレ・円安に強い現物資産として、資産の一部をアンティークコインに移す検討をしてみませんか。1,000万円以上のご購入でBronze会員に自動配置。購入額の<strong>1%分のポイント</strong>を付与します。緊急時には金・コインで食・住・土地への変換も可能です。</div>
+        <div class="entry-auto">Bronze会員 自動配置 ／ ポイント1%付与</div>
+        <a href="https://unvcoin.co.jp/" target="_blank" rel="noopener" class="cta-btn gold">コインについて詳しく見る（別ページ）</a>
+      </div>
+      <div class="entry-card e3">
+        <div class="entry-num">03</div>
+        <div class="entry-tag">金融資産での参加</div>
+        <div class="entry-title">1,000万円債券を購入する</div>
+        <div class="entry-body">年利4%（インフレ特約付き）または6%（シンプル高金利）の2プランをご用意。Gold会員に自動配置され、緊急時のアイカフェ利用権が付帯。さらに<strong>預入額の3%分のポイント（30万円相当）</strong>を付与します。</div>
+        <div class="entry-auto">Gold会員 自動配置 ／ ポイント3%付与</div>
+        <a href="https://forms.gle/F5BH7W6EzSY4uEFd7" target="_blank" rel="noopener" class="cta-btn dark-green">1,000万円債券のお申し込みはこちら</a>
+      </div>
+      <div class="entry-card e4">
+        <div class="entry-num">04</div>
+        <div class="entry-tag">不動産・実物資産での参加</div>
+        <div class="entry-title">別荘より手軽な<br>グランピング施設を所有する</div>
+        <div class="entry-body">通常の別荘購入と異なり、運営・管理はすべてお任せ。稼働収益から利回りをお戻しします。緊急時には優先的に利用できる拠点としても機能。Platinum会員に自動配置され、所有するだけで村づくりへの参画者になります。</div>
+        <div class="entry-auto">Platinum会員 自動配置</div>
+        <a href="#" class="cta-btn blue cta-btn-disabled" aria-disabled="true">施設所有について詳しく相談する（未定）</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 06: MEMBERSHIP ══ -->
+<section class="section" id="membership">
+  <div class="container">
+    <div class="sec-eyebrow">Section 05 — 会員制度</div>
+    <h2 class="sec-title">kizuna(結束)会員 <em>6段階の構造</em></h2>
+    <div class="divider"></div>
+    <div class="mem-wrap">
+      <table class="mem-table">
+        <thead>
+          <tr>
+            <th class="lbl">　</th>
+            <th class="t-bronze">Bronze</th>
+            <th class="t-silver">Silver</th>
+            <th class="t-gold">Gold</th>
+            <th class="t-plat">Platinum</th>
+            <th class="t-x">X</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="fee-row">
+            <td class="lbl">入会金（万円・税別）</td>
+            <td>1</td><td>5</td><td>10</td><td>20</td><td>200</td>
+          </tr>
+          <tr class="fee-row">
+            <td class="lbl">年会費（万円・税別）</td>
+            <td>1</td><td>5</td><td>10</td><td>20</td><td>20</td>
+          </tr>
+          <tr><td colspan="6" class="cat">平常時サービス</td></tr>
+          <tr>
+            <td class="lbl">セミナー・情報提供</td>
+            <td><span class="dot">●</span></td><td><span class="dot">●</span></td>
+            <td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td>
+          </tr>
+          <tr>
+            <td class="lbl">施設割引</td>
+            <td><span class="prt">一部</span></td><td><span class="dot">●</span></td>
+            <td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td>
+          </tr>
+          <tr>
+            <td class="lbl">運用・移住相談</td>
+            <td><span class="dsh">—</span></td><td><span class="dsh">—</span></td>
+            <td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td>
+          </tr>
+          <tr>
+            <td class="lbl">備蓄（半年分）</td>
+            <td><span class="dsh">—</span></td><td><span class="dot">●</span></td>
+            <td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td>
+          </tr>
+          <tr>
+            <td class="lbl">VIP野菜定期便</td>
+            <td><span class="dsh">—</span></td><td><span class="dsh">—</span></td>
+            <td><span class="dsh">—</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td>
+          </tr>
+          <tr>
+            <td class="lbl">農地保有</td>
+            <td><span class="dsh">—</span></td><td><span class="dsh">—</span></td>
+            <td><span class="dot">●</span></td><td><span class="dot">●</span></td><td><span class="dot">●</span></td>
+          </tr>
+          <tr><td colspan="6" class="cat">緊急時サービス</td></tr>
+          <tr>
+            <td class="lbl">アイカフェ利用権・食</td>
+            <td><span class="dsh">—</span></td><td><span class="dsh">—</span></td>
+            <td><span class="dotg">●</span></td><td><span class="dotg">●</span></td><td><span class="dotg">●</span></td>
+          </tr>
+          <tr>
+            <td class="lbl">住居（テント・ドーム）</td>
+            <td><span class="dsh">—</span></td><td><span class="dsh">—</span></td>
+            <td><span class="prt">空き次第</span></td>
+            <td><span class="dotg">●テント用意済</span></td>
+            <td><span class="dotg">●ドーム優先</span></td>
+          </tr>
+          <tr>
+            <td class="lbl">金・コイン→食住変換</td>
+            <td><span class="dsh">—</span></td><td><span class="dsh">—</span></td>
+            <td><span class="dotg">●</span></td><td><span class="dotg">●</span></td><td><span class="dotg">●</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note-up">
+      ※ 会員費は今後増額の方向で検討中です。現在の金額でのご入会はお早めにご検討ください。<br>
+      ※ 年会費は1,000万円債券の利息でのお支払いも可能です。<br>
+      ※ Platinum・Xは2026年現在、定員に達しているためお申し込みを受け付けておりません。予めご了承ください。
+    </div>
+  </div>
+</section>
+
+<!-- ══ 07: POINT SYSTEM ══ -->
+<section class="section section-alt" id="points">
+  <div class="container">
+    <div class="sec-eyebrow">Section 06 — ポイント（新通貨）制度</div>
+    <h2 class="sec-title">購入が、<em>村の通貨</em>になる。</h2>
+    <div class="divider"></div>
+    <p class="sec-lead">債券・コイン購入者には購入額に応じたポイントを付与します。このポイントは村の産品・施設・サービスと交換できる「新しい通貨の実験」です。将来的には村内経済を動かす独自通貨へと育てていきます。</p>
+
+    <div class="point-grid">
+      <div class="point-card featured">
+        <div class="point-rate">3<span style="font-size:38px;">%</span></div>
+        <div class="point-unit">債券1,000万円ご購入時</div>
+        <div class="point-row"><span class="point-key">付与ポイント</span><span class="point-val">30万円相当</span></div>
+        <div class="point-row"><span class="point-key">会員ランク</span><span class="point-val">Gold 自動配置</span></div>
+        <div class="point-row"><span class="point-key">用途</span><span class="point-val">産品・施設・土地</span></div>
+        <div class="point-row"><span class="point-key">有効期限</span><span class="point-val">10年間（債券期間中）</span></div>
+      </div>
+      <div class="point-card">
+        <div class="point-rate">1<span style="font-size:38px;">%</span></div>
+        <div class="point-unit">コイン購入時（1,000万円以上）</div>
+        <div class="point-row"><span class="point-key">付与ポイント</span><span class="point-val">購入額×1%</span></div>
+        <div class="point-row"><span class="point-key">会員ランク</span><span class="point-val">Bronze 自動配置</span></div>
+        <div class="point-row"><span class="point-key">用途</span><span class="point-val">産品・施設利用</span></div>
+        <div class="point-row"><span class="point-key">スタンス</span><span class="point-val">緊急時保全を優先</span></div>
+      </div>
+    </div>
+
+    <div class="point-note">
+      ※ ポイント制度は <strong>2026年5月購入分から</strong> 適用開始です。
+    </div>
+
+    <div class="point-use-grid">
+      <div class="point-use-card">
+        <div class="point-use-icon">🌾</div>
+        <div class="point-use-title">有機野菜・米・地産品</div>
+        <div class="point-use-body">アイカフェファームの有機野菜、北杜市の米・果物・日本酒など地産地消品と交換</div>
+      </div>
+      <div class="point-use-card">
+        <div class="point-use-icon">🏕️</div>
+        <div class="point-use-title">施設宿泊・利用</div>
+        <div class="point-use-body">アイカフェファームおよびTOKIプロジェクト施設の宿泊・日帰り利用に充当</div>
+      </div>
+      <div class="point-use-card">
+        <div class="point-use-icon">🏡</div>
+        <div class="point-use-title">土地・施設購入への充当</div>
+        <div class="point-use-body">将来の土地購入・グランピング施設所有権購入の代金に充当可能</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 08: ROADMAP ══ -->
+<section class="section" id="roadmap">
+  <div class="container">
+    <div class="sec-eyebrow">Section 07 — ロードマップ</div>
+    <h2 class="sec-title">2020年から歩んできた、<br><em>15年間の村づくり。</em></h2>
+    <div class="divider"></div>
+    <div class="roadmap-wrap">
+      <!-- ── 実績(2020-2025) ── -->
+      <div class="rm-year rm-past">2020</div>
+      <div class="rm-content rm-past">
+        <div class="rm-phase rm-past-phase">✓ 実績 — 構想のスタート</div>
+        <div class="rm-title">有料会員制度を開始</div>
+        <div class="rm-body">有機農業支援を目的としたkizuna(結束)有料会員制度をスタート。日本の食を守るための仲間集めを開始した年。</div>
+      </div>
+
+      <div class="rm-year rm-past">2021</div>
+      <div class="rm-content rm-past">
+        <div class="rm-phase rm-past-phase">✓ 実績 — 仲間が集まる</div>
+        <div class="rm-title">有料会員 約700名に到達</div>
+        <div class="rm-body">有機農業支援の輪が広がり、会員数が約700名に。構想が現実のコミュニティとして動き始めた。</div>
+      </div>
+
+      <div class="rm-year rm-past">2022</div>
+      <div class="rm-content rm-past">
+        <div class="rm-phase rm-past-phase">✓ 実績 — 村の器づくりへ</div>
+        <div class="rm-title">アイカフェヴィレッジ建設開始／有機野菜通販スタート</div>
+        <div class="rm-body">山梨県北杜市でアイカフェヴィレッジの建設に着手。同時に有機野菜の通信販売も開始し、都市と村をつなぐ仕組みを整え始めた。</div>
+      </div>
+
+      <div class="rm-year rm-past">2023</div>
+      <div class="rm-content rm-past">
+        <div class="rm-phase rm-past-phase">✓ 実績 — 施設の基盤整備</div>
+        <div class="rm-title">ドームテント設置・施設建設を継続</div>
+        <div class="rm-body">ドームテント型の宿泊空間を設置。村の器としての施設建設を継続し、滞在・体験の受け皿を拡大した。</div>
+      </div>
+
+      <div class="rm-year rm-past">2024</div>
+      <div class="rm-content rm-past">
+        <div class="rm-phase rm-past-phase">✓ 実績 — グランピング施設 OPEN</div>
+        <div class="rm-title">グランピング施設(宿泊4部屋＋共有棟)をオープン</div>
+        <div class="rm-body">宿泊施設4部屋と、共有風呂・キッチン棟を備えたグランピング施設がオープン。会員が実際に村に泊まり、集える拠点が完成した。</div>
+      </div>
+
+      <div class="rm-year rm-past">2025</div>
+      <div class="rm-content rm-past">
+        <div class="rm-phase rm-past-phase">✓ 実績 — 社会的評価</div>
+        <div class="rm-title">アイカフェファーム施設が店舗建築大賞を受賞</div>
+        <div class="rm-body">これまで積み上げてきた村づくりの取り組みが、店舗建築大賞という形で社会的に評価された年。構想の質が外部からも認められた。</div>
+      </div>
+
+      <!-- ── これから(2026-2035〜) ── -->
+      <div class="rm-year now">2026</div>
+      <div class="rm-content">
+        <div class="rm-phase">▶ 今年 — 仲間を集め、基盤を整える</div>
+        <div class="rm-title">会員コミュニティの始動</div>
+        <div class="rm-body">kizuna(結束)会員制度を本格始動。コイン・債券・施設所有を通じた参加の受付開始。農場イベントを通じて、コミュニティの仲間と繋がる機会をつくる。</div>
+      </div>
+      <div class="rm-year">2027〜<br>2028</div>
+      <div class="rm-content">
+        <div class="rm-phase" style="color:var(--green2);">▶ 生存基盤の構築</div>
+        <div class="rm-title">土地を取得し、村の器をつくる</div>
+        <div class="rm-body">山梨県北杜市にグランピング施設を稼働。農地を拡大し、太陽光・蓄電池によるオフグリッド体制を整備。緊急時に会員が集まれる拠点としての機能を備える。</div>
+      </div>
+      <div class="rm-year">2028〜<br>2030</div>
+      <div class="rm-content">
+        <div class="rm-phase" style="color:var(--blue);">▶ 村の機能を揃える</div>
+        <div class="rm-title">食・風呂・コミュニティの核をつくる</div>
+        <div class="rm-body">Farm to Table飲食・スパ・サウナなど体験施設を充実。ポイント（新通貨Alex）の本格稼働。会員同士が集まり、語り合える場としての村の形が整う。</div>
+      </div>
+      <div class="rm-year">2030〜<br>2035</div>
+      <div class="rm-content">
+        <div class="rm-phase" style="color:var(--gold2);">▶ 居住・村化フェーズ</div>
+        <div class="rm-title">「村」として自立する</div>
+        <div class="rm-body">会員向けの居住・移住プランを開始。食・エネルギー・水の自給体制を整える。コミュニティ経済が動き始め、管理社会とは異なる豊かさの実証が始まる。</div>
+      </div>
+      <div class="rm-year">2035〜</div>
+      <div class="rm-content" style="border-bottom:none;">
+        <div class="rm-phase" style="color:var(--gold2);">▶ JINEN MODEL — 新しい文明設計の実証</div>
+        <div class="rm-title">新通貨・AIによる村の最適化</div>
+        <div class="rm-body">金・コイン・Alexを媒体とする地域経済の本格稼働。AIによる村内資源の最適配分。この村から生まれた仕組みを、日本・世界へと広げていく。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FINAL CTA ══ -->
+<section id="final-cta">
+  <div class="container">
+    <h2 class="final-title">
+      あなたの参加が、<br>
+      <em>村をつくる力になります。</em>
+    </h2>
+    <p class="final-sub">
+      管理される側ではなく、設計する側へ。<br>
+      利他の精神を持つ仲間と、新しい日本の形を始めましょう。
+    </p>
+
+    <!-- ── 今回募集の期限スケジュール ── -->
+    <div class="deadline-box">
+      <div class="deadline-label">今回募集 — お申し込みスケジュール</div>
+      <div class="deadline-grid">
+        <div class="deadline-item">
+          <div class="deadline-step">STEP 1</div>
+          <div class="deadline-title">お申し込み期限</div>
+          <div class="deadline-date">2026.<strong>6</strong>月末</div>
+        </div>
+        <div class="deadline-arrow">→</div>
+        <div class="deadline-item">
+          <div class="deadline-step">STEP 2</div>
+          <div class="deadline-title">契約締結</div>
+          <div class="deadline-date">2026.<strong>7</strong>月末まで</div>
+        </div>
+        <div class="deadline-arrow">→</div>
+        <div class="deadline-item deadline-item-final">
+          <div class="deadline-step">STEP 3</div>
+          <div class="deadline-title">ご資金活用 開始</div>
+          <div class="deadline-date">2026.<strong>8.1</strong> 〜</div>
+        </div>
+      </div>
+      <div class="deadline-note">
+        ※ 今回の募集は<strong>2026年6月末締切</strong>です。次回募集の予定は未定のため、ご検討中の方はお早めにお問い合わせください。
+      </div>
+    </div>
+
+    <!-- メインCTA：kizuna(結束)有料会員申込 -->
+    <div style="margin-bottom:40px;">
+      <a href="https://unvcoin-blog.com/portfolio/kizuna-infomation" target="_blank" rel="noopener" class="cta-main">
+        <span class="lbl">まず会員になる — Bronze〜Platinum</span>
+        kizuna(結束)有料会員について問い合わせする
+      </a>
+    </div>
+
+    <div style="
+      text-align:center; font-family:'Noto Sans JP',sans-serif;
+      font-size:15px; color:rgba(240,237,228,0.45);
+      margin-bottom:32px; letter-spacing:.06em;
+    ">— または、以下の入口から参加する —</div>
+
+    <div class="cta-grid">
+      <a href="https://aicafefarm.com/" target="_blank" rel="noopener" class="cta-grid-btn btn-support">
+        <span class="lbl">誰でも参加できる入口</span>
+        有機農産物を買って日本の土を守る
+      </a>
+      <a href="https://unvcoin.co.jp/" target="_blank" rel="noopener" class="cta-grid-btn btn-coin">
+        <span class="lbl">現物資産 / Bronze自動配置</span>
+        コインをポートフォリオに導入する
+      </a>
+      <a href="https://forms.gle/F5BH7W6EzSY4uEFd7" target="_blank" rel="noopener" class="cta-grid-btn btn-bond">
+        <span class="lbl">金融資産 / Gold自動配置 / ポイント3%</span>
+        1,000万円債券を申し込む
+      </a>
+      <a href="#" class="cta-grid-btn btn-facility cta-btn-disabled" aria-disabled="true">
+        <span class="lbl">不動産 / 運用・管理付き / Platinum自動配置</span>
+        グランピング施設の所有について相談する（未定）
+      </a>
+    </div>
+    <p class="cta-consult">
+      どの入口が自分に合うかわからない方、詳しく話を聞きたい方は
+      <a href="https://forms.gle/Zn2w72frqusH2qpo9" target="_blank" rel="noopener">個別相談窓口</a>
+      または
+      <a href="mailto:info@hadoushisan.com">総合窓口（info@hadoushisan.com）</a>
+      からお気軽にどうぞ。
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-logo">kizuna(結束)</div>
+    <div class="footer-note">
+      Universal Group（Universal Asset Consulting CO.,Ltd ／ Universal Coin Co.,Ltd. ／ 合同会社 樹）<br>
+      本ページの内容は会員制度の概要です。詳細条件は個別にご確認ください。<br>
+      &copy; 2026 Universal Asset Consulting CO.,Ltd. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
