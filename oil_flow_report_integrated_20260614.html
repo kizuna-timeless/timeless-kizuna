@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>皆（私も）勘違いしている ─ 原油価格が上がらない本当の理由と、日本の本当の危機 2026.06.14</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0B0F; --panel:#16161E; --panel2:#1B1B25;
+  --gold:#D4AF37; --gold2:#C9A227; --gold3:#E8C766;
+  --white:#F2EFE8; --nw:#ECE8DF; --nw2:#CFC9BB;
+  --s1:#4CB286; --s2:#4A90D9; --s3:#E0954A; --s4:#E05555; --sD:#A569D9;
+  --line:#2A2A36;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--nw);font-family:'Noto Sans JP',sans-serif;font-size:21px;line-height:1.85;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 26px 80px;}
+h1,h2,h3,.osw{font-family:'Oswald','Noto Sans JP',sans-serif;}
+p{margin:0 0 16px;}
+b,strong{color:var(--white);}
+.gd{color:var(--gold3);font-weight:700;} .rd{color:#F0A0A0;font-weight:700;}
+.bl{color:#9CC4F0;font-weight:700;} .gn{color:#8FD8B8;font-weight:700;} .pp{color:#C9A6E8;font-weight:700;}
+
+/* ===== HERO ===== */
+.hero{padding:64px 0 30px;border-bottom:2px solid var(--gold2);}
+.hero .kicker{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);}
+.hero h1{font-size:clamp(30px,4.6vw,52px);color:var(--white);font-weight:700;line-height:1.32;margin:14px 0 10px;}
+.hero h1 .kw{font-size:1.32em;font-weight:900;background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent;padding:0 .02em;}
+.hero h1 .kw-red{background-image:linear-gradient(100deg,#FF6B6B 0%,#E05555 45%,#B22222 100%);}
+.hero h1 .kw-gold{background-image:linear-gradient(100deg,#E8C766 0%,#D4AF37 45%,#B8860B 100%);}
+.hero .sub{font-size:clamp(17px,2vw,22px);color:var(--nw2);}
+.hero .date{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:15px;color:var(--gold3);letter-spacing:.12em;margin-top:14px;}
+
+/* ===== SECTION ===== */
+section{padding:54px 0 14px;}
+.sec-head{border-left:5px solid var(--gold);padding-left:18px;margin-bottom:26px;}
+.sec-num{display:block;font-family:'Oswald','Noto Sans JP',sans-serif;font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);}
+.sec-title{font-size:clamp(23px,3vw,32px);color:var(--white);font-weight:700;margin-top:4px;line-height:1.4;}
+.sec-sub{font-size:18px;color:var(--nw2);margin-bottom:22px;}
+
+/* hypothesis section override */
+section.hypo .sec-head{border-left-color:var(--sD);}
+section.hypo .sec-num{color:var(--sD);}
+.hypo-band{background:linear-gradient(90deg,rgba(165,105,217,.16),rgba(165,105,217,.03));border:1px solid rgba(165,105,217,.5);border-radius:10px;padding:14px 20px;margin:0 0 24px;font-size:16.5px;color:#C9A6E8;font-weight:700;letter-spacing:.04em;}
+
+/* ===== KPI ===== */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:24px 0;}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px 16px;}
+.kpi .k-lbl{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--nw2);}
+.kpi .k-val{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:44px;font-weight:700;color:var(--gold3);line-height:1.15;margin:6px 0 4px;}
+.kpi .k-val .u{font-size:19px;color:var(--nw2);font-weight:500;margin-left:3px;}
+.kpi .k-meta{font-size:14.5px;color:var(--nw2);line-height:1.6;}
+.kpi.red{border-color:rgba(224,85,85,.55);} .kpi.red .k-val{color:#F08080;}
+.kpi.blue{border-color:rgba(74,144,217,.5);} .kpi.blue .k-val{color:#9CC4F0;}
+.kpi.green{border-color:rgba(76,178,134,.5);} .kpi.green .k-val{color:#8FD8B8;}
+.kpi.purple{border-color:rgba(165,105,217,.55);} .kpi.purple .k-val{color:#C9A6E8;}
+.kpi.amber{border-color:rgba(224,149,74,.6);} .kpi.amber .k-val{color:#F0B87E;}
+
+/* ===== BOX ===== */
+.box{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:10px;padding:24px 26px;margin:26px 0;}
+.box h3{font-size:21px;color:var(--gold3);margin-bottom:12px;}
+.box p{font-size:17px;line-height:1.9;}
+.box.red{border-left-color:var(--s4);} .box.red h3{color:#F08080;}
+.box.blue{border-left-color:var(--s2);} .box.blue h3{color:#9CC4F0;}
+.box.purple{border-left-color:var(--sD);background:linear-gradient(180deg,rgba(165,105,217,.07),var(--panel));} .box.purple h3{color:#C9A6E8;}
+
+/* ===== TABLE ===== */
+.tbl-wrap{overflow-x:auto;margin:18px 0;}
+table.dt{width:100%;border-collapse:collapse;min-width:680px;}
+table.dt th{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:17px;font-weight:600;color:var(--gold3);text-align:center;padding:10px 12px;border-bottom:2px solid var(--gold2);white-space:nowrap;}
+table.dt td{font-size:18px;color:var(--nw);text-align:center;padding:11px 12px;border-bottom:1px solid var(--line);}
+table.dt td.mlbl{text-align:left;font-weight:700;color:var(--white);white-space:nowrap;}
+table.dt td.src{text-align:left;font-size:14.5px;color:var(--nw2);line-height:1.6;min-width:230px;}
+table.dt tr.hi{background:rgba(212,175,55,.07);}
+table.dt tr.hot{background:rgba(224,85,85,.08);}
+table.dt td.neg{color:#F08080;font-weight:700;} table.dt td.pos{color:#8FD8B8;font-weight:700;}
+table.dt td.big{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:22px;font-weight:700;}
+.tbl-cap{font-size:14px;color:var(--nw2);margin-top:6px;line-height:1.7;}
+.tag-m{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.08em;border-radius:4px;padding:1px 7px;margin-right:6px;vertical-align:1px;}
+.tag-m.jisoku{background:rgba(76,178,134,.2);color:#8FD8B8;border:1px solid rgba(76,178,134,.5);}
+.tag-m.mikomi{background:rgba(74,144,217,.2);color:#9CC4F0;border:1px solid rgba(74,144,217,.5);}
+.tag-m.suitei{background:rgba(154,154,168,.2);color:#C9C9D2;border:1px solid rgba(154,154,168,.45);}
+.tag-m.kasetsu{background:rgba(165,105,217,.22);color:#C9A6E8;border:1px solid rgba(165,105,217,.55);}
+
+/* ===== CHART ===== */
+.chart-wrap{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:22px 22px 16px;margin:26px 0;}
+.chart-title{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:19px;font-weight:600;color:var(--white);margin-bottom:10px;}
+.chart-note{font-size:14px;color:var(--nw2);margin-bottom:10px;}
+svg text{font-family:'Oswald','Noto Sans JP',sans-serif;}
+svg .jp{font-family:'Noto Sans JP',sans-serif;}
+
+/* ===== TAKEAWAY ===== */
+.takeaway{background:linear-gradient(90deg,rgba(212,175,55,.14),rgba(212,175,55,.04));border:1.5px solid var(--gold2);border-radius:12px;padding:24px 28px;margin:30px 0 10px;}
+.takeaway .tw-lbl{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);}
+.takeaway .tw-txt{font-size:clamp(18px,2.2vw,23px);color:var(--white);font-weight:700;line-height:1.8;margin-top:8px;}
+
+/* ===== TIMELINE ===== */
+.tline{position:relative;margin:30px 0 10px;padding-left:34px;}
+.tline::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:3px;background:linear-gradient(180deg,var(--s2),var(--s3) 45%,var(--s4) 75%,var(--sD));border-radius:2px;}
+.tl-item{position:relative;margin-bottom:22px;}
+.tl-item::before{content:"";position:absolute;left:-30px;top:9px;width:13px;height:13px;border-radius:50%;background:var(--gold);border:2px solid var(--bg);}
+.tl-item.c2::before{background:var(--s2);} .tl-item.c3::before{background:var(--s3);}
+.tl-item.c4::before{background:var(--s4);} .tl-item.cD::before{background:var(--sD);}
+.tl-when{font-family:'Oswald','Noto Sans JP',sans-serif;font-size:19px;font-weight:700;color:var(--gold3);}
+.tl-what{font-size:17.5px;color:var(--nw);line-height:1.75;}
+.tl-what .who{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.06em;border-radius:4px;padding:1px 8px;margin-right:7px;vertical-align:1px;}
+.who.us{background:rgba(74,144,217,.2);color:#9CC4F0;border:1px solid rgba(74,144,217,.5);}
+.who.eu{background:rgba(76,178,134,.2);color:#8FD8B8;border:1px solid rgba(76,178,134,.5);}
+.who.cn{background:rgba(224,85,85,.18);color:#F0A0A0;border:1px solid rgba(224,85,85,.5);}
+.who.jp{background:rgba(212,175,55,.2);color:var(--gold3);border:1px solid rgba(212,175,55,.55);}
+.who.wd{background:rgba(165,105,217,.2);color:#C9A6E8;border:1px solid rgba(165,105,217,.5);}
+
+/* ===== FOOTER ===== */
+.footer{border-top:2px solid var(--gold2);margin-top:60px;padding-top:26px;font-size:14px;color:var(--nw2);line-height:1.9;}
+.footer .brand{font-family:'Oswald','Noto Sans JP',sans-serif;color:var(--gold);letter-spacing:.18em;margin-top:14px;font-size:13px;}
+.footer .disc{font-size:12.5px;color:#CFC9BB;margin-top:8px;}
+.ref h4{font-size:17px;color:var(--gold3);margin:18px 0 6px;}
+.ref p,.ref li{font-size:15px;color:var(--nw2);line-height:1.85;}
+.ref ul{padding-left:24px;}
+@media(max-width:640px){body{font-size:18px;} table.dt td{font-size:16px;} .kpi .k-val{font-size:38px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ================= HERO ================= -->
+<div class="hero">
+  <div class="kicker">OIL FLOW REPORT ── Why Oil Isn't Rising, and Japan's Real Risk</div>
+  <h1>皆（私も）<span class="kw kw-red">勘違い</span>している ──<br>原油価格が上がらない本当の<span class="kw kw-gold">理由</span>と、日本の本当の<span class="kw kw-red">危機</span></h1>
+  <div class="sub">ホルムズ封鎖106日（6/11にIRGCが正式閉鎖宣言・通航▲95%）。史上最大の供給途絶（▲1,280万B/D超）に対し、Brentは$93。<br>本レポートは「なぜ上がらないのか」を数量で解体し、その緩衝材が切れる順番と日付、そして<b>日本が置かれた本当の危機</b>（蛇口を米国に握られた構造）を明らかにする。</div>
+  <div class="date">2026.06.14 統合版 ── timeless（kizuna）/ UNIVERSAL COIN × MACRO INTELLIGENCE</div>
+</div>
+
+<!-- ================= §0 結論 ================= -->
+<section id="s0">
+  <div class="sec-head">
+    <span class="sec-num">EXECUTIVE SUMMARY</span>
+    <h2 class="sec-title">結論 ── 喪失14%が実効3%に圧縮されているから安い。それを支える2つの担い手と、1つの期限</h2>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi blue"><div class="k-lbl">① なぜ安い ── 喪失は粗14%、だが実効は</div><div class="k-val">3<span class="u">%</span></div><div class="k-meta"><span class="tag-m jisoku">実測</span>世界供給の粗喪失▲1,280万B/D（14%）を、緩衝材が差引いて<b>実効不足290万＝3%</b>へ圧縮。市場は14%でなくこの3%を価格付けしている（IEA）</div></div>
+    <div class="kpi blue"><div class="k-lbl">② その穴の需要側 ── 中国が一国で</div><div class="k-val">74<span class="u">%</span></div><div class="k-meta"><span class="tag-m jisoku">実測</span>世界の原油輸入減430万B/Dのうち<b>中国が320万＝74%</b>を買い控えで吸収。需給ギャップの4分の3を一国が埋める（JPM）</div></div>
+    <div class="kpi blue"><div class="k-lbl">③ その穴の供給側 ── 米国がアジア向けを</div><div class="k-val">約3<span class="u">倍</span></div><div class="k-meta"><span class="tag-m jisoku">実測</span>増産ゼロ（生産13.7横ばい）のまま、アジア向け輸出を<b>1.11→3.29百万B/D（約3倍）</b>へ。原資は自国の備蓄在庫の切り崩し（Kpler）</div></div>
+    <div class="kpi amber"><div class="k-lbl">④ で、いつ切れる ── 米国の閾値はまだ</div><div class="k-val" style="font-size:32px;">8月中旬<span class="u">〜9月下旬</span></div><div class="k-meta"><span class="tag-m mikomi">予測</span>SPR 349→<b>法定下限252.4</b>まで残96.6÷平均6/週≒16週。価格抑制の弾薬が尽きる交渉デッドライン。それまでは数ヶ月の猶予</div></div>
+  </div>
+
+  <div class="box">
+    <h3>1枚で言うと ── 価格ではなく「在庫と我慢」が市場を清算している</h3>
+    <p>供給の穴<b>▲1,280万B/D</b>のうち、迂回・闇通航・備蓄放出で<b>約990万</b>を物理的に埋め戻し、残り約290万を<span class="rd">中国の買い控え（輸入▲3.6mb/dの一部が世界の需給ギャップを吸収）と各国の在庫食いつぶし</span>で処理している。※中国の輸入減3.6mb/dそのものと、緩衝材差引後の実効不足290万は別レイヤー（前者は需要側の調整量、後者は世界全体の純不足）。本来この残りは「価格暴騰→需要破壊」で消えるはずの量であり、その必要価格がエクソンの言う<b>現物$150〜160</b>。現値$93との差＝<b>緩衝材の残量</b>である。だから問いは「上がるか」ではなく、<span class="gd">緩衝材が切れる順番と日付</span>に変わる。</p>
+  </div>
+</section>
+
+<!-- ================= §1 価格の真実 ================= -->
+<section id="s1">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 01 ── PRICE</span>
+    <h2 class="sec-title">① 価格の真実 ──「上がらない」のではなく「上がって、抑え込まれた」</h2>
+  </div>
+  <p class="sec-sub">Brentの実際の経路：開戦前$71.32 → 4月$100超 → <b>戦後ピーク$126.41</b>（日次・4月）→ <b>5月の月間平均$107</b>（EIA）→ 6月$91〜93へ反落。市場は粗の供給喪失14%ではなく、緩衝材差引後の<b>実効3%</b>を正確に価格付けしている。</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">◆ Brent価格の経路と「2つのレジーム」</div>
+    <svg viewBox="0 0 980 430" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- grid -->
+      <g stroke="#26262F" stroke-width="1">
+        <line x1="80" y1="60" x2="950" y2="60"/><line x1="80" y1="130" x2="950" y2="130"/>
+        <line x1="80" y1="200" x2="950" y2="200"/><line x1="80" y1="270" x2="950" y2="270"/>
+        <line x1="80" y1="340" x2="950" y2="340"/>
+      </g>
+      <g font-size="14" fill="#CFC9BB" text-anchor="end">
+        <text x="72" y="65">$200</text><text x="72" y="135">$160</text><text x="72" y="205">$120</text>
+        <text x="72" y="275">$80</text><text x="72" y="345">$40</text>
+      </g>
+      <!-- regime bands -->
+      <rect x="80" y="238" width="870" height="34" fill="rgba(74,144,217,0.13)"/>
+      <text x="86" y="232" font-size="13.5" fill="#9CC4F0" class="jp">レジームB帯（緩衝材あり・歴史値 $89〜107）── 現値はこの帯の中</text>
+      <rect x="80" y="118" width="870" height="36" fill="rgba(224,85,85,0.13)"/>
+      <text x="86" y="112" font-size="13.5" fill="#F0A0A0" class="jp">レジームA帯（緩衝材なし）── 需要破壊価格 $150〜160（Exxon現物推計）〜 1973/79型 $185〜280</text>
+      <!-- actual path -->
+      <path d="M110,303 L240,236 L330,196 L450,209 L560,236 L620,240" fill="none" stroke="#D4AF37" stroke-width="4.5" stroke-linecap="round"/>
+      <circle cx="110" cy="303" r="7" fill="#D4AF37" stroke="#F2EFE8" stroke-width="1.5"/>
+      <circle cx="330" cy="196" r="7" fill="#D4AF37" stroke="#F2EFE8" stroke-width="1.5"/>
+      <circle cx="450" cy="209" r="7" fill="#D4AF37" stroke="#F2EFE8" stroke-width="1.5"/>
+      <circle cx="620" cy="240" r="8" fill="#E8C766" stroke="#F2EFE8" stroke-width="2"/>
+      <text x="110" y="328" font-size="14.5" fill="#E8C766" text-anchor="middle" class="jp">2/27 $71.32</text>
+      <text x="330" y="180" font-size="14.5" fill="#E8C766" text-anchor="middle" class="jp">4月 $115圏（瞬間$100超え）</text>
+      <text x="455" y="195" font-size="14.5" fill="#E8C766" text-anchor="middle" class="jp">5月平均 $107</text>
+      <text x="622" y="266" font-size="15.5" fill="#E8C766" text-anchor="middle" font-weight="700" class="jp">現在 $93</text>
+      <!-- scenario fans -->
+      <path d="M620,240 L920,134" fill="none" stroke="#E05555" stroke-width="3.5" stroke-dasharray="9 7"/>
+      <path d="M620,240 L920,72" fill="none" stroke="#A569D9" stroke-width="3" stroke-dasharray="5 6"/>
+      <path d="M620,240 L920,262" fill="none" stroke="#4CB286" stroke-width="3.5" stroke-dasharray="9 7"/>
+      <text x="912" y="128" font-size="14.5" fill="#F0A0A0" text-anchor="end" class="jp">緩衝材切れ（④/D 60%）→ $150〜160</text>
+      <text x="912" y="66" font-size="14" fill="#C9A6E8" text-anchor="end" class="jp">1973/79型テール $185〜280</text>
+      <text x="912" y="285" font-size="14.5" fill="#8FD8B8" text-anchor="end" class="jp">②早期解放（30%）→ $80割れへ往復（1990型）</text>
+      <!-- x labels -->
+      <g font-size="14" fill="#CFC9BB" text-anchor="middle" class="jp">
+        <text x="110" y="372">2月</text><text x="240" y="372">3月</text><text x="330" y="372">4月</text>
+        <text x="450" y="372">5月</text><text x="620" y="372">6月（現在）</text><text x="800" y="372">切替後</text>
+      </g>
+      <text x="80" y="412" font-size="13.5" fill="#CFC9BB" class="jp">出所：CRS（$71.32）/ CAPA・CNBC（4月$100超）/ EIA STEO 6月号（5月平均$107）/ 実勢6/11。$93→$150は連続上昇ではなく、在庫の床（＝これ以上引けない最低ライン・§3で詳述）到達日に起きる不連続なレジーム切替。</text>
+    </svg>
+  </div>
+
+  <div class="box blue">
+    <h3>「実効3%」の算盤 ── 市場は間違っていない。緩衝材を正しく織り込んでいるだけ</h3>
+    <div class="chart-wrap" style="margin-top:14px;">
+      <div class="chart-title">◆ 「実効3%」の滝 ── 粗14%の喪失が、緩衝材で実効3%まで圧縮される</div>
+      <p class="chart-note"><span class="tag-m jisoku">実測</span>粗喪失（IEA）から、迂回PL・闇通航・協調備蓄放出を順に差し引く。残った実効不足だけが価格に効く。</p>
+      <svg viewBox="0 0 980 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+        <!-- Y grid -->
+        <g stroke="#26262F" stroke-width="1">
+          <line x1="90" y1="50" x2="930" y2="50"/><line x1="90" y1="120" x2="930" y2="120"/>
+          <line x1="90" y1="190" x2="930" y2="190"/><line x1="90" y1="260" x2="930" y2="260"/><line x1="90" y1="330" x2="930" y2="330"/>
+        </g>
+        <g font-size="13" fill="#CFC9BB" text-anchor="end">
+          <text x="82" y="54">1,280</text><text x="82" y="124">960</text><text x="82" y="194">640</text><text x="82" y="264">320</text><text x="82" y="334">0</text>
+        </g>
+        <text x="40" y="200" font-size="13" fill="#CFC9BB" transform="rotate(-90 40 200)" text-anchor="middle" class="jp">万B/D</text>
+
+        <!-- ① 粗喪失 1280 (full bar) -->
+        <rect x="130" y="50" width="120" height="280" fill="rgba(224,85,85,0.7)" rx="3"/>
+        <text x="190" y="40" font-size="22" fill="#F08080" font-weight="700" text-anchor="middle">1,280</text>
+        <text x="190" y="352" font-size="14" fill="#ECE8DF" text-anchor="middle" class="jp" font-weight="700">粗喪失</text>
+        <text x="190" y="370" font-size="12.5" fill="#F0A0A0" text-anchor="middle" class="jp">＝世界供給の14%</text>
+        <text x="190" y="386" font-size="11.5" fill="#CFC9BB" text-anchor="middle" class="jp">(IEA)</text>
+
+        <!-- ② 迂回PL -450 : floating 830-1280 -->
+        <rect x="300" y="50" width="110" height="98.4" fill="rgba(74,144,217,0.6)" rx="3"/>
+        <text x="355" y="103" font-size="17" fill="#9CC4F0" font-weight="700" text-anchor="middle">▲450</text>
+        <text x="355" y="352" font-size="13.5" fill="#9CC4F0" text-anchor="middle" class="jp">迂回PL</text>
+        <text x="355" y="369" font-size="11.5" fill="#CFC9BB" text-anchor="middle" class="jp">サウジ東西PL等</text>
+        <text x="355" y="384" font-size="11" fill="#CFC9BB" text-anchor="middle" class="jp">(Piper Sandler)</text>
+        <!-- connector -->
+        <line x1="250" y1="148.4" x2="300" y2="148.4" stroke="#CFC9BB" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+
+        <!-- ③ 闇通航 -210 : 620-830 -->
+        <rect x="460" y="148.4" width="110" height="46" fill="rgba(74,144,217,0.5)" rx="3"/>
+        <text x="515" y="142" font-size="17" fill="#9CC4F0" font-weight="700" text-anchor="middle">▲210</text>
+        <text x="515" y="352" font-size="13.5" fill="#9CC4F0" text-anchor="middle" class="jp">闇通航</text>
+        <text x="515" y="369" font-size="11.5" fill="#CFC9BB" text-anchor="middle" class="jp">トランスポンダ停止</text>
+        <text x="515" y="384" font-size="11" fill="#CFC9BB" text-anchor="middle" class="jp">(JPM)</text>
+        <line x1="410" y1="148.4" x2="460" y2="148.4" stroke="#CFC9BB" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+
+        <!-- ④ 協調放出 -330 : 290-620 -->
+        <rect x="620" y="194.4" width="110" height="72.2" fill="rgba(74,144,217,0.45)" rx="3"/>
+        <text x="675" y="188" font-size="17" fill="#9CC4F0" font-weight="700" text-anchor="middle">▲330</text>
+        <text x="675" y="352" font-size="13.5" fill="#9CC4F0" text-anchor="middle" class="jp">協調備蓄放出</text>
+        <text x="675" y="369" font-size="11.5" fill="#CFC9BB" text-anchor="middle" class="jp">IEA 4億÷120日</text>
+        <line x1="570" y1="194.4" x2="620" y2="194.4" stroke="#CFC9BB" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+
+        <!-- ⑤ 実効不足 290 (highlight) -->
+        <rect x="780" y="266.6" width="120" height="63.4" fill="rgba(232,199,102,0.85)" rx="3" stroke="#E8C766" stroke-width="2"/>
+        <text x="840" y="256" font-size="22" fill="#E8C766" font-weight="700" text-anchor="middle">290</text>
+        <text x="840" y="352" font-size="14" fill="#E8C766" text-anchor="middle" class="jp" font-weight="700">実効不足</text>
+        <text x="840" y="370" font-size="13" fill="#E8C766" text-anchor="middle" class="jp" font-weight="700">＝世界供給の3%</text>
+        <line x1="730" y1="266.6" x2="780" y2="266.6" stroke="#CFC9BB" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+      </svg>
+      <p class="chart-note" style="margin-top:8px;"><b style="color:#E8C766">読み筋：</b>赤(粗14%)から青(緩衝材)を3回引くと、金(実効3%)しか残らない。<b>市場は赤の14%でなく、金の3%を価格付けしている</b>。だから$93は「安すぎ」ではなく適正。問題は<b>この緩衝材（青3本）がいつ切れるか</b>。</p>
+    </div>
+
+    <p>粗喪失<b>▲1,280万B/D</b>（IEA） − 迂回パイプライン<b>+450万</b>（Piper Sandler） − 闇通航<b>+210万</b>（JPM） − 協調備蓄放出<b>+330万</b>（IEA 4億バレル÷120日） ＝ 実効不足<b>約290万B/D ≒ 世界供給の3%</b>。過去の「実効3%・緩衝材あり」局面（2003年・2011年・2022年）の価格反応は<b>1.3〜1.5倍</b>であり、$71×1.3＝$93の現値は歴史値ど真ん中。<span class="rd">異常なのは価格ではなく、緩衝材が「実効5〜6%・緩衝材なし」へ切り替わった瞬間の前例が1973年（4.0倍）と1979年（2.6倍）しかないこと</span>である。</p>
+    <p style="margin-top:10px;">さらに重要なのは、<b>再開ベースケースですら在庫は史上最低へ向かう</b>こと。EIAは「3Q26から通航が緩やかに再開」を前提にしてなお、OECD在庫が12月に<b>22.87億バレル（統計開始以来最低・50日分）</b>へ落ちると予測する。つまり②シナリオでも「在庫の薄さ」は2027年まで残り、価格の下値も切り上がる。</p>
+  </div>
+</section>
+
+<!-- ================= §2 世界フロー再編 ================= -->
+<section id="s2">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 02 ── GLOBAL FLOW</span>
+    <h2 class="sec-title">② 世界の石油は、いま誰が運び、誰が買っているのか</h2>
+  </div>
+  <p class="sec-sub">ホルムズ＝世界原油貿易の34%（約1,500万B/D・全石油で約2,000万B/D）が事実上停止。世界の地図は「中東→アジア」から「大西洋→アジア」へ書き換わった。</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">◆ 石油フローの地図が90日で書き換わった ── 戦前 → 現在（4-5月）</div>
+    <p class="chart-note"><span class="tag-m jisoku">実測</span>矢印の太さ＝流量。左＝供給源、右＝需要先。中東の蛇口が締まり（▲95%）、大西洋（特に米国）の蛇口が開いてアジアが奪い合う。</p>
+    <svg viewBox="0 0 980 470" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- 中央の区切り -->
+      <line x1="490" y1="40" x2="490" y2="430" stroke="#3A3A46" stroke-width="1.5" stroke-dasharray="6 6"/>
+      <text x="245" y="28" font-size="16" fill="#CFC9BB" text-anchor="middle" font-weight="700" class="jp">戦前（〜2月）</text>
+      <text x="735" y="28" font-size="16" fill="#E8C766" text-anchor="middle" font-weight="700" class="jp">現在（4-5月）</text>
+
+      <!-- ============ 左：戦前 ============ -->
+      <!-- 供給ノード -->
+      <rect x="40" y="80" width="115" height="48" rx="6" fill="rgba(224,85,85,0.25)" stroke="#E05555" stroke-width="1.5"/>
+      <text x="97" y="100" font-size="14" fill="#F0A0A0" text-anchor="middle" font-weight="700" class="jp">中東</text>
+      <text x="97" y="118" font-size="11.5" fill="#CFC9BB" text-anchor="middle" class="jp">ホルムズ経由</text>
+      <rect x="40" y="180" width="115" height="44" rx="6" fill="rgba(74,144,217,0.18)" stroke="#4A90D9" stroke-width="1.2"/>
+      <text x="97" y="207" font-size="13" fill="#9CC4F0" text-anchor="middle" class="jp">大西洋圏（米等）</text>
+      <!-- 需要ノード -->
+      <rect x="330" y="110" width="115" height="48" rx="6" fill="rgba(74,144,217,0.2)" stroke="#4A90D9" stroke-width="1.2"/>
+      <text x="387" y="130" font-size="14" fill="#9CC4F0" text-anchor="middle" font-weight="700" class="jp">アジア</text>
+      <text x="387" y="148" font-size="11.5" fill="#CFC9BB" text-anchor="middle" class="jp">中・日・韓・印</text>
+      <!-- 矢印 中東→アジア（太） -->
+      <path d="M155,104 C240,104 250,130 330,132" fill="none" stroke="#E05555" stroke-width="22" opacity="0.55" stroke-linecap="round"/>
+      <text x="245" y="100" font-size="13" fill="#F0A0A0" text-anchor="middle" font-weight="700" class="jp">13.2百万B/D</text>
+      <!-- 矢印 大西洋→アジア（細） -->
+      <path d="M155,200 C240,200 270,158 328,150" fill="none" stroke="#4A90D9" stroke-width="5" opacity="0.5" stroke-linecap="round"/>
+      <text x="250" y="185" font-size="11.5" fill="#9CC4F0" text-anchor="middle" class="jp">細い</text>
+
+      <!-- ============ 右：現在 ============ -->
+      <!-- 供給ノード -->
+      <rect x="525" y="80" width="120" height="48" rx="6" fill="rgba(224,85,85,0.15)" stroke="#E05555" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <text x="585" y="100" font-size="14" fill="#F0A0A0" text-anchor="middle" font-weight="700" class="jp">中東 ✕</text>
+      <text x="585" y="118" font-size="11.5" fill="#F0A0A0" text-anchor="middle" class="jp">通航▲95%（2隻/日）</text>
+      <rect x="525" y="175" width="120" height="54" rx="6" fill="rgba(76,178,134,0.25)" stroke="#4CB286" stroke-width="2"/>
+      <text x="585" y="196" font-size="14" fill="#8FD8B8" text-anchor="middle" font-weight="700" class="jp">大西洋圏（米国）</text>
+      <text x="585" y="214" font-size="11.5" fill="#8FD8B8" text-anchor="middle" class="jp">米輸出 3.9→5.2 記録</text>
+      <!-- 需要ノード：中国（細る）と 他アジア（奪い合い） -->
+      <rect x="830" y="95" width="115" height="50" rx="6" fill="rgba(224,85,85,0.18)" stroke="#E05555" stroke-width="1.2"/>
+      <text x="887" y="115" font-size="13.5" fill="#F0A0A0" text-anchor="middle" font-weight="700" class="jp">中国（買い控え）</text>
+      <text x="887" y="133" font-size="11.5" fill="#F0A0A0" text-anchor="middle" class="jp">11.5→7.9</text>
+      <rect x="830" y="190" width="115" height="60" rx="6" fill="rgba(74,144,217,0.22)" stroke="#4A90D9" stroke-width="1.5"/>
+      <text x="887" y="210" font-size="13.5" fill="#9CC4F0" text-anchor="middle" font-weight="700" class="jp">日・韓・印</text>
+      <text x="887" y="228" font-size="11" fill="#CFC9BB" text-anchor="middle" class="jp">日2.6→0.68</text>
+      <text x="887" y="243" font-size="11" fill="#CFC9BB" text-anchor="middle" class="jp">韓2.6→1.6 印5.2→4.4</text>
+      <!-- 中東→: ほぼ消えた（点線細） -->
+      <path d="M645,108 C720,108 740,118 830,118" fill="none" stroke="#E05555" stroke-width="3" stroke-dasharray="5 5" opacity="0.45"/>
+      <text x="735" y="98" font-size="11.5" fill="#F0A0A0" text-anchor="middle" class="jp">ほぼ消失</text>
+      <!-- 大西洋→他アジア（太く・緑） +350 -->
+      <path d="M645,205 C720,205 745,215 830,218" fill="none" stroke="#4CB286" stroke-width="20" opacity="0.55" stroke-linecap="round"/>
+      <text x="735" y="200" font-size="13" fill="#8FD8B8" text-anchor="middle" font-weight="700" class="jp">+350万B/D（急増）</text>
+      <!-- 大西洋→中国（細い・中国は自分で締めた） -->
+      <path d="M645,190 C720,175 770,150 828,140" fill="none" stroke="#4CB286" stroke-width="4" opacity="0.35" stroke-linecap="round"/>
+
+      <!-- 下部 結論ストリップ -->
+      <rect x="40" y="300" width="900" height="58" rx="8" fill="rgba(212,175,55,0.08)" stroke="rgba(212,175,55,0.4)" stroke-width="1"/>
+      <text x="60" y="325" font-size="14.5" fill="#E8C766" font-weight="700" class="jp">蛇口の付け替え：</text>
+      <text x="60" y="346" font-size="13.5" fill="#ECE8DF" class="jp">中東→アジア（13.2百万B/D）が断たれ、米ガルフ・ブラジル・西アフリカ産が喜望峰・パナマ経由でアジアへ。世界輸入は▲430万B/D、うち中国が74%（▲320万）を一国で吸収。</text>
+
+      <!-- CFR注記 -->
+      <text x="40" y="392" font-size="12.5" fill="#E0954A" class="jp">⚠ 輸送距離の長期化＝フレート高騰＝CFR（着値）上昇は、先物価格に表れない「第2のインフレ経路」。</text>
+      <!-- 需要(用途側)を畳んだ注記 -->
+      <text x="40" y="416" font-size="12.5" fill="#CFC9BB" class="jp">※ 別レイヤー（用途側の需要）：世界需要は2Q26で▲240万B/D。最大の削減は石化原料（ナフサ・LPG）、次いで航空（ジェット価格ほぼ3倍）。</text>
+      <text x="40" y="438" font-size="11.5" fill="#CFC9BB" class="jp" opacity="0.85">出所：IMF PortWatch（通航）・IEA OMR5月号・Kpler海上輸入・JPM（負担配分74%）。</text>
+    </svg>
+  </div>
+
+  <div class="takeaway">
+    <div class="tw-lbl">Section Takeaway</div>
+    <div class="tw-txt">世界は「中東の石油をアジアが買う」構造から、<br>「大西洋の石油を、中国以外のアジアが奪い合う」構造へ90日で変わった。<br>その新しい蛇口の元栓を握るのが ── 米国である。</div>
+  </div>
+</section>
+
+<!-- ================= §3 アメリカ ================= -->
+<section id="s3">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 03 ── UNITED STATES</span>
+    <h2 class="sec-title">③ アメリカ ── 増産・記録輸出の裏で、自国在庫は2段階で切れていく</h2>
+  </div>
+  <p class="sec-sub">米国は「原油（材料）」と「ガソリン等の製品（完成品）」で別の時計が回る。原料は年末まで持つが、完成品の床は夏に来る。そして床が見えた時、政治は<b>輸出の引き戻し</b>という伝家の宝刀に手をかける。</p>
+  <div class="box" style="border-left:4px solid var(--gold2);padding:14px 18px;margin:8px 0 4px;">
+    <p style="font-size:15px;margin:0;"><b style="color:var(--gold3);">用語：「床」とは</b> ── これ以上は<b>物理的に引き出せない最低在庫ライン</b>（＝枯渇ライン）。製油所・配管・タンクを動かすために常に残さなければならない量で、ここを割ると設備が回らなくなる。在庫がこの床に近づくと「もう出せない」不安から品薄・価格急騰が起きる。クッシング原油の「操業下限20」、ガソリンの「175〜185」がこれにあたる。</p>
+  </div>
+
+  <p class="sec-sub" style="margin-bottom:6px;font-size:15px;color:var(--nw2);">この章の4つの数字を「言葉」で言うと ── ①世界に売りまくり ②貯金は減るが期限はまだ先 ③自国は枯れない ④増産余地はゼロ。</p>
+  <div class="kpi-grid">
+    <div class="kpi blue"><div class="k-lbl">① 世界に売る ── アジア向け輸出を</div><div class="k-val">約3<span class="u">倍</span></div><div class="k-meta"><span class="tag-m jisoku">実測</span>1.11→3.29百万B/D（5ヶ月・Kpler）。総輸出も史上最高。中東を失ったアジアの穴を米国が埋める＝<b>日本が先頭買い</b></div></div>
+    <div class="kpi amber"><div class="k-lbl">② その原資(SPR)の弾薬は残り</div><div class="k-val">約4<span class="u">ヶ月</span></div><div class="k-meta"><span class="tag-m mikomi">予測</span>349→法定下限252.4まで残96.6÷平均6/週≒16週＝<b>8月中旬〜9月下旬</b>。43年ぶりの低水準だが、まだ数ヶ月の猶予</div></div>
+    <div class="kpi green"><div class="k-lbl">③ それでも自国ガソリンは</div><div class="k-val">枯れない</div><div class="k-meta"><span class="tag-m jisoku">実測</span>5月末に反発（10年ぶり季節最低からV字）。前年同等需要なら<b>今夏は床(=最低在庫)に着かない</b></div></div>
+    <div class="kpi"><div class="k-lbl">④ 増産余地は ── 製油所は</div><div class="k-val">全開</div><div class="k-meta"><span class="tag-m jisoku">実測</span>稼働率94.7%＝実用上限に到達済み。「原油をガソリンに転換」の蛇口は<b>すでに開ききっている</b>＝これ以上増やせない</div></div>
+  </div>
+
+  <div class="box" style="border-left:3px solid rgba(74,144,217,.4);padding:12px 16px;">
+    <p style="font-size:14.5px;margin:0;color:var(--nw2);"><b style="color:#9CC4F0;">用語：クッシング</b> ── WTI原油先物の現物受け渡し地点。在庫が操業下限（約20百万bbl）に近づくと「現物を受け取れない不安」で価格が跳ねるとされ「WTI発火点」と呼ばれる（2020年4月にはタンク満杯で<b>マイナス$37</b>の異常値）。<b>ただし本レポートでは主役でない</b>：2014年以降の主要6局面でクッシングが操業下限近くまで枯れても、WTIが跳ねたのは戦争要因が重なった局面だけ（残り4局面は$70台で無反応）＝枯渇単独では価格は動かない。価格の主役はSPRとガソリン。直近6/10は21.6百万bbl（下限20の目前）。</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">◆ 米国在庫の2段階消滅 ── SPR（国の貯金）とガソリン（完成品）は別の時計</div>
+    <div class="chart-note">実線＝EIA実測 ／ 破線＝現行ペースの機械延長。<b>予測ではなく「このままなら」の物差し。</b>2つは意味が違うので段を分けた（上＝原料の貯金／下＝完成品の在庫）。</div>
+
+    <!-- ===== 上段：SPR ===== -->
+    <div style="font-size:15px;color:#9CC4F0;font-weight:700;margin:6px 0 2px;">① SPR（国の原油貯金）── 価格抑制の弾薬は法定下限252.4で「通常放出」が尽きる</div>
+    <svg viewBox="0 0 980 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <g stroke="#26262F" stroke-width="1">
+        <line x1="90" y1="53.1" x2="930" y2="53.1"/><line x1="90" y1="114.6" x2="930" y2="114.6"/><line x1="90" y1="183.5" x2="930" y2="183.5"/>
+      </g>
+      <g font-size="13" fill="#CFC9BB" text-anchor="end"><text x="82" y="57">415</text><text x="82" y="118">252</text><text x="82" y="187">70</text></g>
+      <!-- 実測 415->349 -->
+      <path d="M150,53.1 L470,78.1" fill="none" stroke="#4A90D9" stroke-width="4.5" stroke-linecap="round"/>
+      <!-- 破線 349->252.4(法定下限) で止める＝ここが主役 -->
+      <path d="M470,78.1 L700,114.6" fill="none" stroke="#E05555" stroke-width="3.5" stroke-dasharray="9 7"/>
+      <!-- その先 物理底70は薄い参考 -->
+      <path d="M700,114.6 L900,183.5" fill="none" stroke="#4A90D9" stroke-width="2" stroke-dasharray="3 6" opacity="0.5"/>
+      <circle cx="150" cy="53.1" r="6" fill="#4A90D9" stroke="#F2EFE8" stroke-width="1.3"/>
+      <circle cx="470" cy="78.1" r="7.5" fill="#4A90D9" stroke="#F2EFE8" stroke-width="1.5"/>
+      <circle cx="700" cy="114.6" r="8.5" fill="#E05555" stroke="#F2EFE8" stroke-width="1.7"/>
+      <text x="150" y="44" font-size="14" fill="#9CC4F0" class="jp">415（開戦時）</text>
+      <text x="478" y="72" font-size="14.5" fill="#9CC4F0" font-weight="700" class="jp">349（現在・6/5）</text>
+      <!-- 法定下限ライン＋ラベル（右に逃がす） -->
+      <line x1="90" y1="114.6" x2="930" y2="114.6" stroke="#E05555" stroke-width="1.5" stroke-dasharray="6 5"/>
+      <text x="712" y="108" font-size="14" fill="#F0A0A0" font-weight="700" class="jp">法定下限252.4 ＝ 交渉デッドライン</text>
+      <text x="712" y="132" font-size="13.5" fill="#F0A0A0" font-weight="700" class="jp">到達：8月中旬〜9月下旬</text>
+      <!-- 物理底ラベル -->
+      <text x="908" y="180" font-size="12" fill="#9CC4F0" class="jp" text-anchor="end" opacity="0.8">物理底70（27年初頭・崖でない）</text>
+      <g font-size="13" fill="#CFC9BB" text-anchor="middle" class="jp"><text x="150" y="208">2月</text><text x="470" y="208">6月</text><text x="700" y="208">8-9月</text><text x="900" y="208">27年初</text></g>
+    </svg>
+
+    <!-- ===== 下段：ガソリン ===== -->
+    <div style="font-size:15px;color:#E0954A;font-weight:700;margin:14px 0 2px;">② ガソリン在庫（完成品）── 5月末に反発。前年型なら今夏は操業床に着かない</div>
+    <svg viewBox="0 0 980 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <g stroke="#26262F" stroke-width="1">
+        <line x1="90" y1="51" x2="930" y2="51"/><line x1="90" y1="95" x2="930" y2="95"/><line x1="90" y1="135" x2="930" y2="135"/>
+      </g>
+      <g font-size="13" fill="#CFC9BB" text-anchor="end"><text x="82" y="55">259</text><text x="82" y="99">215</text><text x="82" y="139">175</text></g>
+      <!-- 操業床ゾーン 175-185 -->
+      <rect x="90" y="125" width="840" height="10" fill="rgba(224,85,85,0.16)"/>
+      <text x="924" y="150" font-size="12.5" fill="#F0A0A0" class="jp" text-anchor="end">操業床175〜185（製油所・配管が回る最低在庫）</text>
+      <!-- 実測 259->215反発 -->
+      <path d="M150,51 L330,82 L470,95" fill="none" stroke="#E0954A" stroke-width="4.5" stroke-linecap="round"/>
+      <!-- 前年型外挿 215->8月末204->9月反発 -->
+      <path d="M470,95 L640,106 L760,100 L900,92" fill="none" stroke="#8FD8B8" stroke-width="3" stroke-dasharray="7 5"/>
+      <circle cx="150" cy="51" r="6" fill="#E0954A" stroke="#F2EFE8" stroke-width="1.3"/>
+      <circle cx="470" cy="95" r="7.5" fill="#E0954A" stroke="#F2EFE8" stroke-width="1.5"/>
+      <circle cx="640" cy="106" r="6.5" fill="#8FD8B8" stroke="#F2EFE8" stroke-width="1.3"/>
+      <text x="150" y="42" font-size="14" fill="#E0954A" class="jp">259（戦前）</text>
+      <text x="478" y="89" font-size="14.5" fill="#E0954A" font-weight="700" class="jp">215（5月末・反発）</text>
+      <text x="648" y="100" font-size="13" fill="#8FD8B8" font-weight="700" class="jp">8月末≒204</text>
+      <text x="846" y="86" font-size="13" fill="#8FD8B8" class="jp" text-anchor="end">9月反発（床に着かない）</text>
+      <g font-size="13" fill="#CFC9BB" text-anchor="middle" class="jp"><text x="150" y="178">2月</text><text x="470" y="178">6月</text><text x="640" y="178">8月末</text><text x="900" y="178">9-10月</text></g>
+    </svg>
+    <p class="chart-note" style="margin-top:10px;"><b style="color:#F0A0A0">読み筋：</b>上段＝SPRは平均▲6百万/週で<b>8月中旬〜9月下旬に法定下限252.4</b>へ。ここで「通常放出」という弾薬が尽き、追加放出は議会関与＝政治コストが跳ねる。下段＝ガソリンは5月末に反発し、<b>前年(2025)夏のパターンなら今夏は操業床に着かない</b>。＝米国の真の臨界点はガソリン床でなく<b>SPR法定下限</b>。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="dt">
+      <thead><tr><th style="text-align:left">米国の臨界点</th><th>現在値</th><th>床</th><th>到達見込み</th><th style="text-align:left">根拠</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="mlbl">SPR法定下限（最重要）</td><td>349<br><span style="font-size:13px;color:#CFC9BB">(6/5)</span></td><td>252.4</td><td class="big neg">8月中旬〜9月下旬</td><td class="src"><span class="tag-m mikomi">予測</span>平均▲6百万/週の機械延長（直近9百万はスパイク）。通常放出の法的リミット＝交渉デッドライン。物理底70は27年初頭で崖ではない</td></tr>
+        <tr class="hot"><td class="mlbl">ガソリン小売（全米平均）</td><td>月次$4.61<br><span style="font-size:13px;color:#CFC9BB">(5月)</span></td><td>$5.02<br>（22年最高値）</td><td class="big">$5.02に<br>未到達</td><td class="src"><span class="tag-m jisoku">実測</span>月次5月$4.61（前年比+41%・底1月$2.94から+57%）。あと<b>$0.41</b>で22年最高値$5.02だが、週次レギュラーは6月$4.4前後へ反落。緩衝材は<b>$5.02の手前で天井を作っている</b>＝突破すれば政治臨界(輸出制限)へ</td></tr>
+        <tr><td class="mlbl">ガソリン在庫</td><td>215</td><td>175〜185</td><td>前年型なら今夏未到達</td><td class="src"><span class="tag-m jisoku">実測+推計</span>5月末反発。前年(2025)夏の実パターン=週▲0.94・9月反発を当てると8月末≒204＝床に着かない</td></tr>
+        <tr><td class="mlbl">クッシング原油<br><span style="font-size:12px;color:#CFC9BB">（参考・主役でない）</span></td><td>21.6<br><span style="font-size:13px;color:#CFC9BB">(6/10)</span></td><td>20</td><td>7月初に接触見込み</td><td class="src"><span class="tag-m jisoku">実測</span>WTI現物受渡地点だが、2014年以降の6局面で枯れても跳ねたのは戦争重複時のみ＝枯渇単独では動かず、緩衝材②の症状であって主役でない</td></tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box red">
+    <h3>政治トリガーの算出 ── いつ・どれだけ・誰への輸出を削るか</h3>
+    <p><b>トリガー価格：</b>全米平均ガソリン<b>$5.02超え（2022年バイデン期の史上最高値の更新）</b>。月次全等級は5月$4.61（前年比+41%）で<b>$5.02の手前$0.42</b>。週次は6月に反落の兆しだが、緩衝材は「価格を下げる」のでなく<b>$5.02の天井手前で止めている</b>。ここを超えれば11月3日の中間選挙を前に政権が動かない理由がなくなる。前例：バイデン政権は2022年に製品輸出制限を公式検討、中国は今回開戦直後に実施済み（NDRC口頭指示）。</p>
+    <p><b>削減メニュー（政治コストの安い順）：</b></p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="dt">
+      <thead><tr><th>優先順</th><th style="text-align:left">削減対象</th><th>規模</th><th>主な被弾国</th><th>政治コスト</th><th style="text-align:left">理由</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="big">1</td><td class="mlbl">アジア向け原油スポット</td><td class="big neg">▲50〜100万B/D</td><td class="big">日本・韓国</td><td>最小</td><td class="src"><span class="tag-m kasetsu">仮説</span>4月に始まったばかりの新規顧客・長期契約なし・スポット主体。国内精製に回せば即ガソリン+50万B/D相当。安保カードで沈黙を強制できる</td></tr>
+        <tr><td class="big">2</td><td class="mlbl">ガソリン輸出（非メキシコ分）</td><td class="neg">▲30〜38万B/D</td><td>中南米諸国</td><td>小</td><td class="src"><span class="tag-m kasetsu">仮説</span>輸出88万のうちメキシコ49.5万は陸続きの構造固定客で切れない。残り38万が調整弁</td></tr>
+        <tr><td class="big">3</td><td class="mlbl">欧州向け中間留分</td><td class="neg">▲20万B/D</td><td>EU・英国</td><td>大（NATO）</td><td class="src"><span class="tag-m kasetsu">仮説</span>ディーゼル39.6万＋ジェット15万。欧州のジェット危機（§4）を直撃するため最後の手段</td></tr>
+        <tr><td class="big">4</td><td class="mlbl">メキシコ向け</td><td>維持</td><td>—</td><td>不可</td><td class="src">国境政治・パイプライン・USMCA。事実上の国内市場</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-cap"><span class="tag-m kasetsu">仮説</span>順位と数量は本レポートの算定（事実：輸出量・仕向地・前例。仮説：切る順番）。<b>第1候補が日本である理由は感情ではなく契約構造</b> ── 最も新しく、最も短期で、最も代替先のない買い手だから。</p>
+  </div>
+
+  <div class="takeaway">
+    <div class="tw-lbl">Section Takeaway</div>
+    <div class="tw-txt">米国の床防衛＝輸出の引き戻し＝<span style="color:#F0A0A0">不足の輸出</span>。<br>請求書の宛先第1位は、4月から米国の蛇口にぶら下がった新規顧客 ── 日本。</div>
+  </div>
+</section>
+<!-- ================= §4 EU ================= -->
+<section id="s4">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 04 ── EUROPE</span>
+    <h2 class="sec-title">④ 欧州 ── ジェット燃料、数字で見る「最初に折れる完成品」</h2>
+  </div>
+  <p class="sec-sub">ニュースで騒がれる「EUのジェット燃料枯渇」を数量と比率に分解する。下の構造図がすべての出発点：欧州は<b>需要160万B/Dのうち50万を輸入に頼り、その輸入の<b>約60〜75%</b>が中東産</b>だった（SocGen 75%＝海峡経由分／ICIS 60%＝中東産全体・母数が異なる）。封鎖でこの中東分がほぼゼロになった。<span class="rd">37.5万 ÷ 需要160万 ＝ 需要の約23%が物理的に欠けた</span>──これが「23%」の正体（出所：SocGen/IEA）。代替で半分しか埋まらず、差額は在庫の取崩しで賄うため、在庫日数が下の「23日ライン」へ落ちていく。</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">◆ 欧州ジェット燃料の需給構造（万B/D）── どこが欠けたか</div>
+    <svg viewBox="0 0 980 322" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- demand bar -->
+      <text x="80" y="52" font-size="16" fill="#F2EFE8" font-weight="700" class="jp">需要 160万B/D</text>
+      <rect x="80" y="64" width="800" height="46" fill="rgba(154,154,168,0.25)" rx="5"/>
+      <text x="888" y="94" font-size="15" fill="#CFC9BB" class="jp">＝100%</text>
+      <!-- supply bar stacked -->
+      <text x="80" y="158" font-size="16" fill="#F2EFE8" font-weight="700" class="jp">供給の内訳（域内精製＝欧州の製油所が自前で作る分／輸入＝外から買う分）</text>
+      <rect x="80" y="170" width="550" height="46" fill="rgba(74,144,217,0.5)" rx="5"/>
+      <text x="355" y="199" font-size="16" fill="#F2EFE8" text-anchor="middle" font-weight="700" class="jp">域内精製 110（69%）</text>
+      <rect x="630" y="170" width="63" height="46" fill="rgba(76,178,134,0.55)"/>
+      <text x="661" y="199" font-size="13.5" fill="#F2EFE8" text-anchor="middle" class="jp">他輸入</text>
+      <rect x="693" y="170" width="187" height="46" fill="rgba(224,85,85,0.6)" rx="0"/>
+      <text x="786" y="192" font-size="15.5" fill="#FFE0E0" text-anchor="middle" font-weight="700" class="jp">中東輸入 37.5（23%）</text>
+      <text x="786" y="210" font-size="13" fill="#FFD0D0" text-anchor="middle" class="jp">→ 封鎖でゼロ</text>
+      <!-- replacement : 中東輸入37.5万の穴(x693-880)を3分割で埋める -->
+      <text x="80" y="262" font-size="16" fill="#F2EFE8" font-weight="700" class="jp">代替の積み上げ（中東37.5万の穴をどう埋めるか）</text>
+      <rect x="693" y="274" width="75" height="40" fill="rgba(74,144,217,0.55)" rx="4"/>
+      <text x="730" y="290" font-size="12.5" fill="#F2EFE8" text-anchor="middle" class="jp">米国</text>
+      <text x="730" y="306" font-size="12.5" fill="#F2EFE8" text-anchor="middle" class="jp">15</text>
+      <rect x="771" y="274" width="48" height="40" fill="rgba(76,178,134,0.55)" rx="4"/>
+      <text x="795" y="290" font-size="11.5" fill="#F2EFE8" text-anchor="middle" class="jp">アジア</text>
+      <text x="795" y="306" font-size="12.5" fill="#F2EFE8" text-anchor="middle" class="jp">5</text>
+      <rect x="822" y="274" width="58" height="40" fill="none" stroke="#E05555" stroke-width="2" stroke-dasharray="5 4" rx="4"/>
+      <text x="851" y="290" font-size="11.5" fill="#F0A0A0" text-anchor="middle" class="jp">未充足</text>
+      <text x="851" y="306" font-size="12.5" fill="#F0A0A0" text-anchor="middle" class="jp">〜17</text>
+    </svg>
+    <p class="chart-note" style="margin-top:12px;">IEA「喪失の半分強しか代替できていない」。米国はジェット輸出を平時の6倍（15万B/D）へ増やしたが、穴は半分しか埋まらない。残り約17万B/D＝在庫の取崩しで賄うしかなく、その在庫が23日閾値へ向かっている。</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">◆ 欧州ジェット在庫日数 ── 時点と確度を明記（日分）</div>
+    <p class="chart-note"><span class="tag-m jisoku">実測</span>2025末37日（IEA）　<span class="tag-m mikomi">予測</span>6〜8月＝Goldman（5月時点）。間の4-5月は安全圏（CAPA）、平年は年央30日前後まで低下するのが通常。今夏は戦争でそれを下回る軌道。</p>
+    <svg viewBox="0 0 940 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- gridlines + Y labels -->
+      <line x1="80" y1="88" x2="900" y2="88" stroke="#2A2A36" stroke-width="1"/><text x="72" y="92" text-anchor="end" font-size="13" fill="#CFC9BB">40日</text>
+      <line x1="80" y1="153" x2="900" y2="153" stroke="#2A2A36" stroke-width="1"/><text x="72" y="157" text-anchor="end" font-size="13" fill="#CFC9BB">30日</text>
+      <line x1="80" y1="219" x2="900" y2="219" stroke="#2A2A36" stroke-width="1"/><text x="72" y="223" text-anchor="end" font-size="13" fill="#CFC9BB">23日</text>
+      <line x1="80" y1="247" x2="900" y2="247" stroke="#2A2A36" stroke-width="1"/><text x="72" y="251" text-anchor="end" font-size="13" fill="#CFC9BB">20日</text>
+      <line x1="80" y1="293" x2="900" y2="293" stroke="#2A2A36" stroke-width="1"/><text x="72" y="297" text-anchor="end" font-size="13" fill="#CFC9BB">15日</text>
+      <!-- 23日危機閾値ライン（強調） -->
+      <line x1="80" y1="219" x2="900" y2="219" stroke="#E05555" stroke-width="1.5" stroke-dasharray="7 5"/>
+      <text x="900" y="212" text-anchor="end" font-size="13" fill="#F08080" font-weight="700" class="jp">IEA危機閾値 23日（給油制限・配給が始まる警戒線）</text>
+      <!-- 29日 平常下限 参照 -->
+      <line x1="80" y1="163" x2="900" y2="163" stroke="#4A90D9" stroke-width="1.2" stroke-dasharray="4 4" opacity="0.6"/>
+      <text x="84" y="178" font-size="12.5" fill="#9CC4F0" class="jp">IEA平常下限 29日（2020年以降割れたことがない）</text>
+      <!-- 平年の年央水準（参考・薄） -->
+      <text x="300" y="148" font-size="12" fill="#CFC9BB" class="jp">（平年は年央30日前後まで低下するのが通常）</text>
+      <!-- 実線：実測 25末37日 → 6月23日 -->
+      <polyline points="110,88 430,219" fill="none" stroke="#4A90D9" stroke-width="3"/>
+      <!-- 破線：予測 6月23→7月20→8月15 -->
+      <polyline points="430,219 620,247 810,293" fill="none" stroke="#E05555" stroke-width="2.5" stroke-dasharray="7 5"/>
+      <!-- 点とラベル -->
+      <circle cx="110" cy="88" r="6" fill="#4A90D9"/><text x="110" y="76" text-anchor="middle" font-size="15" fill="#9CC4F0" font-weight="700">37日</text><text x="110" y="372" text-anchor="middle" font-size="13" fill="#CFC9BB" class="jp">2025末</text><text x="110" y="388" text-anchor="middle" font-size="11" fill="#9CC4F0" class="jp">実測</text>
+      <circle cx="430" cy="219" r="6" fill="#E05555"/><text x="430" y="207" text-anchor="middle" font-size="15" fill="#F08080" font-weight="700">23日</text><text x="430" y="372" text-anchor="middle" font-size="13" fill="#CFC9BB" class="jp">6月</text><text x="430" y="388" text-anchor="middle" font-size="11" fill="#F0A0A0" class="jp">予測</text>
+      <circle cx="620" cy="247" r="6" fill="#E05555"/><text x="620" y="235" text-anchor="middle" font-size="15" fill="#F08080" font-weight="700">20日</text><text x="620" y="372" text-anchor="middle" font-size="13" fill="#CFC9BB" class="jp">7月</text><text x="620" y="388" text-anchor="middle" font-size="11" fill="#F0A0A0" class="jp">予測</text>
+      <circle cx="810" cy="293" r="6" fill="#E05555"/><text x="810" y="281" text-anchor="middle" font-size="15" fill="#F08080" font-weight="700">15日</text><text x="810" y="372" text-anchor="middle" font-size="13" fill="#CFC9BB" class="jp">8月</text><text x="810" y="388" text-anchor="middle" font-size="11" fill="#F0A0A0" class="jp">予測</text>
+    </svg>
+    <p class="chart-note" style="margin-top:10px;"><b style="color:#F0A0A0">一言：</b>確実なのは「2025末37日（実測）」と「6→7→8月＝23→20→15日（Goldman予測・5月時点）」の2点群。間の4-5月は安全圏で、6月に閾値割れする軌道。ARA量ベースでは<b>開戦から一直線に▲50%</b>（Rystad）。</p>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="k-lbl">輸入の中東依存（戦前）</div><div class="k-val">60–75<span class="u">%</span></div><div class="k-meta"><span class="tag-m jisoku">実測</span>SocGen 75%（海峡経由分）／ICIS 60%（中東産全体）。母数が異なるため幅で表記</div></div>
+    <div class="kpi red"><div class="k-lbl">在庫日数（6月時点）</div><div class="k-val">23<span class="u">日割れ進行</span></div><div class="k-meta">25年末37日→4月ARA6年ぶり低水準→<b>6月に23日閾値割れがGS予測通り進行</b>。複数国は既に20日未満。7月20日/8月15日へ低下予測</div></div>
+    <div class="kpi red"><div class="k-lbl">死蔵在庫の罠（全世界共通）</div><div class="k-val">約20<span class="u">%</span></div><div class="k-meta">どの国の「在庫◯日分」も、下部2割は引けず実効は約8掛け（欧23日→実効18日／日本の国家系110日→実効88日）。詳細§4-2</div></div>
+    <div class="kpi red"><div class="k-lbl">ジェット価格（6月）</div><div class="k-val">$181<span class="u">超</span></div><div class="k-meta">2月比2倍超・欧州スポット$187。$150超でLCC連鎖破綻ライン（Spirit運航停止済）。精製側は「max jet first」でも得率10→13%が限界</div></div>
+  </div>
+
+  <div class="box blue">
+    <h3>なぜ「23日」が閾値なのか ── 在庫日数と物理的な品切れの関係</h3>
+    <p>ジェット燃料は<b>船とパイプラインで運ばれ、空港でタンクに貯められる</b>。在庫日数とは「いま空港圏にある燃料が、補充ゼロなら何日分の給油に足りるか」。IEAの基準では<span class="bl">29日が平常の下限</span>（2020年以降割れたことがない）、そして<span class="rd">23日を割ると「一部の空港で物理的な品切れ（給油できない）が始まる」</span>とされる（IEA／Goldman）。なぜ0日ではなく23日で品切れるのか ── ①§4-2の死蔵在庫（タンク下部20%は引けない）、②燃料は空港間を即座に移せず偏在する（ある空港は余り、ある空港はゼロ）、③物流のリードタイム（船は数週間かかる）。だから「23日分ある」は「23日後に尽きる」ではなく、<b>その手前で局所的な給油制限・欠航が出始める警戒線</b>を意味する。実際イタリアでは在庫が残っているうちから4空港で給油上限が発動した（§4-3）。</p>
+    <p style="margin-top:10px;font-size:16px;color:var(--nw2);">IEAバロル事務局長は4月時点で「欧州はあと6週間ぶんのジェット燃料」と発言。Goldmanは<b>6月に23日割れ → 7月に20日 → 8月に15日</b>と低下を予測。15日は小空港の閉鎖もありうる水準。夏の旅行ピーク（需要最大）と在庫最低が重なる「夏のパラドックス」が核心。</p>
+  </div>
+
+  <div class="box red">
+    <h3>すでに起きていること ── 価格は3倍、航空会社は「配給制」へ</h3>
+    <p>ジェット燃料価格は中東途絶で<b>ほぼ3倍化</b>（IEA）。$150/bbl超が続けばLCCの連鎖破綻ライン（米Spirit Airlinesは既に運航停止）。5月の世界航空供給席数は▲3pt・上位20社中19社が減便、Lufthansaは最大40機を地上待機、Unitedは2-3Qの供給5%削減＝燃料費年+110億ドル。<span class="rd">最も危険なのは輸入依存65%の英国</span>（GS「配給の可能性」）。一方スペインは純輸出国 ── 同じEU内でも明暗は分かれ、域内の燃料争奪が始まっている。北東アジア（韓国・中国）からの対欧ジェット輸出も6月に約1年ぶり高水準（280万バレル）＝<b>アジアの余剰が欧州へ吸われ、日本が買う市場はさらに薄くなる</b>。実害も顕在化：イタリアは4月、ボローニャ・ミラノ・トレヴィソ・ヴェネツィアの4空港で給油制限（Air BP Italia供給制約）。</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">◆ 地域別ジェット在庫の削減率（戦前比・量ベース）── 緩衝材の非対称が一目で分かる</div>
+    <p class="chart-note"><span class="tag-m jisoku">実測</span>Fortune/Goldman(Grigsby)。米国だけ0%維持＝「アメリカ強し」の直接証明。アジアが最も削られ、欧州は製油所のジェット増産で▲21%に留まる。</p>
+    <svg viewBox="0 0 940 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- 横棒 6本：韓66 日46 英41 台41 欧21 米0。x軸0%→70% を 200→880 -->
+      <!-- scale: 1% = (880-200)/70 = 9.714 px -->
+      <line x1="200" y1="30" x2="200" y2="260" stroke="#2A2A36" stroke-width="1"/>
+      <text x="200" y="280" text-anchor="middle" font-size="12" fill="#CFC9BB">0%</text>
+      <text x="540" y="280" text-anchor="middle" font-size="12" fill="#CFC9BB">▲35%</text>
+      <text x="880" y="280" text-anchor="middle" font-size="12" fill="#CFC9BB">▲70%</text>
+      <!-- 韓国 66 -->
+      <text x="190" y="56" text-anchor="end" font-size="15" fill="#ECE8DF" font-weight="700" class="jp">韓国</text>
+      <rect x="200" y="42" width="641" height="26" fill="#E05555" rx="3"/><text x="851" y="60" font-size="14" fill="#F08080" font-weight="700">▲66%</text>
+      <!-- 日本 46 -->
+      <text x="190" y="92" text-anchor="end" font-size="15" fill="#ECE8DF" font-weight="700" class="jp">日本</text>
+      <rect x="200" y="78" width="447" height="26" fill="#E0954A" rx="3"/><text x="657" y="96" font-size="14" fill="#F0B87E" font-weight="700">▲46%</text>
+      <!-- 英国 41 -->
+      <text x="190" y="128" text-anchor="end" font-size="15" fill="#ECE8DF" font-weight="700" class="jp">英国</text>
+      <rect x="200" y="114" width="398" height="26" fill="#E0954A" rx="3"/><text x="608" y="132" font-size="14" fill="#F0B87E" font-weight="700">▲41%</text>
+      <!-- 台湾 41 -->
+      <text x="190" y="164" text-anchor="end" font-size="15" fill="#ECE8DF" font-weight="700" class="jp">台湾</text>
+      <rect x="200" y="150" width="398" height="26" fill="#E0954A" rx="3"/><text x="608" y="168" font-size="14" fill="#F0B87E" font-weight="700">▲41%</text>
+      <!-- 欧州 21 -->
+      <text x="190" y="200" text-anchor="end" font-size="15" fill="#ECE8DF" font-weight="700" class="jp">欧州全体</text>
+      <rect x="200" y="186" width="204" height="26" fill="#4A90D9" rx="3"/><text x="414" y="204" font-size="14" fill="#9CC4F0" font-weight="700">▲21%</text>
+      <!-- 米国 0 -->
+      <text x="190" y="236" text-anchor="end" font-size="15" fill="#8FD8B8" font-weight="700" class="jp">米国</text>
+      <rect x="200" y="222" width="6" height="26" fill="#4CB286" rx="3"/><text x="214" y="240" font-size="14" fill="#8FD8B8" font-weight="700" class="jp">0%（維持）</text>
+    </svg>
+    <p class="chart-note" style="margin-top:10px;"><b style="color:#8FD8B8">読み筋：</b>同じ封鎖でも、米国は自国在庫を一切削らず（0%）、欧州は▲21%、アジア（韓・日・台）は▲41〜66%と削られた。この非対称こそ「米国が世界の蛇口を握る」（§3）の在庫面の証拠。日本▲46%は、調達を米国采配圏に移したうえで在庫も削られている二重の脆弱性。</p>
+  </div>
+
+  <!-- §4-2 死蔵在庫 -->
+  <div class="sec-head" style="border-left-color:var(--s4);margin-top:40px;">
+    <span class="sec-num" style="color:#F0A0A0">SECTION 04-2 ── DEAD STOCK</span>
+    <h2 class="sec-title" style="font-size:clamp(20px,2.6vw,28px);">「死蔵在庫」は欧州だけの話ではない ── 世界中の備蓄日数が水増しされている</h2>
+  </div>
+  <p class="sec-sub">タンク下部20%ルールは物理法則であり、欧州・日本・米国・全産油消費国に等しく効く。つまり<b>各国が発表する「在庫◯日分」は、実際に使える量より2割ほど厚く見えている</b>。これは本レポート全体の臨界点を前倒しする横断的な補正項である。</p>
+
+  <div class="box red">
+    <h3>3層の「最後まで引けない油」── ヘッドライン在庫の正体</h3>
+    <p>市場ベテランJeff Currie（カーライル）の警告：<span class="rd">「世界の在庫統計のヘッドライン値は誤解を招く。貯蔵された油の多くは即座には使えない」</span>。JPモルガンは在庫を3層の玉ねぎで整理する ── ①洋上・浮遊在庫 → ②陸上商業在庫 → ③戦略備蓄。そして各層に「最後まで引けない油」が埋まっている：</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="dt">
+      <thead><tr><th style="text-align:left">引けない油の種類</th><th>規模</th><th style="text-align:left">物理的な理由（Goldman / JPM / EIA）</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="mlbl">タンク下部（tank bottoms）</td><td class="big neg">約20%</td><td class="src"><span class="tag-m jisoku">実測</span>浮き屋根式は屋根を浮かせるため下部約2割を常時残す必要。陸上貯蔵の大半がこの方式（Goldman）。1.3m以上の油深がないと屋根の脚が着座し機能停止</td></tr>
+        <tr><td class="mlbl">パイプライン充填（line fill）</td><td>大</td><td class="src"><span class="tag-m jisoku">実測</span>配管は全長に油が満ちて初めて動く。抜けば送油停止。米国ではline fill+lease stockで在庫定義の約30%（1.2億bbl）に相当</td></tr>
+        <tr><td class="mlbl">製油所の操業下限</td><td>65%</td><td class="src"><span class="tag-m jisoku">実測</span>稼働率65%（ターンダウン）を割ると装置が劣化・採算割れ。これ以下には落とせない（Goldman）</td></tr>
+        <tr><td class="mlbl">ターミナル最低在庫</td><td>各所</td><td class="src"><span class="tag-m jisoku">実測</span>「実務上、意図的に避けられる最後のバレル」（JPM）。統計には載るが市場には出ない</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-cap">結論：公表「在庫日数」から実効で約2割を割り引くべき。Currieのタイムライン ──「アジアは既に操業下限近辺、欧州はあと1ヶ月、米国は7月が問題」── は、本レポート§3・§7の日付と完全に一致する。</p>
+  </div>
+
+  <div class="box blue">
+    <h3>日本への当てはめ ── 「110日」（国家系）の実効はもっと薄い</h3>
+    <p>日本の放出可能な国家系は<b>6/8時点で110日</b>（国家107+共同3）も同じ補正を受ける。仮に死蔵20%なら、110日の実効使用可能分は<b>約88日相当</b>。さらに民間92日は運転在庫で全量可動ではない ── <span class="rd">「日数」表示は二重に楽観的</span>である。本レポートが枯渇時期を「国家系12月／民間込み27年中頃」と幅で示すのは、この死蔵分の不確実性を織り込むため。発表日数をそのまま安全余裕と読むのは、欧州ジェットで起きている「37日あるのに給油制限」と同じ落とし穴にはまる。</p>
+  </div>
+</section>
+
+<!-- ================= §4-3 備蓄脆弱国 ================= -->
+<section id="s4b">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 04-3 ── FRAGILE STATES</span>
+    <h2 class="sec-title">④-3 備蓄が薄い国は、いまどうしているか ── 6月最新の各国状況</h2>
+  </div>
+  <p class="sec-sub">日本の立ち位置を測るには、もっと脆い国々の現実が定点になる。まず<b>各国の備蓄日数を同一基準で並べる</b>（IEEFA/IEA）。次に、3月の初動から6月の現在まで、政策の打ち手がどこまで進んだかを見る。</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">◆ 主要国の石油備蓄日数 ── 同一基準の縦比較（IEEFA 2026、民間込み総量）</div>
+    <svg viewBox="0 0 980 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- threshold lines (ラベルは上端に逃がす) : x0=200, 1日=2.72px -->
+      <line x1="444.8" y1="36" x2="444.8" y2="318" stroke="#E05555" stroke-width="1.4" stroke-dasharray="5 5"/>
+      <text x="444.8" y="28" font-size="12.5" fill="#F0A0A0" text-anchor="middle" class="jp">IEA90日（国際義務）</text>
+      <line x1="363.2" y1="36" x2="363.2" y2="318" stroke="#E0954A" stroke-width="1.1" stroke-dasharray="4 4" opacity="0.7"/>
+      <text x="363.2" y="28" font-size="12" fill="#E0954A" text-anchor="middle" class="jp">60日</text>
+      <g class="jp">
+        <text x="190" y="56" font-size="15" fill="#E8C766" text-anchor="end" font-weight="700">日本</text>
+        <rect x="200" y="44" width="546.7" height="22" fill="rgba(212,175,55,0.5)" rx="3"/>
+        <rect x="746.7" y="44" width="87.1" height="22" fill="rgba(212,175,55,0.22)" rx="3"/>
+        <text x="840" y="61" font-size="13.5" fill="#E8C766" font-weight="700">速報201→確報233日</text>
+        <text x="190" y="94" font-size="15" fill="#9CC4F0" text-anchor="end">韓国</text>
+        <rect x="200" y="82" width="565.8" height="22" fill="rgba(74,144,217,0.5)" rx="3"/>
+        <text x="773" y="99" font-size="15" fill="#9CC4F0" font-weight="700">208日</text>
+        <text x="190" y="132" font-size="15" fill="#F0A0A0" text-anchor="end">中国</text>
+        <rect x="200" y="120" width="326.4" height="22" fill="rgba(224,85,85,0.45)" rx="3"/>
+        <text x="534" y="137" font-size="15" fill="#F0A0A0" font-weight="700">120日</text>
+        <text x="190" y="170" font-size="15" fill="#CFC9BB" text-anchor="end">タイ</text>
+        <rect x="200" y="158" width="288.3" height="22" fill="rgba(176,176,190,0.4)" rx="3"/>
+        <text x="496" y="175" font-size="15" fill="#CFC9BB" font-weight="700">106日</text>
+        <text x="190" y="208" font-size="14.5" fill="#FF9090" text-anchor="end" font-weight="700">フィリピン</text>
+        <rect x="200" y="196" width="122.4" height="22" fill="rgba(224,85,85,0.7)" rx="3"/>
+        <text x="330" y="213" font-size="15" fill="#FF9090" font-weight="700">45日</text>
+        <text x="190" y="243" font-size="12.5" fill="#FF9090" text-anchor="end" font-weight="700">ベトナム・パキスタン等</text>
+        <text x="190" y="257" font-size="10.5" fill="#CFC9BB" text-anchor="end">（ミャンマー・バングラも）</text>
+        <rect x="200" y="234" width="81.6" height="22" fill="rgba(224,85,85,0.8)" rx="3"/>
+        <text x="290" y="251" font-size="15" fill="#FF9090" font-weight="700">＜30日</text>
+        <text x="190" y="284" font-size="13.5" fill="#8FD8B8" text-anchor="end">EU（原油・義務）</text>
+        <rect x="200" y="272" width="244.8" height="22" fill="rgba(76,178,134,0.4)" rx="3"/>
+        <text x="453" y="289" font-size="15" fill="#8FD8B8" font-weight="700">90日</text>
+        <text x="510" y="289" font-size="12.5" fill="#E0954A">※ジェット局所は23日割れ</text>
+        <text x="190" y="320" font-size="13.5" fill="#9CC4F0" text-anchor="end">米国（純輸入基準）</text>
+        <text x="206" y="320" font-size="13" fill="#9CC4F0">産油国＝日数概念は薄いが、製品在庫は5年平均割れ（§3）</text>
+      </g>
+      <text x="200" y="358" font-size="12.5" fill="#CFC9BB" class="jp" text-anchor="start">出所：IEEFA 2026（韓208/中120/タイ106/比45・ASEAN多くが30日未満）＋資源エネルギー庁（日本：確報233日3月末／速報201日6/8・放出で低下中）。死蔵20%補正で実効はさらに薄い。</text>
+    </svg>
+  </div>
+
+  <div class="box red">
+    <h3>備蓄が薄い国の「いま」── 初動（3月）から6月現在までの進行</h3>
+    <p>備蓄30日未満の国々は、3月の初動からすでに3ヶ月。緊急宣言→配給→補助金の打ち手は<b>出尽くしつつあり、財政が次の限界になっている</b>。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="dt">
+      <thead><tr><th style="text-align:left">国</th><th>備蓄</th><th style="text-align:left">3月の初動 → 6月の現在</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="mlbl">フィリピン</td><td class="big neg">45日</td><td class="src"><span class="tag-m jisoku">実測</span><b>3/24</b>世界初の緊急事態宣言（EO110）。<b>6/30まで</b>の原油確保を大統領が明言＝<span class="rd">その期限が今まさに到来</span>。露調達を継続。市場最自由化ゆえ最も価格直撃（軽油130ペソ）。輸送スト・抗議は断続継続</td></tr>
+        <tr class="hot"><td class="mlbl">インドネシア・マレーシア</td><td class="big neg">＜30日</td><td class="src"><span class="tag-m jisoku">実測</span><b>4/1から購入上限を導入・継続中</b>。インドネシアは四輪に<b>1日50リットル</b>のガソリン購入制限（自家用・公共交通とも）。補助金で価格据置きだが財政逼迫</td></tr>
+        <tr><td class="mlbl">ベトナム・ミャンマー・パキスタン・バングラ</td><td class="big neg">薄い</td><td class="src"><span class="tag-m jisoku">実測</span>アジアで最も痛みが鋭い低所得・輸入依存国。中国・タイのジェット輸出停止＋韓国capで玉が消失。バングラは大学閉鎖＋車両配給・停電頻発が継続</td></tr>
+        <tr><td class="mlbl">イタリア（EU内の弱点）</td><td>原油90日<br>だが偏在</td><td class="src"><span class="tag-m jisoku">実測</span><b>4/16-21</b>北部4空港で機体別給油上限。<b>6月</b>ジェット在庫の23日割れ進行で南欧（中東依存高）が再び危険域。トルコ航空は5-6月に18国際線運休</td></tr>
+        <tr><td class="mlbl">英国（EU離脱後の弱点）</td><td>輸入依存65%</td><td class="src"><span class="tag-m jisoku">実測</span>GS「ジェット配給リスク筆頭」。燃料供給業者が<b>「6月中〜下旬が混乱の起点」</b>と警告＝夏の繁忙期と完全に重なる。SMEの航空便依存に直撃</td></tr>
+        <tr><td class="mlbl">エジプト・チュニジア・スリランカ</td><td>外貨難</td><td class="src"><span class="tag-m jisoku">実測</span>補助金で価格抑制も<b>財政が持続不能化（IEEFA：安定化基金が枯渇方向）</b>。スリランカは2022年デフォルトの記憶。観光業悪化が追い打ち</td></tr>
+        <tr class="hi"><td class="mlbl">日本（参考）</td><td class="big" style="white-space:nowrap;">248→201<span style="font-size:14px;">日</span></td><td class="src"><span class="tag-m jisoku">実測</span>確報（月末）<b>1月末248日→2月末243日→3月末233日</b>、速報で<b>6/8時点201日</b>（国家107/民間92/共同3）。世界最厚クラスだが、<b>3月中旬</b>の史上最大放出開始から低下中。<b>4-5月</b>は大西洋圏シフトで日量確保（§6）。調達は米国采配圏へ移行済み</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-cap">出所：IEEFA 2026・フィリピンEO110/DOE・Euronews・BM Magazine（英SME）・Prewave・IEA/Reuters。<b>6月の焦点：フィリピンの6/30期限、インドネシアの購入制限継続、英国の6月下旬混乱起点、南欧ジェットの23日割れ</b>。</p>
+  </div>
+
+  <div class="box purple">
+    <h3>この比較が日本に教えること ── 「まだ余裕」は順番が後というだけ</h3>
+    <p>フィリピン（45日）が3月に緊急事態、欧州周縁が4月に給油制限・配給に入り、6月もインドネシアの購入制限・英国の混乱警告と進行中。日本（民間込み201日・6/8）が静かなのは強いからではなく、<span class="pp">備蓄が厚いぶん順番が後ろにいるだけ</span>。そして決定的な違いは、フィリピンや韓国がまだ「自国の判断」で節約・調達できるのに対し、日本の追加調達はほぼ全量が大西洋圏＝<b>米国の采配圏に移った</b>こと（§6）。脆弱国は早く折れるが自律的に動ける。日本は遅く折れるが、折れる時には他国のスイッチに依存している ── これが備蓄日数だけ見ていては掴めない構造的リスクである。さらに死蔵20%補正（§4-2）を各国の発表日数に当てると、すべての国のカウントダウンが一律に前倒しされる。</p>
+  </div>
+</section>
+
+<!-- ================= §5 中国 ================= -->
+<section id="s5">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 05 ── CHINA</span>
+    <h2 class="sec-title">⑤ 中国 ── 世界最大の「買わない」が、価格の安さの最大の支え</h2>
+  </div>
+  <p class="sec-sub">中国の選択は3点セット：輸入を絞る／製油所在庫を食いつつ戦略備蓄(SPR)はむしろ積み増す／製品輸出を即日止める（米国と正反対）。これが世界の貿易減少の74%を一国で吸収し、価格に「需要破壊の仕事」をさせずに済ませている。</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">◆ 中国の原油輸入 ── 3ヶ月で階段状に半減（百万B/D）</div>
+    <svg viewBox="0 0 980 330" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <g stroke="#26262F" stroke-width="1">
+        <line x1="80" y1="60" x2="950" y2="60"/><line x1="80" y1="130" x2="950" y2="130"/>
+        <line x1="80" y1="200" x2="950" y2="200"/><line x1="80" y1="270" x2="950" y2="270"/>
+      </g>
+      <g font-size="14" fill="#CFC9BB" text-anchor="end">
+        <text x="72" y="65">12</text><text x="72" y="135">8</text><text x="72" y="205">4</text><text x="72" y="275">0</text>
+      </g>
+      <!-- bars: customs total: Feb 11.7 -> Apr 9.4 -> May 7.8 ; seaborne: 11.39 / 8.10 / 6.36 -->
+      <g class="jp">
+        <rect x="150" y="65" width="90" height="205" fill="rgba(74,144,217,0.55)" rx="5"/>
+        <text x="195" y="54" font-size="20" fill="#E8C766" font-weight="700" text-anchor="middle">11.7</text>
+        <text x="195" y="295" font-size="15" fill="#CFC9BB" text-anchor="middle">2月（戦前）</text>
+        <rect x="400" y="105" width="90" height="165" fill="rgba(224,149,74,0.6)" rx="5"/>
+        <text x="445" y="94" font-size="20" fill="#E8C766" font-weight="700" text-anchor="middle">9.4</text>
+        <text x="445" y="295" font-size="15" fill="#CFC9BB" text-anchor="middle">4月（▲20%）</text>
+        <rect x="650" y="133" width="90" height="137" fill="rgba(224,85,85,0.65)" rx="5"/>
+        <text x="695" y="122" font-size="20" fill="#E8C766" font-weight="700" text-anchor="middle">7.8</text>
+        <text x="695" y="295" font-size="15" fill="#CFC9BB" text-anchor="middle">5月（10年ぶり低水準）</text>
+        <text x="820" y="160" font-size="14.5" fill="#F0A0A0">海上のみなら6.36</text>
+        <text x="820" y="180" font-size="13" fill="#CFC9BB">（2016年以来・2月比▲44%）</text>
+        <text x="820" y="205" font-size="13" fill="#CFC9BB">＋露カザフ陸上PL 約1.5は継続</text>
+      </g>
+      <text x="80" y="320" font-size="13.5" fill="#CFC9BB" class="jp">出所：中国税関（総輸入5月7.8＝2017年10月以来8年ぶり低・2月比▲29%）/ Kpler（海上11.39→8.10→6.36）。総輸入＝海上6.36＋陸上PL約1.5≒7.8で整合。2-5月の崩落▲5.5mb/dは2022年(最大▲2)を超え価格要因だけでは説明不能(Russell/BOE)。</text>
+    </svg>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="dt">
+      <thead><tr><th style="text-align:left">中国の持久力</th><th>数値</th><th style="text-align:left">読み方</th></tr></thead>
+      <tbody>
+        <tr><td class="mlbl">総在庫</td><td class="big">14億bbl</td><td class="src"><span class="tag-m jisoku">実測</span>Kayrros衛星推計（2月末13.9億）＝2025年水準の純輸入120日分。世界最大・中身は非公開</td></tr>
+        <tr><td class="mlbl">戦略備蓄(SPR)の動き</td><td class="big pos">積み増し継続</td><td class="src"><span class="tag-m jisoku">実測</span>戦争中もSPRは積み増し、製油所は新規輸入でなく自社在庫に依存(Kpler)。＝「輸入を絞っても備蓄は減らさない」二重の余裕。イラン原油の対中輸入は5月に6ヶ月ぶり1mb/d割れ(Bloomberg)</td></tr>
+        <tr><td class="mlbl">取崩しレート（試算）</td><td class="big neg">約▲300万B/D</td><td class="src"><span class="tag-m suitei">推定</span>需要15.0〜15.5 − 国産4.3 − 輸入7.8 ＝ 約3.0。本レポートの物質収支計算</td></tr>
+        <tr><td class="mlbl">技術的な持久限界</td><td>年末〜27年初</td><td class="src"><span class="tag-m suitei">推定</span>可動部分を総在庫の4〜5割（5.6〜7億bbl）と仮定 ÷ 300万B/D ＝ 6〜8ヶ月。可動率は非公開のため幅大</td></tr>
+        <tr class="hot"><td class="mlbl">経済的な持久限界</td><td class="big neg">数ヶ月</td><td class="src"><span class="tag-m jisoku">実測</span>Oxford研Meidan「製油所稼働をどこまで下げれば買い戻しを強いられるか」が核心問題。2021年石炭危機（絞りすぎ→大停電）の教訓。軽油・ジェット不足は工業稼働に直撃</td></tr>
+        <tr class="hot"><td class="mlbl">買い戻し再開の意味</td><td class="big">+300万B/D超</td><td class="src"><span class="tag-m kasetsu">仮説</span>需要の再登場＋備蓄「再建」の買い（SocGen）の二段ロケット。<b>中国プット失効＝原油レジーム切替の最有力トリガー</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="takeaway">
+    <div class="tw-lbl">Section Takeaway</div>
+    <div class="tw-txt">中国は自前の備蓄で時間を買っている。日本は<span style="color:#F0A0A0">他国の蛇口</span>で時間を買っている。<br>同じ「持ちこたえ」でも、スイッチを握る側と握られる側 ── この非対称が本質。</div>
+  </div>
+</section>
+
+<!-- ================= §6 日本 ================= -->
+<section id="s6">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 06 ── JAPAN</span>
+    <h2 class="sec-title">⑥ 日本 ── 90日で「中東の客」から「アメリカの客」へ。そして切られる最前列へ</h2>
+  </div>
+  <p class="sec-sub">日本の調達再編は成功している ── 4月407万kL（▲65.7%・1989年以来最低）→5月859万kLへ回復。だがその中身は、中東直行（平時の8割超）がゼロのまま、<b>米国・南米産で埋めた</b>姿である（原油の中東依存度は3月確報で95.9%＝依然極めて高い）。</p>
+
+  <div class="tbl-wrap">
+    <table class="dt">
+      <thead><tr><th style="text-align:left">日本の原油調達（万kL/月）</th><th>平時</th><th>4月</th><th>5月</th><th style="text-align:left">封鎖時の挙動</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td class="mlbl">中東直行（ホルムズ経由）</td><td>1,260</td><td class="big neg">0</td><td class="big neg">60</td><td class="src"><span class="tag-m jisoku">実測</span>平時の94%を占めた生命線が消失したまま</td></tr>
+        <tr class="hi"><td class="mlbl">米国（ガルフ）</td><td>50</td><td>80</td><td class="big pos">150</td><td class="src"><span class="tag-m mikomi">追跡</span>5月VLCC9隻＝1,670万バレル。喜望峰・パナマ経由。<b>平時の3倍</b>＋ナフサは米国産5倍</td></tr>
+        <tr class="hi"><td class="mlbl">南米（ブラジル等）</td><td>15</td><td>25</td><td class="big pos">175</td><td class="src"><span class="tag-m suitei">推定</span>5月に急拡大（経産省TF）。大西洋圏シフトの主力</td></tr>
+        <tr><td class="mlbl">中東バイパス（サウジ/UAE陸送）</td><td>—</td><td>110</td><td>180</td><td class="src"><span class="tag-m mikomi">追跡</span>東西PL経由。想定以上に稼働</td></tr>
+        <tr><td class="mlbl">その他（アフリカ・中亜・STS等）</td><td>202</td><td>192</td><td>294</td><td class="src"><span class="tag-m suitei">推定</span>STS110は在庫流動化＝持続性低</td></tr>
+        <tr class="hi"><td class="mlbl"><b>合計（原油）</b></td><td class="big">1,527</td><td class="big neg">407</td><td class="big">859</td><td class="src"><span class="tag-m jisoku">実測</span>4月確報・5月は船舶追跡暫定。回復しても平時に届かず、差は備蓄取崩し（月17日分＝494万kL）</td></tr>
+      </tbody>
+    </table>
+    <p class="tbl-cap">出所：既報「原油の実態」プレゼン（石油統計速報5/29・Bloomberg船舶追跡）。米国150＋南米175＋米国産ナフサ ── <b>日本の追加調達はほぼ全量が大西洋圏＝米国の采配圏</b>。</p>
+  </div>
+
+  <div class="box red">
+    <h3>「米国が切る」場合の日本への波及 ── 算定</h3>
+    <p>§3の削減メニュー第1候補（アジア向け原油スポット▲50%）が発動された場合：日本の米国調達<b>150万kL/月 → 75万kL</b>、米国産ナフサ（135万kL/月の大半）も同時に細る。失われる約75〜150万kLは即、備蓄取崩しの加速になる ── <b>月17日分 → 20〜22日分</b>へ。すると国家系備蓄の枯渇は<span class="rd">12月頃 → 10〜11月へ前倒し</span>。さらに高値の現物を買い続けるためCFRは二重に上昇（玉の減少＋フレート）。<b>米国の床防衛は、日本の備蓄カウントダウンの加速装置</b>として作用する。</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">◆ 日本の石油備蓄日数 ── 放出で低下する時系列（日分）</div>
+    <p class="chart-note"><span class="tag-m jisoku">実測</span>資源エネルギー庁「石油備蓄の現況」。確報(月末・製品換算)と速報(毎営業日・推計)は別系列。3月の史上最大放出開始から日数が低下。</p>
+    <svg viewBox="0 0 940 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <line x1="80" y1="60" x2="900" y2="60" stroke="#2A2A36"/><text x="72" y="64" text-anchor="end" font-size="13" fill="#CFC9BB">260日</text>
+      <line x1="80" y1="140" x2="900" y2="140" stroke="#2A2A36"/><text x="72" y="144" text-anchor="end" font-size="13" fill="#CFC9BB">220日</text>
+      <line x1="80" y1="220" x2="900" y2="220" stroke="#2A2A36"/><text x="72" y="224" text-anchor="end" font-size="13" fill="#CFC9BB">180日</text>
+      <line x1="80" y1="300" x2="900" y2="300" stroke="#2A2A36"/><text x="72" y="304" text-anchor="end" font-size="13" fill="#CFC9BB">140日</text>
+      <!-- 合計(確報): 1月248 2月243 3月233 ; 速報6/8 201 -->
+      <!-- y: 260->60, 140->300 線形 (1日=1.333px) ; 248->84 243->91 233->104 201->147 -->
+      <polyline points="150,84 330,91 510,104" fill="none" stroke="#E8C766" stroke-width="3"/>
+      <polyline points="510,104 800,147" fill="none" stroke="#E8C766" stroke-width="2.5" stroke-dasharray="6 4"/>
+      <circle cx="150" cy="84" r="6" fill="#E8C766"/><text x="150" y="72" text-anchor="middle" font-size="14" fill="#E8C766" font-weight="700">248日</text><text x="150" y="332" text-anchor="middle" font-size="13" fill="#CFC9BB" class="jp">1月末</text>
+      <circle cx="330" cy="91" r="5" fill="#E8C766"/><text x="330" y="79" text-anchor="middle" font-size="14" fill="#E8C766" font-weight="700">243日</text><text x="330" y="332" text-anchor="middle" font-size="13" fill="#CFC9BB" class="jp">2月末</text>
+      <circle cx="510" cy="104" r="6" fill="#E8C766"/><text x="510" y="92" text-anchor="middle" font-size="14" fill="#E8C766" font-weight="700">233日</text><text x="510" y="332" text-anchor="middle" font-size="13" fill="#CFC9BB" class="jp">3月末(確報)</text>
+      <circle cx="800" cy="147" r="6" fill="#F0B87E"/><text x="800" y="135" text-anchor="middle" font-size="14" fill="#F0B87E" font-weight="700">201日</text><text x="800" y="332" text-anchor="middle" font-size="13" fill="#CFC9BB" class="jp">6/8(速報)</text>
+      <text x="655" y="200" font-size="12.5" fill="#F0B87E" class="jp">国家107/民間92/共同3</text>
+    </svg>
+    <p class="chart-note" style="margin-top:8px;"><b style="color:#F0A0A0">一言：</b>放出可能な国家系(国家+共同)は<b>6/8で110日</b>。民間92日は運転在庫で全量は引けない。「国際義務の90日ライン」は物理危機ラインではないため臨界点タイムラインからは除外（§7）。</p>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="k-lbl">放出可能な国家系（国家＋共同）</div><div class="k-val">110<span class="u">日</span></div><div class="k-meta"><span class="tag-m jisoku">実測</span>6/8速報：国家107+共同3。月17日分ペースで取崩し中（5月末118日→6月110日へ低下）</div></div>
+    <div class="kpi"><div class="k-lbl">総備蓄日数（速報・直近）</div><div class="k-val">201<span class="u">日</span></div><div class="k-meta"><span class="tag-m jisoku">実測</span>6/8時点・民間92日込み。確報(月末)は233日(3月)</div></div>
+    <div class="kpi red"><div class="k-lbl">物理枯渇（国家系のみ・D継続）</div><div class="k-val">12<span class="u">月頃</span></div><div class="k-meta"><span class="tag-m suitei">推計</span>米輸出削減が重なれば10〜11月へ前倒し</div></div>
+    <div class="kpi red"><div class="k-lbl">民間込み理論限界</div><div class="k-val">27年<span class="u">中頃</span></div><div class="k-meta"><span class="tag-m suitei">推計</span>民間は運転在庫で全量は引けず、実務の床は27年初頭〜春</div></div>
+  </div>
+</section>
+
+<!-- ================= §7 タイムライン ================= -->
+<section id="s7">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 07 ── CRITICAL PATH</span>
+    <h2 class="sec-title">⑦ 臨界点の統合タイムライン ── 緩衝材が剥がれる順番</h2>
+  </div>
+  <p class="sec-sub">枯渇は同時に来ない。そして<b>7-8月に「物理的な臨界」を迎えるのは欧州ジェットと米国（クッシング・ガソリン）であって、日本ではない</b>。日本の物理的な枯渇は早くて年末（国家系のみ・D継続時）、民間込みなら2027年。日本に来るのは、米国の輸出采配を経由した<span class="rd">時間差の「波及」</span>である ── この時間差こそが本章の肝。各日付の根拠は前章まで。</p>
+
+  <div class="hypo-band" style="background:linear-gradient(90deg,rgba(212,175,55,.14),rgba(212,175,55,.03));border-color:rgba(212,175,55,.5);color:var(--gold3);">◆ 注：日本の「IEA90日ライン（7月中旬）」は本タイムラインから除外した。政府は民間在庫を含め約200日を保有しており、90日ラインは国際義務上の参考線であって物理的な危機ラインではない。これを混ぜると「7-8月に日本が危ない」という誤読を生むため、日本は物理枯渇（年末〜2027年）と波及（米国采配経由）の2レイヤーで別に描く。</div>
+
+  <div class="tline">
+    <div class="tl-item c2"><div class="tl-when">6月下旬</div><div class="tl-what"><span class="who eu">EU</span>ジェット在庫がIEA危機閾値<b>23日割れ</b>（Goldman）。英国は配給リスク筆頭<br><span class="who us">米国</span>OECD商業在庫が操業ストレス圏へ（JPM・Capital Economics）</div></div>
+    <div class="tl-item c3"><div class="tl-when">7月初</div><div class="tl-what"><span class="who us">米国</span>クッシング在庫が操業下限20百万bblに接触 ── <b>WTI現物の発火点</b>（残4.5・月▲4ペース）</div></div>
+    <div class="tl-item c4"><div class="tl-when">7月（GS予測）</div><div class="tl-what"><span class="who eu">EU</span>ジェット在庫が<b>20日割れ</b>＝より広範な配給へ。米市場ベテランCurrie「米国は7月が問題」</div></div>
+    <div class="tl-item c4"><div class="tl-when">7月末〜8月</div><div class="tl-what"><span class="who us">米国</span>ガソリン全米平均が<b>$5.02（史上最高値）更新圏</b>＝輸出制限の政治臨界。中間選挙まで3ヶ月。ハリケーンシーズン本格化（湾岸に精製能力の5割超）<br><span class="who eu">EU</span>ジェット在庫<b>15日割れ</b>（GS）＝小空港の閉鎖もありうる水準。夏の旅行ピークと在庫最低が重なる「夏のパラドックス」</div></div>
+    <div class="tl-item c4"><div class="tl-when">8月中旬〜9月下旬</div><div class="tl-what"><span class="who us">米国</span>SPRが法定下限252.4へ接近（平均▲6百万/週）＝通常放出の法的リミット。追加放出には議会関与＝交渉デッドライン。「次の弾」の政治コストが跳ね上がる<br><span class="who jp">日本</span><b>【波及】</b>米国がアジア向け原油スポットを削れば（§3）、日本の備蓄取崩しが17→20日/月超へ加速し始める</div></div>
+    <div class="tl-item c2"><div class="tl-when">9月末</div><div class="tl-what"><span class="who wd">世界</span>④シナリオ（30%）：掃海開始・解放なら、ここから1990年型の急速な往復（$80割れ方向）。EIAベースケースは3Q26再開を想定</div></div>
+    <div class="tl-item c4"><div class="tl-when">Q4（数ヶ月内）</div><div class="tl-what"><span class="who cn">中国</span>買い戻し強制の経済的臨界（Oxford研/GasBuddy）。再参入＝<b>+300万B/D超の需要再登場＋備蓄再建買い</b> ── 原油レジーム切替の最有力トリガー</div></div>
+    <div class="tl-item c4"><div class="tl-when">12月</div><div class="tl-what"><span class="who jp">日本</span><b>【物理】</b>国家系備蓄の枯渇（D継続時。米輸出削減重複なら10〜11月へ前倒し）<br><span class="who wd">世界</span>OECD在庫22.87億バレル＝<b>統計開始以来最低・50日分</b>（EIAの再開ベースケースですら）</div></div>
+    <div class="tl-item c4"><div class="tl-when">年末〜1月</div><div class="tl-what"><span class="who us">米国</span>SPRが機能下限70百万bblへ（現ペース機械延長）── 価格抑制の弾薬の物理的消滅</div></div>
+    <div class="tl-item cD"><div class="tl-when">2027年前半</div><div class="tl-what"><span class="who wd">世界</span>Dシナリオ（30%）：掃海開始・中東直行が順次復帰。ただし湾岸の一部生産は予測期間内に戦前水準へ戻らない（EIA）</div></div>
+    <div class="tl-item cD"><div class="tl-when">2027年中頃</div><div class="tl-what"><span class="who jp">日本</span><b>【物理】</b>民間備蓄込みの理論限界（(110+92)÷17≒11.9ヶ月／死蔵20%補正後はそれ以前）。実務の床は27年初頭〜春</div></div>
+  </div>
+
+  <div class="box red">
+    <h3>核心 ── 「7-8月の臨界」は欧州ジェットと米国の話。日本は時間差で受ける</h3>
+    <p>本タイムラインで7-8月に物理的な臨界を迎えるのは<b>欧州ジェット（23→20→15日）と米国（クッシング床・ガソリン$5）</b>の2点に集約される。日本自身の備蓄はこの時点でまだ厚い。だが日本の調達はすでに米国采配圏（大西洋圏）に移っており（§6）、<span class="rd">米国が7-8月に床を守るため輸出を国内へ引き戻せば、その瞬間に日本の備蓄カウントダウンが加速し、物理枯渇が年末→10-11月へ前倒しされる</span>。つまり日本にとっての7-8月は「自国の枯渇」ではなく「<b>米国のスイッチが入るかを見る月</b>」。欧州ジェットの15日割れと米ガソリン$5は、そのスイッチが入る前兆指標として監視すべき2つのシグナルである。</p>
+  </div>
+
+  <div class="takeaway">
+    <div class="tw-lbl">Critical Insight</div>
+    <div class="tw-txt">レジーム切替の日付を決めるのは、日本の備蓄ではない。<br><span style="color:#F0A0A0">米国の現物在庫（7〜8月）と中国の買い戻し（Q4）</span> ── 2大国の自国都合である。<br>日本はその切替後の高値で、残りの備蓄期間を買い続ける側に立つ。</div>
+  </div>
+</section>
+
+<!-- ================= §8 思惑仮説 ================= -->
+<section id="s8" class="hypo">
+  <div class="sec-head">
+    <span class="sec-num">SECTION 08 ── HYPOTHESIS LAYER</span>
+    <h2 class="sec-title">⑧ 思惑仮説 ──「上がらない原油価格」は誰の作品か</h2>
+  </div>
+  <div class="hypo-band">◆ ここからは仮説の章です。前章までの一次情報・実測値を土台に、「こういう思惑・構図の可能性があるのではないか」という解釈レイヤーを提示します。事実と区別するため紫で表記します。</div>
+
+  <div class="box purple">
+    <h3>仮説A ── 米国：価格抑制ではなく「エネルギー覇権の再構築」</h3>
+    <p>観測された事実：①大統領は3月以降「イランとの合意」を<b>38回</b>予告し、停戦ヘッドラインのたびに原油は売られた（市場にはTACOに続き「NACHO」という略語まで誕生）。②SPRから史上最大の放出。③その裏で原油輸出は史上最高（アジア向けは5ヶ月で約3倍）、製油所は数年ぶりの高マージンで輸出を最大化。④1月にベネズエラ石油部門を掌握し、大統領自ら「ハルク島を奪取し、<b>ベネズエラと同様に彼らの石油ガス市場を完全支配する</b>」と明言。──これらを一本の線で結ぶと、<span class="pp">目的は価格を下げることではなく、世界の蛇口（供給源・輸送路・顧客）を米国の采配下に置くこと</span>であり、価格の静けさはその副産物、という読みが成立する。日本・韓国・欧州が90日で「米国の顧客」になった事実は、この仮説の最も重い傍証である。</p>
+  </div>
+
+  <div class="box purple">
+    <h3>仮説B ── 中国：鏡像の自衛。「米国の戦争」の請求書を払わない</h3>
+    <p>中国の▲320万B/D（世界調整の74%）は経済合理だけでは説明が窮屈なほど「不釣り合い」。米国主導の戦争で高騰したドル建て原油を高値で買い支える理由は北京にはなく、不透明な14億バレルで耐久戦に持ち込めば、①高値負担の回避、②米国を「ガソリンインフレで自滅」させる圧力の温存、③戦後はイラン原油を割安で確保 ── の三点が同時に立つ。<span class="pp">米中は理由が正反対のまま「いま価格を上げたくない」で利害が一致しており、「不自然に上がらない原油価格」は2大国の思惑の交点に立つ人工物</span>、というのが本仮説の核心。</p>
+    <p style="margin-top:8px;font-size:15.5px;"><b>反対仮説（併記）：</b>ロイターRussell氏は「利他でも戦略でもなく価格・供給環境への経済合理的反応」と指摘。実際、イラク産は79万→6万B/Dへと「買えない強制減」も大きい。▲320万のうち裁量部分（製油所稼働削減・輸出停止・備蓄切替）がどれだけかが、仮説Bの強度を決める ── ここはKpler国別データでさらに検証の余地がある。</p>
+  </div>
+
+  <div class="box purple">
+    <h3>仮説の帰結 ── 日本にとっての意味</h3>
+    <p>仮説A・Bがともに正しければ、「上がらない原油価格」は<b>2つのスイッチに挟まれた静けさ</b>である。米国のスイッチ（7-8月、ガソリン$5・中間選挙）と中国のスイッチ（Q4、買い戻し強制）── どちらが先に入っても、レジームは$150側へ跳び、その瞬間に日本は「米国の蛇口の最前列の客」として、切られる側・高値で買う側・備蓄を加速して失う側の三役を同時に演じることになる。<span class="pp">原油の安さを安心材料として報じる言説は、緩衝材の存在を価格の正常化と取り違えている</span> ── これが本レポートの最終的な反論である。</p>
+  </div>
+</section>
+
+<!-- ================= FOOTER / 根拠ノート ================= -->
+<div class="footer">
+  <div class="ref">
+    <h4>巻末根拠ノート（一次ソース一覧）</h4>
+    <ul>
+      <li><b>価格・需給の骨格：</b>IEA Oil Market Report 2026年4月号・5月号（供給95.1百万B/D／累計喪失12.8／湾岸▲14.4／大西洋圏+3.5東向き／ホルムズ通航2.3＝戦前比10%／ジェット価格約3倍）。EIA STEO 2026年6月号（5月Brent平均$107／シャットイン11.3百万B/D／OECD在庫12月22.87億＝統計開始以来最低・50日／3Q26再開前提）。開戦前Brent $71.32＝米議会調査局（CRS）。</li>
+      <li><b>米国在庫・精製：</b>EIA週次（5/29週：商業原油433.7／ガソリン215.0／ディスティレート102.3／稼働率94.7%／ガソリン生産9.4・輸入0.78・供給8.8百万B/D）。API（6/5週：原油▲9.1百万／SPR 349.2＝83年以来／機能下限約70百万の警告）。クッシング24.5＝Kpler・6週連続減。ガソリン小売+40.5% YoY＝5月CPI。</li>
+      <li><b>米国輸出：</b>EIA（2024年：原油4.1記録／製品6.6記録／ガソリン877千B/D・メキシコ495＝56%／ディーゼル1.3百万／1月製品輸出7.0百万・対欧ディーゼル167→396千B/D）。IEA/Kpler（4月原油輸出5.2百万＝史上最高・OECDアジア+0.9・日本先頭）。Japan Times 4/17（アジアの米ガルフ原油購入60百万bbl/月＝3年ぶり高水準・日本が先頭買い）。</li>
+      <li><b>欧州ジェット：</b>SocGen（需要1.6＝域内1.1＋輸入0.5・うち中東75%＝37.5万B/D＝需要の23%）。IEA（海峡経由＝ジェット輸入の40%／喪失の半分強しか代替できず／米国の対欧ジェット6倍＝15万B/D／29日が平常下限・23日割れで物理的品切れ開始／バロル「あと6週間」）。Goldman Sachs（6月23日割れ→7月20日→8月15日・英国最危険）。IATA Walsh（5月末から欠航の可能性）。CAPA（ARA在庫6年ぶり低水準・25年末37日）。Fortune 5/6・Euronews/PBS 4/17（23日閾値の意味）。Prewave 4/21（伊4空港の機体別給油上限・Wave3）。Total CEO「max jet first」10→13%。</li>
+      <li><b>中国：</b>中国税関（5月輸入780万B/D＝約10年ぶり低水準）。Kpler（海上：2月11.39→4月8.10→5月6.36百万B/D）。JPMorgan（世界貿易減少の74%）。Kayrros（在庫13.9億bbl＝120日分）。Oxford Institute for Energy Studies（Meidan：買い戻し臨界の問題設定）。Reuters Russell（経済合理説・イラク79万→6万）。NDRC製品輸出停止＝Reuters 3月。</li>
+      <li><b>日本：</b>経産省石油統計速報（4月407万kL・▲65.7%・中東依存3月確報95.9%）。資源エネルギー庁「石油備蓄の現況」令和8年6月11日公表（確報233日3月末／速報201日6/8＝国家107・民間92・共同3／放出可能な国家系110日・月17日取崩し）。Bloomberg船舶追跡（5月859万kL・米国150・南米175）。日経5/28（米国産ナフサ5倍）。詳細は既報「原油の実態」「NAPHTHA REALITY」参照。</li>
+      <li><b>仮説章の事実部分：</b>Benzinga/Polymarket（合意予告38回）。Truth Social 6/11（ハルク島・ベネズエラモデル発言）。Reuters/BOE 4月（米湾岸製油所マージン数年ぶり高水準・国際販売最大化）。バイデン政権2022年輸出制限検討＝当時報道。</li>
+      <li><b>死蔵在庫（§4-2）：</b>Goldman Sachs（浮き屋根タンク下部20%・製油所操業下限65%・2018年以来最低在庫）。Jeff Currie/Carlyle（CNBC 5/25「ヘッドライン在庫は誤解を招く／アジア操業下限近辺・欧州あと1ヶ月・米7月」）。JPMorgan（在庫3層・操業最低在庫は最後まで引かれない・6月初にOECD商業在庫が操業ストレス圏）。EIA（line fill+lease stock＝在庫定義の約30%）。</li>
+      <li><b>備蓄脆弱国（§4-3）：</b>IEEFA 2026＋資源エネルギー庁（備蓄日数：日本=確報233/速報201・韓国208/中国120/タイ106/フィリピン45日・ASEAN多くが30日未満／インドネシア4/1から1日50L購入制限）。フィリピン大統領令110号・DOE（ガソリン53/軽油46/ジェット39/LPG24日・6/30まで原油確保）・Lowy Institute・PIDS（貧困転落130〜310万人）。CNN/ABC 3/25（韓国節電・日本30日分放出）。Euronews 3/31（EU90日・スロベニア配給）。TIME/AOL/Prewave 4/21（イタリア4空港給油上限）。BM Magazine（英国6月下旬混乱起点・GSジェット配給リスク筆頭）。Wego（ジェット$181超・欧州スポット$187・トルコ航空18線運休）。Chatham House（エジプト・チュニジア）。</li>
+      <li><b>6月直近の確報値：</b>EIA週次6/10公表（クッシング21.6百万bbl＝容量利用率28.4%・6/5週SPR349.2＝83年以来・商業原油▲6.75・ガソリン5年平均▲6%・ディスティレート2003年以来最低）。OilPriceAPI（クッシング6/10時点21.6）。Goldman/Fortune（欧州ジェット6月23日割れ→7月20日→8月15日）。</li>
+    </ul>
+    <h4>本レポートの推計（出典つき事実と区別するための明示）</h4>
+    <p>①実効不足290万B/D＝IEA粗喪失からPiper Sandler迂回450・JPM闇通航210・IEA放出330を差引いた本レポートの算盤。②米ガソリン在庫は前年(2025)夏の実測パターン(週▲0.94・9月反発)を直接適用＝①前年型なら今夏は操業床175〜185に未到達。小売は月次5月$4.61が直近ピーク（$5.02手前で天井形成）。③SPR法定下限252.4到達「8月中旬〜9月下旬」＝平均▲6百万/週の機械延長（直近9百万はスパイク・コミット完了後に減速の可能性）。物理底70は27年初頭で崖ではない。④中国取崩し300万B/D・持久6〜8ヶ月＝物質収支と可動率4〜5割仮定。⑤輸出削減の順位・規模＝政治コスト評価に基づく本レポートの仮説。すべて確報・政策発表で随時更新する。</p>
+  </div>
+  <div style="margin-top:22px;"><strong>OIL FLOW REPORT 統合版 ── 原油価格が上がらない本当の理由と、日本の本当の危機</strong>　2026.06.14時点（米・欧・中・日を最新確報で再検証）。シナリオ確率（②30%／③10%／④30%／D30%）は原油・ナフサ・CPI・JGB各レポートと統一。</div>
+  <div class="brand">© 2026 NAOKI NISHIMURA / UNIVERSAL COIN × MACRO INTELLIGENCE ── timeless（kizuna）</div>
+  <div class="disc">本資料は分析・教育目的の情報提供であり、投資勧誘や売買推奨を目的としたものではありません。推計・仮説を含み、確報により改定される可能性があります。投資判断はご自身の責任で行ってください。</div>
+</div>
+
+</div>
+</body>
+</html>
