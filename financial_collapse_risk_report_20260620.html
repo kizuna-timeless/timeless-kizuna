@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金融崩壊リスク検証REPORT ─ 2026.06.20</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0C1A; --bg2:#13142A; --bg3:#1A1B33;
+    --gold:#D4AF37; --gold2:#F0C850; --gold3:#FFE38A;
+    --gold-grad:linear-gradient(180deg,#FFE38A 0%,#F0C850 40%,#D4AF37 60%,#B8860B 100%);
+    --red:#E05555; --redL:#FF8080; --warnY:#FFE38A;
+    --green:#7BD389; --gray:#8A8A9C; --blue:#5BA8FF;
+    --white:#F0EDE8; --sub:#B0B0C4; --line:rgba(212,175,55,0.25);
+  }
+  /* TYPOGRAPHY v12 : 18px未満を一切使用しない */
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--white);
+    font-family:'Noto Sans JP',sans-serif; font-weight:300;
+    line-height:1.85; font-size:36px; -webkit-font-smoothing:antialiased;
+  }
+
+  /* TOP NAV */
+  .topnav{
+    background:linear-gradient(90deg,#000 0%,var(--bg2) 100%);
+    border-bottom:1px solid var(--line); padding:20px 48px;
+    display:flex; justify-content:space-between; align-items:center;
+    gap:24px; flex-wrap:wrap;
+    font-family:'Oswald',sans-serif; font-size:18px; letter-spacing:2px;
+  }
+  .topnav .brand{color:var(--gold2);}
+  .topnav .date-tag{color:var(--white); border:1px solid var(--gold); padding:8px 18px; white-space:nowrap;}
+
+  /* COVER */
+  .cover{
+    padding:110px 60px 84px; text-align:center;
+    background:radial-gradient(ellipse at center, #1A1B33 0%, #0B0C1A 70%);
+    border-bottom:1px solid var(--line);
+  }
+  .cover-title{
+    font-family:'Noto Serif JP',serif; font-weight:700;
+    font-size:70px; line-height:1.32;
+    background:var(--gold-grad);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    margin-bottom:32px;
+  }
+  .cover-sub{color:var(--sub); font-size:26px; letter-spacing:1.5px; line-height:1.6; margin-bottom:42px;}
+  .cover-meta{
+    display:inline-block; padding:12px 30px; border:1px solid var(--gold);
+    font-family:'Oswald',sans-serif; letter-spacing:3px; font-size:22px; color:var(--gold2);
+  }
+
+  /* HERO = COMPOSITE SIGNAL */
+  .hero{padding:64px 50px 70px; border-bottom:1px solid var(--line);}
+  .hero-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:30px; max-width:1200px; margin:0 auto;}
+  .hero-grid3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; max-width:1280px; margin:0 auto;}
+  .hero-panel-tag{font-family:'Oswald',sans-serif; font-size:18px; letter-spacing:2px; color:var(--sub); margin-bottom:6px;}
+  .hero-score{
+    background:linear-gradient(180deg,#000,var(--bg2));
+    border:1px solid var(--gold); border-radius:10px;
+    padding:42px 22px; text-align:center;
+  }
+  .hero-score-label{font-family:'Noto Serif JP',serif; font-weight:700; color:var(--gold2); letter-spacing:1px; font-size:40px; line-height:1.2; margin:6px 0;}
+  .hero-score-sub{color:var(--sub); font-size:20px; margin:8px 0 22px;}
+  .hero-score-zone{
+    margin-top:18px; display:inline-block; padding:9px 24px;
+    font-family:'Oswald',sans-serif; font-size:30px; font-weight:600;
+    letter-spacing:1px; border:2px solid var(--gold); border-radius:6px;
+  }
+  .zone-pre{color:#FF9A3D; border-color:#FF9A3D;}
+  .zone-crisis{color:var(--redL); border-color:var(--redL);}
+  .zone-warn{color:var(--warnY); border-color:var(--warnY);}
+  .hero-signal{
+    font-family:'Noto Serif JP',serif; font-weight:700; font-size:64px; line-height:1;
+    color:var(--green);
+  }
+  .hero-signal-en{font-family:'Oswald',sans-serif; font-size:24px; letter-spacing:3px; color:var(--sub); margin-top:14px;}
+  .hero-acq{
+    font-family:'Oswald',sans-serif; font-size:72px; font-weight:600; line-height:1;
+    background:var(--gold-grad); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 2px 0 rgba(0,0,0,0.4));
+  }
+  .hero-acq small{font-size:30px; font-weight:500;}
+  .hero-acq-break{font-size:20px; color:var(--sub); margin-top:16px; line-height:1.5; font-family:'Noto Sans JP',sans-serif;}
+
+  /* SECTION */
+  .section{padding:48px 50px; border-bottom:1px solid var(--line);}
+  .section-tag{color:var(--gold2); font-family:'Oswald',sans-serif; letter-spacing:4px; font-size:20px; margin-bottom:10px;}
+  .section-title{font-family:'Noto Serif JP',serif; font-weight:700; font-size:40px; color:var(--gold3); margin-bottom:8px;}
+  .section-sub{color:var(--sub); font-size:20px; letter-spacing:0.5px; line-height:1.5; margin-bottom:26px;}
+
+  /* ===== INDICATOR CARDS : 左右2カラム（左=指標名+コメント / 右=スコア固定） ===== */
+  .ind-list{display:flex; flex-direction:column; gap:8px; margin:16px 0 10px;}
+  .ind-card{
+    background:var(--bg2); border:1px solid var(--line);
+    border-left:5px solid var(--line); border-radius:8px;
+    padding:13px 24px;
+    display:grid; grid-template-columns:1fr auto;
+    align-items:center; gap:8px 28px;
+  }
+  .ind-card.is-crisis{border-left-color:var(--redL);}
+  .ind-card.is-pre{border-left-color:#FFA94D;}
+  .ind-card.is-warn{border-left-color:var(--warnY);}
+  .ind-main{min-width:0;}
+  .ind-name{
+    font-family:'Noto Sans JP',sans-serif; font-weight:700;
+    color:var(--white); font-size:28px; line-height:1.2; margin-bottom:3px;
+  }
+  .ind-name .ind-en{
+    color:var(--sub); font-size:18px; font-weight:400; margin-left:10px;
+  }
+  .ind-right{
+    display:flex; align-items:center; gap:16px;
+    font-family:'Oswald',sans-serif; white-space:nowrap;
+  }
+  .ind-scores{display:flex; align-items:baseline; gap:10px;}
+  .ind-prev{font-size:28px; color:var(--sub);}
+  .ind-arrow{font-size:22px; color:var(--gold2);}
+  .ind-curr{font-size:56px; font-weight:600; line-height:1;}   /* 数値 56 */
+  .ind-curr.curr-safe{color:#7BD389;}
+  .ind-curr.curr-warn{color:var(--warnY);}
+  .ind-curr.curr-pre{color:#FFA94D;}
+  .ind-curr.curr-crisis{color:var(--redL); font-weight:700;}
+  .ind-delta{
+    font-size:22px; padding:3px 13px; border-radius:6px;
+    border:1px solid var(--line); min-width:62px; text-align:center;
+  }
+  .ind-delta.up{color:var(--redL); border-color:rgba(255,128,128,0.4);}
+  .ind-delta.flat{color:var(--sub);}
+  .ind-delta.down{color:#7BD389; border-color:rgba(123,211,137,0.4);}
+  .ind-comment{font-size:18px; color:var(--white); line-height:1.5;}   /* 本文 18 */
+  .ind-comment strong{color:var(--gold2);}
+  .ind-comment .hl-red{color:var(--redL); font-weight:700;}
+
+  .sec-foot-note{margin-top:18px; font-size:20px; color:var(--sub); line-height:1.6;}
+
+  /* ===== ANALYSIS BLOCK (検証・要因・予想) ===== */
+  .analysis{
+    background:linear-gradient(180deg,var(--bg2),var(--bg3));
+    border:1px solid var(--line); border-radius:8px;
+    padding:28px 34px; margin:24px 0 4px;
+  }
+  .analysis-head{
+    display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+    margin-bottom:18px; padding-bottom:16px; border-bottom:1px solid var(--line);
+  }
+  .analysis-avg{
+    font-family:'Oswald',sans-serif; font-size:56px; font-weight:600;
+    line-height:1;
+    background:var(--gold-grad);
+    background-clip:text; -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .analysis-avg.ai{
+    background:none; -webkit-text-fill-color:initial; color:var(--redL);
+  }
+  .analysis-badge{
+    font-family:'Oswald',sans-serif; font-size:20px; letter-spacing:2px;
+    padding:7px 16px; border:1px solid;
+  }
+  .analysis-badge.pre{color:#FFA94D; border-color:#FFA94D;}
+  .analysis-badge.crisis{color:var(--redL); border-color:var(--redL);}
+  .analysis-row{display:flex; gap:18px; padding:11px 0; align-items:baseline; border-bottom:1px dashed rgba(255,255,255,0.08);}
+  .analysis-row:last-child{border-bottom:none;}
+  .analysis-key{
+    flex:0 0 132px; font-family:'Oswald',sans-serif;
+    font-size:22px; font-weight:700; letter-spacing:1px;
+    color:var(--gold3); padding-top:1px;
+  }
+  .analysis-row.verify .analysis-key{color:var(--gold2);}
+  .analysis-row.cause .analysis-key{color:#7AB8FF;}
+  .analysis-row.fcast .analysis-key{color:#FFA94D;}
+  .analysis-val{font-size:26px; color:var(--white); line-height:1.55; flex:1;}
+  .analysis-val strong{color:var(--gold3); font-weight:700;}
+  .analysis-val .hl-red{color:var(--redL); font-weight:700;}
+
+
+  /* TRIGGER CARDS : 左=名前+コメント / 右=状態+値 */
+  .trg-list{display:flex; flex-direction:column; gap:8px; margin:16px 0 10px;}
+  .trg-card{
+    background:var(--bg2); border:1px solid var(--line);
+    border-left:6px solid var(--line); border-radius:8px;
+    padding:14px 26px;
+    display:grid; grid-template-columns:1fr auto; align-items:center; gap:8px 28px;
+  }
+  .trg-card.st-fire{border-left-color:var(--redL);}
+  .trg-card.st-warn{border-left-color:#FFA94D;}
+  .trg-card.st-safe{border-left-color:var(--green);}
+  .trg-card.st-na{border-left-color:var(--gray); opacity:0.78;}
+  .trg-main{min-width:0;}
+  .trg-name{font-family:'Noto Sans JP',sans-serif; font-weight:700; color:var(--white); font-size:28px; line-height:1.2; margin-bottom:4px;}
+  .trg-cat{color:var(--sub); font-size:18px; font-weight:400; margin-left:12px; font-family:'Oswald',sans-serif; letter-spacing:1px;}
+  .trg-comment{font-size:18px; color:var(--white); line-height:1.5;}
+  .trg-comment .hl{color:var(--gold2); font-weight:700;}
+  .trg-comment .na{color:var(--gray);}
+  .trg-right{display:flex; align-items:center; gap:18px; white-space:nowrap;}
+  .trg-val{font-family:'Oswald',sans-serif; font-size:34px; font-weight:600; color:var(--white); text-align:right; min-width:150px;}
+  .trg-val.na{color:var(--gray); font-size:24px;}
+  .trg-state{
+    font-family:'Oswald',sans-serif; font-size:22px; letter-spacing:1px;
+    padding:6px 16px; border-radius:6px; border:1px solid; min-width:104px; text-align:center;
+  }
+  .trg-state.st-fire{color:var(--redL); border-color:var(--redL);}
+  .trg-state.st-warn{color:#FFA94D; border-color:#FFA94D;}
+  .trg-state.st-safe{color:var(--green); border-color:rgba(123,211,137,0.5);}
+  .trg-state.st-na{color:var(--gray); border-color:var(--gray);}
+  .trg-state.st-hold{color:var(--warnY); border-color:var(--warnY);}
+  .trg-card.st-hold{border-left-color:var(--warnY);}
+
+  .cat-label{
+    font-family:'Oswald',sans-serif; font-size:20px; letter-spacing:3px; color:var(--gold3);
+    margin:26px 0 10px; padding-bottom:8px; border-bottom:1px solid var(--line);
+  }
+
+  /* 3点ブロック（取得状況・点火判定・留保） */
+  .analysis{
+    background:linear-gradient(180deg,var(--bg2),var(--bg3));
+    border:1px solid var(--line); border-radius:8px; padding:28px 34px; margin:24px 0 4px;
+  }
+  .analysis-row{display:flex; gap:18px; padding:11px 0; align-items:baseline; border-bottom:1px dashed rgba(255,255,255,0.08);}
+  .analysis-row:last-child{border-bottom:none;}
+  .analysis-key{flex:0 0 150px; font-family:'Oswald',sans-serif; font-size:22px; font-weight:700; letter-spacing:1px;}
+  .analysis-row.r1 .analysis-key{color:var(--gold2);}
+  .analysis-row.r2 .analysis-key{color:var(--green);}
+  .analysis-row.r3 .analysis-key{color:#FFA94D;}
+  .analysis-val{font-size:26px; color:var(--white); line-height:1.55; flex:1;}
+  .analysis-val strong{color:var(--gold3); font-weight:700;}
+  .analysis-val .hl-red{color:var(--redL); font-weight:700;}
+
+  /* CATEGORY COUNT グリッド */
+  .cat-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:20px 0;}
+  .cat-box{background:var(--bg2); border:1px solid var(--line); border-radius:8px; padding:24px 28px;}
+  .cat-box h4{font-family:'Oswald',sans-serif; font-size:24px; letter-spacing:1px; color:var(--gold3); margin:0 0 12px;}
+  .cat-box .cat-stat{font-size:22px; color:var(--white); line-height:1.6;}
+  .cat-box .cat-stat .ok{color:var(--green);}
+  .cat-box .cat-stat .part{color:#FFA94D;}
+  .cat-box .cat-eval{font-size:20px; color:var(--sub); margin-top:10px; line-height:1.5;}
+
+  /* TOTAL */
+  .total{
+    background:radial-gradient(ellipse at center,#1A1B33 0%,#0B0C1A 80%);
+    border:1px solid var(--gold); border-radius:10px; padding:44px 42px; margin:8px 0; text-align:center;
+  }
+  .total-eyebrow{font-family:'Oswald',sans-serif; color:var(--gold2); letter-spacing:4px; font-size:20px; margin-bottom:20px;}
+  .total-thesis{
+    font-family:'Noto Serif JP',serif; font-weight:700; font-size:38px; line-height:1.5;
+    background:var(--gold-grad); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .total-flow{
+    margin-top:28px; padding-top:24px; border-top:1px solid var(--line);
+    font-family:'Oswald',sans-serif; font-size:24px; letter-spacing:1px; line-height:1.8; color:var(--white);
+  }
+  .total-flow .hl-red{color:var(--redL); font-weight:700;}
+  .total-flow .hl-green{color:var(--green); font-weight:700;}
+
+  /* 水準×点火 マトリクス */
+  .matrix{display:grid; grid-template-columns:auto 1fr 1fr; gap:3px; margin:24px 0 8px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;}
+  .matrix > div{background:var(--bg2); padding:22px 24px;}
+  .matrix .mx-corner{background:#000;}
+  .matrix .mx-head{font-family:'Oswald',sans-serif; font-size:22px; letter-spacing:1px; color:var(--gold3); text-align:center; background:linear-gradient(180deg,#000,var(--bg2));}
+  .matrix .mx-rowhead{font-family:'Oswald',sans-serif; font-size:20px; color:var(--gold2); display:flex; align-items:center; line-height:1.3;}
+  .matrix .mx-cell{font-size:22px; color:var(--white); line-height:1.5;}
+  .matrix .mx-cell.now{border:2px solid var(--green); position:relative;}
+  .matrix .mx-cell.now::after{content:"◀ 現在地"; position:absolute; top:10px; right:14px; font-family:'Oswald',sans-serif; font-size:18px; color:var(--green); letter-spacing:1px;}
+  .matrix .mx-cell .mx-state{font-family:'Oswald',sans-serif; font-size:24px; font-weight:700; display:block; margin-bottom:6px;}
+  .matrix .mx-cell .mx-state.safe{color:var(--green);}
+  .matrix .mx-cell .mx-state.danger{color:var(--redL);}
+
+  .sec-foot-note{margin-top:18px; font-size:20px; color:var(--sub); line-height:1.6;}
+  .hl-red{color:var(--redL); font-weight:700;}
+  .hl-gold{
+    background:var(--gold-grad); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:700;
+  }
+  code{font-size:0.92em; background:rgba(255,255,255,0.06); padding:2px 8px; border-radius:4px;}
+
+  /* FOOTER */
+  footer{background:#000; text-align:center; padding:44px 20px; border-top:1px solid var(--line);}
+  footer .copy{color:var(--sub); font-size:18px; letter-spacing:2px; margin-top:12px;}
+  footer .meta{font-family:'Oswald',sans-serif; color:var(--gold2); letter-spacing:3px; font-size:20px;}
+
+  @media(max-width:820px){
+    .hero-grid,.cat-grid,.hero-grid3{grid-template-columns:1fr;}
+    .section{padding:52px 26px;}
+    .cover{padding:70px 26px 56px;}
+    .cover-title{font-size:48px;}
+    .hero{padding:48px 24px;}
+    .trg-card{grid-template-columns:1fr; gap:10px;}
+    .trg-right{justify-content:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <span class="brand">Naoki Nishimura・MACRO INTELLIGENCE – SYSTEMIC RISK INTEGRATED</span>
+  <span class="date-tag">2026.06.20</span>
+</div>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-title">金融崩壊リスク検証REPORT</div>
+  <div class="cover-sub">水準ダッシュボード（脆さ）× トリガー監視（点火）─ 金融崩壊＆AIバブル崩壊</div>
+  <div class="cover-meta">Date：2026.06.20</div>
+</div>
+
+<!-- HERO : 3パネル 水準×点火 -->
+<div class="hero">
+  <div class="hero-grid3">
+    <div class="hero-score">
+      <div class="hero-panel-tag">水準 ／ LEVEL</div>
+      <div class="hero-score-label">◆ 金融崩壊</div>
+      <div class="hero-score-sub">システム平均スコア</div>
+      <div class="hero-score-val">3.63</div>
+      <div class="hero-score-zone zone-pre">危機前段階</div>
+    </div>
+    <div class="hero-score">
+      <div class="hero-panel-tag">水準 ／ LEVEL</div>
+      <div class="hero-score-label">◆ AIバブル崩壊</div>
+      <div class="hero-score-sub">AI平均スコア</div>
+      <div class="hero-score-val ai">4.46</div>
+      <div class="hero-score-zone zone-crisis">崩壊領域</div>
+    </div>
+    <div class="hero-score">
+      <div class="hero-panel-tag">点火 ／ IGNITION</div>
+      <div class="hero-score-label">◆ トリガー監視</div>
+      <div class="hero-score-sub">複合シグナル</div>
+      <div class="hero-signal" style="font-size:56px; color:var(--blue);">未発火</div>
+      <div class="hero-score-zone" style="color:var(--blue);border-color:rgba(91,168,255,0.5);margin-top:14px;">NO IGNITION</div>
+    </div>
+  </div>
+  <p style="text-align:center; max-width:1000px; margin:36px auto 0; font-size:24px; color:var(--white); line-height:1.6;">
+    地盤は弱い（特にAIは崩壊領域）。<span class="hl-gold">だが点火＝崩壊の引き金はまだ引かれていない。</span>
+  </p>
+</div>
+
+<!-- 01 FINANCIAL -->
+<div class="section">
+  <div class="section-tag">第1部 ─ A ─ FINANCIAL COLLAPSE（水準）</div>
+  <div class="section-title">金融崩壊ダッシュボード ─ 8指標</div>
+  <div class="section-sub">前回比＝2026.06.05版との対比</div>
+
+  <div class="ind-list">
+    <div class="ind-card is-warn">
+      <div class="ind-main">
+        <div class="ind-name">レポ金利・SRF</div>
+        <div class="ind-comment">SOFR 3.63%据置。資金繰りは緩むも流動性の正常化は未確認。</div>
+      </div>
+      <div class="ind-right">
+        <div class="ind-scores"><span class="ind-prev">3.0</span><span class="ind-arrow">→</span><span class="ind-curr curr-warn">3.0</span></div>
+        <div class="ind-delta flat">0.0</div>
+      </div>
+    </div>
+
+    <div class="ind-card is-warn">
+      <div class="ind-main">
+        <div class="ind-name">OISスプレッド<span class="ind-en">(銀行間の信用コスト)</span></div>
+        <div class="ind-comment">銀行間の信用調達はタイト維持。仲介機能の回復は確認できず。</div>
+      </div>
+      <div class="ind-right">
+        <div class="ind-scores"><span class="ind-prev">3.2</span><span class="ind-arrow">→</span><span class="ind-curr curr-warn">3.2</span></div>
+        <div class="ind-delta flat">0.0</div>
+      </div>
+    </div>
+
+    <div class="ind-card is-warn">
+      <div class="ind-main">
+        <div class="ind-name">ハイイールド(HY)<span class="ind-en">(低格付け社債の上乗せ金利)</span></div>
+        <div class="ind-comment">OAS 2.63%へ圧縮。高実質金利下では信用リスクの過小評価が深化。</div>
+      </div>
+      <div class="ind-right">
+        <div class="ind-scores"><span class="ind-prev">3.3</span><span class="ind-arrow">→</span><span class="ind-curr curr-warn">3.4</span></div>
+        <div class="ind-delta up">+0.1</div>
+      </div>
+    </div>
+
+    <div class="ind-card is-pre">
+      <div class="ind-main">
+        <div class="ind-name">レバレッジドローン<span class="ind-en">(変動金利の企業向け融資)</span></div>
+        <div class="ind-comment">BKLN横ばいだが、変動金利の借換え圧力は価格に現れず潜在。</div>
+      </div>
+      <div class="ind-right">
+        <div class="ind-scores"><span class="ind-prev">3.7</span><span class="ind-arrow">→</span><span class="ind-curr curr-pre">3.7</span></div>
+        <div class="ind-delta flat">0.0</div>
+      </div>
+    </div>
+
+    <div class="ind-card is-crisis">
+      <div class="ind-main">
+        <div class="ind-name">プライベートクレジット<span class="ind-en">(ノンバンク私募融資)</span></div>
+        <div class="ind-comment">BIZD下落。評価額の反映遅れと流動性リスクで含み損が不可視。</div>
+      </div>
+      <div class="ind-right">
+        <div class="ind-scores"><span class="ind-prev">4.1</span><span class="ind-arrow">→</span><span class="ind-curr curr-crisis">4.1</span></div>
+        <div class="ind-delta flat">0.0</div>
+      </div>
+    </div>
+
+    <div class="ind-card is-crisis">
+      <div class="ind-main">
+        <div class="ind-name">CRE(オフィス)<span class="ind-en">(商業用不動産)</span></div>
+        <div class="ind-comment">BXP反発は価格要因。借換え・担保ストレスは構造として温存。</div>
+      </div>
+      <div class="ind-right">
+        <div class="ind-scores"><span class="ind-prev">4.1</span><span class="ind-arrow">→</span><span class="ind-curr curr-crisis">4.0</span></div>
+        <div class="ind-delta down">-0.1</div>
+      </div>
+    </div>
+
+    <div class="ind-card is-pre">
+      <div class="ind-main">
+        <div class="ind-name">地方銀行</div>
+        <div class="ind-comment">KRE反発も、CREエクスポージャーと預金獲得競争は未解消。</div>
+      </div>
+      <div class="ind-right">
+        <div class="ind-scores"><span class="ind-prev">4.0</span><span class="ind-arrow">→</span><span class="ind-curr curr-pre">3.9</span></div>
+        <div class="ind-delta down">-0.1</div>
+      </div>
+    </div>
+
+    <div class="ind-card is-pre">
+      <div class="ind-main">
+        <div class="ind-name">MMF残高<span class="ind-en">(短期金融資産への待避)</span></div>
+        <div class="ind-comment">残高7.87T。現金が信用創造の外へ滞留し続ける防御姿勢の表れ。</div>
+      </div>
+      <div class="ind-right">
+        <div class="ind-scores"><span class="ind-prev">3.8</span><span class="ind-arrow">→</span><span class="ind-curr curr-pre">3.7</span></div>
+        <div class="ind-delta down">-0.1</div>
+      </div>
+    </div>
+  </div>
+  <div class="analysis">
+    <div class="analysis-head">
+      <span class="analysis-avg">3.63</span>
+      <span class="analysis-badge pre">PRE-CRISIS ／ 危機前段階（前回 3.65 ▼-0.02）</span>
+    </div>
+    <div class="analysis-row verify">
+      <div class="analysis-key">検証</div>
+      <div class="analysis-val">平均3.63は妥当。危機ゾーン(4.0+)は<strong>CRE・プライベートクレジットの2つ</strong>へ減（地銀は3.9で一旦脱出）。ただし<span class="hl-red">HYは3.4へ上昇</span>＝OAS 2.63%まで圧縮し、低下した平均が示すほど安全ではない。</div>
+    </div>
+    <div class="analysis-row cause">
+      <div class="analysis-key">要因</div>
+      <div class="analysis-val">CRE(BXP)・地銀(KRE)の<strong>価格反発</strong>が平均を押し下げた。一方、高実質金利下でのHYスプレッド圧縮は信用リスクの<strong>過小評価が深化</strong>した結果。MMFは7.87Tへ微減も構造的高水準を維持。</div>
+    </div>
+    <div class="analysis-row fcast">
+      <div class="analysis-key">予想</div>
+      <div class="analysis-val">反発は価格要因で構造未解消のため<strong>一過性の公算</strong>。次の分岐は「CRE・地銀の反発が本物の改善に転じるか／HYの過小評価が是正される過程で圧力が再表面化するか」。後者なら平均は再び3.7台へ。</div>
+    </div>
+  </div>
+</div>
+
+<!-- 02 AI BUBBLE -->
+<div class="section">
+  <div class="section-tag">第1部 ─ B ─ AI BUBBLE COLLAPSE（水準）</div>
+  <div class="section-title">AIバブル崩壊ダッシュボード ─ 5指標</div>
+  <div class="section-sub">前回比＝2026.06.05版との対比</div>
+
+  <div class="ind-list">
+    <div class="ind-card is-crisis">
+      <div class="ind-main">
+        <div class="ind-name">AIバリュエーション<span class="ind-en">(AI関連株の割高度)</span></div>
+        <div class="ind-comment">SMH +15.83%。実質金利上昇下の急騰で割高の脆弱性が増大。</div>
+      </div>
+      <div class="ind-right">
+        <div class="ind-scores"><span class="ind-prev">4.4</span><span class="ind-arrow">→</span><span class="ind-curr curr-crisis">4.7</span></div>
+        <div class="ind-delta up">+0.3</div>
+      </div>
+    </div>
+
+    <div class="ind-card is-crisis">
+      <div class="ind-main">
+        <div class="ind-name">実績 vs 期待<span class="ind-en">(収益化が期待に追いつくか)</span></div>
+        <div class="ind-comment">期待が再拡大する一方、収益化は追いつかず負担が増した。</div>
+      </div>
+      <div class="ind-right">
+        <div class="ind-scores"><span class="ind-prev">4.3</span><span class="ind-arrow">→</span><span class="ind-curr curr-crisis">4.5</span></div>
+        <div class="ind-delta up">+0.2</div>
+      </div>
+    </div>
+
+    <div class="ind-card is-crisis">
+      <div class="ind-main">
+        <div class="ind-name">AI CAPEX<span class="ind-en">(AI設備投資)</span></div>
+        <div class="ind-comment">BOTZ小幅高。投資回収の見通し鈍化でも設備投資の集約度は高い。</div>
+      </div>
+      <div class="ind-right">
+        <div class="ind-scores"><span class="ind-prev">4.4</span><span class="ind-arrow">→</span><span class="ind-curr curr-crisis">4.4</span></div>
+        <div class="ind-delta flat">0.0</div>
+      </div>
+    </div>
+
+    <div class="ind-card is-crisis">
+      <div class="ind-main">
+        <div class="ind-name">VC / IPO<span class="ind-en">(リスク資本の活発度)</span></div>
+        <div class="ind-comment">IPO ETF +11.23%。投機的なイグジット窓口が再び開いた。</div>
+      </div>
+      <div class="ind-right">
+        <div class="ind-scores"><span class="ind-prev">4.1</span><span class="ind-arrow">→</span><span class="ind-curr curr-crisis">4.4</span></div>
+        <div class="ind-delta up">+0.3</div>
+      </div>
+    </div>
+
+    <div class="ind-card is-crisis">
+      <div class="ind-main">
+        <div class="ind-name">S&amp;P集中度(Mag7)<span class="ind-en">(指数の一部銘柄依存)</span></div>
+        <div class="ind-comment">MAGS比率は低下も、指数のAI主導依存という構造は不変。</div>
+      </div>
+      <div class="ind-right">
+        <div class="ind-scores"><span class="ind-prev">4.5</span><span class="ind-arrow">→</span><span class="ind-curr curr-crisis">4.3</span></div>
+        <div class="ind-delta down">-0.2</div>
+      </div>
+    </div>
+  </div>
+  <div class="analysis">
+    <div class="analysis-head">
+      <span class="analysis-avg ai">4.46</span>
+      <span class="analysis-badge crisis">COLLAPSE ZONE ／ 崩壊領域（前回 4.34 ▲+0.12）</span>
+    </div>
+    <div class="analysis-row verify">
+      <div class="analysis-key">検証</div>
+      <div class="analysis-val">平均4.46は妥当だが、上昇の質に問題。全指標が崩壊領域(4.2+)を維持したまま、<strong>10年実質利回りが2.23%へ上昇</strong>する中での評価上昇＝割引率と評価の乖離拡大であり、クリーンな回復ではない。</div>
+    </div>
+    <div class="analysis-row cause">
+      <div class="analysis-key">要因</div>
+      <div class="analysis-val">バリュエーション(SMH <span class="hl-red">+15.83%</span>)とVC/IPO(IPO ETF <span class="hl-red">+11.23%</span>)が各+0.3で牽引。ファンダメンタルズではなく<strong>流動性とリスクアペタイトの再燃</strong>が駆動。集中度低下は投機がAI外へ拡散した裏返し。</div>
+    </div>
+    <div class="analysis-row fcast">
+      <div class="analysis-key">予想</div>
+      <div class="analysis-val">割引率が締まる中の再膨張は<strong>持続性に乏しく、調整時の振れ幅が拡大</strong>。実質金利がさらに上昇するか流動性が引けば反落リスク。逆に金利が落ち着けば過熱が一段進む二極シナリオ。</div>
+    </div>
+  </div>
+</div>
+
+<!-- 01 TRIGGERS -->
+<div class="section">
+  <div class="section-tag">第2部 ─ IGNITION TRIGGERS（点火）</div>
+  <div class="section-title">トリガー監視 ─ 主力8本＋補助1</div>
+  <div class="section-sub">各トリガーは3状態（未発火／警戒／発火）。閾値はbp・%・ドルで定義。Funding代替確定版。基準日：2026.06.20</div>
+
+  <!-- A. Funding -->
+  <div class="cat-label">A. FUNDING ／ ドル調達ストレス</div>
+  <div class="trg-list">
+    <div class="trg-card st-safe">
+      <div class="trg-main">
+        <div class="trg-name">無担保ドル調達不安<span class="trg-cat">DCPF3M − DFF（FRA-OIS代替）</span></div>
+        <div class="trg-comment">金融CP 3.76% − FF 3.63% ＝ 13bp（前回14bp）。短期無担保調達に信用プレミアムは乗っていない。<span class="hl">警戒 30bp</span>に未達。</div>
+      </div>
+      <div class="trg-right">
+        <div class="trg-val">13bp</div>
+        <div class="trg-state st-safe">未発火</div>
+      </div>
+    </div>
+    <div class="trg-card st-safe">
+      <div class="trg-main">
+        <div class="trg-name">レポ配管の詰まり<span class="trg-cat">SOFR − DFF</span></div>
+        <div class="trg-comment">SOFR 3.63%・FF 3.63%で差ゼロ。担保付きドル調達の配管に詰まり兆候なし。<span class="hl">警戒 +10bp</span>に未達。</div>
+      </div>
+      <div class="trg-right">
+        <div class="trg-val">0bp</div>
+        <div class="trg-state st-safe">未発火</div>
+      </div>
+    </div>
+    <div class="trg-card st-na">
+      <div class="trg-main">
+        <div class="trg-name">海外ドル不足の早期検知<span class="trg-cat">FREDでは構造的に取得不能 ＝ 死角</span></div>
+        <div class="trg-comment"><span class="na">クロスカレンシーベーシス／FXスワップ／3Mフォワードの早期proxyはFREDに存在せず。端末データが必要。死角として明記。</span></div>
+      </div>
+      <div class="trg-right">
+        <div class="trg-val na">取得不能</div>
+        <div class="trg-state st-na">死角</div>
+      </div>
+    </div>
+    <div class="trg-card st-safe" style="opacity:0.85;">
+      <div class="trg-main">
+        <div class="trg-name">SWPT〔補助・確認用〕<span class="trg-cat">中銀ドルスワップ利用 ※複合判定の分母外</span></div>
+        <div class="trg-comment">残高49m USD（前週28m）。海外ドル不足が政策対応レベルに達した「後」に出る結果指標。<span class="hl">確認警戒 5,000m</span>に大幅未達。</div>
+      </div>
+      <div class="trg-right">
+        <div class="trg-val" style="font-size:28px;">49m</div>
+        <div class="trg-state st-safe">補助未確認</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B. Leverage -->
+  <div class="cat-label">B. LEVERAGE ／ 強制売却の連鎖</div>
+  <div class="trg-list">
+    <div class="trg-card st-safe">
+      <div class="trg-main">
+        <div class="trg-name">MOVE指数<span class="trg-cat">金利ボラティリティ</span></div>
+        <div class="trg-comment">65.39（前回70.66）。債券ボラは低位で、強制売却を誘発する水準ではない。<span class="hl">警戒 130</span>に大幅未達。</div>
+      </div>
+      <div class="trg-right">
+        <div class="trg-val">65.39</div>
+        <div class="trg-state st-safe">未発火</div>
+      </div>
+    </div>
+    <div class="trg-card st-safe">
+      <div class="trg-main">
+        <div class="trg-name">Discount Window<span class="trg-cat">中銀窓口への逃避（残高）</span></div>
+        <div class="trg-comment">残高75.7億ドル（前週66.1億）。市場調達難で窓口へ逃げる動きは限定的。<span class="hl">警戒 250億</span>に未達。</div>
+      </div>
+      <div class="trg-right">
+        <div class="trg-val">$7.6B</div>
+        <div class="trg-state st-safe">未発火</div>
+      </div>
+    </div>
+    <div class="trg-card st-safe">
+      <div class="trg-main">
+        <div class="trg-name">SRF / レポ圧力<span class="trg-cat">レポ市場バックストップ ※代替</span></div>
+        <div class="trg-comment">SRF実額は抽出不可、代替proxyのSOFR−DFFは0bp。民間レポからFed配管への流入兆候なし。</div>
+      </div>
+      <div class="trg-right">
+        <div class="trg-val na">代替0bp</div>
+        <div class="trg-state st-safe">未発火</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C. Counterparty -->
+  <div class="cat-label">C. COUNTERPARTY ／ 伝染</div>
+  <div class="trg-list">
+    <div class="trg-card st-safe">
+      <div class="trg-main">
+        <div class="trg-name">銀行株 BKX / KRE<span class="trg-cat">資本・預金・CRE不安の価格化</span></div>
+        <div class="trg-comment">KRE 5営業日 −2.3%、BKX ほぼ横ばい。銀行株の一斉急落なし。<span class="hl">警戒 −8%</span>に未達。</div>
+      </div>
+      <div class="trg-right">
+        <div class="trg-val">−2.3%</div>
+        <div class="trg-state st-safe">未発火</div>
+      </div>
+    </div>
+    <div class="trg-card st-safe">
+      <div class="trg-main">
+        <div class="trg-name">商業銀行預金<span class="trg-cat">預金流出ペース</span></div>
+        <div class="trg-comment">前週比 +0.30%で流出ではなく増加。資産売却・FHLB依存へ向かう圧力なし。<span class="hl">警戒 −1.0%</span>と逆方向。</div>
+      </div>
+      <div class="trg-right">
+        <div class="trg-val">+0.3%</div>
+        <div class="trg-state st-safe">未発火</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- D. Market Function -->
+  <div class="cat-label">D. MARKET FUNCTION ／ 市場機能不全</div>
+  <div class="trg-list">
+    <div class="trg-card st-hold">
+      <div class="trg-main">
+        <div class="trg-name">米国債入札 / 流動性<span class="trg-cat">一次市場の需要</span></div>
+        <div class="trg-comment">6/10の10年入札は需要に異常なし。だが発火の最重要指標である<span class="hl">Tail を一次ソースで確認できず</span>、確定ルールにより<strong style="color:var(--warnY)">カテゴリ全体を判定保留</strong>とする。未発火とは確定しない。</div>
+      </div>
+      <div class="trg-right">
+        <div class="trg-val na" style="font-size:26px;">Tail未確認</div>
+        <div class="trg-state st-hold">判定保留</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="sec-foot-note">
+    ※ 状態色：<span style="color:var(--green)">緑＝未発火</span>／<span style="color:#FFA94D">橙＝警戒</span>／<span style="color:var(--redL)">赤＝発火</span>／<span style="color:var(--warnY)">黄＝判定保留</span>／<span style="color:var(--gray)">灰＝死角/取得不能</span>。Funding代替確定：FRA-OIS→DCPF3M−DFF、レポ→SOFR−DFF。海外ドル不足の早期検知はFREDでは構造的に取得不能（端末データが必要）。SWPTは結果指標のため補助・確認用とし複合判定の分母に入れない。閾値は恣意的仮値で運用3か月後に見直す。
+  </p>
+</div>
+
+<!-- 02 ASSESSMENT -->
+<div class="section">
+  <div class="section-tag">第2部 ─ ASSESSMENT（点火判定）</div>
+  <div class="section-title">点火判定</div>
+
+  <div class="analysis">
+    <div class="analysis-row r1">
+      <div class="analysis-key">取得状況</div>
+      <div class="analysis-val">主力8本中<strong>7本</strong>を判定（うち1本は代替取得）。Fundingは<strong>FRA-OISをDCPF3M、レポをSOFR−DFFで代替し主力化</strong>。海外ドル不足の早期検知のみFREDでは取れず死角として明記。SWPTは補助で分母外。</div>
+    </div>
+    <div class="analysis-row r2">
+      <div class="analysis-key">点火判定</div>
+      <div class="analysis-val">判定7本中、<strong>警戒0本・発火0本</strong>。DCPF3M−DFF 13bp、SOFR−DFF 0bp、Discount Window 75.7億ドル、KRE −2.3%、預金 +0.3%、MOVE 65.4 ── いずれも閾値に届かず。<strong>点火イベントは確認されない</strong>。</div>
+    </div>
+    <div class="analysis-row r3">
+      <div class="analysis-key">留保点</div>
+      <div class="analysis-val"><span class="hl-red">海外ドル不足の早期検知はFREDでは構造的に取得不能</span>（端末データが必要）。また国債入札はTail一次ソース未確認で<strong>判定保留</strong>。この2点が現状の死角。</div>
+    </div>
+  </div>
+
+  <div class="cat-grid">
+    <div class="cat-box">
+      <h4>A. FUNDING</h4>
+      <div class="cat-stat"><span class="ok">主力2本取得</span>　警戒以上 0</div>
+      <div class="cat-eval">未発火。DCPF3M−DFF・SOFR−DFFとも沈静。海外ドル不足の早期検知のみ死角。</div>
+    </div>
+    <div class="cat-box">
+      <h4>B. LEVERAGE</h4>
+      <div class="cat-stat"><span class="ok">2取得 / 1代替</span>　警戒以上 0</div>
+      <div class="cat-eval">未発火。金利ボラ・窓口・レポ圧力いずれも沈静。</div>
+    </div>
+    <div class="cat-box">
+      <h4>C. COUNTERPARTY</h4>
+      <div class="cat-stat"><span class="ok">2取得</span>　警戒以上 0</div>
+      <div class="cat-eval">未発火。銀行株・預金とも伝染の初期兆候なし。</div>
+    </div>
+    <div class="cat-box">
+      <h4>D. MARKET FUNCTION</h4>
+      <div class="cat-stat"><span class="part">1判定保留</span>　警戒以上 0</div>
+      <div class="cat-eval">判定保留。10年入札に異常なしだがTail一次ソース未確認で確定不可。</div>
+    </div>
+  </div>
+</div>
+
+<!-- 統合 TOTAL -->
+<div class="section">
+  <div class="section-tag">統合 ─ INTEGRATED TOTAL</div>
+  <div class="section-title">統合総括 ─ 水準 × 点火</div>
+
+  <div class="total">
+    <div class="total-eyebrow">CORE THESIS ─ 2026.06.20</div>
+    <div class="total-thesis">「地盤は弱い。<br>だが、崩壊の引き金はまだ引かれていない」</div>
+    <div class="total-flow">
+      水準（脆さ）：<span class="hl-red">金融 危機前段階・AI 崩壊領域</span>　×　点火（引き金）：<span class="hl-green">未発火</span><br>
+      → 崩壊は「平均点の悪化」ではなく「配管の破裂」で起きる。<span class="hl-green">今は破裂していない。</span>
+    </div>
+  </div>
+
+  <div class="matrix">
+    <div class="mx-corner"></div>
+    <div class="mx-head">点火＝未発火（今週）</div>
+    <div class="mx-head">点火＝発火したら</div>
+
+    <div class="mx-rowhead">水準<br>脆い</div>
+    <div class="mx-cell now">
+      <span class="mx-state safe">監視継続</span>
+      地盤は弱いが引き金は引かれていない。脆弱性を測りつつ、点火トリガーを最優先で見張る局面。＝<strong style="color:var(--gold3)">現在ここ</strong>
+    </div>
+    <div class="mx-cell">
+      <span class="mx-state danger">危機モード</span>
+      弱い地盤に点火が重なる最悪の組み合わせ。水準スコアより点火判定を上位に置き、即座に防御へ移行する局面。
+    </div>
+
+    <div class="mx-rowhead">水準<br>健全</div>
+    <div class="mx-cell">
+      <span class="mx-state safe">平常</span>
+      地盤が強く点火もない。通常運用。
+    </div>
+    <div class="mx-cell">
+      <span class="mx-state" style="color:#FFA94D;">単発ショック</span>
+      地盤が強ければ、点火しても政策・流動性供給で吸収できる可能性。
+    </div>
+  </div>
+
+  <p class="sec-foot-note">
+    ※ 使い分けルール：水準が3.8でもトリガー未発火なら「危機前段階」、水準が3.3でも複合発火なら「危機モード」。<strong style="color:var(--gold3)">点火判定は水準スコアより上位</strong>に置く（崩壊は平均点ではなく配管破裂で起きるため）。現状の死角＝海外ドル不足の早期検知（FREDでは構造的に取得不能・端末データが必要）と国債入札Tail（一次ソース未確認で判定保留）。閾値は恣意的仮値で運用3か月後に再調整。
+  </p>
+</div>
+
+<footer>
+  <div class="meta">SYSTEMIC RISK INTEGRATED ／ 2026.06.20</div>
+  <div class="copy">© 2026 Naoki Nishimura</div>
+</footer>
+
+</body>
+</html>
