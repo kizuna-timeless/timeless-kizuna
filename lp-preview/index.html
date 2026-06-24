@@ -1691,10 +1691,12 @@ html, body { margin:0; padding:0; background:#0A0A08; }
 .bk-cta2 .col-r{ flex:1 1 46%; min-width:0; display:flex; flex-direction:column; gap:20px; }
 
 /* 明るい台座：白系。黒い冊子を際立たせ、影を落として"置かれている"感を出す */
-.bk-cta2 .bk-stage{ position:relative; padding:0 !important;
+.bk-cta2 .bk-stage{ position:relative; border-radius:14px; padding:34px 52px 40px !important;
   display:flex; align-items:center; justify-content:center;
-  background:none; box-shadow:none; }
-.bk-stage::after{ content:none; }
+  background:linear-gradient(160deg, #ffffff 0%, #f4f2ee 50%, #e9e6df 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 18px 44px rgba(0,0,0,0.4); }
+.bk-stage::after{ content:"PORTFOLIO OF DEPTH"; position:absolute; bottom:3.2%; left:0; right:0; text-align:center;
+  font-family:"Cinzel",serif; font-size:9px; letter-spacing:0.26em; color:rgba(120,96,52,0.45); }
 
 /* 冊子のクリック領域：台座の中で約8割サイズ＝外周に余白 */
 .bk-spread{ display:block; text-decoration:none; margin:0 auto; max-width:none; width:90%; cursor:pointer;
@@ -1713,10 +1715,7 @@ html, body { margin:0; padding:0; background:#0A0A08; }
 }
 .bk-spread-img{ display:block; width:100%; height:auto; border-radius:5px; }
 /* ページの厚み：本の小口（右側面のみ） */
-.bk-book::before{ content:""; position:absolute; top:2px; bottom:2px; right:-8px; width:8px;
-  border-radius:0 3px 3px 0; z-index:-1;
-  background:repeating-linear-gradient(180deg, #f6f1e6 0 1.5px, #d8cdb6 1.5px 2.5px);
-  box-shadow:2px 3px 8px rgba(0,0,0,0.32); }
+.bk-book::before{ content:none; }
 .bk-pg{ position:relative; width:50%; overflow:hidden; z-index:1;
   background:linear-gradient(168deg,#1a160e 0%,#13100a 50%,#0a0805 100%); }
 /* 高さは中身依存。flレックスのstretchで左右ページが同じ高さに揃う */
@@ -1735,7 +1734,7 @@ html, body { margin:0; padding:0; background:#0A0A08; }
 .bk-rcopy{ background:rgba(10,9,7,0.55); border:0.5px solid rgba(184,151,90,0.3); border-radius:14px; padding:24px 28px; }
 .bk-rkick{ font-family:"Noto Serif JP","Noto Serif CJK JP",serif; font-size:12.5px; letter-spacing:0.02em;
   color:#D4AF37; margin-bottom:12px; line-height:1.6; }
-.bk-rttl{ font-family:"Noto Serif JP","Noto Serif CJK JP",serif; font-weight:700; font-size:25px;
+.bk-rttl{ font-family:"Noto Serif JP","Noto Serif CJK JP",serif; font-weight:700; font-size:23px;
   line-height:1.55; color:#F5F0E8; }
 .bk-rttl .g{ color:#E5C76B; }
 .bk-rbtns{ display:flex; flex-direction:column; gap:14px; }
@@ -1753,7 +1752,7 @@ html, body { margin:0; padding:0; background:#0A0A08; }
 @media(max-width:900px){
   .bk-cta2{ flex-direction:column; gap:24px; }
   .bk-cta2 .col-l, .bk-cta2 .col-r{ flex:1 1 100%; width:100%; }
-  .bk-stage{ padding:0; perspective:none; }
+  .bk-stage{ padding:26px 20px 36px; perspective:none; }
   .bk-spread{ transform:none; }
   .bk-spread:hover{ transform:translateY(-3px); }
   .bk-rttl{ font-size:22px; }
