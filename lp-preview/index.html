@@ -1691,14 +1691,14 @@ html, body { margin:0; padding:0; background:#0A0A08; }
 .bk-cta2 .col-r{ flex:1 1 46%; min-width:0; display:flex; flex-direction:column; gap:20px; }
 
 /* 明るい台座：白系。黒い冊子を際立たせ、影を落として"置かれている"感を出す */
-.bk-cta2 .bk-stage{ position:relative; border-radius:14px; padding:18px 20px 22px !important;
+.bk-cta2 .bk-stage{ position:relative; border-radius:14px; padding:0 !important;
   display:flex; align-items:center; justify-content:center;
-  background:linear-gradient(160deg, #ffffff 0%, #f4f2ee 50%, #e9e6df 100%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,0.9), 0 18px 44px rgba(0,0,0,0.4); }
+  background:transparent;
+  box-shadow:none; }
 .bk-stage::after{ content:none; }
 
 /* 冊子のクリック領域：台座の中で約8割サイズ＝外周に余白 */
-.bk-spread{ display:block; text-decoration:none; margin:0 auto; max-width:none; width:100%; cursor:pointer;
+.bk-spread{ display:block; text-decoration:none; margin:0 auto; max-width:none; width:90%; cursor:pointer;
   transition:transform .3s ease; }
 .bk-spread:hover{ transform:translateY(-4px); }
 .bk-spread:hover .bk-book{ box-shadow:
@@ -1751,7 +1751,7 @@ html, body { margin:0; padding:0; background:#0A0A08; }
 @media(max-width:900px){
   .bk-cta2{ flex-direction:column; gap:24px; }
   .bk-cta2 .col-l, .bk-cta2 .col-r{ flex:1 1 100%; width:100%; }
-  .bk-stage{ padding:14px 12px 16px; perspective:none; }
+  .bk-stage{ padding:0; perspective:none; }
   .bk-spread{ transform:none; }
   .bk-spread:hover{ transform:translateY(-3px); }
   .bk-rttl{ font-size:22px; }
