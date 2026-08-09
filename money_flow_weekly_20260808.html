@@ -1,0 +1,536 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>マネーフロー・ウィークリー ─ 2026.08.08｜対象週 8/3-8/7</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg:#0B0C1A; --bg2:#13142A; --bg3:#1A1B33; --bgcard:#171935;
+    --gold:#D4AF37; --gold2:#F0C850; --gold3:#FFE38A;
+    --gold-grad:linear-gradient(180deg,#FFE38A 0%,#F0C850 40%,#D4AF37 60%,#B8860B 100%);
+    --red:#E05555; --redL:#FF8080; --green:#7BD389; --blue:#5BA8FF; --purple:#B69BFF;
+    --white:#F0EDE8; --sub:#B0B0C4; --line:rgba(212,175,55,0.25); --line2:rgba(255,255,255,0.08);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--bg); color:var(--white); font-family:'Noto Sans JP',sans-serif; font-weight:300; line-height:1.85; font-size:20px; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1080px; margin:0 auto;}
+  .num{font-family:'Oswald',sans-serif; font-weight:600; letter-spacing:0.5px;}
+  .up{color:var(--redL);} .down{color:var(--blue);} .flat{color:var(--sub);}
+  .hl-gold{background:var(--gold-grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; font-weight:700;}
+  .hl-red{color:var(--redL); font-weight:700;} .hl-green{color:var(--green); font-weight:700;} .hl-blue{color:var(--blue); font-weight:700;}
+
+  .masthead{border-bottom:4px double var(--gold); padding:30px 24px 20px; background:linear-gradient(180deg,#000 0%,var(--bg) 90%);}
+  .mast-top{display:flex; justify-content:space-between; align-items:flex-end; gap:16px; flex-wrap:wrap;}
+  .mast-title{font-family:'Noto Serif JP',serif; font-weight:900; line-height:1.05; font-size:52px; letter-spacing:2px; background:var(--gold-grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
+  .mast-en{font-family:'Oswald',sans-serif; font-size:19px; letter-spacing:5px; color:var(--sub); margin-top:6px;}
+  .mast-meta{text-align:right; font-family:'Oswald',sans-serif; font-size:18px; color:var(--sub); line-height:1.5; white-space:nowrap;}
+  .mast-meta b{color:var(--gold2); font-size:22px; display:block;}
+  .mast-strip{display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; margin-top:16px; padding-top:14px; border-top:1px solid var(--line); font-family:'Oswald',sans-serif; font-size:18px; letter-spacing:1px; color:var(--sub);}
+  .mast-strip .issue{color:var(--white);} .mast-strip .author{color:var(--gold2);}
+
+  .verdict{margin:22px 24px 0; padding:22px 26px; background:linear-gradient(135deg,rgba(224,85,85,0.10),var(--bg2) 60%); border:1px solid var(--red); border-radius:12px;}
+  .verdict .lbl{font-family:'Oswald',sans-serif; color:var(--redL); letter-spacing:3px; font-size:17px; margin-bottom:8px;}
+  .verdict .txt{font-family:'Noto Serif JP',serif; font-weight:700; font-size:29px; line-height:1.5;}
+  .verdict .txt em{font-style:normal; color:var(--redL);} .verdict .txt b{color:var(--gold3);}
+
+  .index{margin:24px; display:grid; grid-template-columns:repeat(4,1fr); gap:12px;}
+  .idx-card{background:var(--bg2); border:1px solid var(--line2); border-top:4px solid var(--gold); border-radius:10px; padding:16px 16px 14px; text-decoration:none; color:var(--white); display:block; transition:border-color .2s;}
+  .idx-card:hover{border-color:var(--gold);}
+  .idx-rank{font-family:'Oswald',sans-serif; font-size:14px; letter-spacing:2px; color:var(--gold2);}
+  .idx-rank b{font-size:30px; display:inline-block; vertical-align:-5px; margin-right:5px;}
+  .idx-head{font-family:'Noto Serif JP',serif; font-weight:700; font-size:20px; line-height:1.35; margin:5px 0 7px;}
+  .idx-sub{font-size:15px; color:var(--sub); line-height:1.5;}
+  .idx-1{border-top-color:var(--redL);} .idx-1 .idx-rank{color:var(--redL);}
+  .idx-3{border-top-color:var(--blue);} .idx-3 .idx-rank{color:var(--blue);}
+  .idx-4{border-top-color:var(--purple);} .idx-4 .idx-rank{color:var(--purple);}
+
+  .heads{margin:24px; background:var(--bg2); border:1px solid var(--line); border-radius:12px; padding:22px 26px;}
+  .heads h3{font-family:'Noto Serif JP',serif; font-weight:700; color:var(--gold3); font-size:23px; margin:0 0 4px; letter-spacing:1px;}
+  .heads .cap{font-size:15px; color:var(--sub); margin-bottom:14px;}
+  .heads ol{margin:0; padding:0; list-style:none; counter-reset:h;}
+  .heads li{counter-increment:h; position:relative; padding:11px 0 11px 44px; border-bottom:1px dashed var(--line2); font-size:19px; line-height:1.6;}
+  .heads li:last-child{border-bottom:none;}
+  .heads li::before{content:counter(h); position:absolute; left:0; top:11px; font-family:'Oswald',sans-serif; font-weight:700; font-size:20px; color:#000; background:var(--gold-grad); width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
+  .heads li b{color:var(--gold3);} .heads li .n{font-family:'Oswald',sans-serif; font-weight:600;}
+
+  .page{border-top:1px solid var(--line); padding:0 24px 8px;}
+  .folio{display:flex; align-items:center; gap:16px; margin:34px 0 18px; padding:14px 0 0;}
+  .folio .badge{font-family:'Oswald',sans-serif; font-weight:700; font-size:20px; letter-spacing:2px; color:#000; background:var(--gold-grad); padding:6px 16px; border-radius:6px; white-space:nowrap;}
+  .folio .prio{font-family:'Oswald',sans-serif; font-size:15px; letter-spacing:2px; color:var(--sub); border:1px solid var(--line); padding:5px 12px; border-radius:99px;}
+  .folio .rule{flex:1; height:1px; background:var(--line);}
+
+  .lead-eyebrow{font-family:'Oswald',sans-serif; font-size:17px; letter-spacing:3px; color:var(--gold2); margin-bottom:8px;}
+  .lead-title{font-family:'Noto Serif JP',serif; font-weight:900; line-height:1.28; letter-spacing:1px; font-size:44px; margin:0 0 10px;}
+  .lead-title .r{color:var(--redL);} .lead-title .g{color:var(--gold3);}
+  .lead-title.mid{font-size:36px;} .lead-title.sm{font-size:31px;}
+  .lead-sub{font-size:21px; color:var(--sub); line-height:1.7; margin-bottom:22px;}
+  .body-p{font-size:20px; line-height:1.9; margin:0 0 18px;} .body-p b{color:var(--gold3);}
+  .drop::first-letter{font-family:'Noto Serif JP',serif; font-weight:900; font-size:76px; float:left; line-height:0.82; margin:6px 12px 0 0; color:var(--gold2);}
+  .sub-h{font-family:'Noto Serif JP',serif; font-weight:700; color:var(--gold3); font-size:26px; margin:30px 0 6px; padding-left:14px; border-left:5px solid var(--gold);}
+  .sub-h-sub{font-size:16px; color:var(--sub); margin:0 0 16px; padding-left:14px;}
+
+  .kpis{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:20px 0 24px;}
+  .kpi{background:var(--bgcard); border:1px solid var(--line2); border-radius:12px; padding:18px 16px; text-align:center;}
+  .kpi .k-lbl{font-size:15px; color:var(--sub); line-height:1.4; min-height:42px; display:flex; align-items:center; justify-content:center;}
+  .kpi .k-val{font-family:'Oswald',sans-serif; font-weight:600; font-size:44px; line-height:1; margin:6px 0 2px;}
+  .kpi .k-note{font-size:14px; color:var(--sub);}
+  .kpi.big .k-val{font-size:50px;} .kpi .k-val.up{color:var(--redL);} .kpi .k-val.down{color:var(--blue);} .kpi .k-val.flat{color:var(--sub);}
+
+  /* CHART CARD */
+  .cchart{background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:18px 20px 14px; margin:14px 0;}
+  .cchart-head{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:8px;}
+  .cchart-head h5{font-family:'Noto Serif JP',serif; font-weight:700; color:var(--white); font-size:21px; margin:0;}
+  .cchart-sub{font-size:14px; color:var(--sub); font-family:'Oswald',sans-serif; letter-spacing:0.5px; margin-top:3px;}
+  .chg{font-family:'Oswald',sans-serif; font-weight:700; font-size:22px; padding:5px 12px; border-radius:8px; white-space:nowrap;}
+  .chg.gain{color:var(--green); background:rgba(123,211,137,0.12);} .chg.loss{color:var(--redL); background:rgba(255,128,128,0.12);}
+  .chg.up{color:var(--redL); background:rgba(255,128,128,0.12);} .chg.down{color:var(--blue); background:rgba(91,168,255,0.12);} .chg.flat{color:var(--sub); background:rgba(255,255,255,0.06);}
+  .chart-note{font-size:15px; color:var(--sub); line-height:1.6; margin-top:8px; border-top:1px solid var(--line2); padding-top:10px;}
+  .horizon{display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin:14px 0;}
+  .horizon .cchart{margin:0;}
+  .horizon2{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:14px 0;}
+  .horizon2 .cchart{margin:0;}
+
+  .chain{background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:24px 24px 20px; margin:8px 0 24px;}
+  .chain h4{font-family:'Oswald',sans-serif; letter-spacing:2px; color:var(--gold2); font-size:17px; margin:0 0 16px;}
+  .chain-flow{display:flex; align-items:stretch; gap:0; flex-wrap:wrap;}
+  .cf-step{flex:1 1 150px; background:var(--bgcard); border:1px solid var(--line2); border-radius:10px; padding:14px 14px; text-align:center; position:relative; min-width:150px;}
+  .cf-step .cf-t{font-size:15px; color:var(--sub); line-height:1.35; margin-bottom:6px;}
+  .cf-step .cf-v{font-family:'Oswald',sans-serif; font-weight:700; font-size:26px; line-height:1.05;}
+  .cf-arrow{display:flex; align-items:center; justify-content:center; color:var(--gold2); font-size:26px; padding:0 4px; flex:0 0 auto;}
+  .cf-arrow.v{display:none;}
+  .chain-note{margin-top:16px; font-size:16px; color:var(--sub); line-height:1.6;}
+
+  .chart{background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:24px 26px 20px; margin:8px 0 24px;}
+  .chart h4{font-family:'Noto Serif JP',serif; font-weight:700; color:var(--gold3); font-size:22px; margin:0 0 4px;}
+  .chart .csub{font-size:15px; color:var(--sub); margin-bottom:18px;}
+  .brow{display:grid; grid-template-columns:130px 1fr 96px; gap:12px; align-items:center; margin:11px 0;}
+  .brow .bname{font-size:18px; line-height:1.25;} .brow .bname small{color:var(--sub); font-size:14px;}
+  .btrack{position:relative; height:26px; background:rgba(255,255,255,0.05); border-radius:6px; overflow:hidden;}
+  .btrack .bzero{position:absolute; left:50%; top:0; bottom:0; width:2px; background:rgba(255,255,255,0.22);}
+  .bfill{position:absolute; top:0; bottom:0; border-radius:5px;}
+  .bfill.neg{background:linear-gradient(90deg,#ff9a9a,#e05555); right:50%;}
+  .bfill.pos{background:linear-gradient(90deg,#7bd389,#4fae6a); left:50%;}
+  .bfill.mono{left:0; right:auto; background:linear-gradient(90deg,#e05555,#ff9a9a);}
+  .bval{font-family:'Oswald',sans-serif; font-weight:700; font-size:22px; text-align:right;}
+  .chart .cnote{margin-top:14px; font-size:15px; color:var(--sub); line-height:1.6; border-top:1px solid var(--line2); padding-top:12px;}
+
+  .frame{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:8px 0 24px;}
+  .frame-box{background:var(--bgcard); border:1px solid var(--line2); border-radius:12px; padding:20px 22px; border-top:4px solid;}
+  .frame-box.short{border-top-color:var(--redL);} .frame-box.long{border-top-color:var(--blue);}
+  .frame-box .f-tag{font-family:'Oswald',sans-serif; letter-spacing:2px; font-size:16px; margin-bottom:8px;}
+  .frame-box.short .f-tag{color:var(--redL);} .frame-box.long .f-tag{color:var(--blue);}
+  .frame-box .f-txt{font-size:18px; line-height:1.7;} .frame-box .f-txt b{color:var(--gold3);}
+
+  .daily{background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:22px 24px; margin:8px 0 24px;}
+  .daily h4{font-family:'Oswald',sans-serif; letter-spacing:2px; color:var(--gold2); font-size:17px; margin:0 0 16px;}
+  .drow{display:grid; grid-template-columns:92px 1fr 120px; gap:12px; align-items:center; padding:9px 0; border-bottom:1px dashed var(--line2); font-size:17px;}
+  .drow:last-child{border-bottom:none;}
+  .drow .dday{font-family:'Oswald',sans-serif; font-weight:600; color:var(--sub);}
+  .drow .dval{font-family:'Oswald',sans-serif; font-weight:700; text-align:right; font-size:20px;}
+  .daily .dnote{margin-top:12px; font-size:14px; color:var(--sub);}
+
+  .callout{background:rgba(91,168,255,0.07); border-left:4px solid var(--blue); border-radius:10px; padding:16px 20px; margin:8px 0 22px; font-size:18px; line-height:1.7;}
+  .callout.warn{background:rgba(240,200,80,0.07); border-left-color:var(--gold);}
+  .callout.red{background:rgba(224,85,85,0.08); border-left-color:var(--red);}
+  .callout b{color:var(--gold3);}
+
+  /* EXPLAINER box */
+  .explain{background:linear-gradient(180deg,var(--bg2),var(--bg3)); border:1px solid var(--line); border-radius:14px; padding:24px 26px; margin:14px 0 24px;}
+  .explain .ex-tag{display:inline-block; font-family:'Oswald',sans-serif; font-size:15px; letter-spacing:2px; color:#000; background:var(--gold-grad); padding:4px 12px; border-radius:6px; margin-bottom:12px;}
+  .explain h4{font-family:'Noto Serif JP',serif; font-weight:700; color:var(--gold3); font-size:24px; margin:0 0 12px;}
+  .explain p{font-size:19px; line-height:1.8; margin:0 0 12px;} .explain p:last-child{margin-bottom:0;}
+  .explain b{color:var(--gold3);} .explain .analogy{background:rgba(255,255,255,0.04); border-left:3px solid var(--gold2); border-radius:8px; padding:14px 18px; font-size:18px; line-height:1.7; margin:6px 0 12px;}
+  .exsteps{display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin:14px 0;}
+  .exstep{background:var(--bgcard); border:1px solid var(--line2); border-radius:10px; padding:14px 16px;}
+  .exstep .es-k{font-family:'Oswald',sans-serif; color:var(--gold2); font-size:15px; letter-spacing:1px; margin-bottom:4px;}
+  .exstep .es-v{font-size:16px; line-height:1.5; color:var(--white);}
+  .exstep .es-v b{color:var(--gold3);}
+
+  .gauges{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:8px 0 22px;}
+  .gauge{background:var(--bgcard); border:1px solid var(--line2); border-radius:12px; padding:20px 16px; text-align:center;}
+  .gauge .g-lbl{font-family:'Noto Serif JP',serif; font-weight:700; color:var(--gold2); font-size:20px; margin-bottom:6px;}
+  .gauge .g-wk{display:flex; align-items:baseline; justify-content:center; gap:10px;}
+  .gauge .g-prev{font-family:'Oswald',sans-serif; font-size:24px; color:var(--sub);}
+  .gauge .g-arr{color:var(--sub);}
+  .gauge .g-curr{font-family:'Oswald',sans-serif; font-weight:700; font-size:44px;}
+  .gauge .g-zone{margin-top:10px; font-family:'Oswald',sans-serif; font-size:16px; letter-spacing:1px; padding:5px 12px; border-radius:6px; border:1px solid; display:inline-block;}
+  .z-pre{color:#FFA94D; border-color:#FFA94D;} .z-crisis{color:var(--redL); border-color:var(--redL);} .z-safe{color:var(--blue); border-color:var(--blue);}
+
+  /* FedWatch */
+  .fedw{background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:22px 24px; margin:14px 0 22px;}
+  .fedw h4{font-family:'Noto Serif JP',serif; font-weight:700; color:var(--gold3); font-size:22px; margin:0 0 4px;}
+  .fedw .fw-src{font-size:14px; color:var(--sub); margin-bottom:16px;}
+  .fw-mtg{margin:16px 0;}
+  .fw-mtg .fw-title{font-family:'Oswald',sans-serif; font-size:18px; color:var(--gold2); letter-spacing:1px; margin-bottom:8px;}
+  .fw-stack{display:flex; height:44px; border-radius:8px; overflow:hidden; border:1px solid var(--line2);}
+  .fw-seg{display:flex; align-items:center; justify-content:center; font-family:'Oswald',sans-serif; font-weight:700; font-size:19px; color:#0B0C1A; white-space:nowrap;}
+  .fw-hold{background:linear-gradient(90deg,#8ec5ff,#5BA8FF);} .fw-hike{background:linear-gradient(90deg,#f4d88b,#D4AF37);} .fw-hike2{background:linear-gradient(90deg,#ff9a9a,#E05555); color:#fff;}
+  .fw-leg{display:flex; gap:18px; flex-wrap:wrap; margin-top:10px; font-size:15px; color:var(--sub);}
+  .fw-leg span{display:flex; align-items:center; gap:6px;} .fw-leg i{width:14px; height:14px; border-radius:3px; display:inline-block;}
+
+  .tbl{width:100%; border-collapse:collapse; margin:8px 0 20px; font-size:18px; border-radius:12px; overflow:hidden;}
+  .tbl th,.tbl td{padding:13px 14px; text-align:left; border-bottom:1px solid var(--line2); vertical-align:middle;}
+  .tbl th{background:rgba(212,175,55,0.10); font-family:'Oswald',sans-serif; letter-spacing:1px; color:var(--gold3); font-size:16px;}
+  .tbl td .num{font-size:19px;} .tbl tr:last-child td{border-bottom:none;} .tbl .r{text-align:right;} .tbl .cat{color:var(--sub); font-size:14px;}
+
+  .cal{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin:8px 0 22px;}
+  .cal-item{background:var(--bgcard); border:1px solid var(--line2); border-left:4px solid var(--gold); border-radius:10px; padding:14px 18px;}
+  .cal-item .c-date{font-family:'Oswald',sans-serif; font-weight:600; color:var(--gold2); font-size:18px;}
+  .cal-item .c-desc{font-size:17px; color:var(--white); line-height:1.5; margin-top:2px;} .cal-item .c-desc small{color:var(--sub);}
+
+  footer{background:#000; border-top:4px double var(--gold); margin-top:30px; padding:34px 24px 46px;}
+  footer .f-src{font-size:14px; color:var(--sub); line-height:1.8;} footer .f-src b{color:var(--gold2);}
+  footer .f-rule{margin-top:16px; padding-top:16px; border-top:1px solid var(--line2); font-size:14px; color:var(--sub); line-height:1.7;}
+  footer .f-copy{text-align:center; margin-top:22px; font-family:'Oswald',sans-serif; letter-spacing:3px; color:var(--gold2); font-size:16px;}
+
+  @media(max-width:820px){
+    body{font-size:19px;}
+    .mast-title{font-size:38px;} .mast-meta{text-align:left; white-space:normal;}
+    .verdict .txt{font-size:23px;}
+    .index{grid-template-columns:1fr 1fr;}
+    .kpis{grid-template-columns:1fr 1fr;}
+    .frame,.cal{grid-template-columns:1fr;}
+    .gauges{grid-template-columns:1fr;}
+    .horizon,.horizon2,.exsteps{grid-template-columns:1fr;}
+    .chain-flow{flex-direction:column;}
+    .cf-arrow{display:none;} .cf-arrow.v{display:flex; padding:6px 0; transform:rotate(90deg);}
+    .brow{grid-template-columns:96px 1fr 74px; gap:8px;} .brow .bname{font-size:15px;} .bval{font-size:18px;}
+    .drow{grid-template-columns:64px 1fr 96px;}
+    .tbl{font-size:16px;} .tbl th,.tbl td{padding:10px 8px;}
+    .lead-title{font-size:31px;} .lead-title.mid{font-size:27px;} .lead-title.sm{font-size:25px;}
+    .drop::first-letter{font-size:60px;}
+    .fw-seg{font-size:15px;}
+  }
+
+  .tblwrap{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:8px 0 20px;}
+  .tblwrap .tbl{margin:0; min-width:560px;}
+  @media(max-width:820px){
+    .kpi{min-width:0; padding:14px 10px;}
+    .kpi .k-val, .kpi.big .k-val{font-size:32px;}
+    .kpi .k-val small{font-size:16px !important;}
+    .kpi .k-lbl{font-size:14px; min-height:38px;}
+    .kpi .k-note{font-size:13px;}
+    .cf-step{min-width:0;}
+  }
+  /* 上昇＝赤／低下＝青 に統一（.bval の配色と一致させる） */
+  .bfill.pos{background:linear-gradient(90deg,#ff9a9a,#e05555) !important;}
+  .bfill.neg{background:linear-gradient(270deg,#8ec5ff,#5BA8FF) !important;}
+  .cchart svg{overflow:hidden;}
+  .bfill.pb-red{background:linear-gradient(90deg,#e05555,#ff9a9a) !important;}
+  .bfill.pb-gold{background:linear-gradient(90deg,#B8860B,#F0C850) !important;}
+  .bfill.pb-blue{background:linear-gradient(90deg,#3d84d8,#95c2ff) !important;}
+  @media(max-width:820px){
+    .heads li{padding-left:38px; font-size:17px;}
+    .drow{grid-template-columns:60px 1fr 68px; font-size:15px; gap:8px;}
+    .drow .dval{font-size:16px;}
+    .heads li, .drow, .brow .bname{word-break:break-word; overflow-wrap:anywhere;}
+  }
+
+</style></head><body><div class="wrap">
+<div class="masthead"><div class="mast-top">
+  <div><div class="mast-title">マネーフロー・ウィークリー</div><div class="mast-en">MACRO INTELLIGENCE WEEKLY ／ MONEY FLOW</div></div>
+  <div class="mast-meta"><b>2026年8月8日（土）</b>対象週：8月3日〜7日<br>第 32 週号</div></div>
+  <div class="mast-strip"><span class="issue">金が停滞を抜け、円安に当局が実弾で介入し、AI株は内側で割れた</span><span class="author">編集・監修：西村直樹</span></div>
+</div>
+<div class="verdict"><div class="lbl">THIS WEEK'S VERDICT ─ 今週の結論</div>
+<div class="txt"><em>金が＋7.45%</em>で4,000ドル台の停滞を抜け、株も同時に最高値圏へ。動かしたのは米雇用の悪化と、それによる利上げ観測の後退である。同じ週、<em>15年ぶりの日米協調介入</em>が円安を止めた。<b>ただし金は上昇局面に入ったとまでは言えず、円も方向が変わったわけではない。どちらも「速度が変わった」段階である。</b></div></div>
+<div class="index">
+  <a class="idx-card idx-1" href="#p1"><div class="idx-rank"><b>1</b>面 TOP</div><div class="idx-head">金＋7.45%<br>（株も同時に上昇）</div><div class="idx-sub">なぜ上がったのかを4つに分解。<b>上昇局面の始まりか、単発の波か</b>。判定が変わる条件まで書く。</div></a>
+  <a class="idx-card idx-2" href="#p2"><div class="idx-rank"><b>2</b>面</div><div class="idx-head">15年ぶりの<br>日米協調介入</div><div class="idx-sub">40年ぶり円安から9円の円高。<b>米国はドルでなくユーロを売った</b>。円高が続くのか、円安に戻るのか。</div></a>
+  <a class="idx-card idx-3" href="#p3"><div class="idx-rank"><b>3</b>面</div><div class="idx-head">AI株が<br>一枚岩でなくなった</div><div class="idx-sub">S&amp;P500は最高値。しかしメモリー勢は高値から−45〜50%。指数の陰で何が売られたか。</div></a>
+  <a class="idx-card idx-4" href="#p4"><div class="idx-rank"><b>4</b>面</div><div class="idx-head">物価と金利<br>米は減速・日本は加速</div><div class="idx-sub">FedWatch 70.8%→44.0%。次の分岐は8/12のCPI。日本は輸入物価＋29.7%。</div></a>
+</div>
+<div class="heads"><h3>今週の10大ヘッドライン</h3>
+<div class="cap"><b>順位は変化率の順ではなく、「世界のマネーの流れがどう変わったか」への重要度の順である。</b>数値は自社一次データ（Money Flow Explorer 週次更新 v6、51系列）ベース。前週比は基準日をそろえて日次から算出。地政学・政策決定・個別銘柄はニュース由来として区別し、出所を本文に明記した。</div>
+<ol><li><b>金が週間<span class="n">＋7.45%</span>（4,042.67→4,343.74ドル）</b>。8/5に1日で4%超上げ、1月から続いた下降トレンドラインを上抜けた。約5か月ぶりの大幅高で、<b>今週のマネーの流れを一言で表す数字はこれである</b>。理由は「金利低下・ドル安・中銀買い・買い戻し」の4つ（第1面）。</li><li><b>15年ぶりの日米協調為替介入</b>。7/30に日本単独、<span class="n">7/31</span>に日米協調で円買い。7/23の<span class="n">163.988円</span>（約40年ぶり円安）から8/3には一時<span class="n">155.218円</span>へ、数営業日で約9円動いた。ドル円は7/24比<span class="n">−3.69%</span>（第2面）。</li><li><b>米国は「ドル」ではなく「ユーロ」を売って円を買った</b>。これがECBに事前通告されておらず欧州で波紋（FT 8/6報道）。ユーロ円は7/24比<span class="n">−2.07%</span>（186.26→182.41）、ユーロドルは<span class="n">＋1.68%</span>。<b>円安是正が、通貨当局間の摩擦を生む段階に入った</b>。</li><li><b>米国の物価は減速、日本の物価は川上で加速</b>という逆方向。米は6月分でCPI・コアCPI・PCE・コアPCEの4指標そろって鈍化。日本は輸入物価<span class="n">＋29.7%</span>・企業物価<span class="n">＋7.1%</span>に対しCPI総合は<span class="n">＋1.6%</span>どまり。<b>なお総務省は8/7に2025年基準の遡及系列を公表し、6月の総合は1.7%→1.6%へ下方改定された</b>（第4面）。</li><li><b>米7月の雇用が<span class="n">−2万3千人</span>と5か月ぶりのマイナス</b>。予想は＋8万3千人。5月・6月も計<span class="n">10万3千人</span>下方修正。これが金と株を同時に押し上げた直接の引き金になった。</li><li><b>9月FOMCの利上げ確率が<span class="n">70.8%→44.0%</span></b>（7/24→8/7、CMEフェドウオッチ）。ただし<b>年内は1回利上げ<span class="n">45.3%</span>が最多</b>で、2回以上も29.6%残る。利上げが消えたわけではない。</li><li><b>「AI株」が一枚岩でなくなった</b>。メモリー勢は6月下旬の高値からサンディスク<span class="n">−50%超</span>・SKハイニックス<span class="n">−45%</span>・マイクロン/WDC<span class="n">−32%超</span>。一方でハイパースケーラー決算を受けMSFTは1日<span class="n">＋16%</span>。<b>指数の陰で内側が割れている</b>（第3面）。</li><li><b>米金利は全年限で低下</b>。基準をそろえた7/31→8/6で2年<span class="n">−3bp</span>、10年<span class="n">−6bp</span>、30年<span class="n">−5bp</span>。前週末の7/31が52週の最高水準だった。</li><li><b>原油WTIが<span class="n">−7.7%</span></b>（84.67→78.18ドル）。ホルムズ海峡の再開協議とOPECプラスの9月増産合意。<b>ただし合意は成立していない</b>。金の上昇を支えた「物価の先高観の後退」はここが起点。</li><li><b>VIXは<span class="n">14.90</span>、HY社債スプレッドは<span class="n">2.71%</span></b>（−14bp）でともに52週の最低圏。株・信用・ボラのすべてがリスクを取る側で一致した。<b>金と株が同時に上がったのは、この地合いがあったからである</b>。</li></ol></div>
+
+<div class="page" id="p1"><div class="folio"><span class="badge">第 1 面</span><span class="prio">PRIORITY ①／今週のマネーの流れ＝金</span><span class="rule"></span></div>
+<div class="lead-eyebrow">GOLD ─ 4,000ドル前後の停滞を抜けた</div>
+<h1 class="lead-title">金が<span class="r">＋7.45%</span>、株も同時に上昇<br><span class="g">これは上昇局面の始まりか、単発の波か</span></h1>
+<div class="lead-sub">今週のマネーの流れを一言で表す数字は金である。4,000ドル前後で停滞していた相場が、8月5日に1日で4%超上げ、4,100・4,200・4,300ドルの節目を一気に抜いた。約5か月ぶりの大幅高で、1月から続いた下降トレンドラインを上抜けている。同じ週に株も最高値圏へ。<b>ふだん逆に動く2つが同時に上がった理由と、これが続くのかを最初に整理する。</b></div>
+<div class="kpis">
+<div class="kpi big"><div class="k-lbl">金 XAU/USD（週間）</div><div class="k-val up">＋7.45<small style="font-size:24px;">%</small></div><div class="k-note">4,042.67 → 4,343.74 ドル</div></div>
+<div class="kpi big"><div class="k-lbl">銀（週間）</div><div class="k-val up">＋9.51<small style="font-size:24px;">%</small></div><div class="k-note">57.99 → 63.50 ドル</div></div>
+<div class="kpi big"><div class="k-lbl">終値の最高値からの距離</div><div class="k-val down">−19.6<small style="font-size:24px;">%</small></div><div class="k-note">5,400.25ドル（2026-01-28）</div></div>
+<div class="kpi big"><div class="k-lbl">実質金（2026年5月ドル）</div><div class="k-val up">4,362<small style="font-size:24px;">$</small></div><div class="k-note">物価調整後でも名目を上回る</div></div>
+</div>
+
+<div class="chain"><h4>■ 金が上がった理由 ─ 4つが同じ週に重なった</h4>
+<div class="chain-flow">
+<div class="cf-step"><div class="cf-t">① 米金利の低下<br><small style="font-size:18px;">利息を生まない金の不利が縮む</small></div><div class="cf-v hl-blue">実質金利 −4bp</div></div>
+<div class="cf-arrow">＋</div><div class="cf-arrow v">＋</div>
+<div class="cf-step"><div class="cf-t">② ドル安<br><small style="font-size:18px;">ドル建ての金は割安になる</small></div><div class="cf-v hl-blue">DXY −0.37%</div></div>
+<div class="cf-arrow">＋</div><div class="cf-arrow v">＋</div>
+<div class="cf-step"><div class="cf-t">③ 中央銀行の買い<br><small style="font-size:18px;">4〜6月期、前年比＋62%（1〜3月期は57トン）</small></div><div class="cf-v hl-gold">289 トン</div></div>
+<div class="cf-arrow">＋</div><div class="cf-arrow v">＋</div>
+<div class="cf-step"><div class="cf-t">④ 売り方の買い戻し<br><small style="font-size:18px;">抵抗線の突破が引き金</small></div><div class="cf-v hl-red">1日 ＋4%超</div></div>
+</div>
+<div class="chain-note">①と②の引き金は、8月5日のADP雇用（＋4.4万人）と8月7日の米雇用統計（−2.3万人）である。<b>金が上がった直接の理由は「米国の雇用が弱かったこと」</b>と言ってよい。③については後述のとおり<b>「今年も一貫して強い」とは言えない</b>。④は値動きそのものが呼んだ買いで、持続性はない。</div></div>
+
+<div class="horizon">
+<div class="cchart"><div class="cchart-head"><div><h5>金 XAU/USD</h5><div class="cchart-sub">短期（2か月）｜2026-06 〜 2026-08</div></div><span class="chg loss">▼ -3.2%</span></div>
+<svg viewBox="0 0 400 272" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
+<defs><linearGradient id="ar93945" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0C850" stop-opacity="0.28"/><stop offset="1" stop-color="#F0C850" stop-opacity="0.02"/></linearGradient>
+<linearGradient id="ln93945" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFE38A"/><stop offset="1" stop-color="#F0C850"/></linearGradient></defs>
+<line x1="96" y1="40.0" x2="388" y2="40.0" stroke="#ffffff" stroke-opacity="0.10" stroke-dasharray="4 5"/>
+<line x1="96" y1="219.5" x2="388" y2="219.5" stroke="#ffffff" stroke-opacity="0.10" stroke-dasharray="4 5"/>
+<text x="90" y="48.8" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">4,488.09</text>
+<text x="90" y="228.2" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">3,972.94</text>
+<path d="M96.0,41.0 L101.7,40.0 L107.5,58.7 L113.2,44.4 L118.9,95.3 L124.6,95.1 L130.4,118.0 L136.1,183.9 L141.8,135.1 L147.5,133.7 L153.3,102.3 L159.0,94.6 L164.7,119.9 L170.4,136.9 L176.2,154.2 L181.9,161.1 L187.6,143.3 L193.3,171.7 L199.1,209.8 L204.8,200.5 L210.5,179.0 L216.2,188.2 L222.0,203.9 L227.7,207.1 L233.4,199.3 L239.1,166.9 L244.9,148.8 L250.6,152.5 L256.3,172.7 L262.0,182.9 L267.8,167.7 L273.5,167.9 L279.2,209.4 L284.9,190.7 L290.7,188.4 L296.4,219.5 L302.1,203.9 L307.8,207.9 L313.6,182.9 L319.3,164.6 L325.0,193.1 L330.7,191.5 L336.5,183.4 L342.2,200.1 L347.9,187.0 L353.6,174.0 L359.4,195.2 L365.1,191.4 L370.8,183.0 L376.5,124.0 L382.3,126.3 L388.0,90.3 L388.0,219.5 L96.0,219.5 Z" fill="url(#ar93945)"/>
+<path d="M96.0,41.0 L101.7,40.0 L107.5,58.7 L113.2,44.4 L118.9,95.3 L124.6,95.1 L130.4,118.0 L136.1,183.9 L141.8,135.1 L147.5,133.7 L153.3,102.3 L159.0,94.6 L164.7,119.9 L170.4,136.9 L176.2,154.2 L181.9,161.1 L187.6,143.3 L193.3,171.7 L199.1,209.8 L204.8,200.5 L210.5,179.0 L216.2,188.2 L222.0,203.9 L227.7,207.1 L233.4,199.3 L239.1,166.9 L244.9,148.8 L250.6,152.5 L256.3,172.7 L262.0,182.9 L267.8,167.7 L273.5,167.9 L279.2,209.4 L284.9,190.7 L290.7,188.4 L296.4,219.5 L302.1,203.9 L307.8,207.9 L313.6,182.9 L319.3,164.6 L325.0,193.1 L330.7,191.5 L336.5,183.4 L342.2,200.1 L347.9,187.0 L353.6,174.0 L359.4,195.2 L365.1,191.4 L370.8,183.0 L376.5,124.0 L382.3,126.3 L388.0,90.3" fill="none" stroke="url(#ln93945)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="101.7" cy="40.0" r="5.5" fill="#FF8080"/><text x="161.0" y="27.5" fill="#FF8080" font-size="25" font-family="Oswald" font-weight="600" text-anchor="middle">期間高値 4,488.09</text>
+<circle cx="388.0" cy="90.3" r="6.5" fill="#F0C850"/>
+<text x="384.0" y="76.5" fill="#FFE38A" font-size="29" font-family="Oswald" font-weight="700" text-anchor="end">4,343.74</text><text x="96.0" y="262.0" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="start">2026-06</text><text x="388.0" y="262.0" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">2026-08</text></svg>
+<div class="chart-note">7月は4,000ドル前後で停滞。8月に入って一気に抜けた。</div></div>
+<div class="cchart"><div class="cchart-head"><div><h5>金 XAU/USD</h5><div class="cchart-sub">年初来｜2026-01 〜 2026-08</div></div><span class="chg loss">▼ -0.1%</span></div>
+<svg viewBox="0 0 400 272" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
+<defs><linearGradient id="ar80696" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0C850" stop-opacity="0.28"/><stop offset="1" stop-color="#F0C850" stop-opacity="0.02"/></linearGradient>
+<linearGradient id="ln80696" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFE38A"/><stop offset="1" stop-color="#F0C850"/></linearGradient></defs>
+<line x1="96" y1="40.0" x2="388" y2="40.0" stroke="#ffffff" stroke-opacity="0.10" stroke-dasharray="4 5"/>
+<line x1="96" y1="219.5" x2="388" y2="219.5" stroke="#ffffff" stroke-opacity="0.10" stroke-dasharray="4 5"/>
+<text x="90" y="48.8" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">5,400.25</text>
+<text x="90" y="228.2" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">3,972.94</text>
+<path d="M96.0,172.3 L97.6,174.5 L99.2,151.9 L100.9,159.7 L102.5,153.6 L104.1,159.1 L105.7,156.1 L107.4,151.9 L109.0,141.3 L110.6,141.4 L112.2,142.1 L113.8,138.0 L115.5,138.8 L117.1,141.3 L118.7,92.5 L120.3,131.7 L122.0,120.1 L123.6,110.9 L125.2,98.3 L126.8,92.5 L128.4,107.3 L130.1,88.4 L131.7,66.5 L133.3,40.0 L134.9,40.5 L136.6,107.3 L138.2,95.2 L139.8,132.3 L141.4,98.0 L143.0,94.9 L144.7,119.1 L146.3,95.2 L147.9,84.9 L149.5,82.1 L151.2,87.4 L152.8,80.4 L154.4,100.4 L156.0,84.9 L157.6,77.2 L159.3,91.3 L160.9,105.7 L162.5,92.9 L164.1,90.4 L165.8,77.2 L167.4,55.4 L169.0,61.2 L170.6,71.7 L172.2,68.8 L173.9,66.8 L175.5,55.4 L177.1,68.8 L178.7,49.2 L180.4,79.3 L182.0,73.2 L183.6,80.6 L185.2,68.8 L186.8,87.9 L188.5,72.8 L190.1,66.1 L191.7,68.1 L193.3,80.3 L195.0,87.9 L196.6,154.3 L198.2,89.5 L199.8,89.6 L201.4,113.1 L203.1,134.1 L204.7,154.3 L206.3,154.1 L207.9,164.8 L209.6,156.4 L211.2,152.4 L212.8,168.3 L214.4,154.1 L216.0,131.0 L217.7,151.8 L219.3,131.6 L220.9,120.7 L222.5,131.0 L224.2,131.0 L225.8,122.0 L227.4,134.2 L229.0,127.3 L230.6,125.6 L232.3,119.8 L233.9,122.0 L235.5,111.7 L237.1,122.8 L238.8,110.3 L240.4,116.6 L242.0,116.9 L243.6,111.7 L245.2,126.9 L246.9,112.9 L248.5,126.4 L250.1,123.2 L251.7,128.8 L253.4,126.9 L255.0,138.8 L256.6,130.3 L258.2,141.2 L259.8,147.7 L261.5,137.8 L263.1,138.8 L264.7,126.2 L266.3,150.2 L268.0,146.0 L269.6,129.3 L271.2,129.7 L272.8,126.2 L274.4,148.2 L276.1,123.6 L277.7,126.1 L279.3,129.5 L280.9,134.1 L282.6,148.2 L284.2,152.0 L285.8,144.7 L287.4,155.4 L289.0,147.5 L290.7,147.5 L292.3,152.0 L293.9,148.3 L295.5,144.3 L297.2,152.3 L298.8,158.5 L300.4,153.9 L302.0,148.3 L303.6,174.7 L305.3,155.1 L306.9,154.7 L308.5,161.5 L310.1,156.3 L311.8,174.7 L313.4,174.6 L315.0,182.9 L316.6,206.7 L318.2,189.0 L319.9,188.5 L321.5,177.2 L323.1,174.4 L324.7,183.5 L326.4,189.7 L328.0,195.9 L329.6,198.4 L331.2,192.0 L332.8,202.2 L334.5,216.0 L336.1,212.6 L337.7,204.9 L339.3,208.2 L341.0,213.9 L342.6,215.0 L344.2,212.2 L345.8,200.5 L347.4,194.0 L349.1,195.3 L350.7,202.6 L352.3,206.3 L353.9,200.8 L355.6,200.9 L357.2,215.9 L358.8,209.1 L360.4,208.3 L362.0,219.5 L363.7,213.9 L365.3,215.3 L366.9,206.3 L368.5,199.7 L370.2,210.0 L371.8,209.4 L373.4,206.5 L375.0,212.5 L376.6,207.8 L378.3,203.1 L379.9,210.7 L381.5,209.4 L383.1,206.3 L384.8,185.0 L386.4,185.9 L388.0,172.9 L388.0,219.5 L96.0,219.5 Z" fill="url(#ar80696)"/>
+<path d="M96.0,172.3 L97.6,174.5 L99.2,151.9 L100.9,159.7 L102.5,153.6 L104.1,159.1 L105.7,156.1 L107.4,151.9 L109.0,141.3 L110.6,141.4 L112.2,142.1 L113.8,138.0 L115.5,138.8 L117.1,141.3 L118.7,92.5 L120.3,131.7 L122.0,120.1 L123.6,110.9 L125.2,98.3 L126.8,92.5 L128.4,107.3 L130.1,88.4 L131.7,66.5 L133.3,40.0 L134.9,40.5 L136.6,107.3 L138.2,95.2 L139.8,132.3 L141.4,98.0 L143.0,94.9 L144.7,119.1 L146.3,95.2 L147.9,84.9 L149.5,82.1 L151.2,87.4 L152.8,80.4 L154.4,100.4 L156.0,84.9 L157.6,77.2 L159.3,91.3 L160.9,105.7 L162.5,92.9 L164.1,90.4 L165.8,77.2 L167.4,55.4 L169.0,61.2 L170.6,71.7 L172.2,68.8 L173.9,66.8 L175.5,55.4 L177.1,68.8 L178.7,49.2 L180.4,79.3 L182.0,73.2 L183.6,80.6 L185.2,68.8 L186.8,87.9 L188.5,72.8 L190.1,66.1 L191.7,68.1 L193.3,80.3 L195.0,87.9 L196.6,154.3 L198.2,89.5 L199.8,89.6 L201.4,113.1 L203.1,134.1 L204.7,154.3 L206.3,154.1 L207.9,164.8 L209.6,156.4 L211.2,152.4 L212.8,168.3 L214.4,154.1 L216.0,131.0 L217.7,151.8 L219.3,131.6 L220.9,120.7 L222.5,131.0 L224.2,131.0 L225.8,122.0 L227.4,134.2 L229.0,127.3 L230.6,125.6 L232.3,119.8 L233.9,122.0 L235.5,111.7 L237.1,122.8 L238.8,110.3 L240.4,116.6 L242.0,116.9 L243.6,111.7 L245.2,126.9 L246.9,112.9 L248.5,126.4 L250.1,123.2 L251.7,128.8 L253.4,126.9 L255.0,138.8 L256.6,130.3 L258.2,141.2 L259.8,147.7 L261.5,137.8 L263.1,138.8 L264.7,126.2 L266.3,150.2 L268.0,146.0 L269.6,129.3 L271.2,129.7 L272.8,126.2 L274.4,148.2 L276.1,123.6 L277.7,126.1 L279.3,129.5 L280.9,134.1 L282.6,148.2 L284.2,152.0 L285.8,144.7 L287.4,155.4 L289.0,147.5 L290.7,147.5 L292.3,152.0 L293.9,148.3 L295.5,144.3 L297.2,152.3 L298.8,158.5 L300.4,153.9 L302.0,148.3 L303.6,174.7 L305.3,155.1 L306.9,154.7 L308.5,161.5 L310.1,156.3 L311.8,174.7 L313.4,174.6 L315.0,182.9 L316.6,206.7 L318.2,189.0 L319.9,188.5 L321.5,177.2 L323.1,174.4 L324.7,183.5 L326.4,189.7 L328.0,195.9 L329.6,198.4 L331.2,192.0 L332.8,202.2 L334.5,216.0 L336.1,212.6 L337.7,204.9 L339.3,208.2 L341.0,213.9 L342.6,215.0 L344.2,212.2 L345.8,200.5 L347.4,194.0 L349.1,195.3 L350.7,202.6 L352.3,206.3 L353.9,200.8 L355.6,200.9 L357.2,215.9 L358.8,209.1 L360.4,208.3 L362.0,219.5 L363.7,213.9 L365.3,215.3 L366.9,206.3 L368.5,199.7 L370.2,210.0 L371.8,209.4 L373.4,206.5 L375.0,212.5 L376.6,207.8 L378.3,203.1 L379.9,210.7 L381.5,209.4 L383.1,206.3 L384.8,185.0 L386.4,185.9 L388.0,172.9" fill="none" stroke="url(#ln80696)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="133.3" cy="40.0" r="5.5" fill="#FF8080"/><text x="161.0" y="27.5" fill="#FF8080" font-size="25" font-family="Oswald" font-weight="600" text-anchor="middle">最高値 5,400.25</text>
+<circle cx="388.0" cy="172.9" r="6.5" fill="#F0C850"/>
+<text x="384.0" y="159.1" fill="#FFE38A" font-size="29" font-family="Oswald" font-weight="700" text-anchor="end">4,343.74</text><text x="96.0" y="262.0" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="start">2026-01</text><text x="388.0" y="262.0" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">2026-08</text></svg>
+<div class="chart-note">1月28日の5,400.25ドルが終値の最高値。今週の上げはその戻り局面にある。</div></div>
+<div class="cchart"><div class="cchart-head"><div><h5>金 XAU/USD</h5><div class="cchart-sub">長期（3年）｜2023-08 〜 2026-08</div></div><span class="chg gain">▲ +127.0%</span></div>
+<svg viewBox="0 0 400 272" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
+<defs><linearGradient id="ar14428" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0C850" stop-opacity="0.28"/><stop offset="1" stop-color="#F0C850" stop-opacity="0.02"/></linearGradient>
+<linearGradient id="ln14428" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFE38A"/><stop offset="1" stop-color="#F0C850"/></linearGradient></defs>
+<line x1="96" y1="40.0" x2="388" y2="40.0" stroke="#ffffff" stroke-opacity="0.10" stroke-dasharray="4 5"/>
+<line x1="96" y1="219.5" x2="388" y2="219.5" stroke="#ffffff" stroke-opacity="0.10" stroke-dasharray="4 5"/>
+<text x="90" y="48.8" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">5,400.25</text>
+<text x="90" y="228.2" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">1,832.26</text>
+<path d="M96.0,215.4 L96.5,216.7 L97.0,215.4 L97.6,214.1 L98.1,215.2 L98.6,214.9 L99.1,214.8 L99.6,218.7 L100.1,219.5 L100.7,214.5 L101.2,212.0 L101.7,210.8 L102.2,211.5 L102.7,214.2 L103.2,212.1 L103.8,211.0 L104.3,207.5 L104.8,210.9 L105.3,210.1 L105.8,208.4 L106.3,207.9 L106.9,208.8 L107.4,208.6 L107.9,209.6 L108.4,210.1 L108.9,209.1 L109.4,209.8 L110.0,210.4 L110.5,209.3 L111.0,206.9 L111.5,202.1 L112.0,203.2 L112.5,202.8 L113.1,199.4 L113.6,194.5 L114.1,193.8 L114.6,191.4 L115.1,194.1 L115.6,195.9 L116.2,192.9 L116.7,190.2 L117.2,194.3 L117.7,194.6 L118.2,196.3 L118.7,194.3 L119.3,194.9 L119.8,194.7 L120.3,191.4 L120.8,190.4 L121.3,190.9 L121.8,191.7 L122.4,188.8 L122.9,189.4 L123.4,185.5 L123.9,185.3 L124.4,185.8 L124.9,186.1 L125.5,182.1 L126.0,179.8 L126.5,178.0 L127.0,178.2 L127.5,178.1 L128.0,174.8 L128.6,173.4 L129.1,174.1 L129.6,176.7 L130.1,182.8 L130.6,175.2 L131.1,178.2 L131.7,179.2 L132.2,178.4 L132.7,179.8 L133.2,179.9 L133.7,178.9 L134.2,178.0 L134.8,178.9 L135.3,176.4 L135.8,179.1 L136.3,178.4 L136.8,177.8 L137.3,177.3 L137.9,176.4 L138.4,175.8 L138.9,177.8 L139.4,177.0 L139.9,176.1 L140.4,175.2 L141.0,175.8 L141.5,172.3 L142.0,175.4 L142.5,173.6 L143.0,173.1 L143.5,173.1 L144.1,172.3 L144.6,170.8 L145.1,173.8 L145.6,172.7 L146.1,172.9 L146.6,171.1 L147.2,170.8 L147.7,167.8 L148.2,170.1 L148.7,168.7 L149.2,167.5 L149.7,168.0 L150.3,167.8 L150.8,166.6 L151.3,165.4 L151.8,165.9 L152.3,165.6 L152.8,164.3 L153.4,166.6 L153.9,164.0 L154.4,165.9 L154.9,164.0 L155.4,164.1 L156.0,163.8 L156.5,164.0 L157.0,167.9 L157.5,163.2 L158.0,165.0 L158.5,165.0 L159.1,167.0 L159.6,167.9 L160.1,165.2 L160.6,166.1 L161.1,164.9 L161.6,164.8 L162.2,165.3 L162.7,165.2 L163.2,161.5 L163.7,166.3 L164.2,165.0 L164.7,164.2 L165.3,161.4 L165.8,161.5 L166.3,159.6 L166.8,160.7 L167.3,159.0 L167.8,158.4 L168.4,158.5 L168.9,159.6 L169.4,156.5 L169.9,160.1 L170.4,159.8 L170.9,159.8 L171.5,157.9 L172.0,156.5 L172.5,158.9 L173.0,154.6 L173.5,155.2 L174.0,154.0 L174.6,155.1 L175.1,158.9 L175.6,148.8 L176.1,161.6 L176.6,161.6 L177.1,156.6 L177.7,152.0 L178.2,148.9 L178.7,144.3 L179.2,150.2 L179.7,149.3 L180.2,143.5 L180.8,144.3 L181.3,144.7 L181.8,139.4 L182.3,141.5 L182.8,146.3 L183.3,143.2 L183.9,144.7 L184.4,148.6 L184.9,143.6 L185.4,144.8 L185.9,146.2 L186.4,148.6 L187.0,148.6 L187.5,144.4 L188.0,143.9 L188.5,139.1 L189.0,142.4 L189.5,145.4 L190.1,144.4 L190.6,150.6 L191.1,148.9 L191.6,148.3 L192.1,151.8 L192.6,148.6 L193.2,150.6 L193.7,142.8 L194.2,149.2 L194.7,146.2 L195.2,144.9 L195.7,145.9 L196.3,142.8 L196.8,146.2 L197.3,143.5 L197.8,145.6 L198.3,146.2 L198.8,144.8 L199.4,146.2 L199.9,145.1 L200.4,141.6 L200.9,143.0 L201.4,141.8 L201.9,142.9 L202.5,145.1 L203.0,139.0 L203.5,144.2 L204.0,144.5 L204.5,143.0 L205.0,141.4 L205.6,139.0 L206.1,142.2 L206.6,141.5 L207.1,141.2 L207.6,142.2 L208.1,142.1 L208.7,142.2 L209.2,147.0 L209.7,142.2 L210.2,144.4 L210.7,144.0 L211.2,144.2 L211.8,147.0 L212.3,143.8 L212.8,145.5 L213.3,143.7 L213.8,142.8 L214.4,144.3 L214.9,143.8 L215.4,142.8 L215.9,143.9 L216.4,145.6 L216.9,145.0 L217.5,144.5 L218.0,142.8 L218.5,143.1 L219.0,143.5 L219.5,144.5 L220.0,143.3 L220.6,143.7 L221.1,143.1 L221.6,143.8 L222.1,140.8 L222.6,139.0 L223.1,141.2 L223.7,142.2 L224.2,143.8 L224.7,142.5 L225.2,144.9 L225.7,144.3 L226.2,146.9 L226.8,146.1 L227.3,142.5 L227.8,140.7 L228.3,142.0 L228.8,141.6 L229.3,142.2 L229.9,140.8 L230.4,140.7 L230.9,143.9 L231.4,143.4 L231.9,143.3 L232.4,142.9 L233.0,143.8 L233.5,143.9 L234.0,142.0 L234.5,144.1 L235.0,144.9 L235.5,143.3 L236.1,143.7 L236.6,142.0 L237.1,138.2 L237.6,142.3 L238.1,141.0 L238.6,140.8 L239.2,139.8 L239.7,138.2 L240.2,131.2 L240.7,136.8 L241.2,133.9 L241.7,132.6 L242.3,133.3 L242.8,131.2 L243.3,128.4 L243.8,128.8 L244.3,129.2 L244.8,128.5 L245.4,128.9 L245.9,128.4 L246.4,126.3 L246.9,126.6 L247.4,126.1 L247.9,127.5 L248.5,128.3 L249.0,126.3 L249.5,122.5 L250.0,123.2 L250.5,122.3 L251.0,123.7 L251.6,123.1 L252.1,122.5 L252.6,116.1 L253.1,118.8 L253.6,117.6 L254.1,117.2 L254.7,117.7 L255.2,116.1 L255.7,109.5 L256.2,112.4 L256.7,111.3 L257.2,108.5 L257.8,111.6 L258.3,109.5 L258.8,97.9 L259.3,104.9 L259.8,103.3 L260.3,100.0 L260.9,94.0 L261.4,97.9 L261.9,104.8 L262.4,92.5 L262.9,104.2 L263.4,105.7 L264.0,104.1 L264.5,104.8 L265.0,110.3 L265.5,111.4 L266.0,112.8 L266.5,113.9 L267.1,109.2 L267.6,110.3 L268.1,110.5 L268.6,110.4 L269.1,113.9 L269.6,111.3 L270.2,111.6 L270.7,110.5 L271.2,106.4 L271.7,104.6 L272.2,104.1 L272.8,100.4 L273.3,101.8 L273.8,106.4 L274.3,107.1 L274.8,108.2 L275.3,107.0 L275.9,106.3 L276.4,106.5 L276.9,107.1 L277.4,98.8 L277.9,103.4 L278.4,103.8 L279.0,102.2 L279.5,102.5 L280.0,98.8 L280.5,100.5 L281.0,98.7 L281.5,100.0 L282.1,100.1 L282.6,99.9 L283.1,100.5 L283.6,95.2 L284.1,100.9 L284.6,99.9 L285.2,98.9 L285.7,96.2 L286.2,95.2 L286.7,93.4 L287.2,95.2 L287.7,95.2 L288.3,93.3 L288.8,93.7 L289.3,93.4 L289.8,83.6 L290.3,88.0 L290.8,85.9 L291.4,86.3 L291.9,85.5 L292.4,83.6 L292.9,93.8 L293.4,93.7 L293.9,93.0 L294.5,94.6 L295.0,92.9 L295.5,93.8 L296.0,84.8 L296.5,87.9 L297.0,85.4 L297.6,87.7 L298.1,86.5 L298.6,84.8 L299.1,80.5 L299.6,80.6 L300.1,80.9 L300.7,79.2 L301.2,79.5 L301.7,80.5 L302.2,61.0 L302.7,76.7 L303.2,72.0 L303.8,68.4 L304.3,63.3 L304.8,61.0 L305.3,66.9 L305.8,59.4 L306.3,50.6 L306.9,40.0 L307.4,40.2 L307.9,66.9 L308.4,62.1 L308.9,76.9 L309.4,63.2 L310.0,62.0 L310.5,71.7 L311.0,62.1 L311.5,58.0 L312.0,56.8 L312.5,59.0 L313.1,56.2 L313.6,64.1 L314.1,58.0 L314.6,54.9 L315.1,60.5 L315.6,66.3 L316.2,61.2 L316.7,60.2 L317.2,54.9 L317.7,46.2 L318.2,48.5 L318.7,52.7 L319.3,51.5 L319.8,50.7 L320.3,46.2 L320.8,51.5 L321.3,43.7 L321.8,55.7 L322.4,53.3 L322.9,56.2 L323.4,51.5 L323.9,59.2 L324.4,53.1 L324.9,50.4 L325.5,51.2 L326.0,56.1 L326.5,59.2 L327.0,85.7 L327.5,59.8 L328.0,59.8 L328.6,69.3 L329.1,77.7 L329.6,85.7 L330.1,85.6 L330.6,89.9 L331.2,86.6 L331.7,85.0 L332.2,91.3 L332.7,85.6 L333.2,76.4 L333.7,84.7 L334.3,76.6 L334.8,72.3 L335.3,76.4 L335.8,76.4 L336.3,72.8 L336.8,77.7 L337.4,74.9 L337.9,74.3 L338.4,71.9 L338.9,72.8 L339.4,68.7 L339.9,73.1 L340.5,68.1 L341.0,70.6 L341.5,70.8 L342.0,68.7 L342.5,74.8 L343.0,69.1 L343.6,74.6 L344.1,73.3 L344.6,75.5 L345.1,74.8 L345.6,79.5 L346.1,76.1 L346.7,80.5 L347.2,83.1 L347.7,79.1 L348.2,79.5 L348.7,74.5 L349.2,84.1 L349.8,82.4 L350.3,75.7 L350.8,75.9 L351.3,74.5 L351.8,83.3 L352.3,73.5 L352.9,74.5 L353.4,75.8 L353.9,77.6 L354.4,83.3 L354.9,84.8 L355.4,81.9 L356.0,86.2 L356.5,83.0 L357.0,83.0 L357.5,84.8 L358.0,83.3 L358.5,81.7 L359.1,84.9 L359.6,87.4 L360.1,85.5 L360.6,83.3 L361.1,93.9 L361.6,86.0 L362.2,85.9 L362.7,88.6 L363.2,86.5 L363.7,93.9 L364.2,93.9 L364.7,97.2 L365.3,106.7 L365.8,99.6 L366.3,99.4 L366.8,94.9 L367.3,93.8 L367.8,97.4 L368.4,99.9 L368.9,102.4 L369.4,103.4 L369.9,100.8 L370.4,104.9 L370.9,110.4 L371.5,109.1 L372.0,106.0 L372.5,107.3 L373.0,109.6 L373.5,110.0 L374.0,108.9 L374.6,104.2 L375.1,101.6 L375.6,102.1 L376.1,105.0 L376.6,106.5 L377.1,104.3 L377.7,104.4 L378.2,110.4 L378.7,107.7 L379.2,107.3 L379.7,111.8 L380.2,109.6 L380.8,110.1 L381.3,106.5 L381.8,103.9 L382.3,108.0 L382.8,107.8 L383.3,106.6 L383.9,109.0 L384.4,107.1 L384.9,105.2 L385.4,108.3 L385.9,107.8 L386.4,106.5 L387.0,98.0 L387.5,98.3 L388.0,93.2 L388.0,219.5 L96.0,219.5 Z" fill="url(#ar14428)"/>
+<path d="M96.0,215.4 L96.5,216.7 L97.0,215.4 L97.6,214.1 L98.1,215.2 L98.6,214.9 L99.1,214.8 L99.6,218.7 L100.1,219.5 L100.7,214.5 L101.2,212.0 L101.7,210.8 L102.2,211.5 L102.7,214.2 L103.2,212.1 L103.8,211.0 L104.3,207.5 L104.8,210.9 L105.3,210.1 L105.8,208.4 L106.3,207.9 L106.9,208.8 L107.4,208.6 L107.9,209.6 L108.4,210.1 L108.9,209.1 L109.4,209.8 L110.0,210.4 L110.5,209.3 L111.0,206.9 L111.5,202.1 L112.0,203.2 L112.5,202.8 L113.1,199.4 L113.6,194.5 L114.1,193.8 L114.6,191.4 L115.1,194.1 L115.6,195.9 L116.2,192.9 L116.7,190.2 L117.2,194.3 L117.7,194.6 L118.2,196.3 L118.7,194.3 L119.3,194.9 L119.8,194.7 L120.3,191.4 L120.8,190.4 L121.3,190.9 L121.8,191.7 L122.4,188.8 L122.9,189.4 L123.4,185.5 L123.9,185.3 L124.4,185.8 L124.9,186.1 L125.5,182.1 L126.0,179.8 L126.5,178.0 L127.0,178.2 L127.5,178.1 L128.0,174.8 L128.6,173.4 L129.1,174.1 L129.6,176.7 L130.1,182.8 L130.6,175.2 L131.1,178.2 L131.7,179.2 L132.2,178.4 L132.7,179.8 L133.2,179.9 L133.7,178.9 L134.2,178.0 L134.8,178.9 L135.3,176.4 L135.8,179.1 L136.3,178.4 L136.8,177.8 L137.3,177.3 L137.9,176.4 L138.4,175.8 L138.9,177.8 L139.4,177.0 L139.9,176.1 L140.4,175.2 L141.0,175.8 L141.5,172.3 L142.0,175.4 L142.5,173.6 L143.0,173.1 L143.5,173.1 L144.1,172.3 L144.6,170.8 L145.1,173.8 L145.6,172.7 L146.1,172.9 L146.6,171.1 L147.2,170.8 L147.7,167.8 L148.2,170.1 L148.7,168.7 L149.2,167.5 L149.7,168.0 L150.3,167.8 L150.8,166.6 L151.3,165.4 L151.8,165.9 L152.3,165.6 L152.8,164.3 L153.4,166.6 L153.9,164.0 L154.4,165.9 L154.9,164.0 L155.4,164.1 L156.0,163.8 L156.5,164.0 L157.0,167.9 L157.5,163.2 L158.0,165.0 L158.5,165.0 L159.1,167.0 L159.6,167.9 L160.1,165.2 L160.6,166.1 L161.1,164.9 L161.6,164.8 L162.2,165.3 L162.7,165.2 L163.2,161.5 L163.7,166.3 L164.2,165.0 L164.7,164.2 L165.3,161.4 L165.8,161.5 L166.3,159.6 L166.8,160.7 L167.3,159.0 L167.8,158.4 L168.4,158.5 L168.9,159.6 L169.4,156.5 L169.9,160.1 L170.4,159.8 L170.9,159.8 L171.5,157.9 L172.0,156.5 L172.5,158.9 L173.0,154.6 L173.5,155.2 L174.0,154.0 L174.6,155.1 L175.1,158.9 L175.6,148.8 L176.1,161.6 L176.6,161.6 L177.1,156.6 L177.7,152.0 L178.2,148.9 L178.7,144.3 L179.2,150.2 L179.7,149.3 L180.2,143.5 L180.8,144.3 L181.3,144.7 L181.8,139.4 L182.3,141.5 L182.8,146.3 L183.3,143.2 L183.9,144.7 L184.4,148.6 L184.9,143.6 L185.4,144.8 L185.9,146.2 L186.4,148.6 L187.0,148.6 L187.5,144.4 L188.0,143.9 L188.5,139.1 L189.0,142.4 L189.5,145.4 L190.1,144.4 L190.6,150.6 L191.1,148.9 L191.6,148.3 L192.1,151.8 L192.6,148.6 L193.2,150.6 L193.7,142.8 L194.2,149.2 L194.7,146.2 L195.2,144.9 L195.7,145.9 L196.3,142.8 L196.8,146.2 L197.3,143.5 L197.8,145.6 L198.3,146.2 L198.8,144.8 L199.4,146.2 L199.9,145.1 L200.4,141.6 L200.9,143.0 L201.4,141.8 L201.9,142.9 L202.5,145.1 L203.0,139.0 L203.5,144.2 L204.0,144.5 L204.5,143.0 L205.0,141.4 L205.6,139.0 L206.1,142.2 L206.6,141.5 L207.1,141.2 L207.6,142.2 L208.1,142.1 L208.7,142.2 L209.2,147.0 L209.7,142.2 L210.2,144.4 L210.7,144.0 L211.2,144.2 L211.8,147.0 L212.3,143.8 L212.8,145.5 L213.3,143.7 L213.8,142.8 L214.4,144.3 L214.9,143.8 L215.4,142.8 L215.9,143.9 L216.4,145.6 L216.9,145.0 L217.5,144.5 L218.0,142.8 L218.5,143.1 L219.0,143.5 L219.5,144.5 L220.0,143.3 L220.6,143.7 L221.1,143.1 L221.6,143.8 L222.1,140.8 L222.6,139.0 L223.1,141.2 L223.7,142.2 L224.2,143.8 L224.7,142.5 L225.2,144.9 L225.7,144.3 L226.2,146.9 L226.8,146.1 L227.3,142.5 L227.8,140.7 L228.3,142.0 L228.8,141.6 L229.3,142.2 L229.9,140.8 L230.4,140.7 L230.9,143.9 L231.4,143.4 L231.9,143.3 L232.4,142.9 L233.0,143.8 L233.5,143.9 L234.0,142.0 L234.5,144.1 L235.0,144.9 L235.5,143.3 L236.1,143.7 L236.6,142.0 L237.1,138.2 L237.6,142.3 L238.1,141.0 L238.6,140.8 L239.2,139.8 L239.7,138.2 L240.2,131.2 L240.7,136.8 L241.2,133.9 L241.7,132.6 L242.3,133.3 L242.8,131.2 L243.3,128.4 L243.8,128.8 L244.3,129.2 L244.8,128.5 L245.4,128.9 L245.9,128.4 L246.4,126.3 L246.9,126.6 L247.4,126.1 L247.9,127.5 L248.5,128.3 L249.0,126.3 L249.5,122.5 L250.0,123.2 L250.5,122.3 L251.0,123.7 L251.6,123.1 L252.1,122.5 L252.6,116.1 L253.1,118.8 L253.6,117.6 L254.1,117.2 L254.7,117.7 L255.2,116.1 L255.7,109.5 L256.2,112.4 L256.7,111.3 L257.2,108.5 L257.8,111.6 L258.3,109.5 L258.8,97.9 L259.3,104.9 L259.8,103.3 L260.3,100.0 L260.9,94.0 L261.4,97.9 L261.9,104.8 L262.4,92.5 L262.9,104.2 L263.4,105.7 L264.0,104.1 L264.5,104.8 L265.0,110.3 L265.5,111.4 L266.0,112.8 L266.5,113.9 L267.1,109.2 L267.6,110.3 L268.1,110.5 L268.6,110.4 L269.1,113.9 L269.6,111.3 L270.2,111.6 L270.7,110.5 L271.2,106.4 L271.7,104.6 L272.2,104.1 L272.8,100.4 L273.3,101.8 L273.8,106.4 L274.3,107.1 L274.8,108.2 L275.3,107.0 L275.9,106.3 L276.4,106.5 L276.9,107.1 L277.4,98.8 L277.9,103.4 L278.4,103.8 L279.0,102.2 L279.5,102.5 L280.0,98.8 L280.5,100.5 L281.0,98.7 L281.5,100.0 L282.1,100.1 L282.6,99.9 L283.1,100.5 L283.6,95.2 L284.1,100.9 L284.6,99.9 L285.2,98.9 L285.7,96.2 L286.2,95.2 L286.7,93.4 L287.2,95.2 L287.7,95.2 L288.3,93.3 L288.8,93.7 L289.3,93.4 L289.8,83.6 L290.3,88.0 L290.8,85.9 L291.4,86.3 L291.9,85.5 L292.4,83.6 L292.9,93.8 L293.4,93.7 L293.9,93.0 L294.5,94.6 L295.0,92.9 L295.5,93.8 L296.0,84.8 L296.5,87.9 L297.0,85.4 L297.6,87.7 L298.1,86.5 L298.6,84.8 L299.1,80.5 L299.6,80.6 L300.1,80.9 L300.7,79.2 L301.2,79.5 L301.7,80.5 L302.2,61.0 L302.7,76.7 L303.2,72.0 L303.8,68.4 L304.3,63.3 L304.8,61.0 L305.3,66.9 L305.8,59.4 L306.3,50.6 L306.9,40.0 L307.4,40.2 L307.9,66.9 L308.4,62.1 L308.9,76.9 L309.4,63.2 L310.0,62.0 L310.5,71.7 L311.0,62.1 L311.5,58.0 L312.0,56.8 L312.5,59.0 L313.1,56.2 L313.6,64.1 L314.1,58.0 L314.6,54.9 L315.1,60.5 L315.6,66.3 L316.2,61.2 L316.7,60.2 L317.2,54.9 L317.7,46.2 L318.2,48.5 L318.7,52.7 L319.3,51.5 L319.8,50.7 L320.3,46.2 L320.8,51.5 L321.3,43.7 L321.8,55.7 L322.4,53.3 L322.9,56.2 L323.4,51.5 L323.9,59.2 L324.4,53.1 L324.9,50.4 L325.5,51.2 L326.0,56.1 L326.5,59.2 L327.0,85.7 L327.5,59.8 L328.0,59.8 L328.6,69.3 L329.1,77.7 L329.6,85.7 L330.1,85.6 L330.6,89.9 L331.2,86.6 L331.7,85.0 L332.2,91.3 L332.7,85.6 L333.2,76.4 L333.7,84.7 L334.3,76.6 L334.8,72.3 L335.3,76.4 L335.8,76.4 L336.3,72.8 L336.8,77.7 L337.4,74.9 L337.9,74.3 L338.4,71.9 L338.9,72.8 L339.4,68.7 L339.9,73.1 L340.5,68.1 L341.0,70.6 L341.5,70.8 L342.0,68.7 L342.5,74.8 L343.0,69.1 L343.6,74.6 L344.1,73.3 L344.6,75.5 L345.1,74.8 L345.6,79.5 L346.1,76.1 L346.7,80.5 L347.2,83.1 L347.7,79.1 L348.2,79.5 L348.7,74.5 L349.2,84.1 L349.8,82.4 L350.3,75.7 L350.8,75.9 L351.3,74.5 L351.8,83.3 L352.3,73.5 L352.9,74.5 L353.4,75.8 L353.9,77.6 L354.4,83.3 L354.9,84.8 L355.4,81.9 L356.0,86.2 L356.5,83.0 L357.0,83.0 L357.5,84.8 L358.0,83.3 L358.5,81.7 L359.1,84.9 L359.6,87.4 L360.1,85.5 L360.6,83.3 L361.1,93.9 L361.6,86.0 L362.2,85.9 L362.7,88.6 L363.2,86.5 L363.7,93.9 L364.2,93.9 L364.7,97.2 L365.3,106.7 L365.8,99.6 L366.3,99.4 L366.8,94.9 L367.3,93.8 L367.8,97.4 L368.4,99.9 L368.9,102.4 L369.4,103.4 L369.9,100.8 L370.4,104.9 L370.9,110.4 L371.5,109.1 L372.0,106.0 L372.5,107.3 L373.0,109.6 L373.5,110.0 L374.0,108.9 L374.6,104.2 L375.1,101.6 L375.6,102.1 L376.1,105.0 L376.6,106.5 L377.1,104.3 L377.7,104.4 L378.2,110.4 L378.7,107.7 L379.2,107.3 L379.7,111.8 L380.2,109.6 L380.8,110.1 L381.3,106.5 L381.8,103.9 L382.3,108.0 L382.8,107.8 L383.3,106.6 L383.9,109.0 L384.4,107.1 L384.9,105.2 L385.4,108.3 L385.9,107.8 L386.4,106.5 L387.0,98.0 L387.5,98.3 L388.0,93.2" fill="none" stroke="url(#ln14428)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="306.9" cy="40.0" r="5.5" fill="#FF8080"/><text x="306.9" y="27.5" fill="#FF8080" font-size="25" font-family="Oswald" font-weight="600" text-anchor="middle">最高値 5,400.25</text>
+<circle cx="388.0" cy="93.2" r="6.5" fill="#F0C850"/>
+<text x="384.0" y="79.4" fill="#FFE38A" font-size="29" font-family="Oswald" font-weight="700" text-anchor="end">4,343.74</text><text x="96.0" y="262.0" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="start">2023-08</text><text x="388.0" y="262.0" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">2026-08</text></svg>
+<div class="chart-note">3年の幅では上昇トレンドの中の調整。押し目の位置は切り上がっている。</div></div>
+</div>
+
+<div class="explain"><span class="ex-tag">EXPLAINER</span><h4>いちばん知りたいこと ─ 上昇局面の始まりか、単発の波か</h4>
+<div class="analogy">今の金は、坂を登りきったあと一度大きく下って、いま登り返している途中にある。問題は「これが次の坂の登り口なのか」「下り坂の途中のひと休みなのか」である。今週の数字だけでは、まだどちらとも言えない。</div>
+<div class="exsteps">
+<div class="exstep"><div class="es-k">上昇継続の条件</div><div class="es-v">①4,310ドル付近を終値で上抜けて定着 ②<b>欧米の金ETFへの資金流入が再開</b>。この2つが揃えば100日線の4,393ドル〜4,400ドル台が視野。</div></div>
+<div class="exstep"><div class="es-k">単発で終わる条件</div><div class="es-v">①8/12のCPIが上振れて利上げ警戒が再燃 ②ホルムズ協議が頓挫して原油が反発し米金利が上昇。4,200ドル割れなら4,100ドル台、さらに25日線4,085ドル付近まで。</div></div>
+<div class="exstep"><div class="es-k">構造要因（要注意）</div><div class="es-v">中央銀行買いは4〜6月期に<b>289トン（前年比＋62%）へ急回復</b>。一方<b>1〜3月期は244トン→57トンへ大幅下方改定</b>された。2026年上期合計は約346トンで<b>近年では低い水準</b>。長期の構造要因は残るが「今年も一貫して強い」とは言えない。</div></div>
+</div>
+<p><b>当方の見立て。</b>今週の上げは①金利低下と④買い戻しの寄与が大きく、<b>まだ「単発の波」の側に分類するのが妥当である</b>。理由は3つ。金ETFへの資金流入の再開がまだ確認できていないこと。終値の最高値5,400.25ドルからは−19.6%と戻りの途中にすぎないこと。そして<b>中央銀行買いという構造要因が、Q1の大幅下方改定によって当初思われていたより弱かったこと</b>である。<b>判断が変わる条件は「4,310ドルの上抜け定着」と「ETF流入の再開」の2つ</b>で、この2つを次週の観察点に置く。なお報道では過去最高値を5,598ドルとするものがあるが、これはザラ場ベースとみられ、当社データ（終値ベース）の5,400.25ドルとは定義が違う（未確認）。</p></div>
+
+<div class="chart"><h4>金・銀と、同じ週に上がったもの ─ 週間騰落率</h4><div class="csub">2026-07-31 → 2026-08-07 の終値ベース。右（赤）が上昇。</div><div class="brow"><div class="bname">銀<br><small>57.99 → 63.50</small></div><div class="btrack"><div class="bzero"></div><div class="bfill pos" style="left:50%;width:47.5%"></div></div><div class="bval up">＋9.51%</div></div><div class="brow"><div class="bname">金<br><small>4,042.67 → 4,343.74</small></div><div class="btrack"><div class="bzero"></div><div class="bfill pos" style="left:50%;width:37.2%"></div></div><div class="bval up">＋7.45%</div></div><div class="brow"><div class="bname">ナスダック総合<br><small>25,374 → 26,691</small></div><div class="btrack"><div class="bzero"></div><div class="bfill pos" style="left:50%;width:25.9%"></div></div><div class="bval up">＋5.19%</div></div><div class="brow"><div class="bname">S&amp;P500<br><small>7,490 → 7,758（終値の最高値）</small></div><div class="btrack"><div class="bzero"></div><div class="bfill pos" style="left:50%;width:17.9%"></div></div><div class="bval up">＋3.58%</div></div><div class="brow"><div class="bname">ビットコイン<br><small>62,899 → 64,915</small></div><div class="btrack"><div class="bzero"></div><div class="bfill pos" style="left:50%;width:16.0%"></div></div><div class="bval up">＋3.20%</div></div><div class="brow"><div class="bname">日経225<br><small>64,362 → 65,607</small></div><div class="btrack"><div class="bzero"></div><div class="bfill pos" style="left:50%;width:9.7%"></div></div><div class="bval up">＋1.93%</div></div><div class="brow"><div class="bname">VIX 恐怖指数<br><small>15.99 → 14.90</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:34.1%"></div></div><div class="bval down">−6.82%</div></div><div class="brow"><div class="bname">原油WTI<br><small>84.67 → 78.18</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:38.3%"></div></div><div class="bval down">−7.67%</div></div><div class="cnote"><b>安全資産（金・銀）とリスク資産（株・BTC）が同時に上がり、恐怖指数と原油が下がった。</b>今週については、金と株に共通した最大の追い風は<b>「米利上げ期待の後退」だった可能性が高い</b>。ただし金には実質金利・ドル安・弱い雇用・買い戻し・中央銀行需要・地政学と複数の要因があり、株にも金利期待のほか個別決算やAI関連株の反発がある。<b>「両方が上がった＝必ず金利要因」と一般化はしない。</b></div></div>
+</div>
+
+<div class="page" id="p2"><div class="folio"><span class="badge">第 2 面</span><span class="prio">PRIORITY ②／為替 ─ 15年ぶりの協調介入</span><span class="rule"></span></div>
+<div class="lead-eyebrow">FX ─ 40年ぶりの円安に、当局が実弾で介入した</div>
+<h1 class="lead-title mid">日米が<span class="r">15年ぶり</span>の協調介入<br><span class="g">米国は「ドル」ではなく「ユーロ」を売った</span></h1>
+<div class="lead-sub">7月23日、ドル円は163.988円と1986年11月以来およそ40年ぶりの円安をつけた。そこから8月3日には一時155.218円まで、数営業日で約9円動いている。動かしたのは通貨当局である。7月30日に日本が単独で、7月31日に日米が協調して円買いに踏み切った。<b>そして米国が円を買う原資に使ったのは、ドルではなくユーロだった。</b></div>
+<div class="kpis">
+<div class="kpi big"><div class="k-lbl">ドル円（7/24 → 8/7）</div><div class="k-val down">−3.69<small style="font-size:24px;">%</small></div><div class="k-note">163.85 → 157.81 円</div></div>
+<div class="kpi big"><div class="k-lbl">ユーロ円（7/24 → 8/7）</div><div class="k-val down">−2.07<small style="font-size:24px;">%</small></div><div class="k-note">186.26 → 182.41 円</div></div>
+<div class="kpi big"><div class="k-lbl">ユーロドル（7/24 → 8/7）</div><div class="k-val up">＋1.68<small style="font-size:24px;">%</small></div><div class="k-note">1.1368 → 1.1559</div></div>
+<div class="kpi big"><div class="k-lbl">米ドル指数 DXY</div><div class="k-val down">−1.90<small style="font-size:24px;">%</small></div><div class="k-note">101.47 → 99.54</div></div>
+</div>
+
+<div class="sub-h">何が起きたのか ─ 事実と、推測の切り分け</div>
+<div class="sub-h-sub"><b>OFFICIAL＝一次資料・当局の公式発表で確認／REPORTED＝信頼できる報道／UNCONFIRMED＝未確認の推計。</b>同じ7月31日の出来事でも、情報のレイヤーが違うものは行を分けている。</div>
+<div class="tblwrap"><table class="tbl">
+<tr><th>日付</th><th>出来事</th><th>ドル円の動き</th><th>確度</th></tr>
+<tr><td class="num">7/23</td><td>ドル円が163.988円。<b>1986年11月以来およそ40年ぶりの円安</b></td><td class="num">163.99</td><td style="color:#FFE38A;">OFFICIAL 確定（市場価格）</td></tr>
+<tr><td class="num">7/30</td><td><b>日本単独</b>の円買い・ドル売り介入（米国市場）。162円台後半から157円台後半へ約5円</td><td class="num down">159.54</td><td style="color:#FFE38A;">OFFICIAL 確定（後日公表）</td></tr>
+<tr><td class="num">7/30</td><td>介入規模。市場推計で<b>6〜7兆円</b>、一部で最大8兆4,500億円との推計も</td><td class="num">—</td><td style="color:#FF8080;">UNCONFIRMED 推計（規模は未公表）</td></tr>
+<tr><td class="num">7/31</td><td><b>日米が協調して円買い介入を実施</b></td><td class="num down">157.58</td><td style="color:#FFE38A;">OFFICIAL 確定（8/3 財務大臣談話）</td></tr>
+<tr><td class="num">7/31</td><td>米側は<b>NY連銀を通じてユーロ売り・円買い</b>を実施</td><td class="num">—</td><td style="color:#FFB25A;">REPORTED 報道（Financial Times）</td></tr>
+<tr><td class="num">7/31</td><td>ロイターが閣議中のベッセント米財務長官の手元メモを撮影。「日本円を50億〜100億ドル購入」</td><td class="num">—</td><td style="color:#FF8080;">REPORTED 報道（裏取りなし）</td></tr>
+<tr><td class="num">8/3</td><td><b>片山さつき財務相が財務大臣談話</b>で協調介入を公表。「今後、更なる協調介入も躊躇しない」。ベッセント長官もSNSで裏付け</td><td class="num down">157.18</td><td style="color:#FFE38A;">OFFICIAL 確定（公式発表）</td></tr>
+<tr><td class="num">8/3</td><td>東京市場で一時<b>155.218円</b>＝5月上旬以来の円高。ユーロ円は180円割れ（2026年2月中旬以来）</td><td class="num down">155.22</td><td style="color:#FFE38A;">OFFICIAL 確定（市場価格）</td></tr>
+<tr><td class="num">8/6</td><td><b>米当局はECBに事前通告していなかった</b>。ECB高官は前例のない行為と受け止め</td><td class="num">158.44</td><td style="color:#FFB25A;">REPORTED 報道（Financial Times）</td></tr>
+</table></div>
+<div class="callout warn"><b>回数と位置づけ。</b>日米が実弾を伴って協調したのは、<b>2011年3月の東日本大震災以来15年ぶり</b>。しかも<b>円買い方向では1998年の金融危機時以来およそ28年ぶり</b>である。過去の日米協調（2011年）は円売り・ドル買いであり、方向が逆だった。<b>「円を守るために日米が一緒に動く」形は、今の世代の市場参加者がほとんど経験していない</b>。</div>
+
+<div class="horizon">
+<div class="cchart"><div class="cchart-head"><div><h5>ドル円</h5><div class="cchart-sub">短期（2か月）｜2026-06 〜 2026-08</div></div><span class="chg loss">▼ -1.2%</span></div>
+<svg viewBox="0 0 400 272" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
+<defs><linearGradient id="ar55105" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0C850" stop-opacity="0.28"/><stop offset="1" stop-color="#F0C850" stop-opacity="0.02"/></linearGradient>
+<linearGradient id="ln55105" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFE38A"/><stop offset="1" stop-color="#F0C850"/></linearGradient></defs>
+<line x1="96" y1="40.0" x2="388" y2="40.0" stroke="#ffffff" stroke-opacity="0.10" stroke-dasharray="4 5"/>
+<line x1="96" y1="219.5" x2="388" y2="219.5" stroke="#ffffff" stroke-opacity="0.10" stroke-dasharray="4 5"/>
+<text x="90" y="48.8" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">163.86</text>
+<text x="90" y="228.2" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">157.18</text>
+<path d="M96.0,152.9 L101.4,146.4 L106.8,142.1 L112.2,143.2 L117.6,135.1 L123.0,137.5 L128.4,138.9 L133.9,133.8 L139.3,128.9 L144.7,145.3 L150.1,137.5 L155.5,108.5 L160.9,134.9 L166.3,131.6 L171.7,126.5 L177.1,106.6 L182.5,108.5 L187.9,105.0 L193.3,101.5 L198.7,101.3 L204.1,95.6 L209.6,95.6 L215.0,96.4 L220.4,95.6 L225.8,91.3 L231.2,74.7 L236.6,74.7 L242.0,114.2 L247.4,106.6 L252.8,87.6 L258.2,87.0 L263.6,74.1 L269.0,79.5 L274.4,98.0 L279.9,78.2 L285.3,83.3 L290.7,84.9 L296.1,79.5 L301.5,79.5 L306.9,75.5 L312.3,76.5 L317.7,58.3 L323.1,59.3 L328.5,40.0 L333.9,40.3 L339.3,43.0 L344.7,40.3 L350.1,52.4 L355.6,156.1 L361.0,208.8 L366.4,219.5 L371.8,204.5 L377.2,204.2 L382.6,185.6 L388.0,202.6 L388.0,219.5 L96.0,219.5 Z" fill="url(#ar55105)"/>
+<path d="M96.0,152.9 L101.4,146.4 L106.8,142.1 L112.2,143.2 L117.6,135.1 L123.0,137.5 L128.4,138.9 L133.9,133.8 L139.3,128.9 L144.7,145.3 L150.1,137.5 L155.5,108.5 L160.9,134.9 L166.3,131.6 L171.7,126.5 L177.1,106.6 L182.5,108.5 L187.9,105.0 L193.3,101.5 L198.7,101.3 L204.1,95.6 L209.6,95.6 L215.0,96.4 L220.4,95.6 L225.8,91.3 L231.2,74.7 L236.6,74.7 L242.0,114.2 L247.4,106.6 L252.8,87.6 L258.2,87.0 L263.6,74.1 L269.0,79.5 L274.4,98.0 L279.9,78.2 L285.3,83.3 L290.7,84.9 L296.1,79.5 L301.5,79.5 L306.9,75.5 L312.3,76.5 L317.7,58.3 L323.1,59.3 L328.5,40.0 L333.9,40.3 L339.3,43.0 L344.7,40.3 L350.1,52.4 L355.6,156.1 L361.0,208.8 L366.4,219.5 L371.8,204.5 L377.2,204.2 L382.6,185.6 L388.0,202.6" fill="none" stroke="url(#ln55105)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="328.5" cy="40.0" r="5.5" fill="#FF8080"/><text x="323.0" y="27.5" fill="#FF8080" font-size="25" font-family="Oswald" font-weight="600" text-anchor="middle">期間高値 163.86</text>
+<circle cx="388.0" cy="202.6" r="6.5" fill="#F0C850"/>
+<text x="384.0" y="188.8" fill="#FFE38A" font-size="29" font-family="Oswald" font-weight="700" text-anchor="end">157.81</text><text x="96.0" y="262.0" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="start">2026-06</text><text x="388.0" y="262.0" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">2026-08</text></svg>
+<div class="chart-note">7/23の163.99円がピーク。7/30の介入で急落した。</div></div>
+<div class="cchart"><div class="cchart-head"><div><h5>ユーロ円</h5><div class="cchart-sub">短期（2か月）｜2026-06 〜 2026-08</div></div><span class="chg loss">▼ -1.8%</span></div>
+<svg viewBox="0 0 400 272" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
+<defs><linearGradient id="ar98593" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0C850" stop-opacity="0.28"/><stop offset="1" stop-color="#F0C850" stop-opacity="0.02"/></linearGradient>
+<linearGradient id="ln98593" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFE38A"/><stop offset="1" stop-color="#F0C850"/></linearGradient></defs>
+<line x1="96" y1="40.0" x2="388" y2="40.0" stroke="#ffffff" stroke-opacity="0.10" stroke-dasharray="4 5"/>
+<line x1="96" y1="219.5" x2="388" y2="219.5" stroke="#ffffff" stroke-opacity="0.10" stroke-dasharray="4 5"/>
+<text x="90" y="48.8" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">187.39</text>
+<text x="90" y="228.2" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">180.90</text>
+<path d="M96.0,87.3 L101.6,79.6 L107.2,87.6 L112.8,84.5 L118.5,114.7 L124.1,114.7 L129.7,104.2 L135.3,98.6 L140.9,100.3 L146.5,95.3 L152.2,82.9 L157.8,71.0 L163.4,113.0 L169.0,108.6 L174.6,105.8 L180.2,104.4 L185.8,115.5 L191.5,136.2 L197.1,139.8 L202.7,134.9 L208.3,129.6 L213.9,128.2 L219.5,106.7 L225.2,87.0 L230.8,107.2 L236.4,129.1 L242.0,118.0 L247.6,93.4 L253.2,106.1 L258.8,89.2 L264.5,89.2 L270.1,118.3 L275.7,108.6 L281.3,98.1 L286.9,80.4 L292.5,83.7 L298.2,85.1 L303.8,85.4 L309.4,92.6 L315.0,78.2 L320.6,73.5 L326.2,66.8 L331.8,71.3 L337.5,73.7 L343.1,62.4 L348.7,40.0 L354.3,136.0 L359.9,198.5 L365.5,219.5 L371.2,192.7 L376.8,182.2 L382.4,172.5 L388.0,177.7 L388.0,219.5 L96.0,219.5 Z" fill="url(#ar98593)"/>
+<path d="M96.0,87.3 L101.6,79.6 L107.2,87.6 L112.8,84.5 L118.5,114.7 L124.1,114.7 L129.7,104.2 L135.3,98.6 L140.9,100.3 L146.5,95.3 L152.2,82.9 L157.8,71.0 L163.4,113.0 L169.0,108.6 L174.6,105.8 L180.2,104.4 L185.8,115.5 L191.5,136.2 L197.1,139.8 L202.7,134.9 L208.3,129.6 L213.9,128.2 L219.5,106.7 L225.2,87.0 L230.8,107.2 L236.4,129.1 L242.0,118.0 L247.6,93.4 L253.2,106.1 L258.8,89.2 L264.5,89.2 L270.1,118.3 L275.7,108.6 L281.3,98.1 L286.9,80.4 L292.5,83.7 L298.2,85.1 L303.8,85.4 L309.4,92.6 L315.0,78.2 L320.6,73.5 L326.2,66.8 L331.8,71.3 L337.5,73.7 L343.1,62.4 L348.7,40.0 L354.3,136.0 L359.9,198.5 L365.5,219.5 L371.2,192.7 L376.8,182.2 L382.4,172.5 L388.0,177.7" fill="none" stroke="url(#ln98593)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="348.7" cy="40.0" r="5.5" fill="#FF8080"/><text x="323.0" y="27.5" fill="#FF8080" font-size="25" font-family="Oswald" font-weight="600" text-anchor="middle">期間高値 187.39</text>
+<circle cx="388.0" cy="177.7" r="6.5" fill="#F0C850"/>
+<text x="384.0" y="164.0" fill="#FFE38A" font-size="29" font-family="Oswald" font-weight="700" text-anchor="end">182.41</text><text x="96.0" y="262.0" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="start">2026-06</text><text x="388.0" y="262.0" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">2026-08</text></svg>
+<div class="chart-note">ドル円と同じ形。円が全面的に買い戻された。</div></div>
+<div class="cchart"><div class="cchart-head"><div><h5>ユーロドル</h5><div class="cchart-sub">短期（2か月）｜2026-06 〜 2026-08</div></div><span class="chg loss">▼ -0.6%</span></div>
+<svg viewBox="0 0 400 272" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
+<defs><linearGradient id="ar91279" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0C850" stop-opacity="0.28"/><stop offset="1" stop-color="#F0C850" stop-opacity="0.02"/></linearGradient>
+<linearGradient id="ln91279" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFE38A"/><stop offset="1" stop-color="#F0C850"/></linearGradient></defs>
+<line x1="96" y1="40.0" x2="388" y2="40.0" stroke="#ffffff" stroke-opacity="0.10" stroke-dasharray="4 5"/>
+<line x1="96" y1="219.5" x2="388" y2="219.5" stroke="#ffffff" stroke-opacity="0.10" stroke-dasharray="4 5"/>
+<text x="90" y="48.8" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">1.1630</text>
+<text x="90" y="228.2" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">1.1359</text>
+<path d="M96.0,40.0 L101.5,40.0 L107.0,59.9 L112.5,53.2 L118.0,112.9 L123.5,112.9 L129.1,106.2 L134.6,99.6 L140.1,99.6 L145.6,73.1 L151.1,79.7 L156.6,65.8 L162.1,53.9 L167.6,125.4 L173.1,153.9 L178.6,146.6 L184.2,150.6 L189.7,173.1 L195.2,204.3 L200.7,219.5 L206.2,212.2 L211.7,202.9 L217.2,202.3 L222.7,177.8 L228.2,177.8 L233.7,207.6 L239.2,171.1 L244.8,167.8 L250.3,164.5 L255.8,184.4 L261.3,181.7 L266.8,172.5 L272.3,183.1 L277.8,203.6 L283.3,179.1 L288.8,150.0 L294.3,164.5 L299.8,166.5 L305.4,173.8 L310.9,182.4 L316.4,193.0 L321.9,184.4 L327.4,207.6 L332.9,213.5 L338.4,212.9 L343.9,201.0 L349.4,147.3 L354.9,107.6 L360.5,107.6 L366.0,120.1 L371.5,106.2 L377.0,91.0 L382.5,109.5 L388.0,87.0 L388.0,219.5 L96.0,219.5 Z" fill="url(#ar91279)"/>
+<path d="M96.0,40.0 L101.5,40.0 L107.0,59.9 L112.5,53.2 L118.0,112.9 L123.5,112.9 L129.1,106.2 L134.6,99.6 L140.1,99.6 L145.6,73.1 L151.1,79.7 L156.6,65.8 L162.1,53.9 L167.6,125.4 L173.1,153.9 L178.6,146.6 L184.2,150.6 L189.7,173.1 L195.2,204.3 L200.7,219.5 L206.2,212.2 L211.7,202.9 L217.2,202.3 L222.7,177.8 L228.2,177.8 L233.7,207.6 L239.2,171.1 L244.8,167.8 L250.3,164.5 L255.8,184.4 L261.3,181.7 L266.8,172.5 L272.3,183.1 L277.8,203.6 L283.3,179.1 L288.8,150.0 L294.3,164.5 L299.8,166.5 L305.4,173.8 L310.9,182.4 L316.4,193.0 L321.9,184.4 L327.4,207.6 L332.9,213.5 L338.4,212.9 L343.9,201.0 L349.4,147.3 L354.9,107.6 L360.5,107.6 L366.0,120.1 L371.5,106.2 L377.0,91.0 L382.5,109.5 L388.0,87.0" fill="none" stroke="url(#ln91279)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="96.0" cy="40.0" r="5.5" fill="#FF8080"/><text x="161.0" y="27.5" fill="#FF8080" font-size="25" font-family="Oswald" font-weight="600" text-anchor="middle">期間高値 1.1630</text>
+<circle cx="388.0" cy="87.0" r="6.5" fill="#F0C850"/>
+<text x="384.0" y="73.3" fill="#FFE38A" font-size="29" font-family="Oswald" font-weight="700" text-anchor="end">1.1559</text><text x="96.0" y="262.0" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="start">2026-06</text><text x="388.0" y="262.0" fill="#8A8A9C" font-size="25" font-family="Oswald" text-anchor="end">2026-08</text></svg>
+<div class="chart-note">ユーロは対ドルで上昇。米国のユーロ売りにもかかわらず、である。</div></div>
+</div>
+
+<div class="explain"><span class="ex-tag">EXPLAINER</span><h4>なぜ米国は「ドル」ではなく「ユーロ」を売ったのか</h4>
+<div class="analogy">友人（日本）の借金を助けるとき、自分の財布（ドル）から出すのではなく、預かっていた別の人のお金（ユーロ）を使った、という形である。助けた事実は同じでも、誰の財布が減ったかが違う。</div>
+<p><b>［OFFICIAL］</b>米国の通貨当局が介入するとき、通常はドルを使う。2011年の東日本大震災後の介入も、NY連銀による円売り・ドル買いだった。<b>［REPORTED］</b>今回、円を買う原資にユーロを充てたとFTが報じている。<b>［INTERPRETATION／当方の解釈］</b>これによって米国はドルを売らずに日本の円安是正に付き合ったことになり、ドル高を志向する政権にとっては「ドルを売った」形を残さずに済む建て付けになる。<b>ただしこれは有力な解釈であって、米政府が公式に示した動機ではない。</b></p>
+<div class="exsteps">
+<div class="exstep"><div class="es-k">欧州の反応</div><div class="es-v">FTによれば<b>ECBに事前通告なし</b>。一部高官は「長年の協力関係を破る前例のない行為」と受け止め、「非常に衝撃的で残念だ」と表明。</div></div>
+<div class="exstep"><div class="es-k">市場の指摘</div><div class="es-v">米大手資産運用会社が「<b>地政学リスクを高め、長期国債の投資妙味を損ねる</b>」と指摘。各国間の協調が弱まっている証左との見方。</div></div>
+<div class="exstep"><div class="es-k">当方の留保</div><div class="es-v">原資の選択が意図的だったかは<b>未確認</b>。技術的事情の可能性もあり、断定はしない。ただし当局が原資を選べる立場にあることは事実。</div></div>
+</div>
+<p>実務面では、両当局は<b>「少なくとも月次で、あらゆる為替介入の実施状況を公表する」</b>とコミットしている。規模の一次確認は財務省「外国為替平衡操作の実施状況」（月次は8月末公表、日次内訳は四半期公表）で可能になる。<b>それまでは規模はすべて推計である。</b></p></div>
+
+<div class="sub-h">いちばん知りたいこと ─ 円高に向かうのか、円安が続くのか</div>
+<div class="sub-h-sub">介入は「水準」を変える力は限られるが、「速度」を止める力はある。過去の効果の持続期間から考える。</div>
+<div class="frame">
+<div class="frame-box long"><div class="f-tag">円高が続くとみる根拠</div><div class="f-txt">①<b>今回は日米が実弾を伴って協調</b>した。過去の効果は、2026年1月の日米協調レートチェックで約2か月、4〜5月の日本単独介入で1か月半程度とされ、<b>今回はより長引く可能性</b>がある（外為どっとコム総研・神田卓也氏の見立て）。②財務省が「更なる協調介入も躊躇しない」と明言し、警戒感が残るあいだは円売りが手控えられる。③米国の利上げ観測が後退し、<b>日米金利差の拡大圧力そのものが弱まった</b>。④日銀は9月以降の利上げを「しっかり議論」する姿勢。</div></div>
+<div class="frame-box short"><div class="f-tag">円安に戻るとみる根拠</div><div class="f-txt">①<b>円安の背景にある要因は何も解消していない</b>。日本の財政悪化懸念と金利差は残ったまま。②7月31日の東京市場では、介入の翌日に160円台後半まで戻す場面があった＝<b>効果の持続性への疑問はすでに一度示されている</b>（NRI・木内登英氏）。③介入は水準を変えるものではなく、速度を落とすもの。④8/12のCPIが上振れれば米金利が反発し、金利差が再び開く。</div></div>
+</div>
+<div class="callout"><b>当方の整理。</b>今週の値動きを見るかぎり、介入後のドル円は155〜158円台で膠着している（8/3 157.18 → 8/7 157.81）。<b>円高方向に走り続けてもいないし、160円台に戻してもいない。</b>つまり現時点では「速度は止まったが、方向は変わっていない」状態である。方向が変わったと判断するには、①日銀が9月に利上げする ②米国が利上げを完全に見送る、のどちらかが要る。<b>次の分岐は8月12日の米CPIで、ここが上振れれば円安方向への戻りが試される。</b></div>
+
+<div class="callout red"><b>数値の食い違いを明記する。</b>当社データ（Investing.com 8/7終値）のドル円は<b>157.81円</b>だが、同日の報道ベースでは「一時156.68円・直近157.16円」とされる。取得時刻と提示元の差であり、どちらかが誤りというわけではない。<b>本紙は自社データを主採用値、報道値を補助値として扱う。</b></div>
+</div>
+
+<div class="page" id="p3"><div class="folio"><span class="badge">第 3 面</span><span class="prio">PRIORITY ③／株の中身 ─ AI・半導体の分裂</span><span class="rule"></span></div>
+<div class="lead-eyebrow">EQUITY ─ 指数の陰で起きていること</div>
+<h1 class="lead-title mid">S&amp;P500は最高値、しかし<br><span class="r">「AI株」は一枚岩ではなくなった</span></h1>
+<div class="lead-sub">今週、S&amp;P500は終値の過去最高を更新した。だが「AI関連株が買われて指数が上がった」と読むと事実を取り違える。<b>同じAI関連のなかで、演算・クラウド側は反発し、メモリー側は崩落している。</b>7月のフィラデルフィア半導体指数は月間−20.6%だった。指数だけを見ていては、この分裂は見えない。</div>
+<div class="kpis">
+<div class="kpi big"><div class="k-lbl">S&amp;P500（週間）</div><div class="k-val up">＋3.58<small style="font-size:24px;">%</small></div><div class="k-note">7,757.64＝終値の過去最高</div></div>
+<div class="kpi big"><div class="k-lbl">サンディスク（6月下旬の高値から）</div><div class="k-val down">−50<small style="font-size:24px;">%超</small></div><div class="k-note">SKハイニックスは約−45%</div></div>
+<div class="kpi big"><div class="k-lbl">マイクロソフト（7/30 1日）</div><div class="k-val up">＋16<small style="font-size:24px;">%</small></div><div class="k-note">1日の時価総額増加は企業史上最大</div></div>
+<div class="kpi big"><div class="k-lbl">SOX指数（7月・月間）</div><div class="k-val down">−20.6<small style="font-size:24px;">%</small></div><div class="k-note">今週は反発したが月間では大幅安</div></div>
+</div>
+
+<div class="sub-h">分裂の中身 ─ 買われたものと、売られたもの</div>
+<div class="sub-h-sub">直近5営業日の騰落。出所＝自社「崩壊監視REPORT」の実測値（8/7終値基準）。</div>
+<div class="chart"><h4>AI・半導体 主要銘柄 ─ 直近5営業日の騰落率</h4><div class="csub">演算・電力インフラ側は反発、メモリー側は続落という真逆の動き。</div><div class="brow"><div class="bname">ARM<br><small>演算IP</small></div><div class="btrack"><div class="bzero"></div><div class="bfill pos" style="left:50%;width:40.7%"></div></div><div class="bval up">＋17.9%</div></div><div class="brow"><div class="bname">ヴァーティブ（VRT）<br><small>データセンター電力</small></div><div class="btrack"><div class="bzero"></div><div class="bfill pos" style="left:50%;width:29.1%"></div></div><div class="bval up">＋12.8%</div></div><div class="brow"><div class="bname">エヌビディア<br><small>GPU</small></div><div class="btrack"><div class="bzero"></div><div class="bfill pos" style="left:50%;width:26.4%"></div></div><div class="bval up">＋11.6%</div></div><div class="brow"><div class="bname">ブロードコム<br><small>カスタムAI半導体</small></div><div class="btrack"><div class="bzero"></div><div class="bfill pos" style="left:50%;width:22.5%"></div></div><div class="bval up">＋9.9%</div></div><div class="brow"><div class="bname">サムスン電子<br><small>メモリー</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:27.3%"></div></div><div class="bval down">−12.0%</div></div><div class="brow"><div class="bname">SKハイニックス<br><small>メモリー（HBM）</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:39.1%"></div></div><div class="bval down">−17.2%</div></div><div class="brow"><div class="bname">ウエスタンデジタル<br><small>HDD（NANDは2025年にサンディスクへ分離）</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:46.1%"></div></div><div class="bval down">−20.3%</div></div><div class="cnote"><b>同じ「AI関連」でありながら、上位4社と下位3社で30ポイント以上の差がついた。</b>買われたのは計算する側・電気を供給する側、売られたのは記憶する側である。指数（SOXX）は今週+7.60%だが、13社を等金額で持った場合の20営業日騰落は−15.18%。<b>指数の強さは上位数社が作っており、平均的な半導体株は下がり続けている。</b></div></div>
+
+<div class="explain"><span class="ex-tag">EXPLAINER</span><h4>なぜメモリーだけが崩れているのか</h4>
+<div class="analogy">AIブームで「計算する装置」と「覚えておく装置」の両方が値上がりしてきた。今起きているのは、覚えておく装置の値段が上がりすぎたので、買う側が「もう払わない」と言い始めた、ということである。</div>
+<div class="exsteps">
+<div class="exstep"><div class="es-k">きっかけ①</div><div class="es-v">アップルが<b>DRAMの寡占による価格支配力を崩そうと動いた</b>と報じられた。最大の買い手が値上げを拒む姿勢を見せた。</div></div>
+<div class="exstep"><div class="es-k">きっかけ②</div><div class="es-v">日本が<b>半導体の輸出管理政策を導入</b>。地政学的な材料が重なった。</div></div>
+<div class="exstep"><div class="es-k">きっかけ③</div><div class="es-v">8月3日、アジア時間に<b>SKハイニックスとサムスンが7%超急落</b>し、米国のメモリー株へ流動性の売り圧力が波及した。</div></div>
+</div>
+<p>象徴的なのは決算の受け止め方である。<b>SKハイニックスの4〜6月期は営業利益が前年同期比557%増の過去最高</b>だったが、市場予想には届かず、株価は6月の最高値から45%下落し、1か月余りで5,700億ドル（約93兆円）の時価総額を失った。<b>ウエスタンデジタルも過去最高の決算（売上+44%・通期GAAP純利益+481%）を出しながら、週間で−20.3%である。</b></p>
+<p><b>「良い決算でも売られる」のは、市場が業績ではなく価格サイクルの天井を見ているからである。</b>メモリーは値上がりが利益の源泉なので、値上がりが止まると判断された時点で、過去の好業績は評価されなくなる。<b>ここが今、AI相場のなかで最も弱い場所である。</b></p></div>
+
+<div class="callout red"><b>反対側では何が起きたか。</b>7月30日、マイクロソフトは決算後に1日で約16%上昇し、1日の時価総額増加額としては企業史上最大の約4,480億ドルを記録した。アマゾンも一時+16%。理由は<b>クラウドの成長が予想を超え、AI投資の回収懸念が後退したこと</b>である。<b>投資する側（ハイパースケーラー）は評価され、投資される側（メモリー）は売られた。</b>これが今のAI相場の構図である。</div>
+
+<div class="sub-h">「最高値」の正確な位置</div>
+<div class="sub-h-sub">週末の終値だけを見ると週の途中の高値を見落とす。日次の終値まで見て判定し直した。</div>
+<div class="tblwrap"><table class="tbl">
+<tr><th>指標</th><th class="r">8/7終値</th><th class="r">終値の最高値</th><th class="r">その日付</th><th class="r">高値からの距離</th></tr>
+<tr><td>S&amp;P500 <span class="cat">米・大型</span></td><td class="r num">7,757.64</td><td class="r num">7,757.64</td><td class="r num">2026-08-07</td><td class="r num" style="color:#FFE38A;">更新</td></tr>
+<tr><td>ラッセル2000 <span class="cat">米・中小型</span></td><td class="r num">3,034.49</td><td class="r num">3,036.98</td><td class="r num">2026-08-04</td><td class="r num down">−0.1%</td></tr>
+<tr><td>NYダウ <span class="cat">米・大型</span></td><td class="r num">54,036.93</td><td class="r num">54,349.12</td><td class="r num">2026-08-05</td><td class="r num down">−0.6%</td></tr>
+<tr><td>TOPIX <span class="cat">日本</span></td><td class="r num">4,074.93</td><td class="r num">4,101.96</td><td class="r num">2026-07-06</td><td class="r num down">−0.7%</td></tr>
+<tr><td>ナスダック総合 <span class="cat">米・ハイテク</span></td><td class="r num">26,690.62</td><td class="r num">27,093.90</td><td class="r num">2026-06-02</td><td class="r num down">−1.5%</td></tr>
+<tr><td>日経225 <span class="cat">日本</span></td><td class="r num">65,606.71</td><td class="r num">72,366.34</td><td class="r num">2026-06-25</td><td class="r num down">−9.3%</td></tr>
+<tr><td>金 <span class="cat">貴金属</span></td><td class="r num">4,343.74</td><td class="r num">5,400.25</td><td class="r num">2026-01-28</td><td class="r num down">−19.6%</td></tr>
+<tr><td>銀 <span class="cat">貴金属</span></td><td class="r num">63.499</td><td class="r num">115.148</td><td class="r num">2026-01-26</td><td class="r num down">−44.9%</td></tr></table></div>
+<div class="callout"><b>日本株の内訳。</b>8月7日、日経平均は−76.55円と小幅安だったのにTOPIXは+19.08ポイントで4日続伸した。<b>日経平均を押し下げた主因は、アドバンテスト・東京エレクトロン・レーザーテック・ソフトバンクGなどの値がさ株である。</b>一方、東証プライム全体では値上がり939銘柄・値下がり582銘柄と<b>騰落は値上がり優勢だった</b>。米国と同じ分裂が、日本でも起きている。日経の終値最高値は6月25日の72,366.34で、そこからは−9.3%である。</div>
+</div>
+
+<div class="page" id="p4"><div class="folio"><span class="badge">第 4 面</span><span class="prio">PRIORITY ④／物価と金利 ─ 米国と日本</span><span class="rule"></span></div>
+<div class="lead-eyebrow">INFLATION ─ 逆方向を向いている</div>
+<h1 class="lead-title mid">米国は<span class="hl-blue">減速</span>、日本は川上で<span class="r">加速</span><br><span class="g">来週のCPIが、今週の相場を採点する</span></h1>
+<div class="lead-sub">物価は今週の相場の土台にある。<b>6月のインフレ鈍化が利上げ警戒を和らげる土台を作り、今週は弱い雇用統計が追加利上げ観測をさらに後退させた。</b>その結果、米金利が低下し、金と株の双方に追い風となった。一方、日本は輸入・企業段階でむしろ加速している。<b>そして来週8月12日、米国の7月CPIが発表される。今週の相場が正しかったかは、ここで一度採点される。</b></div>
+<div class="kpis">
+<div class="kpi big"><div class="k-lbl">米 総合CPI（6月）</div><div class="k-val down">3.464<small style="font-size:24px;">%</small></div><div class="k-note">5月4.167%から−0.70pt</div></div>
+<div class="kpi big"><div class="k-lbl">米 コアPCE（6月）</div><div class="k-val down">3.287<small style="font-size:24px;">%</small></div><div class="k-note">目標2%の1.6倍。警戒解除ではない</div></div>
+<div class="kpi big"><div class="k-lbl">日本 輸入物価（6月）</div><div class="k-val up">＋29.68<small style="font-size:24px;">%</small></div><div class="k-note">円ベース・前年比</div></div>
+<div class="kpi big"><div class="k-lbl">日本 消費者物価 総合（6月）</div><div class="k-val up">＋1.6<small style="font-size:24px;">%</small></div><div class="k-note">2025年基準。コアも＋1.6%</div></div>
+</div>
+
+<div class="chart"><h4>米インフレ指標 ─ 前月からの変化（ポイント）</h4><div class="csub">2026年5月分 → 6月分。左（青）が減速。7月分は8/12（CPI）・8/13（PPI）に公表。</div><div class="brow"><div class="bname">総合CPI<br><small>4.167 → 3.464</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:14.1%"></div></div><div class="bval down">−0.70pt</div></div><div class="brow"><div class="bname">コアCPI<br><small>2.823 → 2.566</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:5.1%"></div></div><div class="bval down">−0.26pt</div></div><div class="brow"><div class="bname">総合PCE<br><small>4.079 → 3.668</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:8.2%"></div></div><div class="bval down">−0.41pt</div></div><div class="brow"><div class="bname">コアPCE<br><small>3.422 → 3.287</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:2.7%"></div></div><div class="bval down">−0.14pt</div></div><div class="brow"><div class="bname">全商品PPI<br><small>12.298 → 10.11</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:43.8%"></div></div><div class="bval down">−2.19pt</div></div><div class="brow"><div class="bname">平均時給（7月）<br><small>3.410 → 3.153</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:5.1%"></div></div><div class="bval down">−0.26pt</div></div><div class="cnote">4指標そろって減速したが、<b>コアPCEは依然3.29%</b>で目標2%の1.6倍。<b>FRBがインフレ警戒を解除できる水準ではない</b>。なお当社の「全商品PPI」はFREDのPPIACOで、BLSがヘッドラインとして公表する<b>最終需要PPI（6月＋5.5%）とは別系列</b>である。</div></div>
+
+<div class="chart"><h4>日本の物価 ─ 段階別 前年比（％）</h4><div class="csub">2026年6月分。日本銀行「企業物価指数」6月速報（7/10公表）と、総務省が8/7に公表した2025年基準の遡及系列。</div><div class="brow"><div class="bname">輸入物価（円ベース）<br><small>水際の価格</small></div><div class="btrack"><div class="bzero"></div><div class="bfill pos" style="left:50%;width:49.5%"></div></div><div class="bval up">＋29.68%</div></div><div class="brow"><div class="bname">国内企業物価<br><small>企業間の取引価格</small></div><div class="btrack"><div class="bzero"></div><div class="bfill pos" style="left:50%;width:11.9%"></div></div><div class="bval up">＋7.12%</div></div><div class="brow"><div class="bname">消費者物価 総合<br><small>家計が払う値段</small></div><div class="btrack"><div class="bzero"></div><div class="bfill pos" style="left:50%;width:2.7%"></div></div><div class="bval up">＋1.60%</div></div><div class="brow"><div class="bname">消費者物価 コア<br><small>生鮮食品を除く</small></div><div class="btrack"><div class="bzero"></div><div class="bfill pos" style="left:50%;width:2.7%"></div></div><div class="bval up">＋1.60%</div></div><div class="brow"><div class="bname">消費者物価 コアコア<br><small>生鮮・エネルギー除く</small></div><div class="btrack"><div class="bzero"></div><div class="bfill pos" style="left:50%;width:2.8%"></div></div><div class="bval up">＋1.70%</div></div><div class="cnote"><b>消費者物価は2025年基準で再取得した。</b>総務省が8/7に公表した遡及系列では、6月の総合が1.7%→<b>1.6%</b>（−0.1pt）、コアは1.6%で変わらず、コアコアも1.7%で変わらず。2026年1〜3月はコアが2.0→1.9、1.6→1.5、1.8→1.7と下方改定されている。正式な2025年基準の公表は8月21日の7月分から。<br>国内企業物価の＋7.1%は2023年3月以来3年3か月ぶりの高さ。非鉄金属＋39.2%、石油・石炭製品＋22.8%、化学製品＋14.4%の寄与が大きい。<b>ただし28ポイントの差をそのまま「未転嫁分」とは読めない</b>。輸入物価は水際価格で為替が直接入り、対象品目もウェイトも価格段階もCPIとは違う。加えてガソリン・電気・ガスへの政府補助金が消費者段階を抑えている。</div></div>
+
+<div class="callout warn"><b>為替と物価はつながっている。</b>輸入物価が前年比＋29.7%まで上がった主因のひとつは円安である。したがって<b>今週の円高（第2面）が続けば、輸入物価の上昇圧力は和らぐ</b>。ただし店頭の価格に反映されるまでには数か月かかる。<b>介入の効果を物価で確認できるのは、早くても秋以降である。</b></div>
+
+<div class="sub-h">FedWatch ─ 物価と雇用のあいだで揺れた2週間</div>
+<div class="sub-h-sub">金利先物から逆算した「FRBが動く確率」。株価や為替より先に、市場の予想そのものが動く。</div>
+<div class="chart"><h4>9月FOMC（9月15〜16日）の利上げ確率 ─ 2週間の推移</h4><div class="csub">CMEグループ FedWatch。取得時点を明記する（分単位で変動するため）。</div><div class="brow"><div class="bname">7月24日<br><small>前号の主採用値</small></div><div class="btrack"><div class="bfill mono pb-red" style="left:0;right:auto;width:70.8%"></div></div><div class="bval neutral">70.8%</div></div><div class="brow"><div class="bname">7月29日 声明前<br><small>FOMC 2日目の朝</small></div><div class="btrack"><div class="bfill mono pb-red" style="left:0;right:auto;width:72.3%"></div></div><div class="bval neutral">72.3%</div></div><div class="brow"><div class="bname">7月29日 声明後<br><small>据え置き決定。3名が据え置きに反対し25bp利上げを主張</small></div><div class="btrack"><div class="bfill mono pb-gold" style="left:0;right:auto;width:57.0%"></div></div><div class="bval neutral">57.0%</div></div><div class="brow"><div class="bname">7月30日<br><small>いったん戻す</small></div><div class="btrack"><div class="bfill mono pb-red" style="left:0;right:auto;width:65.2%"></div></div><div class="bval neutral">65.2%</div></div><div class="brow"><div class="bname">8月5日<br><small>ADP雇用+4.4万人で低下</small></div><div class="btrack"><div class="bfill mono pb-gold" style="left:0;right:auto;width:54.8%"></div></div><div class="bval neutral">54.8%</div></div><div class="brow"><div class="bname">8月7日 発表前<br><small>雇用統計を待つ状態</small></div><div class="btrack"><div class="bfill mono pb-gold" style="left:0;right:auto;width:54.7%"></div></div><div class="bval neutral">54.7%</div></div><div class="brow"><div class="bname">8月7日 発表後<br><small>NFP −2.3万人を受けて</small></div><div class="btrack"><div class="bfill mono pb-blue" style="left:0;right:auto;width:44.0%"></div></div><div class="bval neutral">44.0%</div></div><div class="cnote">2週間で<b>70.8%→44.0%（−26.8pt）</b>。「利上げが本線」から「据え置きがやや優勢」へ逆転した。7/29の声明後にいったん57%へ落ち、7/30に65.2%へ戻し、雇用統計で一気に崩れた。補助値（Barron’s報道のCME値）は42.3%で、主採用の44%とは定義・取得時刻の差がある。</div></div>
+<div class="chart"><h4>12月までの利上げ回数別 確率</h4><div class="csub">CMEグループ FedWatch（Barron’s 2026/8/7報道の確認値）。年内に何回動くかの分布。</div><div class="brow"><div class="bname">0回（据え置き）<br><small>年内は動かない</small></div><div class="btrack"><div class="bfill mono pb-blue" style="left:0;right:auto;width:25.0%"></div></div><div class="bval neutral">25.0%</div></div><div class="brow"><div class="bname">1回<br><small>＝最多シナリオ</small></div><div class="btrack"><div class="bfill mono pb-gold" style="left:0;right:auto;width:45.3%"></div></div><div class="bval neutral">45.3%</div></div><div class="brow"><div class="bname">2回</div><div class="btrack"><div class="bfill mono pb-red" style="left:0;right:auto;width:25.4%"></div></div><div class="bval neutral">25.4%</div></div><div class="brow"><div class="bname">3回</div><div class="btrack"><div class="bfill mono pb-red" style="left:0;right:auto;width:4.2%"></div></div><div class="bval neutral">4.2%</div></div><div class="cnote"><b>年内で最も確率が高いのは「1回利上げ」（45.3%）</b>。据え置き（0回）は25.0%まで戻ったが少数派である。<b>今週の相場は「利上げが消えた」ことを買ったのではなく、「9月に来る確率が半分以下になった」ことを買った</b>にすぎない。</div></div>
+
+<div class="explain"><span class="ex-tag">EXPLAINER</span><h4>三者の立ち位置 ─ 市場・FRB・次の焦点</h4>
+<div class="exsteps">
+<div class="exstep"><div class="es-k">市場（FedWatch）</div><div class="es-v">9月は<b>44.0%</b>。年内は<b>1回利上げ45.3%が中心</b>。据え置き復権だが利上げ消滅ではない。</div></div>
+<div class="exstep"><div class="es-k">FRB（Warsh体制）</div><div class="es-v">7月FOMCは<b>9対3で3.50〜3.75%に据え置き</b>。<b>反対した3名は「据え置きに反対し、25bpの利上げを主張」した側</b>。インフレ警戒は残る。</div></div>
+<div class="exstep"><div class="es-k">次の焦点</div><div class="es-v"><b>8月12日のCPI</b>。市場予想は総合＋3.4%・コア＋2.5%。上振れすれば9月利上げ確率は再上昇する。</div></div>
+</div>
+<p>整理すると、<b>雇用が弱ったので利上げしにくくなったが、物価が下がりきったわけではない</b>ということである。FRBは「雇用を守るために利上げをやめる」と「物価を抑えるために利上げする」の間に挟まれている。</p>
+<div class="callout warn" style="margin:14px 0 0;"><b>データの取り扱いについて（本紙の運用）。</b>FedWatchは分単位で変動するため、本来は<b>会合日・取得日・取得時刻（ET）・対象レンジ・確率</b>を組にして保存すべきである。今回掲載した各時点のうち、<b>時刻まで特定できたのは8月7日の「雇用統計発表前」（ロンドン昼＝概ね07:00 ET前後）と「発表後」の2点のみ</b>で、他は日付単位である。<b>次号から取得時刻をこちらで記録し、すべての行に付す。</b></div></div>
+
+<div class="explain"><span class="ex-tag">METHOD</span><h4>「13社を等金額で持った場合 −15.18%」の計算方法</h4>
+<p>第3面で使った「指数の強さは上位数社が作っている」という主張を、第三者が再現できるようにするための注記である。</p>
+<div class="exsteps">
+<div class="exstep"><div class="es-k">対象13社</div><div class="es-v">NVIDIA／Broadcom／AMD／Micron／Western Digital／SanDisk／TSMC／ARM／Vertiv／ソフトバンクG(9984)／キオクシア(285A)／サムスン電子(KRX:005930)／SKハイニックス(KRX:000660)</div></div>
+<div class="exstep"><div class="es-k">選定基準</div><div class="es-v">AI・半導体のバリューチェーン（演算・メモリー・製造・IP・データセンター電力）を代表し、かつ日次終値を継続取得できる銘柄。時価総額による選別はしていない。</div></div>
+<div class="exstep"><div class="es-k">計算式</div><div class="es-v">各社の<b>20営業日騰落率</b>を求め、その<b>単純平均</b>（＝期初に等金額で買い持ちした場合のポートフォリオ騰落率と一致）。終点＝2026-08-07終値、始点＝その20営業日前の終値。</div></div>
+<div class="exstep"><div class="es-k">扱わないもの</div><div class="es-v">配当は含まない（価格リターンのみ）。<b>為替換算もしていない</b>（各社の現地通貨建て終値で計算。円建て・ウォン建て銘柄は為替変動を含まない）。</div></div>
+<div class="exstep"><div class="es-k">データ出所</div><div class="es-v">GOOGLEFINANCE（米国株）／Yahoo!ファイナンス手動DL（9984・285A、調整後終値）／自社スプレッドシート「段階①_price_data」。</div></div>
+<div class="exstep"><div class="es-k">比較対象</div><div class="es-v">SMHの同期間騰落は<b>−4.64%</b>。差の10.5ポイントが「上位集中」の大きさである。指数側は時価総額加重で、算出主体も異なる。</div></div>
+</div></div>
+
+<div class="chart"><h4>米国債・実質金利 ─ 週間変化（bp）</h4><div class="csub">2026-07-31 → 2026-08-06 の終値ベース。米金利はFREDの公表が1営業日遅れる。</div><div class="brow"><div class="bname">米2年<br><small>4.28 → 4.25</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:10.7%"></div></div><div class="bval down">−3.0bp</div></div><div class="brow"><div class="bname">米10年<br><small>4.75 → 4.69</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:21.4%"></div></div><div class="bval down">−6.0bp</div></div><div class="brow"><div class="bname">米30年<br><small>5.27 → 5.22</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:17.9%"></div></div><div class="bval down">−5.0bp</div></div><div class="brow"><div class="bname">米10年 実質<br><small>2.47 → 2.43</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:14.3%"></div></div><div class="bval down">−4.0bp</div></div><div class="brow"><div class="bname">HY社債スプレッド<br><small>2.85 → 2.71</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:50.0%"></div></div><div class="bval down">−14.0bp</div></div><div class="brow"><div class="bname">英10年<br><small>5.056 → 4.928</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:45.9%"></div></div><div class="bval down">−12.8bp</div></div><div class="brow"><div class="bname">独10年<br><small>3.204 → 3.130</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:26.5%"></div></div><div class="bval down">−7.4bp</div></div><div class="cnote">前週末の7/31は10年4.75%・30年5.27%とこの1年で最も高い水準だった。そこから下げている。<b>7日の雇用統計を受けた低下は本データに含まれていない</b>（報道ベースで10年4.6474%、2年4.1973%）。英国債の下げが大きいのは、7/30の英中銀が6対3で据え置き、ベイリー総裁が追加引き締めに慎重な姿勢を示したため。</div></div>
+
+<div class="chart"><h4>日本国債 ─ 年限別 週間変化（bp）</h4><div class="csub">2026-07-30 → 2026-08-06。7/31は財務省ファイルを取得していないため前週末は7/30。</div><div class="brow"><div class="bname">2年<br><small>1.497 → 1.565</small></div><div class="btrack"><div class="bzero"></div><div class="bfill pos" style="left:50%;width:42.5%"></div></div><div class="bval up">＋6.8bp</div></div><div class="brow"><div class="bname">10年<br><small>2.801 → 2.773</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:17.5%"></div></div><div class="bval down">−2.8bp</div></div><div class="brow"><div class="bname">30年<br><small>3.971 → 3.919</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:32.5%"></div></div><div class="bval down">−5.2bp</div></div><div class="brow"><div class="bname">40年<br><small>3.967 → 3.912</small></div><div class="btrack"><div class="bzero"></div><div class="bfill neg" style="right:50%;width:34.4%"></div></div><div class="bval down">−5.5bp</div></div><div class="cnote">2年と40年で符号が逆＝<b>短期は日銀の利上げを、超長期は原油安と海外金利低下を見ている</b>。2s40sは235bpまで縮んだ。日銀は7月会合で1.00%に据え置いたうえで、植田総裁が9月以降の利上げを「しっかり議論」すると述べている。<b>この因果の切り分けは当方の解釈で、一次資料による確認はしていない。</b></div></div>
+
+<div class="daily"><h4>■ 来週以降の注目カレンダー</h4>
+<div class="drow"><div class="dday">8/12（水）</div><div>米 7月 消費者物価指数（CPI）　<small style="color:#B0B0C4;font-size:18px;">市場予想 総合＋3.4%／コア＋2.5%（日本時間21:30）</small></div><div class="dval hl-gold">最重要</div></div>
+<div class="drow"><div class="dday">8/13（木）</div><div>米 7月 生産者物価指数（PPI）／ 日銀 7月 企業物価指数</div><div class="dval">重要</div></div>
+<div class="drow"><div class="dday">8/14（金）</div><div>日本 8月限 SQ（先物・オプション清算）</div><div class="dval">需給</div></div>
+<div class="drow"><div class="dday">8/26（水）</div><div>米 7月 PCE物価指数　<small style="color:#B0B0C4;font-size:18px;">FRBが最も重視。9月FOMC前の最終確認</small></div><div class="dval">重要</div></div>
+<div class="drow"><div class="dday">8月下旬</div><div>総務省 7月 消費者物価指数（全国）／ <b>財務省 為替介入の実施状況（月次）＝介入規模の一次確認</b></div><div class="dval hl-gold">確認</div></div>
+<div class="drow"><div class="dday">9/4（金）</div><div>米 8月 雇用統計</div><div class="dval">最重要</div></div>
+<div class="drow"><div class="dday">9/15-16</div><div>FOMC（9月利上げ確率 44.0%／年内1回45.3%）</div><div class="dval hl-gold">分岐点</div></div>
+<div class="dnote">今週の相場は「9月の利上げが半分以下になった」ことを買った。それが正しかったかは、<b>8月12日のCPIで一度採点される</b>。上振れれば、金・株・為替のすべてが今週と逆方向に動きうる。</div></div>
+
+<div class="sub-h">次週の観察点 ─ この4つを見る</div>
+<div class="sub-h-sub">先週の4項目と入れ替える。答え合わせは次号で行う。</div>
+<div class="cal">
+<div class="cal-item"><div class="c-date">① 金</div><div class="c-desc">4,310ドルを終値で上抜けて定着するか。<small>あわせて欧米の金ETFへの資金流入が再開するか。両方揃えば「上昇局面入り」に判定を変える。</small></div></div>
+<div class="cal-item"><div class="c-date">② 為替</div><div class="c-desc">ドル円が155円を割るか、160円に戻すか。<small>膠着（155〜158円）が続くなら「速度は止まったが方向は変わっていない」の判定を維持する。</small></div></div>
+<div class="cal-item"><div class="c-date">③ 物価</div><div class="c-desc">8/12のCPIが予想（総合＋3.4%／コア＋2.5%）を上振れるか。<small>上振れればFedWatchは同じ幅で戻り、今週の値動きの多くが巻き戻る。</small></div></div>
+<div class="cal-item"><div class="c-date">④ AI・半導体</div><div class="c-desc">DRAM/NAND勢（SKハイニックス・サムスン・マイクロン・サンディスク）とHDDのWDCの下落が止まるか。<small>止まらなければ、指数の最高値と中身の乖離はさらに広がる。</small></div></div>
+</div>
+</div>
+
+<footer>
+<div class="f-src"><b>データ出所：</b>Money Flow Explorer 週次更新 v6（51系列）／ FRED（米金利・実質金利・BEI・HY社債スプレッド・米経済指標）／ 財務省（国債金利情報）／ 日本銀行（企業物価指数）／ 総務省統計局（消費者物価指数）／ 米労働省BLS（雇用統計・PPI）／ Investing.com（株価指数・商品・為替・海外金利）／ CMEグループ FedWatch（自社「FRB金利動向 週次REPORT 2026/8/8版」で確認）。個別銘柄の騰落は自社「崩壊監視REPORT v6.3」の実測値。<br><b>今回、一次資料に直接あたったもの（4件）：</b>総務省統計局「消費者物価指数 2025年基準改定による遡及結果について」（2026年8月7日公表・PDF）／日本銀行「企業物価指数 2026年6月速報」（PDF）／米労働省BLS「Producer Price Indexes」／World Gold Council「Gold Demand Trends Q2 2026／Central Banks」。<br><b>報道・二次情報：</b>日本経済新聞・ロイター・Bloomberg・時事通信・Financial Times（間接）・Barron's（間接）・Newsweek日本版・財経新聞・みんかぶ・NRI（木内登英）・野村證券（後藤祐二朗）・外為どっとコム総研（神田卓也）・Benzinga・tradingeconomics ほか。<br>
+<b>基準日：</b>株式・商品・為替・海外金利・BEI＝2026年8月7日終値／米金利・HY社債スプレッド＝8月6日／日本国債＝8月6日（前週末は7月30日）／月次指標＝2026年6月分（雇用関連のみ7月分）。</div>
+<div class="f-rule"><b>この資料の約束。</b>①一次データにない数字は確定値として出さない。②見えていないものは「未確認」と書く。③誤りが見つかったら、隠さず訂正して記録に残す。<br>
+<b>本号（REV.1）で反映した再検証指示：</b>①中央銀行の金購入をWGC最新報告に更新（Q1 244→57トンの下方改定を反映）②最高値判定を「日次∪週次の正本1本」から算出し本文・表・KPI・グラフを同一値に統一 ③FOMC反対票の意味を「据え置きに反対し25bp利上げを主張」へ訂正 ④為替介入表を OFFICIAL／REPORTED／UNCONFIRMED で行分離し、当方の解釈を明示分離 ⑤Western DigitalをHDDに分類（NANDは2025年にサンディスクへ分離）⑥日本株の内部矛盾を解消 ⑦日本CPIを2025年基準の遡及系列で再取得（総合6月 1.7→1.6%）⑧「両方上昇＝金利要因」の一般化を撤回 ⑨第4面の因果を「物価が土台・雇用が引き金」に修正 ⑩FedWatchの取得時刻の保存方針を明記 ⑪13社等金額の計算方法を再現可能な形で注記。<br><b>前号での構成変更：</b>10大ヘッドラインを「変化率の順」から「マネーの流れへの重要度の順」に組み替えた（①金 ②為替 ③物価 の順を基本とする）。あわせて<b>AI・半導体の内部分裂</b>と<b>為替介入の事実／推測の切り分け</b>を新設した。<br><b>前版からの訂正：</b>(1)米金利の週間比較が基準日ズレで逆符号だった（正しくは全年限低下）(2)52週高値・最高値を週次系列だけで判定していた（TOPIX・NYダウ・ラッセル2000・銅の「最高値」は誤り）(3)「PPI」が全商品PPIで最終需要PPI＋5.5%とは別系列だった (4)日本株の「最高値更新」は誤り (5)FedWatchの発表前数値を54.7%に訂正。<br>
+本資料は情報提供を目的としたものであり、特定の金融商品の売買を推奨するものではありません。投資判断はご自身の責任でお願いいたします。</div>
+<div class="f-copy">MONEY FLOW WEEKLY ─ NAOKI NISHIMURA</div>
+</footer>
+</div></body></html>
