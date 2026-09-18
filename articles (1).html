@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Articles — TIMELESS kizuna archive</title>
+<meta name="description" content="HTML資料アーカイブ。Naoki Nishimuraによるkizuna公式アーカイブ。">
+<meta property="og:title" content="Articles — TIMELESS kizuna archive">
+<meta property="og:description" content="HTML資料アーカイブ。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://timeless-kizuna.com/articles.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Serif JP', 'Noto Serif CJK JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    background: #FAF6EC;
+    color: #1A1A1A;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    line-height: 1.7;
+  }
+
+  .topbar {
+    padding: 24px 6vw 0;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .back-link {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: #B4963C;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+  }
+  .back-link:hover { opacity: 0.6; }
+  .site-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    color: #1A1A1A;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .page-head {
+    text-align: center;
+    padding: 6vh 6vw 5vh;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-bottom: 1px solid #E5DDC9;
+  }
+  .eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: #B4963C;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    font-weight: 400;
+  }
+  .page-title {
+    font-family: 'Noto Serif JP', 'Noto Serif CJK JP', serif;
+    font-weight: 400;
+    font-size: clamp(24px, 3vw, 32px);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.6rem;
+  }
+  .page-title-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #B4963C;
+    letter-spacing: 0.2em;
+    font-weight: 400;
+  }
+  .page-lead {
+    font-size: 14px;
+    color: #555;
+    letter-spacing: 0.05em;
+    margin-top: 1.5rem;
+    line-height: 1.9;
+  }
+
+  .list-wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 5vh 6vw 8vh;
+  }
+
+  .card {
+    border-bottom: 1px solid #E5DDC9;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .card-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    color: #B4963C;
+    letter-spacing: 0.15em;
+    min-width: 32px;
+    padding-top: 0;
+    font-weight: 400;
+  }
+
+  .card-body {
+    flex: 1 1 60%;
+    min-width: 240px;
+  }
+
+  .card-title-btn {
+    display: inline-block;
+    font-family: 'Noto Serif JP', 'Noto Serif CJK JP', serif;
+    font-size: clamp(20px, 2.4vw, 26px);
+    font-weight: 500;
+    color: #1A1A1A;
+    text-decoration: none;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+    padding: 4px 0;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.25s, color 0.25s;
+    cursor: pointer;
+  }
+  .card-title-btn:hover {
+    color: #B4963C;
+    border-bottom-color: #B4963C;
+  }
+  .card-title-btn::after {
+    content: " →";
+    font-family: 'Cormorant Garamond', serif;
+    color: #B4963C;
+    font-size: 0.9em;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .card-title-btn:hover::after { opacity: 1; transform: translateX(4px); }
+
+  .card-meta {
+    margin-top: 2px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .card-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    letter-spacing: 0.18em;
+    color: #444;
+  }
+  .card-tag {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: #B4963C;
+    text-transform: uppercase;
+  }
+
+  .live-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    color: #B4963C;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid #D4BE85;
+    padding: 2px 8px;
+    border-radius: 2px;
+    transition: background 0.2s, color 0.2s;
+    line-height: 1.4;
+  }
+  .live-link:hover {
+    background: #B4963C;
+    color: #FAF6EC;
+  }
+  .live-link .play {
+    font-size: 8px;
+    line-height: 1;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 4vh 6vw 5vh;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: #999;
+    text-transform: uppercase;
+    border-top: 1px solid #E5DDC9;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 600px) {
+    .card { gap: 12px; padding: 20px 0; }
+    .card-num { padding-top: 12px; min-width: 28px; font-size: 12px; }
+    .page-head { padding: 5vh 6vw 4vh; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="back-link">← back to library</a>
+  <span class="site-mark">TIMELESS · kizuna archive</span>
+</div>
+
+<div class="page-head">
+  <div class="eyebrow">Archive</div>
+  <h1 class="page-title">資料アーカイブ</h1>
+  <div class="page-title-en">Articles</div>
+  <p class="page-lead">
+    西村直樹が積み上げてきた分析資料の保管庫。<br>
+    一部資料には解説Live動画のリンクを併設しています。
+  </p>
+</div>
+
+<section class="list-wrap">
+
+  <!-- ============================================================
+       【西村さんへ】カードを増やす時は下の <article class="card">...</article>
+       ブロックをコピーして、href / タイトル / 日付 を書き換えてください。
+       新しい記事は【一番上】に追加してください（新しい順で並ぶ運用）。
+       Live解説動画がない資料は <a class="live-link"> 行を削除してください。
+       ============================================================ -->
+
+  <article class="card">
+    <div class="card-num">25</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="kokuzei_report_20260918.html" target="_blank" rel="noopener">
+        逃げ回る富裕層、追いかける国税　いたちごっこの現状と今後【2026年】Part2　2026/9/24から激変する事
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.09.18</span>
+        <span class="card-tag">KSK2／AI／海外不動産・金地金・仮想通貨</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">24</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="kokuzei_report_20260916.html" target="_blank" rel="noopener">
+        逃げ回る富裕層、追いかける国税　いたちごっこの現状と今後【2026年】Part1
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.09.16</span>
+        <span class="card-tag">オフショア／海外不動産／仮想通貨</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">23</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="money_flow_weekly_20260825.html" target="_blank" rel="noopener">
+        GOLD再上昇の裏で起きている危機
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.08.25</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/157uj9VlA24" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">22</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="collapse_watch_report_20260808.html" target="_blank" rel="noopener">
+        AIバブルの外側が崩壊！本格的な金融崩壊の兆候は出ているか！？
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.08.08</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">21</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="money_flow_weekly_20260808.html" target="_blank" rel="noopener">
+        8月上旬　動き出したマネーはどうなる!?
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.08.08</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">20</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="money_flow_weekly_20260720.html" target="_blank" rel="noopener">
+        原油高騰で金利高騰が金に圧し掛かる
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.07.20</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/tWmhgkcbd7w" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">19</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="oil_flow_report_20260720.html" target="_blank" rel="noopener">
+        イラン戦争再開で安すぎた原油が急騰　今後のトリガーは●●！
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.07.20</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/tWmhgkcbd7w" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">18</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="encarrytrade0706.html" target="_blank" rel="noopener">
+        円キャリートレード逆流が引き起こす恐怖
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.07.06</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/xekXsS8tpjM" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">17</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="ai_bubble_report_20260705.html" target="_blank" rel="noopener">
+        AIバブルはいつ崩壊するのか！？リスクは●●●に溜まっていく
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.07.06</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/xekXsS8tpjM" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">16</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="oil_flow_report_20260704.html" target="_blank" rel="noopener">
+        原油REPORT　戦前に戻った価格物流は1/3　次のターゲットは8末
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.07.06</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/xekXsS8tpjM" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">15</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="gold_seminar_deck_20260702.html" target="_blank" rel="noopener">
+        金没収の予兆か!?日米でおかしなことが起きている
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.07.02</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/CQ_eVY3F45M" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">14</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="gold_price_drivers_report_20260621.html" target="_blank" rel="noopener">
+        GOLDの価格は“気分”で決まっていた！？ただしその気分のきっかけがある
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.06.22</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/g4AWOCKoP9Q" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">13</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="financial_collapse_risk_report_20260620.html" target="_blank" rel="noopener">
+        金融崩壊リスク検証REPORT
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.06.22</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/g4AWOCKoP9Q" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">12</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="hormuz_integrated_report_20260621_v3.html" target="_blank" rel="noopener">
+        3日坊主でホルムズ再封鎖　安すぎる原油価格REPORT
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.06.21</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/9UPaXCxdKyQ" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">11</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="oil_flow_report_integrated_20260614.html" target="_blank" rel="noopener">
+        90日で世界の原油流通地図が変わった今、イラン戦争長期化を望む人々
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.06.15</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/0YlOox3kCXI" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">10</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="gold_inflation_real_rate_56yr_20260614.html" target="_blank" rel="noopener">
+        金価格分析55年間から得た今後の金価格予測　基本：2026年は厳しい
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.06.14</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/LN3Yb08JKnY" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">09</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="JGB_REPORT_v11_20260607.html" target="_blank" rel="noopener">
+        日本が詰む　恐怖の国債金利シナリオ
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.06.07</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/jn9VzPnQ4xc" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">08</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="GOLD_REPORT_2026_06_06_summary.html" target="_blank" rel="noopener">
+        GOLD　2年半ぶりに200日移動平均線を下回る！
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.06.06</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/mCplRTmVeMQ" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">07</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="2026_5_30_GOLD_REPORT_v5_9.html" target="_blank" rel="noopener">
+        GOLD2026年は上昇が見込めない理由
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.06.02</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/OxcaxggCaVU" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">06</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="cpi_3factor_dashboard_2026_6_1final.html" target="_blank" rel="noopener">
+        物価(CPI)REPORT　ホルムズ開放されても物価は上がり消費は低迷する
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.06.01</span>
+        <span class="card-tag">Report</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">05</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="naphtha_presentation_2026_6_1final.html" target="_blank" rel="noopener">
+        ナフサREPORT　4月期▲35.6％ 5月以降充足率80%台を推移か!?
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.06.01</span>
+        <span class="card-tag">Report</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">04</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="oil_presentation_20260601final.html" target="_blank" rel="noopener">
+        原油REPORT　4月期▲65.7％で節約せずという異常さ
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.06.01</span>
+        <span class="card-tag">Report</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">03</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="2026_5_20_GOLD_REPORT.html" target="_blank" rel="noopener">
+        GOLD続落理由の徹底"要因分析"と、今後の予想とその"根拠"
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.05.20</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/O4R5-CjmDpg" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">02</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="Live2_Bukkairaku_Simulation.html" target="_blank" rel="noopener">
+        戦時経済型 物量崩落シミュレーション
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.05.17</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/48a98NtG28Y" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-num">01</div>
+    <div class="card-body">
+      <a class="card-title-btn" href="Live1_Bokketsu_Japan_v7.html" target="_blank" rel="noopener">
+        墓穴を掘る日本政府、そして没落する日本(人)
+      </a>
+      <div class="card-meta">
+        <span class="card-date">2026.05.17</span>
+        <span class="card-tag">YouTube Live</span>
+        <a class="live-link" href="https://youtube.com/live/48a98NtG28Y" target="_blank" rel="noopener">
+          <span class="play">▶</span> Live
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- 【西村さんへ】新しい記事は、この上のカードと同じ形式で
+       この行の【上】（一番上のカードの前）に追加してください。
+       常に新しい順で並ぶように、新カードを最上部に追加。 -->
+
+</section>
+
+<footer class="footer">
+  © 2026 Naoki Nishimura · TIMELESS — A library of thought
+</footer>
+
+</body>
+</html>
